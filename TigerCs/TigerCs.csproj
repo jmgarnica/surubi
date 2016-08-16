@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Emitters\BaseEmitter.cs" />
+    <Compile Include="Generation\Semantic\Scopes\TigerClosure.cs" />
+    <Compile Include="Writers.cs" />
+    <Compile Include="Generation\Semantic\AST\ConstantNode.cs" />
     <Compile Include="Emitters\CSharp\CSharpEmitter.cs" />
     <Compile Include="Emitters\CSharp\CSharpFunction.cs" />
     <Compile Include="Emitters\CSharp\CSharpHolder.cs" />
@@ -49,17 +53,21 @@
     <Compile Include="Generation\ByteCode\ITigerEmitter.cs" />
     <Compile Include="Generation\ByteCode\IType.cs" />
     <Compile Include="Generation\ByteCode\ScopeChangerAttribute.cs" />
+    <Compile Include="Generation\ByteCode\IStandarProvider.cs" />
     <Compile Include="Generation\ErrorReport.cs" />
     <Compile Include="Generation\Semantic\AST\ExpresionNode.cs" />
     <Compile Include="Generation\Semantic\AST\ILexToken.cs" />
     <Compile Include="Generation\Semantic\Scopes\VMWrappers.cs" />
     <Compile Include="Generation\Semantic\Scopes\TigerScope.cs" />
+    <Compile Include="Generation\Semantic\AST\LvalueNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Generation\Semantic\AST\AST.cd" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Emitters\CIL\" />
+    <Folder Include="Emitters\NASM\" />
     <Folder Include="Parser\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TigerCs.Emitters.CSharp;
@@ -14,30 +15,28 @@ namespace tgrc
 	{
 		static void Main(string[] args)
 		{
-			
-			TestFile();
-			TestConsole();
+
 		}
 
 		static void TestFile()
 		{
-			FileStream fs = new FileStream(@"E:\Jesus\Documentos\C.Computacion\Proyectos\Dockyard\TEST\test\test.cs", FileMode.Create, FileAccess.Write);
-			StreamWriter w = new StreamWriter(fs);
+			//FileStream fs = new FileStream(@"E:\Jesus\Documentos\C.Computacion\Proyectos\Dockyard\TEST\test\test.cs", FileMode.Create, FileAccess.Write);
+			//StreamWriter w = new StreamWriter(fs);
 
-			ITigerEmitter em = new CSharpEmitter();
-			em.Initialize(w, null);
-			test_TigerEmitter(em);
-			em.End();
-			w.Close();
+			//ITigerEmitter em = new CSharpEmitter();
+			//em.InitializeCodeGeneration(w, null);
+			//test_TigerEmitter(em);
+			//em.End();
+			//w.Close();
 			
 		}
 
 		static void TestConsole()
 		{
-			ITigerEmitter em = new CSharpEmitter();
-			em.Initialize(Console.Out, null);
-			test_TigerEmitter(em);
-			em.End();
+			//ITigerEmitter em = new CSharpEmitter();
+			//em.InitializeCodeGeneration(Console.Out, null);
+			//test_TigerEmitter(em);
+			//em.End();
 		}
 
 		static void test_TigerEmitter(ITigerEmitter em)

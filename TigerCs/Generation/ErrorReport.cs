@@ -12,7 +12,7 @@ namespace TigerCs.Generation
 			report = new List<TigerStaticError>();
 		}
 
-		public void Add(int line, int collum, TigerStaticError error)
+		public void Add(TigerStaticError error)
 		{
 			report.Add(error);
 		}
@@ -34,7 +34,7 @@ namespace TigerCs.Generation
 		public ErrorLevel Level;
 		public string SourceCode;
 		public int Line;
-		public int Colunm;
+		public int Column;
 		   
 		public TigerStaticError(int line, int colunm, string error, ErrorLevel level, string source = null)
 		{
@@ -42,7 +42,7 @@ namespace TigerCs.Generation
 			Level = level;
 			SourceCode = source;
 			Line = line;
-			Colunm = colunm;
+			Column = colunm;
 		}
 
 		public override string ToString()
@@ -51,7 +51,7 @@ namespace TigerCs.Generation
 			if (!string.IsNullOrWhiteSpace(SourceCode))
 				format += '\n'.ToString() + "{4}";
 
-			return string.Format(format, Line, Colunm, ErrorMessage, Level, SourceCode);
+			return string.Format(format, Line, Column, ErrorMessage, Level, SourceCode);
 		}
 	}
 

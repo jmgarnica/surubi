@@ -3,9 +3,67 @@
   <Class Name="TigerCs.Generation.Semantic.AST.ExpresionNode" Collapsed="true">
     <Position X="7.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAgAAAgAAQAAAEAAABAA=</HashCode>
       <FileName>Generation\Semantic\AST\ExpresionNode.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.ConstantNode" Collapsed="true">
+    <Position X="2" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAIAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\ConstantNode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.IntegerConstantNode" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAAQAAAAAAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\ConstantNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.StringConstantNode" Collapsed="true">
+    <Position X="3.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAQAAAAAAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\ConstantNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.NillConstantNode" Collapsed="true">
+    <Position X="2" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAQAAAAAAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\ConstantNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.LvalueNode">
+    <Position X="6.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAIAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\LvalueNode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.VarNode">
+    <Position X="6" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAQAAAAAAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\LvalueNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.ArrayAccessNode" Collapsed="true">
+    <Position X="8.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAgAAQAAAAAAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\LvalueNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TigerCs.Generation.Semantic.AST.ILexToken" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAIAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\ILexToken.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

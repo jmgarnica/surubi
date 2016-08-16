@@ -8,10 +8,16 @@ namespace TigerCs.Generation.Semantic.Scopes
 {
 	public class TigerScope
 	{
+		public const string ScopeNameSeparator = "_";
+		public string ScopeTag { get; set; }
 		public TigerScope Parent { get; protected set; } = null;
 		public List<TigerScope> Children { get; protected set; } = new List<TigerScope>();
 		protected Dictionary<string, MemberInfo> Namespace { get; set; } = new Dictionary<string, MemberInfo>();
 		public bool ContainsTypeDefinitions { get; protected set; } = false;
+
+		public HashSet<string> RegistedLabel { get; protected set; } = new HashSet<string>();
+		public HashSet<string> PendingLabels { get; protected set; } = new HashSet<string>();
+		public HashSet<string> UnusedLabels { get; protected set; } = new HashSet<string>();
 
 		public bool DeclareMember(string name, MemberInfo member)
 		{

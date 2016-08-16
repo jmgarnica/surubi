@@ -1,14 +1,24 @@
 ﻿using TigerCs.Generation.ByteCode;
 using TigerCs.Generation.Semantic.Scopes;
+using System;
 
 namespace TigerCs.Generation.Semantic.AST
 {
 	public abstract class ExpresionNode
 	{
-		public abstract bool CheckSemantics(TigerScope scope, ErrorReport report);
+		public bool CorrectSemantics { get; private set; }
+		public TypeInfo Return { get; protected set; }
 
-		public abstract void GenerateCode(ITigerEmitter cg);
+		public HolderInfo ReturnValue { get; protected set; }
 
-		public abstract TypeInfo Return { get; }
+		public void GenerateCode(ITigerEmitter te, ErrorReport report)
+		{
+			if (!CorrectSemantics) throw new InvalidOperationException("Can not generate while the node is not semantically correct");
+			generate(te, report);
+		}
+
+		public abstract bool CheckSemantics(ISemanticStandar sp, ErrorReport report);
+
+		public abstract void generate(ITigerEmitter cg, ErrorReport report);
 	}
 }

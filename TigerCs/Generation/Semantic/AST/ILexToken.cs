@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace TigerCs.Generation.Semantic.AST
 {
-    public interface ILexToken
-    {
-        string Lex { get; set; }
-    }
+	public interface ILexToken
+	{
+		string Lex { get; set; }
+		int line { get; set; }
+		int column { get; set; }
+
+	}
 }
