@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Emitters\CSharp\CSharpEmitter.cs" />
+    <Compile Include="Emitters\CSharp\CSharpFunction.cs" />
+    <Compile Include="Emitters\CSharp\CSharpHolder.cs" />
+    <Compile Include="Emitters\CSharp\CSharpType.cs" />
     <Compile Include="Generation\ByteCode\IFunction.cs" />
     <Compile Include="Generation\ByteCode\IHolder.cs" />
     <Compile Include="Generation\ByteCode\ITigerEmitter.cs" />
@@ -54,6 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Generation\Semantic\AST\AST.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Parser\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
