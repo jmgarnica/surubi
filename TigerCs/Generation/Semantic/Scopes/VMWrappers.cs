@@ -30,7 +30,7 @@ namespace TigerCs.Generation.Semantic.Scopes
 
 	public class TypeInfo : MemberInfo
 	{
-		Dictionary<string, TypeInfo> menbers;
+		public Dictionary<string, TypeInfo> Members { get; set; }
 
 		public Guid TypeId { get; private set; }
 
@@ -38,7 +38,32 @@ namespace TigerCs.Generation.Semantic.Scopes
 
 		public TypeInfo()
 		{
+			Members = new Dictionary<string, TypeInfo>();
 			TypeId = Guid.NewGuid();
+		}
+
+		public static bool operator ==(TypeInfo a, TypeInfo b)
+		{
+			return a.TypeId == b.TypeId;
+		}
+
+		public static bool operator !=(TypeInfo a, TypeInfo b)
+		{
+			return a.TypeId != b.TypeId;
+		}
+
+		public override int GetHashCode()
+		{
+			return TypeId.GetHashCode();
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj is TypeInfo)
+			{
+				return ((TypeInfo)obj).TypeId == TypeId;
+			}
+			return false;
 		}
 	}
 }
