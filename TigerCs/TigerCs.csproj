@@ -40,30 +40,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Generation\ByteCode\IMember.cs" />
+    <Compile Include="Generation\Semantic\AST\Assign.cs" />
+    <Compile Include="Generation\Semantic\AST\Break.cs" />
+    <Compile Include="Generation\Semantic\AST\Call.cs" />
+    <Compile Include="Generation\Semantic\AST\ComparisonOperator.cs" />
+    <Compile Include="Generation\Semantic\AST\For.cs" />
+    <Compile Include="Generation\Semantic\AST\BinaryOperator.cs" />
     <Compile Include="Emitters\BaseEmitter.cs" />
-    <Compile Include="Generation\Semantic\Scopes\TigerClosure.cs" />
+    <Compile Include="Generation\Semantic\IScopeDescriptor.cs" />
+    <Compile Include="Generation\TigerGenerator.cs" />
+    <Compile Include="Generation\Semantic\ISemanticChecker.cs" />
+    <Compile Include="Generation\Semantic\AST\RecordAcces.cs" />
+    <Compile Include="Generation\Semantic\AST\IfThenElse.cs" />
+    <Compile Include="Generation\Semantic\AST\IntegerOperator.cs" />
+    <Compile Include="Generation\Semantic\AST\Let.cs" />
+    <Compile Include="Generation\Semantic\AST\While.cs" />
     <Compile Include="Writers.cs" />
-    <Compile Include="Generation\Semantic\AST\ConstantNode.cs" />
+    <Compile Include="Generation\Semantic\AST\Constant.cs" />
     <Compile Include="Emitters\CSharp\CSharpEmitter.cs" />
     <Compile Include="Emitters\CSharp\CSharpFunction.cs" />
     <Compile Include="Emitters\CSharp\CSharpHolder.cs" />
     <Compile Include="Emitters\CSharp\CSharpType.cs" />
-    <Compile Include="Generation\ByteCode\IFunction.cs" />
-    <Compile Include="Generation\ByteCode\IHolder.cs" />
-    <Compile Include="Generation\ByteCode\ITigerEmitter.cs" />
-    <Compile Include="Generation\ByteCode\IType.cs" />
+    <Compile Include="Generation\ByteCode\IByteCodeMachine.cs" />
     <Compile Include="Generation\ByteCode\ScopeChangerAttribute.cs" />
-    <Compile Include="Generation\ByteCode\IStandarProvider.cs" />
     <Compile Include="Generation\ErrorReport.cs" />
-    <Compile Include="Generation\Semantic\AST\ExpresionNode.cs" />
-    <Compile Include="Generation\Semantic\AST\ILexToken.cs" />
-    <Compile Include="Generation\Semantic\Scopes\VMWrappers.cs" />
-    <Compile Include="Generation\Semantic\Scopes\TigerScope.cs" />
+    <Compile Include="Generation\Semantic\AST\Expresion.cs" />
+    <Compile Include="Generation\Semantic\BCMWrappers.cs" />
+    <Compile Include="Emitters\TigerScope.cs" />
     <Compile Include="Generation\Semantic\AST\LvalueNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Generation\Semantic\AST\AST.cd" />
+    <None Include="Generation\Semantic\AST\AST.cd">
+      <CustomToolNamespace>TigerCs.Generation.Semantic.AST</CustomToolNamespace>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Emitters\CIL\" />

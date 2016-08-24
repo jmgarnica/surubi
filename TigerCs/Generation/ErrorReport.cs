@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace TigerCs.Generation
@@ -6,6 +7,7 @@ namespace TigerCs.Generation
 	public class ErrorReport : IEnumerable<TigerStaticError>
 	{
 		List<TigerStaticError> report;
+		public event Action<TigerStaticError> CriticalError, Error, Warning, Info;
 
 		public ErrorReport()
 		{
@@ -15,6 +17,24 @@ namespace TigerCs.Generation
 		public void Add(TigerStaticError error)
 		{
 			report.Add(error);
+			switch (error.Level)
+			{
+				case ErrorLevel.Info:
+					if (Info != null) Info(error);
+					break;
+				case ErrorLevel.Warning:
+					if (Info != null) Info(error);
+					break;
+				case ErrorLevel.Error:
+					if (Info != null) Info(error);
+					break;
+				case ErrorLevel.Critical:
+					if (Info != null) Info(error);
+					break;
+				default:
+					if (Info != null) Info(error);
+					break;
+			}
 		}
 
 		public IEnumerator<TigerStaticError> GetEnumerator()

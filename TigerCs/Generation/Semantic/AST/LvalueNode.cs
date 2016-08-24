@@ -3,66 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TigerCs.Generation.ByteCode;
-using TigerCs.Generation.Semantic.Scopes;
+using TigerCs.Generation.Semantic;
 
 namespace TigerCs.Generation.Semantic.AST
 {
-	public abstract class LvalueNode : ExpresionNode, ILexToken
+	public abstract class Lvalue : Expresion
 	{
-		public int column
-		{
-			get;
-
-			set;
-		}
-
-		public string Lex
-		{
-			get;
-
-			set;
-		}
-
-		public int line
-		{
-			get;
-
-			set;
-		}
+		
 	}
 
-	public class VarNode : LvalueNode
+	public class Var : Lvalue
 	{
-		public override bool CheckSemantics(ISemanticStandar sp, ErrorReport report)
+		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}
 
-		public override void generate(ITigerEmitter te, ErrorReport report)
+		protected override void Generate<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}
 	}
 
-	public class ArrayAccessNode : LvalueNode
+	public class ArrayAccess : Lvalue
 	{
-		ExpresionNode expresion;
+		Expresion expresion;
 
-		public override bool CheckSemantics(ISemanticStandar sp, ErrorReport report)
+		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report)
 		{
 			if (expresion.CheckSemantics(sp, report))
 			{
-				if (!expresion.Return.Type.Array)
-				{
-					report.Add(new TigerStaticError(line, column, "array access to non-array type", ErrorLevel.Error, Lex));
-					return false;
-				}
+				//if (!expresion.Return.Type.Array)
+				//{
+				//	report.Add(new TigerStaticError(line, column, "array access to non-array type", ErrorLevel.Error, Lex));
+				//	return false;
+				//}
 				//TODO: array underlaying type
 			}
 			return false;
 		}
 
-		public override void generate(ITigerEmitter te, ErrorReport report)
+		protected override void Generate<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}

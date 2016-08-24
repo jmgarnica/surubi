@@ -7,31 +7,22 @@ using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Emitters.CSharp
 {
-	public class CSharpFunction : IFunction
+	public class CSharpFunction : IFunction<CSharpType, CSharpFunction>
 	{
-		public CSharpFunction(string access, IType Return,bool bounded = true)
-		{
-			this.access = access;
-			this.Return = Return;
-			Bounded = bounded;
-		}
-
-		public CSharpFunction(IType Return)
-		{
-			this.Return = Return;
-			Bounded = false;
-		}
-
 		public bool Bounded
 		{
-			get; set;
+			get
+			{
+				throw new NotImplementedException();
+			}
 		}
 
-		public string access { get; set; }
-
-		public IType Return
+		public CSharpType Return
 		{
-			get; set;
+			get
+			{
+				throw new NotImplementedException();
+			}
 		}
 	}
 }

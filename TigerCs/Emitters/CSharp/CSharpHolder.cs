@@ -9,15 +9,12 @@ namespace TigerCs.Emitters.CSharp
 {
 	public class CSharpHolder : IHolder
 	{
-		public IType Type { get; set; }
-
-		public CSharpHolder Nested { get; set; }
-
-		public string access { get; set; }
-
 		public bool Assignable
 		{
-			get; set;
+			get
+			{
+				throw new NotImplementedException();
+			}
 		}
 	}
 }

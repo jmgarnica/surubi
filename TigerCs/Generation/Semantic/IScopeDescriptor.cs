@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TigerCs.Generation.ByteCode
+namespace TigerCs.Generation.Semantic
 {
-	public interface IHolder
+	public interface IScopeDescriptor
 	{
-		bool Assignable { get; }
+
 	}
 }

@@ -1,69 +1,221 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="TigerCs.Generation.Semantic.AST.ExpresionNode" Collapsed="true">
-    <Position X="7.25" Y="0.5" Width="1.5" />
+  <Class Name="TigerCs.Generation.Semantic.AST.Expresion" Collapsed="true">
+    <Position X="13.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAgAAAgAAQAAAEAAABAA=</HashCode>
-      <FileName>Generation\Semantic\AST\ExpresionNode.cs</FileName>
+      <HashCode>AAEAAAAAAAAAAIAIAAAAAAAAQgAAAgAAAAAAEEAABAA=</HashCode>
+      <FileName>Generation\Semantic\AST\Expresion.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TigerCs.Generation.Semantic.AST.ConstantNode" Collapsed="true">
-    <Position X="2" Y="1.75" Width="1.5" />
+  <Class Name="TigerCs.Generation.Semantic.AST.Constant" Collapsed="true">
+    <Position X="2.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAAAAAAAIAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Generation\Semantic\AST\ConstantNode.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\Constant.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TigerCs.Generation.Semantic.AST.IntegerConstantNode" Collapsed="true">
+  <Class Name="TigerCs.Generation.Semantic.AST.IntegerConstant" Collapsed="true">
     <Position X="0.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAAQAAAAAAAAAA=</HashCode>
-      <FileName>Generation\Semantic\AST\ConstantNode.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\Constant.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TigerCs.Generation.Semantic.AST.StringConstantNode" Collapsed="true">
-    <Position X="3.5" Y="2.75" Width="1.5" />
+  <Class Name="TigerCs.Generation.Semantic.AST.StringConstant" Collapsed="true">
+    <Position X="4" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAQAAAAAAAAAA=</HashCode>
-      <FileName>Generation\Semantic\AST\ConstantNode.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\Constant.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TigerCs.Generation.Semantic.AST.NillConstantNode" Collapsed="true">
-    <Position X="2" Y="2.75" Width="1.5" />
+  <Class Name="TigerCs.Generation.Semantic.AST.NillConstant" Collapsed="true">
+    <Position X="2.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAQAAAAAAAAAA=</HashCode>
-      <FileName>Generation\Semantic\AST\ConstantNode.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\Constant.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TigerCs.Generation.Semantic.AST.LvalueNode">
-    <Position X="6.5" Y="2" Width="1.5" />
+  <Class Name="TigerCs.Generation.Semantic.AST.Lvalue">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAEAAAAAAAAAAIAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Generation\Semantic\AST\LvalueNode.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="TigerCs.Generation.Semantic.AST.VarNode">
-    <Position X="6" Y="3.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAQAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Generation\Semantic\AST\LvalueNode.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TigerCs.Generation.Semantic.AST.ArrayAccessNode" Collapsed="true">
-    <Position X="8.5" Y="3.75" Width="1.5" />
+  <Class Name="TigerCs.Generation.Semantic.AST.Var" Collapsed="true">
+    <Position X="5.75" Y="4.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAgAAQAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAAAAA=</HashCode>
       <FileName>Generation\Semantic\AST\LvalueNode.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="TigerCs.Generation.Semantic.AST.ILexToken" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+  <Class Name="TigerCs.Generation.Semantic.AST.ArrayAccess" Collapsed="true">
+    <Position X="7.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAAAAAAAIAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Generation\Semantic\AST\ILexToken.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAgAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\LvalueNode.cs</FileName>
     </TypeIdentifier>
-  </Interface>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.MemberAccess" Collapsed="true">
+    <Position X="9.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\RecordAcces.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.BinaryOperator" Collapsed="true">
+    <Position X="13.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\BinaryOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.ComparisonOperator" Collapsed="true">
+    <Position X="11.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\ComparisonOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.IntegerOperator" Collapsed="true">
+    <Position X="15.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\IntegerOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.Add" Collapsed="true">
+    <Position X="14.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\IntegerOperator.cs</FileName>
+      <NewMemberFileName>Generation\Semantic\AST\Add.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.Call" Collapsed="true">
+    <Position X="19.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\Call.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.Let" Collapsed="true">
+    <Position X="21.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\Let.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.IfThenElse" Collapsed="true">
+    <Position X="23.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\IfThenElse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.While" Collapsed="true">
+    <Position X="25.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\While.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.For">
+    <Position X="27.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\For.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.Break">
+    <Position X="29.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\Break.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.And" Collapsed="true">
+    <Position X="14.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\IntegerOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.Mult" Collapsed="true">
+    <Position X="14.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\IntegerOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.Neg" Collapsed="true">
+    <Position X="15.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\IntegerOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.Or" Collapsed="true">
+    <Position X="16.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\IntegerOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.Sub" Collapsed="true">
+    <Position X="16.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\IntegerOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.EqualityOperator" Collapsed="true">
+    <Position X="13.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\BinaryOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.Div" Collapsed="true">
+    <Position X="16.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\IntegerOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.GreaterThan" Collapsed="true">
+    <Position X="12.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\ComparisonOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.GreaterEqualThan" Collapsed="true">
+    <Position X="12.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\ComparisonOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.LessThan" Collapsed="true">
+    <Position X="10.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\ComparisonOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.Semantic.AST.LessEqualThan" Collapsed="true">
+    <Position X="10.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Generation\Semantic\AST\ComparisonOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

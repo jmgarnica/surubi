@@ -7,27 +7,38 @@ using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Emitters.CSharp
 {
-	public class CSharpType : IType
+	public class CSharpType : IType<CSharpType, CSharpFunction>
 	{
-		public CSharpType(string dotnetname, bool array = false)
+		public CSharpFunction Allocation
 		{
-			DotNetName = dotnetname;
-			Array = array;
+			get
+			{
+				throw new NotImplementedException();
+			}
 		}
+
 		public bool Array
 		{
-			get; set;
+			get
+			{
+				throw new NotImplementedException();
+			}
 		}
 
-		public string DotNetName { get; set; }
-
-		public bool Equal(IType ty)
+		public CSharpFunction ArrayAccess
 		{
-			if (ty is CSharpType)
+			get
 			{
-				return ((CSharpType)ty).DotNetName == DotNetName;
+				throw new NotImplementedException();
 			}
-			return false;
+		}
+
+		public CSharpFunction Deallocator
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
 		}
 	}
 }
