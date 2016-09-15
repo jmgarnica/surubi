@@ -1,33 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
-using TigerCs.Generation.Semantic;
 
 namespace TigerCs.Generation.Semantic.AST
 {
-	public abstract class Lvalue : Expresion
-	{
-		
-	}
-
-	public class Var : Lvalue
+	public class Var : Expresion
 	{
 		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}
 
-		protected override void Generate<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
+		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}
 	}
 
-	public class ArrayAccess : Lvalue
+	public class ArrayAccess : Expresion
 	{
-		Expresion expresion;
+		IExpresion expresion;
 
 		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report)
 		{
@@ -43,7 +35,7 @@ namespace TigerCs.Generation.Semantic.AST
 			return false;
 		}
 
-		protected override void Generate<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
+		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}

@@ -7,41 +7,58 @@ namespace TigerCs.Generation.Semantic
 
 	public abstract class MemberInfo
 	{
+		private object bcmmember;
+
 		public string Name { get; set; }
 
 		public virtual bool Bounded { get; protected set; } = false;
 
+		public object BCMMember
+		{
+			get
+			{
+				if (!BCMBackup) throw new InvalidOperationException("this member is not intended to be operative at byte code level");
+					return bcmmember;
+			}
+			set
+			{
+				if (!BCMBackup) return;
+				bcmmember = value;
+				Bounded = true;
+			}
+		}
+
+		//public bool Used { get; set; }
+
+		/// <summary>
+		/// When false cant be bounded to bcm objects
+		/// </summary>
+		public bool BCMBackup { get; set; } = true;
 	}
 
 	public class HolderInfo : MemberInfo
 	{
-		public IHolder Holder { get; set; }
-
 		public TypeInfo Type { get; set; }
 
 	}
 
 	public class FunctionInfo : MemberInfo
 	{
-		public IMember Function { get; set; }
-
 		public List<Tuple<string, TypeInfo>> Parameters { get; set; }
 
 		public List<Tuple<string, MemberInfo>> Closure { get; set; }
 
 		public TypeInfo Return { get; set; }
+
+		public bool BackupDefintion { get; set; }
+
 	}
 
 	public class TypeInfo : MemberInfo
 	{
 		public Dictionary<string, TypeInfo> Members { get; set; }
 
-		/// <summary>
-		/// Set on code generation phase, and used there only
-		/// </summary>
 		public Guid TypeId { get; set; }
-
-		public IMember Type { get; set; }
 
 		/// <summary>
 		/// Null for no-array types
@@ -51,6 +68,7 @@ namespace TigerCs.Generation.Semantic
 		public TypeInfo()
 		{
 			Members = new Dictionary<string, TypeInfo>();
+			TypeId = Guid.NewGuid();
 		}
 
 		public static bool operator ==(TypeInfo a, TypeInfo b)
@@ -76,6 +94,8 @@ namespace TigerCs.Generation.Semantic
 			}
 			return false;
 		}
+
+		public static string MakeArrayName(string t) => "<array> of " + t;
 	}
 
 	public class Alias : MemberInfo

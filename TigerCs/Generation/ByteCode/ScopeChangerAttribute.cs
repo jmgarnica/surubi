@@ -10,7 +10,7 @@ namespace TigerCs.Generation.ByteCode
 	/// Marks a method as modifying the CurrentScope property of a TigerEmitter.
 	/// For documentation.
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
 	public class ScopeChangerAttribute : Attribute
 	{
 		public string Reason { get; set; }

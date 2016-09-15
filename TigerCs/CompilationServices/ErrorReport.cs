@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace TigerCs.Generation
+namespace TigerCs.CompilationServices
 {
 	public class ErrorReport : IEnumerable<TigerStaticError>
 	{

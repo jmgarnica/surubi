@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TigerCs
+namespace TigerCs.Emitters
 {
 	public interface IWriter
 	{

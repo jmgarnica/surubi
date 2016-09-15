@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.Semantic.AST
@@ -16,7 +17,7 @@ namespace TigerCs.Generation.Semantic.AST
 
 	public class Add : IntegerOperator
 	{
-		protected override void Generate<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
+		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}
@@ -24,7 +25,7 @@ namespace TigerCs.Generation.Semantic.AST
 
 	public class Sub : IntegerOperator
 	{
-		protected override void Generate<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
+		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}
@@ -32,7 +33,7 @@ namespace TigerCs.Generation.Semantic.AST
 
 	public class Or : IntegerOperator
 	{
-		protected override void Generate<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
+		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}
@@ -40,7 +41,7 @@ namespace TigerCs.Generation.Semantic.AST
 
 	public class And : IntegerOperator
 	{
-		protected override void Generate<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
+		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}
@@ -48,7 +49,7 @@ namespace TigerCs.Generation.Semantic.AST
 
 	public class Mult : IntegerOperator
 	{
-		protected override void Generate<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
+		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}
@@ -56,15 +57,7 @@ namespace TigerCs.Generation.Semantic.AST
 
 	public class Div : IntegerOperator
 	{
-		protected override void Generate<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
-		{
-			throw new NotImplementedException();
-		}
-	}
-
-	public class Neg : IntegerOperator
-	{
-		protected override void Generate<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
+		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}

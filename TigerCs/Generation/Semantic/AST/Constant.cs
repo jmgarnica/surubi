@@ -1,11 +1,10 @@
-﻿using TigerCs.Generation.ByteCode;
+﻿using System;
+using TigerCs.CompilationServices;
+using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.Semantic.AST
 {
-	public abstract class Constant : Expresion
-	{ }
-
-	public class IntegerConstant : Constant
+	public class IntegerConstant : Expresion
 	{
 		int value;
 
@@ -20,19 +19,19 @@ namespace TigerCs.Generation.Semantic.AST
 			return true;
 		}
 
-		protected override void Generate<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
+		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
 			ReturnValue = new HolderInfo
 			{
 				//Bounded = true,
-				Holder = cg.AddConstant(value),
+				BCMMember = cg.AddConstant(value),
 				Name = "",
 				Type = Return
 			};
 		}
 	}
 
-	public class StringConstant : Constant
+	public class StringConstant : Expresion
 	{
 		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report)
 		{
@@ -45,7 +44,7 @@ namespace TigerCs.Generation.Semantic.AST
 			return true;
 		}
 
-		protected override void Generate<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
+		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
 			ReturnValue = new HolderInfo
 			{
@@ -57,7 +56,7 @@ namespace TigerCs.Generation.Semantic.AST
 		}
 	}
 
-	public class NillConstant : Constant
+	public class NillConstant : Expresion
 	{
 		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report)
 		{
@@ -65,7 +64,7 @@ namespace TigerCs.Generation.Semantic.AST
 			return true;
 		}
 
-		protected override void Generate<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
+		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
 			//ReturnValue = te.Nill;
 		}

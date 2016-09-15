@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 using TigerCs.Generation.Semantic;
 
@@ -25,13 +26,10 @@ namespace TigerCs.Generation.Semantic
 		void End();
 
 		[ScopeChanger(Reason = "Creates and enters in a nested scope", ScopeName = "InnerScope")]
-		void EnterNestedScope(bool autoclosure = false, params IScopeDescriptor[] descriptors);
+		void EnterNestedScope(Dictionary<string, MemberInfo> autoclosure = null, params object[] descriptors);
 
 		[ScopeChanger(Reason = "Closes the current scope and returns to it's parent")]
 		void LeaveScope();
-
-		[ScopeChanger(Reason = "Closes the current scope and returns to it's parent, returns all references to upper scopes")]
-		Dictionary<string, MemberInfo> LeaveScopeWithAutoClosure();
 
 		/// <summary>
 		/// Declare a new member, declaration of a already declared member or,
@@ -40,12 +38,19 @@ namespace TigerCs.Generation.Semantic
 		/// <param name="name"></param>
 		/// <param name="member"></param>
 		/// <returns></returns>
-		void DeclareMember(string name, MemberInfo member);
+		bool DeclareMember(string name, MemberInfo member);
 
+		/// <summary>
+		/// [IMPLEMENTATION_TIP] set to true MemberInfo.Use before outing it
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="member"></param>
+		/// <param name="desired"></param>
+		/// <returns></returns>
 		bool Reachable(string name, out MemberInfo member, MemberInfo desired = null);
 
-		T SeekDescriptor<T>(params Type[] stopontype)
-			where T : IScopeDescriptor;
+		T SeekDescriptor<T>(Predicate<object> stop = null)
+			where T : class;
 
 	}
 }

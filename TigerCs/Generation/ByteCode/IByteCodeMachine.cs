@@ -1,4 +1,5 @@
 ﻿using System;
+using TigerCs.CompilationServices;
 
 namespace TigerCs.Generation.ByteCode
 {
@@ -16,6 +17,14 @@ namespace TigerCs.Generation.ByteCode
 
 		void EmitError(int code);
 		void EmitError(string message);
+
+		/// <summary>
+		/// invalidate the holder making it eligible for temp holders and optimizations
+		/// [IMPLEMENTATION_TIP] Should not be used with the same meaning this point on.
+		/// [IMPLEMENTATION_TIP] All off-scope holders become invalid, there is no point in doing this at the end of a scope
+		/// </summary>
+		/// <param name="holder"></param>
+		void Release(H holder);
 		#endregion
 
 		#region [Bound]
@@ -24,10 +33,10 @@ namespace TigerCs.Generation.ByteCode
 		H AddConstant(string value);
 		H BoundVar(T tigertype, string name = null);
 
-		[ScopeChanger(Reason = "Creates and enters in a function scope", ScopeName = "BoundedFuncion")]
+		[ScopeChanger(Reason = "Creates and enters in a function scope", ScopeName = "Funcion_<name>")]
 		F BoundFunction(string name, T returntype, params Tuple<string,T>[] args);
 
-		[ScopeChanger(Reason = "Creates and enters in a function scope", ScopeName = "BoundedPreviousDeclaredFuncion")]
+		[ScopeChanger(Reason = "Creates and enters in a function scope", ScopeName = "AheadedFuncion_<name>")]
 		void BoundFunction(F aheadedfunction);
 
 		T BoundRecordType(string name, params Tuple<string, T>[] members);
@@ -39,14 +48,37 @@ namespace TigerCs.Generation.ByteCode
 		F AheadFunctionDeclaration(string name, T returntype, params Tuple<string, T>[] args);
 		T AheadTypeDeclaration(string name);
 
-		#region [Bound STD]
+		#region [Globals]
 		//any fail to bound a std function will generate a critical error
 
-		T STDBoundType(string name);
+		/// <summary>
+		/// Returns the count of elements currently storage in the array, returns lower than o for non-array holders
+		/// </summary>
+		/// <param name="array">
+		/// 
+		/// </param>
+		/// <param name="size">
+		/// a holder to write the result
+		/// </param>
+		/// <returns></returns>
+		void Size(H array, H size);
 
-		F STDBoundFunction(string name);
+		bool TrySTDBoundType(string name, out T type);
 
-		H STDBoundConst(string name);
+		bool TrySTDBoundFunction(string name, out F function);
+
+		bool TrySTDBoundConst(string name, out H constant);
+
+		[ScopeChanger(Reason = "Creates and enters in a global function scope(same level of std functions and Main)", ScopeName = "Global_<name>")]
+		F BoundGlobalFunction(string name, T returntype, params Tuple<string, T>[] args);
+
+		[ScopeChanger(Reason = "Creates and enters in a global function scope(same level of std functions and Main)", ScopeName = "AheadedGlobal_<name>")]
+		void BoundGlobalFunction(F aheadedfunction);
+
+		F AheadGlobalFunctionDeclaration(string name, T returntype, params Tuple<string, T>[] args);
+
+		[ScopeChanger(Reason = "Creates and enters in the primary scope of the program, this has no parent scope after closing it no fouther instructions can be emitted", ScopeName = "Main")]
+		F EntryPoint(bool returns = false, bool stringparams = false);
 
 		#endregion
 
@@ -81,8 +113,16 @@ namespace TigerCs.Generation.ByteCode
 		/// [IMPLEMENTATION_TIP] Ending a program with a non-empty stack will result in error.
 		/// </summary>
 		/// <param name="holder"></param>
-		void Param(H holder);
-		//TODO: mejorar param... la pila hace falta?
+		void SetParam(H holder);
+
+		/// <summary>
+		/// Retuns the holder that will contain the value of the parameter inside the function
+		/// [IMPLEMENTATION_TIP] zero base positions
+		/// </summary>
+		/// <param name="position"></param>
+		/// <returns></returns>
+		H GetParam(int position);
+		
 		/// <summary>
 		/// Enters in a function with the <paramref name="paramcount"/> parameters on the top of the stack as it's parameters.
 		/// [IMPLEMENTATION_TIP] The parameters are deleted from the stack.
@@ -102,6 +142,7 @@ namespace TigerCs.Generation.ByteCode
 
 		/// <summary>
 		/// All function path must end with one form of return. An error will be generated if not.
+		/// This returns const 0
 		/// </summary>
 		void Ret();
 		#endregion
@@ -122,6 +163,9 @@ namespace TigerCs.Generation.ByteCode
 		/// <returns></returns>
 		string SetLabelToNextInstruction(string label);
 
+		string ReserveInstructionLabel(string label);
+		void ApplyReservedLabel(string label);
+
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error(unless the code are been interpretted), the label will be buffered until it's assignment
 		/// [IMPLEMENTATION_TIP] no jumps to outer or inner scopes are allowed, you can get as far as the END label
@@ -129,6 +173,8 @@ namespace TigerCs.Generation.ByteCode
 		/// </summary>
 		/// <param name="label"></param>
 		void Goto(string label);
+
+		void UnstructuredGoto(string abslabel);
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error, the label will be buffered until it's assignment
@@ -151,12 +197,12 @@ namespace TigerCs.Generation.ByteCode
 		#region [Scope Handling]
 
 		/// <summary>
-		/// [IMPLEMENTATION_TIP] Add <paramref name="newscopelabel"/> to ScopeCommonLavel to make the common label of the new scope
+		/// [IMPLEMENTATION_TIP] Add <paramref name="scopelabel"/> to ScopeCommonLavel to make the common label of the new scope
 		/// </summary>
-		/// <param name="newscopelabel"></param>
 		/// <param name="definetype">true if the new scope will define a new type</param>
-		[ScopeChanger(Reason = "Creates and enters in a nested scope", ScopeName = "InnerScope")]
-		void EnterNestedScope(string newscopelabel, bool definetype, string scopelabel = null);
+		/// <param name="scopelabel"></param>
+		[ScopeChanger(Reason = "Creates and enters in a nested scope", ScopeName = "InnerScope_<scopelabel>")]
+		void EnterNestedScope(bool definetype = false, string scopelabel = null);
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] This should free any memory reserved in the scope that is about to leave.

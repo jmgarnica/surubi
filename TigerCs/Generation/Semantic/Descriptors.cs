@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace TigerCs.Generation.Semantic
 {
-	public interface IScopeDescriptor
-	{
+	public class FunctionScopeDescriptor
+	{ }
 
+	public class LoopScopeDescriptor
+	{
+		public string ENDLabel { get; set; }
 	}
 }
