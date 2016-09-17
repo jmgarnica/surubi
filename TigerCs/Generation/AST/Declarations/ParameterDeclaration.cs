@@ -1,13 +1,14 @@
 ﻿using System;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
+using TigerCs.Generation;
+using TigerCs.Generation.AST;
 
-namespace TigerCs.Generation.Semantic.AST
+namespace TigerCs.Generation.AST.Declarations
 {
-	public class FunctionDeclaration : Declaration
+	public class ParameterDeclaration : HolderDeclaration
 	{
-		public IExpresion Body { get; set; }
-		public ExpresionList<ParameterDeclaration> Parameters { get; set; }
+		
 
 		public override void BindName(ISemanticChecker sc, ErrorReport report)
 		{

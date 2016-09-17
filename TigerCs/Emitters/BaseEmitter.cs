@@ -4,7 +4,7 @@
 //using System.Linq;
 //using TigerCs.Generation;
 //using TigerCs.Generation.ByteCode;
-//using TigerCs.Generation.Semantic.Scopes;
+//using TigerCs.Generation.Scopes;
 
 //namespace TigerCs.Emitters
 //{

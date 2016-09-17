@@ -1,7 +1,7 @@
 ﻿using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.Semantic.AST
+namespace TigerCs.Generation.AST.Expresions
 {
 	public class Neg : Expresion
 	{

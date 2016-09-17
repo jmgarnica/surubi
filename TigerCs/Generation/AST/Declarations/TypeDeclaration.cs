@@ -1,15 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using TigerCs.CompilationServices;
+using TigerCs.Generation;
 using TigerCs.Generation.ByteCode;
-using TigerCs.Generation.Semantic;
-using TigerCs.Generation.Semantic.AST;
 
-namespace TigerCs
+namespace TigerCs.Generation.AST.Declarations
 {
-	public class ParameterDeclaration : Declaration
+	public class TypeDeclaration : Declaration
 	{
-		public string HolderType { get; set; }
-				
 		public override void BindName(ISemanticChecker sc, ErrorReport report)
 		{
 			throw new NotImplementedException();

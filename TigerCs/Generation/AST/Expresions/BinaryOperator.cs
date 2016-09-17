@@ -5,9 +5,22 @@ using System.Text;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.Semantic.AST
+namespace TigerCs.Generation.AST.Expresions
 {
-	public class Break : Expresion
+	public abstract class BinaryOperator : Expresion
+	{
+		public IExpresion Rigth { get; set; }
+		public IExpresion Left { get; set; }
+
+		public override void Dispose()
+		{
+			Rigth.Dispose();
+			Left.Dispose();
+			base.Dispose();
+		}
+	}
+
+	public class EqualityOperator : BinaryOperator
 	{
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
 		{

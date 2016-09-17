@@ -1,15 +1,17 @@
 ﻿using System;
-using TigerCs.Generation.Semantic;
-using TigerCs.Generation.Semantic.AST;
+using TigerCs.Generation;
+using TigerCs.Generation.AST.Declarations;
 
 namespace TigerCs.CompilationServices
 {
-	public class BackupDefinition
+	public class MemberDefinition
 	{
 		public MemberInfo Member { get; set; }
 
 		public Action<ISemanticChecker, ErrorReport> GeneratorStarter { get; set; }
 
 		public FunctionDeclaration Generator { get; set; }
+
+		
 	}
 }

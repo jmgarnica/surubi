@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TigerCs.Generation.AST.Expresions.IntegerConstant" Collapsed="true">
+    <Position X="19.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAiAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\Constant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.StringConstant" Collapsed="true">
+    <Position X="21.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\Constant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.NillConstant" Collapsed="true">
+    <Position X="17" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\Constant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.Var" Collapsed="true">
+    <Position X="1" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\LvalueNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.ArrayAccess" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAABAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\LvalueNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.MemberAccess" Collapsed="true">
+    <Position X="4.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\RecordAcces.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.BinaryOperator" Collapsed="true">
+    <Position X="10.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACACAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\BinaryOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.ComparisonOperator" Collapsed="true">
+    <Position X="7.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAQAAAACAAgAAAAQAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\ComparisonOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.IntegerOperator" Collapsed="true">
+    <Position X="13.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\IntegerOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.Add" Collapsed="true">
+    <Position X="15" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\IntegerOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.Call" Collapsed="true">
+    <Position X="26" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\Call.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.Let" Collapsed="true">
+    <Position X="28.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\Let.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.IfThenElse" Collapsed="true">
+    <Position X="23.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\IfThenElse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.While" Collapsed="true">
+    <Position X="32.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\While.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.For" Collapsed="true">
+    <Position X="30.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\For.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.Break" Collapsed="true">
+    <Position X="35" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\Break.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.And" Collapsed="true">
+    <Position X="12.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\IntegerOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.Mult" Collapsed="true">
+    <Position X="12.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\IntegerOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.Or" Collapsed="true">
+    <Position X="12.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\IntegerOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.Sub" Collapsed="true">
+    <Position X="15" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\IntegerOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.EqualityOperator" Collapsed="true">
+    <Position X="10.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\BinaryOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.Div" Collapsed="true">
+    <Position X="15" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\IntegerOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.GreaterThan" Collapsed="true">
+    <Position X="9" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\ComparisonOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.GreaterEqualThan" Collapsed="true">
+    <Position X="9" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\ComparisonOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.LessThan" Collapsed="true">
+    <Position X="6.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\ComparisonOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.LessEqualThan" Collapsed="true">
+    <Position X="6.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\ComparisonOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.ExpresionList&lt;E&gt;" Collapsed="true">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAACAAAIAIAAAAAAAAQgAAAgAAAAAAEAAABAA=</HashCode>
+      <FileName>Generation\AST\Expresions\ExpresionList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.Neg" Collapsed="true">
+    <Position X="12.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\Neg.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.Assign" Collapsed="true">
+    <Position X="8.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\Assign.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.MAIN" Collapsed="true">
+    <Position X="6.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAACCAAAAAIAAAgAAAAAAAAAgAAABQABAAAAAQ=</HashCode>
+      <FileName>Generation\AST\Expresions\MAIN.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Expresions.Expresion" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAACAAAIAIAAAAAAAAQgAAAgAAAAAAEAAABAA=</HashCode>
+      <FileName>Generation\AST\Expresions\IExpresion.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="TigerCs.Generation.AST.Expresions.IExpresion" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Generation\AST\Expresions\IExpresion.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

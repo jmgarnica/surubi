@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TigerCs.Generation;
-using TigerCs.Generation.Semantic;
+using TigerCs.Generation;
 using System.Linq;
 using TigerCs.CompilationServices;
 
@@ -56,7 +56,7 @@ namespace TigerCs.Emitters
 			if (currentscope == null) report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "attempt to leave root scope" });
 		}
 
-		public bool Reachable(string name, out MemberInfo member, MemberInfo desired = null)
+		public bool Reachable(string name, out MemberInfo member, MemberDefinition desired = null)
 		{
 			member = null;
 			var closures = new List<Dictionary<string, MemberInfo>>();

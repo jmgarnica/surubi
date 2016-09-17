@@ -4,11 +4,20 @@ using System.Linq;
 using System.Text;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
+using TigerCs.Generation;
+using TigerCs.Generation.AST;
 
-namespace TigerCs.Generation.Semantic.AST
+namespace TigerCs.Generation.AST.Declarations
 {
-	public class Call : Expresion
+	public class HolderDeclaration : Declaration
 	{
+		public string HolderType { get; set; }
+
+		public override void BindName(ISemanticChecker sc, ErrorReport report)
+		{
+			throw new NotImplementedException();
+		}
+
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
 		{
 			throw new NotImplementedException();
@@ -16,7 +25,7 @@ namespace TigerCs.Generation.Semantic.AST
 
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			//TODO: Generate Code
+			throw new NotImplementedException();
 		}
 	}
 }

@@ -2,22 +2,12 @@
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.Semantic.AST
+namespace TigerCs.Generation.AST.Expresions
 {
-	public interface IExpresion : IDisposable
-	{
-		int column { get; set; }
-		bool CorrectSemantics { get; }
-		string Lex { get; set; }
-		int line { get; set; }
+	public interface IExpresion : IDisposable, IASTNode
+	{		
 		TypeInfo Return { get; }
 		HolderInfo ReturnValue { get; }
-
-		bool CheckSemantics(ISemanticChecker sc, ErrorReport report);
-		void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
-			where T : class, IType<T, F>
-			where F : class, IFunction<T, F>
-			where H : class, IHolder;
 	}
 
 	public abstract class Expresion : IExpresion
@@ -50,7 +40,7 @@ namespace TigerCs.Generation.Semantic.AST
 		public static TypeInfo Int(this ISemanticChecker sc, ErrorReport report = null)
 		{
 			MemberInfo Int;
-			if (!sc.Reachable("int", out Int, new TypeInfo { Name = "int" }))
+			if (!sc.Reachable("int", out Int, new MemberDefinition { Member = new TypeInfo { Name = "int" } }))
 			{
 				if (report != null)
 					report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Integer STD type not defined" });
@@ -63,7 +53,7 @@ namespace TigerCs.Generation.Semantic.AST
 		public static TypeInfo String(this ISemanticChecker sc, ErrorReport report = null)
 		{
 			MemberInfo String;
-			if (!sc.Reachable("string", out String, new TypeInfo { Name = "string" }))
+			if (!sc.Reachable("string", out String, new MemberDefinition { Member = new TypeInfo { Name = "string" } }))
 			{
 				if (report != null)
 					report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "String STD type not defined" });
@@ -82,7 +72,7 @@ namespace TigerCs.Generation.Semantic.AST
 		public static TypeInfo Void(this ISemanticChecker sc, ErrorReport report = null)
 		{
 			MemberInfo Void;
-			if (!sc.Reachable("void", out Void, new TypeInfo { Name = "void" , BCMBackup = false}))
+			if (!sc.Reachable("void", out Void, new MemberDefinition { Member = new TypeInfo { Name = "void", BCMBackup = false } }))
 			{
 				if (report != null)
 					report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Void STD type not defined" });
@@ -95,7 +85,7 @@ namespace TigerCs.Generation.Semantic.AST
 		public static HolderInfo Nill(this ISemanticChecker sc, ErrorReport report = null)
 		{
 			MemberInfo Null;
-			if (!sc.Reachable("Null", out Null, new TypeInfo { Name = "Null" }))
+			if (!sc.Reachable("Null", out Null, new MemberDefinition { Member = new TypeInfo { Name = "Null" } }))
 			{
 				if (report != null)
 					report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Null STD type not defined" });
@@ -103,7 +93,7 @@ namespace TigerCs.Generation.Semantic.AST
 			}
 
 			MemberInfo Nill;
-			if (!sc.Reachable("nill", out Nill, new HolderInfo { Name = "nill", Type = (TypeInfo)Null }))
+			if (!sc.Reachable("nill", out Nill, new MemberDefinition { Member = new HolderInfo { Name = "nill", Type = (TypeInfo)Null } }))
 			{
 				if (report != null)
 					report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Nill STD const not defined" });

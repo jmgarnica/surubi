@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using TigerCs.Generation.ByteCode;
-using TigerCs.Generation.Semantic;
-using TigerCs.Generation.Semantic.AST;
+using TigerCs.Generation;
+using TigerCs.Generation.AST;
+using TigerCs.Generation.AST.Expresions;
 
 namespace TigerCs.CompilationServices
 {

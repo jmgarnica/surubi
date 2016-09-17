@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
-using TigerCs.Generation.Semantic;
 
-namespace TigerCs.Generation.Semantic
+namespace TigerCs.Generation
 {
 	public interface ISemanticChecker
 	{
@@ -47,8 +43,8 @@ namespace TigerCs.Generation.Semantic
 		/// <param name="member"></param>
 		/// <param name="desired"></param>
 		/// <returns></returns>
-		bool Reachable(string name, out MemberInfo member, MemberInfo desired = null);
-
+		bool Reachable(string name, out MemberInfo member, MemberDefinition desired = null);
+		
 		T SeekDescriptor<T>(Predicate<object> stop = null)
 			where T : class;
 

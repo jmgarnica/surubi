@@ -1,27 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TigerCs.CompilationServices;
+using TigerCs.Generation.AST.Expresions;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.Semantic.AST
+namespace TigerCs.Generation.AST.Declarations
 {
-	public abstract class BinaryOperator : Expresion
+	public class FunctionDeclaration : Declaration
 	{
-		public IExpresion Rigth { get; set; }
-		public IExpresion Left { get; set; }
+		public IExpresion Body { get; set; }
+		public List<ParameterDeclaration> Parameters { get; set; }
+		public FunctionInfo Func { get; private set; }
 
-		public override void Dispose()
+		public override void BindName(ISemanticChecker sc, ErrorReport report)
 		{
-			Rigth.Dispose();
-			Left.Dispose();
-			base.Dispose();
+			throw new NotImplementedException();
 		}
-	}
 
-	public class EqualityOperator : BinaryOperator
-	{
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
 		{
 			throw new NotImplementedException();

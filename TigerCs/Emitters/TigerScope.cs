@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TigerCs.Generation.Semantic;
+using TigerCs.Generation;
 
 namespace TigerCs.Emitters
 {

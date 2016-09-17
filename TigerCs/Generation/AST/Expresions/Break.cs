@@ -5,9 +5,9 @@ using System.Text;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.Semantic.AST
+namespace TigerCs.Generation.AST.Expresions
 {
-	public class For : Expresion
+	public class Break : Expresion
 	{
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
 		{

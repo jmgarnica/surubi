@@ -6,7 +6,7 @@
 //using System.Threading.Tasks;
 //using TigerCs.Generation;
 //using TigerCs.Generation.ByteCode;
-//using TigerCs.Generation.Semantic.Scopes;
+//using TigerCs.Generation.Scopes;
 
 //namespace TigerCs.Emitters.CSharp
 //{

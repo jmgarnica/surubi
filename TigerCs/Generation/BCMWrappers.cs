@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.Semantic
+namespace TigerCs.Generation
 {
 
 	public abstract class MemberInfo
