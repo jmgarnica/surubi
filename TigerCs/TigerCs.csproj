@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompilationServices\BackupDefinition.cs" />
+    <Compile Include="Generation\Semantic\AST\Declaration.cs" />
     <Compile Include="Generation\ByteCode\IMember.cs" />
     <Compile Include="Generation\Semantic\AST\Assign.cs" />
     <Compile Include="Generation\Semantic\AST\Break.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="Generation\Semantic\AST\BinaryOperator.cs" />
     <Compile Include="Emitters\BaseEmitter.cs" />
     <Compile Include="Emitters\DefaultSemanticChecker.cs" />
+    <Compile Include="Generation\Semantic\AST\FunctionDeclaration.cs" />
     <Compile Include="Generation\Semantic\AST\IExpresion.cs" />
     <Compile Include="Generation\Semantic\AST\MAIN.cs" />
     <Compile Include="Generation\Semantic\AST\Neg.cs" />
@@ -73,6 +76,7 @@
     <Compile Include="Generation\Semantic\BCMWrappers.cs" />
     <Compile Include="Emitters\TigerScope.cs" />
     <Compile Include="Generation\Semantic\AST\LvalueNode.cs" />
+    <Compile Include="Generation\Semantic\AST\ParameterDeclaration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

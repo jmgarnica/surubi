@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.Semantic.AST
 {
-	public class ExpresionList : List<IExpresion>, IExpresion
+	public class ExpresionList<E> : List<E>, IExpresion
+		where E : IExpresion
 	{
 		public int column { get; set; }
 		public bool CorrectSemantics { get; protected set; }
