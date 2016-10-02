@@ -7,16 +7,13 @@ using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Emitters.NASM
 {
-	public abstract class NasmHolder : NasmMember, IHolder
+	public class NasmHolder : NasmMember, IHolder
 	{
-		protected NasmHolder(NasmEmitterScope dscope, int sindex)
+		public NasmHolder(NasmEmitterScope dscope, int sindex)
 			: base(dscope, sindex)
 		{ }
 
-		public abstract bool Assignable { get; }
-
-		public NasmEmitterScope DeclaratingScope { get; private set; }
-		public int DeclaringScopeIndex { get; private set; }
+		public virtual bool Assignable { get { return true; } }
 
 		public NasmType EmitterType { get; protected set; }
 	}
@@ -41,17 +38,26 @@ namespace TigerCs.Emitters.NASM
 		{
 			fw.WriteLine(string.Format("mov {0}, {1}", gpr, value));
 		}
+
+		public override void StackBackValue(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
+		{
+			throw new NasmEmitterException("Constant values cant be assigned");
+		}
 	}
 
 	public class NasmStringConst : NasmHolder
 	{
 		string value;
+		string label;
+		int offset;
 
-		public NasmStringConst(string value, string label, string offset)
+		public NasmStringConst(string value, string label, int offset)
 			: base(null, -1)
 		{
 			EmitterType = NasmType.String;
 			this.value = value;
+			this.label = label;
+			this.offset = offset;
 		}
 
 		public override bool Assignable
@@ -61,7 +67,13 @@ namespace TigerCs.Emitters.NASM
 
 		public override void PutValueInRegister(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
 		{
-			fw.WriteLine(string.Format("mov {0}, {1}", gpr, value));
+			fw.WriteLine(string.Format("mov {0}, {1}", gpr, label));
+			fw.WriteLine(string.Format("{2}add {0}, {1}", gpr, offset, offset != 0 ? "" : ";"));
+		}
+
+		public override void StackBackValue(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
+		{
+			throw new NasmEmitterException("Constant values cant be assigned");
 		}
 	}
 }
