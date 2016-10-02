@@ -41,13 +41,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Emitters\BCMBase.cs" />
+    <Compile Include="Emitters\EmitterExeption.cs" />
     <Compile Include="Emitters\EmitterScope.cs" />
     <Compile Include="Emitters\FormatWriter.cs" />
-    <Compile Include="Emitters\NASM\Members.cs" />
+    <Compile Include="Emitters\NASM\NasmEmitterExeption.cs" />
+    <Compile Include="Emitters\NASM\NasmInstructionSet.cs" />
+    <Compile Include="Emitters\NASM\NasmMember.cs" />
     <Compile Include="Emitters\NASM\NasmEmitter.cs" />
     <Compile Include="Emitters\NASM\NasmEmitterScope.cs" />
+    <Compile Include="Emitters\NASM\NasmFunction.cs" />
     <Compile Include="Emitters\NASM\NasmHolder.cs" />
-    <Compile Include="Emitters\NASM\ResourceLock.cs" />
+    <Compile Include="Emitters\NASM\NasmType.cs" />
+    <Compile Include="Emitters\NASM\RegisterLock.cs" />
     <Compile Include="Generation\AST\Declarations\AliasDeclaration.cs" />
     <Compile Include="Generation\AST\Declarations\ArrayDeclaration.cs" />
     <Compile Include="CompilationServices\MemberDefinition.cs" />
