@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using TigerCs.Generation;
-using TigerCs.Generation;
-using System.Linq;
 using TigerCs.CompilationServices;
 
 namespace TigerCs.Emitters
@@ -10,7 +8,7 @@ namespace TigerCs.Emitters
 	public class DefaultSemanticChecker : ISemanticChecker
 	{
 		#region [fields]
-		Dictionary<string, MemberInfo> trappedSTD;
+		Dictionary<string, MemberDefinition> trappedSTD;
 		TigerSemanticScope rootscope, currentscope;
 		ErrorReport report;
 		#endregion
@@ -41,7 +39,7 @@ namespace TigerCs.Emitters
 			currentscope = newscope;
 		}
 
-		public void InitializeSemanticCheck(ErrorReport report, Dictionary<string, MemberInfo> trappedSTD = null)
+		public void InitializeSemanticCheck(ErrorReport report, Dictionary<string, MemberDefinition> trappedSTD = null)
 		{
 			this.report = report;
 			this.trappedSTD = trappedSTD;
@@ -71,14 +69,16 @@ namespace TigerCs.Emitters
 			}
 			while (current != null);
 
-			#region [std trapped]
+			#region [std trap]
 			if (trappedSTD != null && member == null)
 			{
-				if (trappedSTD.TryGetValue(name, out member))
+				MemberDefinition std;
+				if (trappedSTD.TryGetValue(name, out std))
 				{
+					member = std.Member;
 					if (desired != null)
 					{
-						if (!desired.GetType().Equals(member.GetType()))
+						if (!desired.GetType().Equals(std.Member.GetType()))
 						{
 							report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage = "using before declaration :" + name });
 							return false;
@@ -87,18 +87,18 @@ namespace TigerCs.Emitters
 						HolderInfo hm;
 						FunctionInfo fm;
 						TypeInfo tm;
-						if ((hm = member as HolderInfo) != null)
+						if ((hm = std.Member as HolderInfo) != null)
 						{
-							var hd = desired as HolderInfo;
+							var hd = desired.Member as HolderInfo;
 							if (!hm.Type.Equals(hd.Type))
 							{
 								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage = string.Format("{0} using as holders of diferent types {1}, {2}", name, hm.Type, hd.Type) });
 								return false;
 							}
 						}
-						else if ((fm = member as FunctionInfo) != null)
+						else if ((fm = std.Member as FunctionInfo) != null)
 						{
-							var fd = desired as FunctionInfo;
+							var fd = desired.Member as FunctionInfo;
 							if (!fm.Return.Equals(fd.Return))
 							{
 								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage = string.Format("{0} using as function of diferent return types {1}, {2}", name, fm.Return, fd.Return) });
@@ -131,9 +131,9 @@ namespace TigerCs.Emitters
 								}
 							}
 						}
-						else if ((tm = member as TypeInfo) != null)
+						else if ((tm = std.Member as TypeInfo) != null)
 						{
-							var td = desired as TypeInfo;
+							var td = desired.Member as TypeInfo;
 							if ((tm.ArrayOf == null && td.ArrayOf != null) || (tm.ArrayOf != null && td.ArrayOf == null))
 							{
 								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage = string.Format("using {0} to name array and non-array types", name) });
@@ -187,11 +187,12 @@ namespace TigerCs.Emitters
 					});
 					return false;
 				}
-
+			
 			}
 			#endregion
 
 			if (member == null) return false;
+			if (desired != null && !member.Equals(desired.Member)) return false;
 
 			foreach (var item in closures)
 				item.Add(name, member);

@@ -8,7 +8,9 @@ namespace TigerCs.Generation.AST.Declarations
 {
 	public class FunctionDeclaration : Declaration
 	{
+		[Release]
 		public IExpresion Body { get; set; }
+		[Release(collection: true)]
 		public List<ParameterDeclaration> Parameters { get; set; }
 		public FunctionInfo Func { get; private set; }
 

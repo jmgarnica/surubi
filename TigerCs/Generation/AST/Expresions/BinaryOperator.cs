@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
@@ -9,15 +6,10 @@ namespace TigerCs.Generation.AST.Expresions
 {
 	public abstract class BinaryOperator : Expresion
 	{
+		[Release]
 		public IExpresion Rigth { get; set; }
+		[Release]
 		public IExpresion Left { get; set; }
-
-		public override void Dispose()
-		{
-			Rigth.Dispose();
-			Left.Dispose();
-			base.Dispose();
-		}
 	}
 
 	public class EqualityOperator : BinaryOperator

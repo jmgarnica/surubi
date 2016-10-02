@@ -18,7 +18,7 @@ namespace TigerCs.Generation
 		/// will be added to the given dictionary, if the same name is missing more than once will not cause an error report
 		/// unless the definitions differs, equality is componentwise, TypeInfo.TypeId is ignored, Alises are handled as its internal.
 		/// </param>
-		void InitializeSemanticCheck(ErrorReport report, Dictionary<string, MemberInfo> trappedSTD = null);
+		void InitializeSemanticCheck(ErrorReport report, Dictionary<string, MemberDefinition> trappedSTD = null);
 		void End();
 
 		[ScopeChanger(Reason = "Creates and enters in a nested scope", ScopeName = "InnerScope")]

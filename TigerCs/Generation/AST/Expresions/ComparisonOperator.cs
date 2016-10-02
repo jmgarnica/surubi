@@ -7,6 +7,7 @@ namespace TigerCs.Generation.AST.Expresions
 {
 	public abstract class ComparisonOperator : BinaryOperator
 	{
+		[StaticData]
 		public static FunctionInfo StringComparer { get; protected set; }
 
 		TypeInfo _int, _string;
@@ -103,7 +104,6 @@ namespace TigerCs.Generation.AST.Expresions
 
 				StringComparer = new FunctionInfo()
 				{
-					BackupDefintion = true,
 					Name = "stringcompare",
 					Parameters = new List<Tuple<string, TypeInfo>> { new Tuple<string, TypeInfo>("arg1", _string), new Tuple<string, TypeInfo>("arg2", _string) },
 					Return = _int,
@@ -113,12 +113,6 @@ namespace TigerCs.Generation.AST.Expresions
 			}
 
 			return true;
-		}
-
-		public override void Dispose()
-		{
-			StringComparer = null;
-			base.Dispose();
 		}
 	}
 

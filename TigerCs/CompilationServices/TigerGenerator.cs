@@ -26,62 +26,52 @@ namespace TigerCs.CompilationServices
 
 		public void Compile(IExpresion rootprogram)
 		{
-			var std = new Dictionary<string, MemberInfo>();
+			var std = new Dictionary<string, MemberDefinition>();
 			sc.InitializeSemanticCheck(Report, std);
 
 			var main = new MAIN(rootprogram);
 
-			if (!main.CheckSemantics(sc, Report)) return;
-			sc.End();
+			if (!main.CheckSemantics(sc, Report)) return;			
 
 			bcm.InitializeCodeGeneration(Report);
 			foreach (var m in std)
 			{
-
-				var f = m.Value as FunctionInfo;
-				if (m.Value is TypeInfo)
+				if (!m.Value.Member.BCMBackup) continue;
+				if (m.Value.Member is TypeInfo)
 				{
 					T o;
-					if (bcm.TrySTDBoundType(m.Key, out o)) (m.Value as TypeInfo).BCMMember = o;
+					if (bcm.TryBindSTDType(m.Key, out o)) m.Value.Member.BCMMember = o;
 				}
-				else if (m.Value is HolderInfo)
+				else if (m.Value.Member is HolderInfo)
 				{
 					H o;
-					if (bcm.TrySTDBoundConst(m.Key, out o)) (m.Value as HolderInfo).BCMMember = o;
+					if (bcm.TryBindSTDConst(m.Key, out o)) m.Value.Member.BCMMember = o;
 				}
-				else if (m.Value is FunctionInfo)
+				else if (m.Value.Member is FunctionInfo)
 				{
 					F o;
-					if (bcm.TrySTDBoundFunction(m.Key, out o))
-					{
-						f.BackupDefintion = false;
-						f.BCMMember = o;
-					}
+					if (bcm.TryBindSTDFunction(m.Key, out o)) m.Value.Member.BCMMember = o;
 				}
 
-				if (!m.Value.Bounded)
+				if (!m.Value.Member.Bounded && m.Value.Generator == null)
 				{
-					if (f == null || !f.BackupDefintion)
-					{
-						Report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "BCM does not have a definition for " + m.Key });
-						return;
-					}
+					Report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "BCM does not have a definition for " + m.Key, Column = m.Value.column, Line = m.Value.column });
+					return;
 				}
 			}
-
+			
 			foreach (var m in std)
 			{
-				var f = m.Value as FunctionInfo;
-				if (f == null || !f.BackupDefintion) continue;
-				f.BCMMember = bcm.AheadGlobalFunctionDeclaration(
-					f.Name,
-					(T)f.Return.BCMMember,
-					f.Parameters.Select(g => Tuple.Create(g.Item1, (T)g.Item2.BCMMember)).ToArray());
+				if (!m.Value.Member.BCMBackup) continue;
+				if (m.Value == null || m.Value.Generator != null) continue;
+				m.Value.Generator.CheckSemantics(sc, Report);
+				m.Value.Generator.GenerateCode(bcm, Report);
 			}
+			sc.End();
 
 			main.GenerateCode(bcm, Report);
 
-			main.Dispose();
+			main.ReleaseStaticData();
 			bcm.End();
 		}
 		

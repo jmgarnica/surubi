@@ -40,6 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Emitters\BCMBase.cs" />
+    <Compile Include="Emitters\EmitterScope.cs" />
+    <Compile Include="Emitters\FormatWriter.cs" />
+    <Compile Include="Emitters\NASM\Members.cs" />
+    <Compile Include="Emitters\NASM\NasmEmitter.cs" />
+    <Compile Include="Emitters\NASM\NasmEmitterScope.cs" />
+    <Compile Include="Emitters\NASM\NasmHolder.cs" />
+    <Compile Include="Emitters\NASM\ResourceLock.cs" />
     <Compile Include="Generation\AST\Declarations\AliasDeclaration.cs" />
     <Compile Include="Generation\AST\Declarations\ArrayDeclaration.cs" />
     <Compile Include="CompilationServices\MemberDefinition.cs" />
@@ -53,12 +61,12 @@
     <Compile Include="Generation\AST\Expresions\ExpresionList.cs" />
     <Compile Include="Generation\AST\Expresions\For.cs" />
     <Compile Include="Generation\AST\Expresions\BinaryOperator.cs" />
-    <Compile Include="Emitters\BaseEmitter.cs" />
     <Compile Include="Emitters\DefaultSemanticChecker.cs" />
     <Compile Include="Generation\AST\Declarations\FunctionDeclaration.cs" />
     <Compile Include="Generation\AST\Expresions\IExpresion.cs" />
     <Compile Include="Generation\AST\Expresions\MAIN.cs" />
     <Compile Include="Generation\AST\Expresions\Neg.cs" />
+    <Compile Include="Generation\CheckerExtensions.cs" />
     <Compile Include="Generation\Descriptors.cs" />
     <Compile Include="CompilationServices\TigerGenerator.cs" />
     <Compile Include="Generation\ISemanticChecker.cs" />
@@ -67,7 +75,6 @@
     <Compile Include="Generation\AST\Expresions\IntegerOperator.cs" />
     <Compile Include="Generation\AST\Expresions\Let.cs" />
     <Compile Include="Generation\AST\Expresions\While.cs" />
-    <Compile Include="Emitters\Writers.cs" />
     <Compile Include="Generation\AST\Expresions\Constant.cs" />
     <Compile Include="Emitters\CSharp\CSharpEmitter.cs" />
     <Compile Include="Emitters\CSharp\CSharpFunction.cs" />
@@ -94,7 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Emitters\CIL\" />
-    <Folder Include="Emitters\NASM\" />
     <Folder Include="Parser\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

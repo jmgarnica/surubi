@@ -10,11 +10,15 @@ namespace TigerCs.Generation.AST.Expresions
 {
 	public sealed class MAIN : Expresion
 	{
-		public static FunctionInfo Main { get; private set; }
-		public static TypeInfo ArrayOfString { get; private set; }
 		public const string EntryPointName = "Main";
 		public const string ArgumentName = "args";
 
+		[StaticData]
+		public static FunctionInfo Main { get; set; }
+		[StaticData]
+		public static TypeInfo ArrayOfString { get; set; }
+
+		[Release]
 		public IExpresion root { get; private set; }
 		public HolderInfo args { get; private set; }
 
@@ -28,7 +32,7 @@ namespace TigerCs.Generation.AST.Expresions
 		TypeInfo _string;
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
-		{
+		{//TODO: danger
 			sc.EnterNestedScope();
 			_string = sc.String(report);
 			ArrayOfString = new TypeInfo
@@ -42,7 +46,6 @@ namespace TigerCs.Generation.AST.Expresions
 			Main = new FunctionInfo
 			{
 				Name = EntryPointName,
-				BackupDefintion = true,
 				Parameters = new List<Tuple<string, TypeInfo>> { new Tuple<string, TypeInfo>(ArgumentName, ArrayOfString) },
 				Return = sc.Int(report)
 			};
@@ -66,7 +69,7 @@ namespace TigerCs.Generation.AST.Expresions
 
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			if (!ArrayOfString.Bounded) ArrayOfString.BCMMember = cg.BoundArrayType(ArrayOfString.Name, (T)_string.BCMMember);
+			if (!ArrayOfString.Bounded) ArrayOfString.BCMMember = cg.BindArrayType(ArrayOfString.Name, (T)_string.BCMMember);
 
 			Main.BCMMember = cg.EntryPoint(true, true);
 			args.BCMMember = cg.GetParam(0);
@@ -77,13 +80,6 @@ namespace TigerCs.Generation.AST.Expresions
 				cg.Ret((H)root.ReturnValue.BCMMember);
 			}
 			cg.LeaveScope();
-		}
-
-		public override void Dispose()
-		{
-			root.Dispose();
-			Main = null;
-			ArrayOfString = null;
 		}
 	}
 }

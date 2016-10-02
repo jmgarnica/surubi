@@ -8,10 +8,9 @@ namespace TigerCs.CompilationServices
 	{
 		public MemberInfo Member { get; set; }
 
-		public Action<ISemanticChecker, ErrorReport> GeneratorStarter { get; set; }
+		public int column { get; set; }
+		public int line { get; set; }
 
-		public FunctionDeclaration Generator { get; set; }
-
-		
+		public Declaration Generator { get; set; }		
 	}
 }

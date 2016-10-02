@@ -28,17 +28,6 @@ namespace TigerCs.Generation.AST.Expresions
 			return true;
 		}
 
-		/// <summary>
-		/// Reset static data
-		/// </summary>
-		public virtual void Dispose()
-		{
-			foreach (var item in this)
-			{
-				item.Dispose();
-			}	
-		}
-
 		public void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 			where T : class, IType<T, F>
 			where F : class, IFunction<T, F>

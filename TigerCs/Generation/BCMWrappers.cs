@@ -48,9 +48,6 @@ namespace TigerCs.Generation
 		public List<Tuple<string, MemberInfo>> Closure { get; set; }
 
 		public TypeInfo Return { get; set; }
-
-		public bool BackupDefintion { get; set; }
-
 	}
 
 	public class TypeInfo : MemberInfo
