@@ -104,12 +104,6 @@ namespace TigerCs.Generation.ByteCode
 		#endregion
 
 		#region [Call]
-		/// <summary>
-		/// Push a parameter in a stack for latter use whith call. 
-		/// [IMPLEMENTATION_TIP] Ending a program with a non-empty stack will result in error.
-		/// </summary>
-		/// <param name="holder"></param>
-		void SetParam(H holder);
 
 		/// <summary>
 		/// Retuns the holder that will contain the value of the parameter inside the function
@@ -120,15 +114,14 @@ namespace TigerCs.Generation.ByteCode
 		H GetParam(int position);
 		
 		/// <summary>
-		/// Enters in a function with the <paramref name="paramcount"/> parameters on the top of the stack as it's parameters.
-		/// [IMPLEMENTATION_TIP] The parameters are deleted from the stack.
+		/// Enters in a function.
 		/// </summary>
 		/// <param name="function"></param>
 		/// <param name="paramcount"></param>
 		/// <param name="returnval">
-		/// if diferent of null the return value of the function will be placed here
+		/// if diferent of null the return value of the function will be placed there
 		/// </param>
-		void Call(F function, int paramcount, H returnval = null);
+		void Call(F function, H[] args, H returnval = null);
 
 		/// <summary>
 		/// All function path must end with one form of return. An error will be generated if not.
@@ -154,6 +147,13 @@ namespace TigerCs.Generation.ByteCode
 		/// Scope dependent label, before exiting the scope
 		/// </summary>
 		Guid EndScope { get; }
+
+		/// <summary>
+		/// Returns the next instruction label if there is one asingned, Guid.empty other way, if not empty setting
+	    /// a new label only will have effect on the commentary and applying a reserved label will result in
+		/// an InvalidOperationException
+		/// </summary>
+		Guid NextInstructionLabel { get; }
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] On labels collision returns the actual label;
