@@ -63,13 +63,21 @@ namespace TigerCs.Generation.ByteCode
 		bool TryBindSTDFunction(string name, out F function);
 
 		bool TryBindSTDConst(string name, out H constant);
-		
+
 		#endregion
 
 		#endregion
 
 		#region [General Instructions]
-		void InstrAssing(H dest_nonconst, H value);
+
+		/// <summary>
+		/// [IMPLEMENTATION_TIP] by default(unless dest_as_pointer = true) when a pointer holder is used as dest operand the assingnation
+		/// will occur on the value the it is pointing to
+		/// </summary>
+		/// <param name="dest_nonconst"></param>
+		/// <param name="value"></param>
+		/// <param name="dest_as_pointer"></param>
+		void InstrAssing(H dest_nonconst, H value, bool dest_as_pointer = false);
 
 		void InstrAdd(H dest_nonconst, H op1, H op2);
 		H InstrAdd_TempBound(H op1, H op2);
@@ -112,12 +120,12 @@ namespace TigerCs.Generation.ByteCode
 		/// <param name="position"></param>
 		/// <returns></returns>
 		H GetParam(int position);
-		
+
 		/// <summary>
 		/// Enters in a function.
 		/// </summary>
 		/// <param name="function"></param>
-		/// <param name="paramcount"></param>
+		/// <param name="args"></param>
 		/// <param name="returnval">
 		/// if diferent of null the return value of the function will be placed there
 		/// </param>
