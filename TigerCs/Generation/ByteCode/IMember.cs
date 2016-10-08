@@ -21,9 +21,7 @@
 	public interface IType<T, F> : IMember
 		where F : class, IFunction<T, F>
 		where T : class, IType<T, F>
-	{
-		bool Array { get; }
-
+	{		
 		/// <summary>
 		/// Gets the bounded function that will allocate a new object of this type
 		/// Array Case
@@ -39,23 +37,38 @@
 		/// returns:
 		/// IHolder -> record
 		/// </summary>
-		F Allocation { get; }
+		F Allocator { get; }
 
 		/// <summary>
-		/// Gets the bounded function that will dealocate an object of this tipe
+		/// Gets the bounded function that will dealocate an object of this type
 		/// parameters:
 		/// IHolder -> instance
-		/// returns: void
+		/// returns: 
+		/// void
 		/// </summary>
 		F Deallocator { get; }
 
-		/// <summary>
-		/// Null if Array is false,
+		/// <summary> 
 		/// parameters:
 		/// IHolder : int -> element index
+		/// IHolder : instance
 		/// returns:
-		/// IHolder : ArrayType -> element
+		/// member value
+		/// 
+		/// throws IndexOutOfRange Error
 		/// </summary>
-		F ArrayAccess { get; }
+		F DynamicMemberReadAccess { get; }
+
+		/// <summary> 
+		/// parameters:
+		/// IHolder : source
+		/// IHolder : int -> element index
+		/// IHolder : instance
+		/// returns:
+		/// void
+		/// 
+		/// throws IndexOutOfRange Error
+		/// </summary>
+		F DynamicMemberWriteAccess { get; }
 	}
 }

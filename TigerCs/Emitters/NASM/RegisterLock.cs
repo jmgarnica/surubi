@@ -34,6 +34,14 @@ namespace TigerCs.Emitters.NASM
 			}
 		}
 
+		public void ReleaseAll()
+		{
+			lock (this)
+			{
+				rlock = 0;
+			}
+		}
+
 		public Register? LockGPR(Register? hinted = null)
 		{
 			lock (this)
@@ -63,6 +71,14 @@ namespace TigerCs.Emitters.NASM
 					.Cast<int>()
 					.Where(i => (rlock & i) != 0)
 					.Cast<Register>());
+			}
+		}
+
+		public RegisterLock CloneState()
+		{
+			lock (this)
+			{
+				return new RegisterLock { rlock = rlock };
 			}
 		}
 	}

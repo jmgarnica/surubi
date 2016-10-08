@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Emitters.NASM
@@ -11,46 +7,57 @@ namespace TigerCs.Emitters.NASM
 	{
 		public static readonly NasmType Int;
 		public static readonly NasmType String;
+		const int typesize = 8;
+		public readonly NasmRefType RefType;
+		public readonly int AsRefSize;
 
-		public NasmType(NasmEmitterScope dscope, int sindex)
+		public NasmType(NasmEmitterScope dscope, int sindex, NasmRefType reff, int asrefsize = 0)
 			: base(dscope, sindex)
-		{ }
-
-		public NasmFunction Allocation
 		{
-			get
+			RefType = reff;
+			switch (RefType)
 			{
-				throw new NotImplementedException();
+				case NasmRefType.None: AsRefSize = 0;
+					break;
+				case NasmRefType.Fixed:
+					if (asrefsize < 0) throw new ArgumentException("size must be greater or equal than 0");
+					AsRefSize = asrefsize;
+					break;
+				case NasmRefType.Dynamic:
+					AsRefSize = -1;
+					break;
+				default:
+					throw new ArgumentException("unknow reference type");
 			}
 		}
 
-		public bool Array
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-		}
-
-		public NasmFunction ArrayAccess
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-		}
+		public NasmFunction Allocator { get; set; }
 
 		public NasmFunction Deallocator
 		{
 			get
 			{
-				throw new NotImplementedException();
+				return NasmFunction.Free;
 			}
 		}
 
-		public override void PutValueInRegister(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
+		public NasmFunction DynamicMemberReadAccess { get; set; }
+
+		public NasmFunction DynamicMemberWriteAccess { get; set; }
+
+		public void DealocateType(FormatWriter fw, NasmEmitterScope accedingscope) => NasmFunction.Free.Call(fw, null, accedingscope, this);
+
+		public static void AlocateType(FormatWriter fw, Register target, NasmEmitterScope accedingscope, NasmEmitter bound)
 		{
-			throw new NotImplementedException();
+			var sp = bound.AddConstant(typesize);
+			NasmFunction.Malloc.Call(fw, target, accedingscope, sp);
 		}
+	}
+
+	public enum NasmRefType
+	{
+		None,
+		Fixed,
+		Dynamic
 	}
 }

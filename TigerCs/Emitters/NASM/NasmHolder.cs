@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Emitters.NASM
@@ -14,9 +10,7 @@ namespace TigerCs.Emitters.NASM
 		{ }
 
 		public virtual bool Assignable { get { return true; } }
-
-		public NasmType EmitterType { get; protected set; }
-	}
+    }
 
 	public class NasmIntConst : NasmHolder
 	{
@@ -25,7 +19,6 @@ namespace TigerCs.Emitters.NASM
 		public NasmIntConst(int value)
 			: base(null, -1)
 		{
-			EmitterType = NasmType.Int;
 			this.value = value;
 		}
 
@@ -36,7 +29,8 @@ namespace TigerCs.Emitters.NASM
 
 		public override void PutValueInRegister(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
 		{
-			fw.WriteLine(string.Format("mov {0}, {1}", gpr, value));
+			if (value != 0) fw.WriteLine(string.Format("mov {0}, {1}", gpr, value));
+			else fw.WriteLine(string.Format("xor {0}, {0}", gpr));
 		}
 
 		public override void StackBackValue(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
@@ -49,12 +43,11 @@ namespace TigerCs.Emitters.NASM
 	{
 		string value;
 		string label;
-		int offset;
+		public readonly int offset;
 
 		public NasmStringConst(string value, string label, int offset)
 			: base(null, -1)
 		{
-			EmitterType = NasmType.String;
 			this.value = value;
 			this.label = label;
 			this.offset = offset;
@@ -74,6 +67,57 @@ namespace TigerCs.Emitters.NASM
 		public override void StackBackValue(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
 		{
 			throw new NasmEmitterException("Constant values cant be assigned");
+		}
+	}
+
+	public class NasmReference : NasmHolder
+	{
+		NasmHolder H;
+		int offset;
+		public NasmReference(NasmHolder h, int offset, NasmEmitterScope dscope = null)
+			:base(dscope ?? h.DeclaratingScope, 0)
+		{
+			H = h;
+			this.offset = (offset + 1)* 4; //+1 see NasmEmitter.InstrSize <remarks>[second mode]</remarks>
+		}
+
+		public override void PutValueInRegister(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
+		{
+			H.PutValueInRegister(gpr, fw, accedingscope);
+			fw.WriteLine(string.Format("add {0}, {1}", gpr, offset));
+			fw.WriteLine(string.Format("mov {0}, [{0}]", gpr));
+		}
+
+		public override void StackBackValue(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
+		{
+			fw.WriteLine("");
+
+			int levels = Levels(accedingscope);
+			if (levels < 0) throw new NasmEmitterException("Unreachable Member");
+
+			bool stackback = false;
+			var reg = accedingscope.Lock.LockGPR(Register.EBX);
+			if (reg == null)
+			{
+				reg = gpr == Register.EBX ? Register.EDX : Register.EBX;
+				stackback = true;
+				fw.WriteLine("push " + reg.Value);
+			}
+
+			for (int i = 0; i < levels; i++)
+			{
+				fw.WriteLine(string.Format("mov {0}, [{0}]", reg.Value));
+			}
+
+			fw.WriteLine(string.Format("add {0}, {1}", reg.Value, -(DeclaringScopeIndex + 1) * 4));
+			fw.WriteLine(string.Format("mov {0}, [{0}]", reg.Value));
+			fw.WriteLine(string.Format("add {0}, {1}", reg.Value, offset));
+			fw.WriteLine(string.Format("mov [{0}], {1}", reg.Value, gpr));
+
+			if (stackback)
+				fw.WriteLine("pop " + reg.Value);
+			else accedingscope.Lock.Release(reg.Value);
+			fw.WriteLine("");
 		}
 	}
 }

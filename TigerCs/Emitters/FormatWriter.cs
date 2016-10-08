@@ -12,7 +12,7 @@ namespace TigerCs.Emitters
 	{
 		StringBuilder builder = new StringBuilder();
 		ArrayList objects = new ArrayList();
-		int indentationlevel = 0;
+		public int IndentationLevel { get; set; }
 
 		public const char IndentChar = '	';
 		public const char NewLine = '\n';
@@ -21,11 +21,32 @@ namespace TigerCs.Emitters
 
 		public int IndexOfFormat { get { return objects.Count; } }
 
+		public void IncrementIndentation() { IndentationLevel++; }
+		public void DecrementIndentation() { IndentationLevel = IndentationLevel <= 0 ? 0 : IndentationLevel - 1; }
+
+		void Indent()
+		{
+			for (int i = 0; i < IndentationLevel; i++) builder.Append(IndentChar);
+		}
+
+		public static string Indent(string s, int indentationlevel)
+		{
+			StringBuilder b = new StringBuilder();
+			b.Append(NewLine);
+			for (int i = 0; i < indentationlevel; i++)
+			{
+				b.Append(IndentChar);
+			}
+
+			return s.Replace(NewLine.ToString(), b.ToString());
+        }
+
 		public void Write(string text, params object[] toreplace)
 		{
 			if (text != null && text.Length != 0)
 			{
-				if (text[text.Length] == NewLine) OnNewLine = true;
+				if (OnNewLine) Indent();
+				if (text[text.Length - 1] == NewLine) OnNewLine = true;
 				builder.Append(text);
 				if (toreplace != null && toreplace.Length != 0) objects.AddRange(toreplace);
 			}			
@@ -36,21 +57,31 @@ namespace TigerCs.Emitters
 			if (!OnNewLine) builder.Append(NewLine);
 			if (text != null && text.Length != 0)
 			{
+				Indent();
 				builder.Append(text);
 				if (toreplace != null && toreplace.Length != 0) objects.AddRange(toreplace);
-				if (text[text.Length] != NewLine) builder.Append(NewLine);
+				if (text[text.Length - 1] != NewLine) builder.Append(NewLine);
 			}
 			else builder.Append(NewLine);
 			OnNewLine = true;
 		}
 
-		public void Flush(StreamWriter w)
+		public void Flush(TextWriter w)
 		{
 			for (int i = 0; i < objects.Count; i++)
 			{
 				if (objects[i] is Func<object>) objects[i] = ((Func<object>)objects[i])();
 			}
-			w.Write(string.Format(builder.ToString(), objects));
+			w.Write(string.Format(builder.ToString(), objects.ToArray()));
+		}
+
+		public string Flush()
+		{
+			for (int i = 0; i < objects.Count; i++)
+			{
+				if (objects[i] is Func<object>) objects[i] = ((Func<object>)objects[i])();
+			}
+			return string.Format(builder.ToString(), objects);
 		}
 	}
 

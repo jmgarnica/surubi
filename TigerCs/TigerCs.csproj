@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompilationServices\GuidGenerator.cs" />
+    <Compile Include="CompilationServices\InArgumentAttribute.cs" />
     <Compile Include="Emitters\BCMBase.cs" />
     <Compile Include="Emitters\EmitterExeption.cs" />
     <Compile Include="Emitters\EmitterScope.cs" />
@@ -81,10 +83,6 @@
     <Compile Include="Generation\AST\Expresions\Let.cs" />
     <Compile Include="Generation\AST\Expresions\While.cs" />
     <Compile Include="Generation\AST\Expresions\Constant.cs" />
-    <Compile Include="Emitters\CSharp\CSharpEmitter.cs" />
-    <Compile Include="Emitters\CSharp\CSharpFunction.cs" />
-    <Compile Include="Emitters\CSharp\CSharpHolder.cs" />
-    <Compile Include="Emitters\CSharp\CSharpType.cs" />
     <Compile Include="Generation\ByteCode\IByteCodeMachine.cs" />
     <Compile Include="Generation\ByteCode\ScopeChangerAttribute.cs" />
     <Compile Include="CompilationServices\ErrorReport.cs" />
@@ -106,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Emitters\CIL\" />
+    <Folder Include="Emitters\CSharp\" />
     <Folder Include="Parser\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
