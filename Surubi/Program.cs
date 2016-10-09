@@ -15,7 +15,7 @@ namespace Surubi
 			var r = new ErrorReport();
 
 			NasmEmitter e = new NasmEmitter();
-			e.OutputFile = "out.asm";
+			e.OutputFile = "ex.asm";
 
 			NasmType _int;
 			e.TryBindSTDType("int", out _int);
@@ -23,23 +23,45 @@ namespace Surubi
 			e.TryBindSTDType("string", out _string);
 			NasmFunction print;
 			e.TryBindSTDFunction("prints", out print);
+			NasmFunction printi;
+			e.TryBindSTDFunction("printi", out printi);
+
 
 			e.InitializeCodeGeneration(r);
 
 			e.EntryPoint(true, true);
-
-			var a = e.BindVar(_int, "a");
 			var _0 = e.AddConstant(0);
-			e.InstrAssing(a, _0);
 
-			var hello = e.AddConstant("hello world\n");
-			var s = e.BindVar(_string, "s");
-			e.InstrAssing(s, hello);
-			e.Call(print, new[] { s });
+			var a = e.BindVar(_string, "a");
+			var h = e.AddConstant("hola");
+			e.InstrAssing(a, h);
 
+			var f = e.BindFunction("f", _int, new[] { new Tuple<string, NasmType>("x", _string) });
+			var px = e.GetParam(0);
+			var _sp = e.AddConstant(" ");
+			var _nl = e.AddConstant("\n");
+			e.Call(print, new[] { a });
+			e.Call(print, new[] { _sp });
+			e.Call(print, new[] { px });
+			e.Call(print, new[] { _nl });
+			e.Ret();
+			e.LeaveScope();
 
-			e.Ret(a);
+			e.EnterNestedScope(namehint: "nested 1");
+			var hh = e.AddConstant("mundo");
+			var x = e.BindVar(_string, "x");
+			e.InstrAssing(x, hh);
+			e.Call(f, new[] { x });
+			e.Call(f, new[] { a });
+			e.LeaveScope();
+
+			e.Call(printi, new[] { _0 });
+			e.Call(printi, new[] { _0 });
+
+			e.Ret(_0);
+			e.LeaveScope();
 			e.End();
+			
 		}
 	}
 }

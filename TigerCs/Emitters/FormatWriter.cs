@@ -38,7 +38,7 @@ namespace TigerCs.Emitters
 				b.Append(IndentChar);
 			}
 
-			return s.Replace(NewLine.ToString(), b.ToString());
+			return (s[s.Length - 1] == NewLine? s.Substring(0,s.Length - 1) : s).Replace(NewLine.ToString(), b.ToString()) + NewLine;
         }
 
 		public void Write(string text, params object[] toreplace)

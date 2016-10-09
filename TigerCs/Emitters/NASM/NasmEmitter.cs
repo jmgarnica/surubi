@@ -13,6 +13,10 @@ namespace TigerCs.Emitters.NASM
 		public const string PrintSFormatName = "prints";
 		public const string PrintIFormatName = "printi";
 		public const string StringConstName = "stringconst";
+		public const string PrintSFunctionLabel = "_cprintS";
+		public const string PrintIFunctionLabel = "_cprintI";
+		public const string MemberReadAccessLabel = "_memberreadaccess";
+		public const string MemberWriteAccessLabel = "_memberwriteaccess";
 		public const int ErrorCode = 0xe7707;
 
 		[InArgument(Comment = "the name of the output file, empty for standar output", ConsoleShortName = "-o", DefaultValue ="out.asm")]
@@ -34,9 +38,13 @@ namespace TigerCs.Emitters.NASM
 		{
 			Externs = new HashSet<string>();
 			std = new Dictionary<string, NasmFunction>();
-			PrintS = new NasmCFunction("_cprintS", false, this);
+			PrintS = new NasmCFunction(PrintSFunctionLabel, false, this, true, "PrintS");
 			std["prints"] = PrintS;
 			fw = new FormatWriter();
+			NasmType.Int = new NasmType(null, -1, NasmRefType.None);
+			NasmType.String = new NasmType(null, -1, NasmRefType.Dynamic, -1);
+			NasmType.RMemberAccess = new NasmCFunction(MemberReadAccessLabel, false, this, true, "MemberReadAccess");
+			NasmType.WMemberAccess = new NasmCFunction(MemberWriteAccessLabel, false, this, true, "MemberWriteAccess");
 		}
 
 		public override void InitializeCodeGeneration(ErrorReport report)
@@ -97,8 +105,8 @@ namespace TigerCs.Emitters.NASM
 					sb.Append(string.Format("extern {0}\n", ex));
 				return sb.ToString();
 			}));
-			NasmFunction.Malloc = new NasmCFunction("_malloc", true, this);
-			NasmFunction.Free = new NasmCFunction("_free", true, this);
+			NasmFunction.Malloc = new NasmCFunction("_malloc", true, this,name: "Malloc");
+			NasmFunction.Free = new NasmCFunction("_free", true, this, name: "Free");
 
 			fw.WriteLine("global CMAIN");
 			BlankLine();
@@ -153,7 +161,10 @@ namespace TigerCs.Emitters.NASM
 		/// [IMPLEMENTATION_TIP] All off-scope holders become invalid, there is no point in doing this at the end of a scope
 		/// </summary>
 		/// <param name="holder"></param>
-		public override void Release(NasmHolder holder){ throw new NotImplementedException(); }
+		public override void Release(NasmHolder holder)
+		{
+			holder.DeclaratingScope.ReleasedTempVars.Enqueue(holder.DeclaringScopeIndex);
+		}
 		#endregion
 
 		#region [Bind]
@@ -175,9 +186,16 @@ namespace TigerCs.Emitters.NASM
 		}
 		public override NasmHolder BindVar(NasmType type, string name = null, bool global = false)
 		{
-			if (name != null) fw.WriteLine(string.Format("; {0}<EBP - {1}>", name, (CurrentScope.VarsCount + 1) * 4));
-			NasmHolder v = new NasmHolder(CurrentScope, CurrentScope.VarsCount);
-			CurrentScope.VarsCount++;
+			NasmHolder v;
+			if (name != null || CurrentScope.ReleasedTempVars.Count <= 0)
+			{
+				fw.WriteLine(string.Format("; {0}<EBP - {1}>", name, (CurrentScope.VarsCount + 1) * 4));
+				v = new NasmHolder(CurrentScope, CurrentScope.VarsCount);
+				CurrentScope.VarsCount++;
+			}
+			else
+				v = new NasmHolder(CurrentScope, CurrentScope.ReleasedTempVars.Dequeue());
+			
 			return v;
 		}
 
@@ -197,7 +215,7 @@ namespace TigerCs.Emitters.NASM
 		[ScopeChanger(Reason = "Creates and enters in the primary scope of the program, this has no parent scope after closing it no fouther instructions can be emitted", ScopeName = "Main")]
 		public override NasmFunction EntryPoint(bool returns = false, bool stringparams = false)
 		{
-			CurrentScope = new NasmEmitterScope(null, g.GNext(), g.GNext(), g.GNext(), NasmScopeType.CFunction, 2);
+			CurrentScope = new NasmEmitterScope(null, g.GNext(), g.GNext(), g.GNext(), g.GNext(), NasmScopeType.CFunction, 2);
 			
 			fw.WriteLine(";Main");
 			fw.WriteLine("CMAIN:");
@@ -206,19 +224,48 @@ namespace TigerCs.Emitters.NASM
 			CurrentScope.WriteEnteringCode(fw);
 			fw.WriteLine(string.Format("_{0}:", CurrentScope.BiginScope.ToString("N")));
 
-			return new NasmCFunction(CurrentScope.BiginScope.ToString(), false, this);
+			return new NasmCFunction(CurrentScope.BiginScope.ToString(), false, this, name: "Main") { Bounded = true };
 		}
 
-		public override NasmFunction DeclareFunction(string name, NasmType returntype, Tuple<string, NasmType>[] args, bool global = false){ throw new NotImplementedException(); }
+		public override NasmFunction DeclareFunction(string name, NasmType returntype, Tuple<string, NasmType>[] args, bool global = false)
+		{
+			var func = new NasmFunction(CurrentScope, CurrentScope.VarsCount, this) { ParamsCount = args.Length };
+			CurrentScope.FuncTypePos.Add(func);
+			CurrentScope.VarsCount++;
+			return func;
+		}
 
 		[ScopeChanger(Reason = "Creates and enters in a function scope", ScopeName = "Funcion_<name>")]
-		public override NasmFunction BindFunction(string name, NasmType returntype, Tuple<string, NasmType>[] args, bool global = false){ throw new NotImplementedException(); }
+		public override NasmFunction BindFunction(string name, NasmType returntype, Tuple<string, NasmType>[] args, bool global = false)
+		{
+			var func = DeclareFunction(name, returntype, args, global);
+			BindFunction(func);
+
+			return func;
+		}
 		[ScopeChanger(Reason = "Creates and enters in a function scope", ScopeName = "AheadedFuncion_<name>")]
-		public override void BindFunction(NasmFunction aheadedfunction){ throw new NotImplementedException(); }
+		public override void BindFunction(NasmFunction aheadedfunction)
+		{
+			CurrentScope = new NasmEmitterScope(CurrentScope, g.GNext(), g.GNext(), g.GNext(), g.GNext(), NasmScopeType.TigerFunction, aheadedfunction.ParamsCount, aheadedfunction);
+
+			fw.WriteLine(";" + aheadedfunction.Name);
+			fw.WriteLine(string.Format("jmp _{0}", CurrentScope.AfterEndScope.ToString("N")));
+			fw.WriteLine(string.Format("_{0}:", CurrentScope.BeforeEnterScope.ToString("N")));
+			fw.IncrementIndentation();
+			CurrentScope.WriteEnteringCode(fw);
+			fw.WriteLine(string.Format("_{0}:", CurrentScope.BiginScope.ToString("N")));
+		}
 		#endregion
 
 		#region [Types]
-		public override NasmType DeclareType(string name){ throw new NotImplementedException(); }
+		public override NasmType DeclareType(string name)
+		{
+			//var func = new NasmType(CurrentScope, CurrentScope.VarsCount, this) { ParamsCount = args.Length };
+			//CurrentScope.FuncTypePos.Add(func);
+			//CurrentScope.VarsCount++;
+			//return func;
+			throw new NotImplementedException();
+		}
 
 		public override NasmType BindRecordType(string name, Tuple<string, NasmType>[] members, bool global = false){ throw new NotImplementedException(); }
 		public override void BindRecordType(NasmType aheadedtype, Tuple<string, NasmType>[] members, bool global = false){ throw new NotImplementedException(); }
@@ -256,7 +303,7 @@ namespace TigerCs.Emitters.NASM
 					return true;
 
 				case "printi":
-					function = std["printi"] = new NasmCFunction("_cprinti", false, this);
+					function = std["printi"] = new NasmCFunction(PrintIFunctionLabel, false, this, true, "PrintI");
 					return true;
 
 				default:
@@ -372,7 +419,8 @@ namespace TigerCs.Emitters.NASM
 		public override NasmHolder GetParam(int position)
 		{
 			if (CurrentScope.ScopeType == NasmScopeType.Nested) throw new InvalidOperationException("no function scope");
-			return new NasmHolder(CurrentScope, 4 * (position + 3));
+			if (position < 0 || position >= CurrentScope.ArgumentsCount) throw new ArgumentException("params position exided");
+			return new NasmHolder(CurrentScope, -(position + 4));
 		}
 
 		/// <summary>
@@ -511,7 +559,16 @@ namespace TigerCs.Emitters.NASM
 		/// [IMPLEMENTATION_TIP] adds a comment befor enter the scope on the compiled code
 		/// </param>
 		[ScopeChanger(Reason = "Creates and enters in a nested scope", ScopeName = "InnerScope_<scopelabel>")]
-		public override void EnterNestedScope(bool definetype = false, string namehint = null){ throw new NotImplementedException(); }
+		public override void EnterNestedScope(bool definetype = false, string namehint = null)
+		{
+			CurrentScope = new NasmEmitterScope(CurrentScope, g.GNext(), g.GNext(), g.GNext(), g.GNext(), NasmScopeType.Nested);
+
+			if (!string.IsNullOrWhiteSpace(namehint)) fw.WriteLine(";" + namehint);
+			fw.WriteLine(string.Format("_{0}:", CurrentScope.BeforeEnterScope.ToString("N")));
+			fw.IncrementIndentation();
+			CurrentScope.WriteEnteringCode(fw);
+			fw.WriteLine(string.Format("_{0}:", CurrentScope.BiginScope.ToString("N")));
+        }
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] This should free any memory reserved in the scope that is about to leave.
@@ -521,15 +578,35 @@ namespace TigerCs.Emitters.NASM
 		[ScopeChanger(Reason = "Closes the current scope and returns to it's parent")]
 		public override void LeaveScope()
 		{
-			if (SetLabel())
-			{
-				if (CurrentScope.ScopeType == NasmScopeType.Nested)
-					CurrentScope.WirteCloseCode(fw, true, false);
-				else fw.WriteLine("nop");
-			}
+			fw.WriteLine(string.Format("_{0}:", CurrentScope.EndScope.ToString("N")));
+			if (SetLabel() && CurrentScope.ScopeType != NasmScopeType.Nested)
+				fw.WriteLine("nop");
+
+			if (CurrentScope.ScopeType == NasmScopeType.Nested)
+				CurrentScope.WirteCloseCode(fw, true, false);
+
 			fw.DecrementIndentation();
-			fw.WriteLine(string.Format("_{0}:", CurrentScope.BiginScope.ToString("N")));
+			fw.WriteLine(string.Format("_{0}:", CurrentScope.AfterEndScope.ToString("N")));
+			var f = CurrentScope.DeclaringFunction;
+			var label = CurrentScope.BeforeEnterScope;
 			CurrentScope = CurrentScope.Parent;
+
+			if (f != null)
+			{
+				var reg = CurrentScope.Lock.LockGPR(Register.EAX);
+				bool stackback = reg == null;
+				if (stackback)
+				{
+					fw.WriteLine("push " + Register.EAX);
+					reg = Register.EAX;
+				}
+
+				NasmFunction.AlocateFunction(fw, reg.Value, CurrentScope, this, label);				
+				f.StackBackValue(reg.Value, fw, CurrentScope);
+
+				if (stackback) fw.WriteLine("pop " + Register.EAX);
+				else CurrentScope.Lock.Release(reg.Value);
+			}
 		}
 
 		#endregion
@@ -551,13 +628,13 @@ namespace TigerCs.Emitters.NASM
 		/// <summary>
 		/// Ends in a label
 		/// </summary>
-		public void CatchAndRethrow()
+		public static void CatchAndRethrow(FormatWriter fw, NasmEmitterScope acceding, NasmEmitter bound)
 		{
 			fw.WriteLine(string.Format("cmp {0}, dword {1}", Register.ECX, ErrorCode));
-			var ndoit = ReserveInstructionLabel("[no error]");
+			var ndoit = bound.g.GNext();
 			fw.WriteLine(string.Format("jne _{0}", ndoit.ToString("N")));
 
-			var curr = CurrentScope;
+			var curr = acceding;
 			while (curr != null && curr.ScopeType == NasmScopeType.Nested)
 			{
 				curr.WirteCloseCode(fw, false, true);
@@ -566,7 +643,7 @@ namespace TigerCs.Emitters.NASM
 
 			if (curr != null) curr.WirteCloseCode(fw, false, true);
 
-			ApplyReservedLabel(ndoit);
+			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
 		}
 
 		public void AddExtern(string exf)
@@ -595,11 +672,11 @@ namespace TigerCs.Emitters.NASM
 			}
 
 			return f.Flush();
-		}
+		}		
 
-		void AddPrintS(FormatWriter fw)
+		static void AddPrintS(FormatWriter fw)
 		{
-			fw.WriteLine("_cprintS:");
+			fw.WriteLine(PrintSFunctionLabel + ":");
 			fw.IncrementIndentation();
 			fw.WriteLine("mov EAX, [ESP + 4]");
 			fw.WriteLine("add EAX, 4");//size space
@@ -614,9 +691,9 @@ namespace TigerCs.Emitters.NASM
 			fw.DecrementIndentation();
 		}
 
-		void AddPrintI(FormatWriter fw)
+		static void AddPrintI(FormatWriter fw)
 		{
-			fw.WriteLine("_cprintI:");
+			fw.WriteLine(PrintIFunctionLabel + ":");
 			fw.IncrementIndentation();
 			fw.WriteLine("mov EAX, [ESP + 4]");
 			fw.WriteLine("push EAX");
@@ -629,6 +706,7 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine("");
 			fw.DecrementIndentation();
 		}
+
 
 		void AddExterns()
 		{

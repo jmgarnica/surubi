@@ -12,16 +12,20 @@ namespace TigerCs.Emitters.NASM
 		public int VarsCount { get; set; }
 		public readonly int ArgumentsCount;
 		public readonly NasmScopeType ScopeType;
+		public readonly NasmFunction DeclaringFunction;
 
 		public List<NasmMember> FuncTypePos { get; private set; }
+		public Queue<int> ReleasedTempVars { get; set; }
 
-		public NasmEmitterScope(NasmEmitterScope parent, Guid beforeenterlabel, Guid biginlabel, Guid endlabel, NasmScopeType function = NasmScopeType.Nested, int argscount = -1)
-			: base(parent, beforeenterlabel, biginlabel, endlabel)
+		public NasmEmitterScope(NasmEmitterScope parent, Guid beforeenterlabel, Guid biginlabel, Guid endlabel, Guid afterend, NasmScopeType function = NasmScopeType.Nested, int argscount = 0, NasmFunction declaringfucn = null)
+			: base(parent, beforeenterlabel, biginlabel, endlabel, afterend)
 		{
 			Lock = new RegisterLock();
 			FuncTypePos = new List<NasmMember>();
 			ArgumentsCount = argscount;
 			ScopeType = function;
+			ReleasedTempVars = new Queue<int>();
+			DeclaringFunction = declaringfucn;
 		}
 
 		public void WriteEnteringCode(FormatWriter fw)
@@ -31,6 +35,7 @@ namespace TigerCs.Emitters.NASM
 			{
 				fw.WriteLine("mov EBX, ESP");
 				fw.WriteLine(string.Format("add EBX, {0}", 4 * (ArgumentsCount + 2)));
+				fw.WriteLine("mov EBX, [EBX]");
 				fw.WriteLine("push EBX");
 			}
 			fw.WriteLine("mov EBP, ESP");
@@ -69,6 +74,7 @@ namespace TigerCs.Emitters.NASM
 				Lock = ll;
 
 				return FormatWriter.Indent(f.Flush(), indent);
+				//return f.Flush();
 			}));
 
 			if (releaselocks) Lock.ReleaseAll();

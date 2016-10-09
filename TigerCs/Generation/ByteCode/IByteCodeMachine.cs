@@ -159,8 +159,13 @@ namespace TigerCs.Generation.ByteCode
 		Guid EndScope { get; }
 
 		/// <summary>
+		/// Scope dependent label, after exiting the scope
+		/// </summary>
+		Guid AfterEndScope { get; }
+
+		/// <summary>
 		/// Returns the next instruction label if there is one asingned, Guid.empty other way, if not empty setting
-	    /// a new label only will have effect on the commentary and applying a reserved label will result in
+		/// a new label only will have effect on the commentary and applying a reserved label will result in
 		/// an InvalidOperationException
 		/// </summary>
 		Guid NextInstructionLabel { get; }

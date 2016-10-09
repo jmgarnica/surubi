@@ -152,17 +152,19 @@ namespace TigerCs.Emitters
 		/// <summary>
 		/// Scope dependent label, before enter the scope
 		/// </summary>
-		public virtual Guid BeforeEnterScope { get; protected set; }
+		public Guid BeforeEnterScope { get { return CurrentScope.BeforeEnterScope; } }
 
 		/// <summary>
 		/// Scope dependent label, first instruction of the current scope
 		/// </summary>
-		public virtual Guid BiginScope { get; protected set; }
+		public Guid BiginScope { get { return CurrentScope.BiginScope; } }
 
 		/// <summary>
 		/// Scope dependent label, before exiting the scope
 		/// </summary>
-		public virtual Guid EndScope { get; protected set; }
+		public Guid EndScope { get { return CurrentScope.EndScope; } }
+
+		public Guid AfterEndScope { get { return CurrentScope.AfterEndScope; } }
 
 		/// <summary>
 		/// Returns the next instruction label if there is one asingned, Guid.empty other way, if not empty setting
