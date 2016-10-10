@@ -8,7 +8,7 @@ namespace TigerCs.Emitters.NASM
 {
 	public class NasmEmitterScope : EmitterScope<NasmEmitterScope>
 	{
-		public RegisterLock Lock { get; private set; }
+		public RegisterLock Lock { get; set; }
 		public int VarsCount { get; set; }
 		public readonly int ArgumentsCount;
 		public readonly NasmScopeType ScopeType;

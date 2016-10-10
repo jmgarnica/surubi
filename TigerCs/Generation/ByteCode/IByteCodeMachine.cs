@@ -31,7 +31,7 @@ namespace TigerCs.Generation.ByteCode
 		#region [Holders]
 		H AddConstant(int value);
 		H AddConstant(string value);
-		H BindVar(T tigertype, string name = null, bool global = false);
+		H BindVar(T tigertype, H defaultvalue = null, string name = null, bool global = false);
 
 		H StaticMemberAcces(T tigertype, H op1, int index);
 		#endregion

@@ -42,7 +42,7 @@ namespace TigerCs.Emitters
 		#region [Holders]
 		public abstract H AddConstant(int value);
 		public abstract H AddConstant(string value);
-		public abstract H BindVar(T tigertype, string name = null, bool global = false);
+		public abstract H BindVar(T tigertype, H defaultvalue = null, string name = null, bool global = false);
 		public abstract H StaticMemberAcces(T tigertype, H op1, int index);
 		#endregion
 

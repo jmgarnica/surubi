@@ -15,8 +15,7 @@ namespace TigerCs.Emitters.NASM
 		public const string StringConstName = "stringconst";
 		public const string PrintSFunctionLabel = "_cprintS";
 		public const string PrintIFunctionLabel = "_cprintI";
-		public const string MemberReadAccessLabel = "_memberreadaccess";
-		public const string MemberWriteAccessLabel = "_memberwriteaccess";
+
 		public const int ErrorCode = 0xe7707;
 
 		[InArgument(Comment = "the name of the output file, empty for standar output", ConsoleShortName = "-o", DefaultValue ="out.asm")]
@@ -38,13 +37,14 @@ namespace TigerCs.Emitters.NASM
 		{
 			Externs = new HashSet<string>();
 			std = new Dictionary<string, NasmFunction>();
-			PrintS = new NasmCFunction(PrintSFunctionLabel, false, this, true, "PrintS");
+			PrintS = new NasmCFunction(PrintSFunctionLabel, false, this, name: "PrintS");
 			std["prints"] = PrintS;
 			fw = new FormatWriter();
 			NasmType.Int = new NasmType(null, -1, NasmRefType.None);
 			NasmType.String = new NasmType(null, -1, NasmRefType.Dynamic, -1);
-			NasmType.RMemberAccess = new NasmCFunction(MemberReadAccessLabel, false, this, true, "MemberReadAccess");
-			NasmType.WMemberAccess = new NasmCFunction(MemberWriteAccessLabel, false, this, true, "MemberWriteAccess");
+			NasmType.QuadWordRMemberAccess = new NasmMacroFunction(MemberReadAccess, this, "MemberReadAccess");
+			NasmType.QuadWordWMemberAccess = new NasmMacroFunction(MemberWriteAccess, this,"MemberWriteAccess");
+			NasmType.ByteRMemberAccess = new NasmMacroFunction(MemberReadAccessByteString, this, "MemberReadAccess(Bytes)");
 		}
 
 		public override void InitializeCodeGeneration(ErrorReport report)
@@ -138,6 +138,11 @@ namespace TigerCs.Emitters.NASM
 		public override void EmitError(int code, string message = null)
 		{
 			SetLabel();
+			var l = CurrentScope.Lock;
+			CurrentScope.Lock = new RegisterLock();
+
+			fw.WriteLine(string.Format(";emitting error {0}{1}", code, message != null ? ": " + message : ""));
+			fw.IncrementIndentation();
 			var ret = AddConstant(code);
 			if (message != null)
 			{
@@ -153,6 +158,8 @@ namespace TigerCs.Emitters.NASM
 			}
 
 			if (curr != null) curr.WirteCloseCode(fw, false, true, ret);
+			fw.DecrementIndentation();
+			CurrentScope.Lock = l;
 		}
 
 		/// <summary>
@@ -184,7 +191,7 @@ namespace TigerCs.Emitters.NASM
 			StringConstEnd += value.Length + 5;// 4 for size and 1 for \0
 			return svar;
 		}
-		public override NasmHolder BindVar(NasmType type, string name = null, bool global = false)
+		public override NasmHolder BindVar(NasmType type, NasmHolder defaultvalue = null, string name = null, bool global = false)
 		{
 			NasmHolder v;
 			if (name != null || CurrentScope.ReleasedTempVars.Count <= 0)
@@ -195,6 +202,11 @@ namespace TigerCs.Emitters.NASM
 			}
 			else
 				v = new NasmHolder(CurrentScope, CurrentScope.ReleasedTempVars.Dequeue());
+
+			if (defaultvalue == null)
+				defaultvalue = AddConstant(0);
+
+			InstrAssing(v, defaultvalue);
 			
 			return v;
 		}
@@ -207,7 +219,22 @@ namespace TigerCs.Emitters.NASM
 		/// <returns></returns>
 		public override NasmHolder StaticMemberAcces(NasmType tigertype, NasmHolder op1, int index)
 		{
-			return new NasmReference(op1, index, CurrentScope);
+			if (index < 0)
+				throw new IndexOutOfRangeException("index must be non negative");
+			switch (tigertype.RefType)
+			{
+				case NasmRefType.None:
+					throw new InvalidOperationException("the provided type has no members to be referenced");
+				case NasmRefType.Fixed:
+					if (index >= tigertype.AsRefSize)
+						throw new IndexOutOfRangeException("index exceed members count");
+					break;
+				case NasmRefType.Dynamic:
+				case NasmRefType.NoSet:
+				default:
+					break;
+			}
+			return new NasmReference(op1, index, CurrentScope, ReferenceEquals(tigertype, NasmType.String) ? WordSize.Byte : WordSize.DWord);
 		}
 		#endregion
 
@@ -303,7 +330,7 @@ namespace TigerCs.Emitters.NASM
 					return true;
 
 				case "printi":
-					function = std["printi"] = new NasmCFunction(PrintIFunctionLabel, false, this, true, "PrintI");
+					function = std["printi"] = new NasmCFunction(PrintIFunctionLabel, false, this, name: "PrintI");
 					return true;
 
 				default:
@@ -448,6 +475,7 @@ namespace TigerCs.Emitters.NASM
 			{
 				returnval.StackBackValue(reg.Value, fw, CurrentScope);
 				if (stackbacked) fw.WriteLine("pop " + reg.Value);
+				else CurrentScope.Lock.Release(reg.Value);
 			}
 
 		}
@@ -630,6 +658,8 @@ namespace TigerCs.Emitters.NASM
 		/// </summary>
 		public static void CatchAndRethrow(FormatWriter fw, NasmEmitterScope acceding, NasmEmitter bound)
 		{
+
+			fw.IncrementIndentation();
 			fw.WriteLine(string.Format("cmp {0}, dword {1}", Register.ECX, ErrorCode));
 			var ndoit = bound.g.GNext();
 			fw.WriteLine(string.Format("jne _{0}", ndoit.ToString("N")));
@@ -637,12 +667,12 @@ namespace TigerCs.Emitters.NASM
 			var curr = acceding;
 			while (curr != null && curr.ScopeType == NasmScopeType.Nested)
 			{
-				curr.WirteCloseCode(fw, false, true);
+				curr.WirteCloseCode(fw, false, false);
 				curr = curr.Parent;
 			}
 
 			if (curr != null) curr.WirteCloseCode(fw, false, true);
-
+			fw.DecrementIndentation();
 			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
 		}
 
@@ -707,6 +737,96 @@ namespace TigerCs.Emitters.NASM
 			fw.DecrementIndentation();
 		}
 
+		/// <summary> 
+		/// parameters:
+		/// IHolder : int -> element index
+		/// IHolder : instance
+		/// returns:
+		/// member value
+		/// 
+		/// throws IndexOutOfRange Error
+		/// </summary>
+		static void MemberReadAccess(FormatWriter fw, NasmEmitter bound, RegisterLock locks, Register[] args)
+		{
+			Guid doit = bound.g.GNext();
+			Guid ndoit = bound.g.GNext();
+			fw.IncrementIndentation();
+
+			//TODO: revisar chekeo de errores
+			fw.WriteLine(string.Format("cmp {0}, 0", args[1]));
+			fw.WriteLine(string.Format("jl _{0}", doit.ToString("N")));
+			fw.WriteLine(string.Format("cmp {0}, [{1}]", args[1], args[0]));
+			fw.WriteLine(string.Format("jge _{0}", doit.ToString("N")));
+
+			fw.WriteLine(string.Format("jmp _{0}", ndoit.ToString("N")));
+			fw.WriteLine(string.Format("_{0}:", doit.ToString("N")));
+			bound.EmitError(1, "Index out of range");
+
+			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
+			fw.WriteLine("inc " + args[1]);
+			fw.WriteLine(string.Format("shl {0}, 2", args[1]));			
+			fw.WriteLine(string.Format("add {0}, {1}", args[0], args[1]));
+			fw.WriteLine(string.Format("mov {0}, [{0}]", args[0]));
+			fw.DecrementIndentation();
+		}
+
+		static void MemberReadAccessByteString(FormatWriter fw, NasmEmitter bound, RegisterLock locks, Register[] args)
+		{
+			Guid doit = bound.g.GNext();
+			Guid ndoit = bound.g.GNext();
+			fw.IncrementIndentation();
+
+			//TODO: revisar chekeo de errores
+			fw.WriteLine(string.Format("cmp {0}, 0", args[1]));
+			fw.WriteLine(string.Format("jl _{0}", doit.ToString("N")));
+			fw.WriteLine(string.Format("cmp {0}, [{1}]", args[1], args[0]));
+			fw.WriteLine(string.Format("jge _{0}", doit.ToString("N")));
+
+			fw.WriteLine(string.Format("jmp _{0}", ndoit.ToString("N")));
+			fw.WriteLine(string.Format("_{0}:", doit.ToString("N")));
+			bound.EmitError(1, "Index out of range");
+
+			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
+			fw.WriteLine(string.Format("add {0}, 4", args[1]));
+			fw.WriteLine(string.Format("add {0}, {1}", args[0], args[1]));
+			fw.WriteLine(string.Format("mov {0}, [{1}]", args[0].ByteVersion(), args[0]));
+			fw.WriteLine(string.Format("movzx {0}, {1}", args[0], args[0].ByteVersion()));
+			fw.DecrementIndentation();
+		}
+
+		/// <summary> 
+		/// parameters:
+		/// IHolder : source
+		/// IHolder : int -> element index
+		/// IHolder : instance
+		/// returns:
+		/// void
+		/// 
+		/// throws IndexOutOfRange Error
+		/// </summary>
+		static void MemberWriteAccess(FormatWriter fw, NasmEmitter bound, RegisterLock locks, Register[] args)
+		{
+			Guid doit = bound.g.GNext();
+			Guid ndoit = bound.g.GNext();
+			fw.IncrementIndentation();
+
+			//TODO: revisar chekeo de errores
+			fw.WriteLine(string.Format("cmp {0}, 0", args[1]));
+			fw.WriteLine(string.Format("jl _{0}", doit.ToString("N")));
+			fw.WriteLine(string.Format("cmp {0}, [{1}]", args[1], args[0]));
+			fw.WriteLine(string.Format("jge _{0}", doit.ToString("N")));
+
+			fw.WriteLine(string.Format("jmp _{0}", ndoit.ToString("N")));
+			fw.WriteLine(string.Format("_{0}:", doit.ToString("N")));
+			bound.EmitError(1, "Index out of range");
+
+			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
+			fw.WriteLine("inc " + args[1]);
+			fw.WriteLine(string.Format("shl {0}, 2", args[1]));
+			fw.WriteLine(string.Format("add {0}, {1}", args[0], args[1]));
+			fw.WriteLine(string.Format("mov [{0}], {1}", args[0], args[2]));
+			fw.DecrementIndentation();
+		}
 
 		void AddExterns()
 		{

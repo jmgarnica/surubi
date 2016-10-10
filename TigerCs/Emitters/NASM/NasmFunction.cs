@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TigerCs.Generation.ByteCode;
+using System.Linq;
 
 namespace TigerCs.Emitters.NASM
 {
@@ -164,7 +165,7 @@ namespace TigerCs.Emitters.NASM
 		public override void Call(FormatWriter fw, Register? result, NasmEmitterScope accedingscope, params NasmMember[] args)
 		{
 			if (args.Length > 4) throw new ArgumentException("Macros can't have more than 4 parameters");
-
+			fw.WriteLine(string.Format(";before calling {0}", Name));
 			var pops = new List<Register>(4);
 			var param = new List<Register>(4);
 			for (int i = 0; i < args.Length; i++)
@@ -177,6 +178,7 @@ namespace TigerCs.Emitters.NASM
 					fw.WriteLine(string.Format("push {0}", d));
 					reg = d;
 				}
+				args[i].PutValueInRegister(reg.Value, fw, accedingscope);
 				param.Add(reg.Value);
             }
 			if (result != null && param.Count == 0 && accedingscope.Lock.Locked(Register.EAX))
@@ -184,7 +186,7 @@ namespace TigerCs.Emitters.NASM
 				pops.Add(Register.EAX);
 				fw.WriteLine(string.Format("push {0}", Register.EAX));
 			}
-
+			fw.WriteLine(string.Format(";calling Macro {0}", Name));
 			CallPoint(fw, bound, accedingscope.Lock.CloneState(), param.ToArray());
 
 			if (result != null)
@@ -200,6 +202,11 @@ namespace TigerCs.Emitters.NASM
 
 			for (int i = pops.Count - 1; i >= 0; i--)
 				fw.WriteLine(string.Format("pop {0}", pops[i]));
+
+			foreach (var r in param.Except(pops))
+			{
+				accedingscope.Lock.Release(r);
+			}
 		}
 	}
 }

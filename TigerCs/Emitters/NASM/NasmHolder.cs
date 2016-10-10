@@ -74,19 +74,35 @@ namespace TigerCs.Emitters.NASM
 	{
 		NasmHolder H;
 		int offset;
-		public NasmReference(NasmHolder h, int offset, NasmEmitterScope dscope = null)
+		WordSize size;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="h"></param>
+		/// <param name="offset"></param>
+		/// <param name="dscope">
+		/// 
+		/// </param>
+		/// <param name="size">
+		/// Only on byte an dword mode
+		/// </param>
+		public NasmReference(NasmHolder h, int offset, NasmEmitterScope dscope = null, WordSize size = WordSize.DWord)
 			:base(dscope ?? h.DeclaratingScope, 0)
-		{
+		{ 
 			H = h;
-			this.offset = (offset + 1)* 4; //+1 see NasmEmitter.InstrSize <remarks>[second mode]</remarks>
+			this.size = size;
+			this.offset = 4 + offset * (int)size; //+4 see NasmEmitter.InstrSize <remarks>[second mode]</remarks>
 		}
 
 		public override void PutValueInRegister(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
 		{
 			H.PutValueInRegister(gpr, fw, accedingscope);
 			fw.WriteLine(string.Format("add {0}, {1}", gpr, offset));
-			fw.WriteLine(string.Format("mov {0}, [{0}]", gpr));
-		}
+			fw.WriteLine(string.Format("mov {0}, [{1}]", size == WordSize.Byte ? gpr.ByteVersion() : gpr, gpr));
+			if (size == WordSize.Byte)
+				fw.WriteLine(string.Format("movzx {0}, {1}", gpr, gpr.ByteVersion()));
+        }
 
 		public override void StackBackValue(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
 		{
@@ -111,9 +127,10 @@ namespace TigerCs.Emitters.NASM
 
 			fw.WriteLine(string.Format("add {0}, {1}", reg.Value, -(DeclaringScopeIndex + 1) * 4));
 			fw.WriteLine(string.Format("mov {0}, [{0}]", reg.Value));
+			//<new code>
 			fw.WriteLine(string.Format("add {0}, {1}", reg.Value, offset));
-			fw.WriteLine(string.Format("mov [{0}], {1}", reg.Value, gpr));
-
+			fw.WriteLine(string.Format("mov [{0}], {1}", reg.Value, size == WordSize.Byte? gpr.ByteVersion() : gpr));
+			//</new code>
 			if (stackback)
 				fw.WriteLine("pop " + reg.Value);
 			else accedingscope.Lock.Release(reg.Value);

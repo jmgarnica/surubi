@@ -119,6 +119,19 @@ namespace TigerCs.Emitters.NASM
 		/// Destination Pointer
 		/// </summary>
 		EDI = 128,
+
+		AL = 513,
+		BL = 514,
+		CL = 516,
+		DL = 520
+	}
+
+	public enum WordSize
+	{
+		Byte = 1,
+		Word = 2,
+		DWord = 4,
+		QWord = 8
 	}
 
 	public static class RegisterExtensions
@@ -135,6 +148,12 @@ namespace TigerCs.Emitters.NASM
 				default:
 					return false;
 			}
+		}
+
+		public static Register ByteVersion(this Register r)
+		{
+			if (!r.GeneralPurposeRegister()) throw new InvalidOperationException("No General Purpose Register");
+			return r + 512;
 		}
 	}
 
