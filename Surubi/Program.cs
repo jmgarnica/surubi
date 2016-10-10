@@ -57,9 +57,11 @@ namespace Surubi
 			//e.Call(printi, new[] { _0 });
 
 
-			var _2 = e.AddConstant(5);
-			var res = e.BindVar(_int, e.StaticMemberAcces(_string, a, 2), "res");
-			e.Call(printi, new[] { res });
+			var _2 = e.AddConstant(2);
+			var res = e.BindVar(_int, e.AddConstant('t'), "res");
+			e.InstrAssing(e.StaticMemberAcces(_string, a, 2), res);
+			e.InstrAssing(e.StaticMemberAcces(_string, a, 0), e.AddConstant('j'));
+			e.Call(print, new[] { a });
 
 			e.Call(_string.DynamicMemberReadAccess, new[] { a, _2 }, res);
 			e.Call(printi, new[] { res });

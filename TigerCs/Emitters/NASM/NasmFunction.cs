@@ -143,7 +143,7 @@ namespace TigerCs.Emitters.NASM
 		/// <summary>
 		/// Return value always in args[0] or EAX when args.Length = 0
 		/// </summary>		
-		public delegate void MacroCall(FormatWriter fw, NasmEmitter bound, RegisterLock locks, Register[] args);
+		public delegate void MacroCall(FormatWriter fw, NasmEmitter bound, NasmEmitterScope acceding, Register[] args);
 
 		public readonly MacroCall CallPoint;
 		public NasmMacroFunction(MacroCall call, NasmEmitter bound, string macroname = "")
@@ -187,7 +187,7 @@ namespace TigerCs.Emitters.NASM
 				fw.WriteLine(string.Format("push {0}", Register.EAX));
 			}
 			fw.WriteLine(string.Format(";calling Macro {0}", Name));
-			CallPoint(fw, bound, accedingscope.Lock.CloneState(), param.ToArray());
+			CallPoint(fw, bound, accedingscope, param.ToArray());
 
 			if (result != null)
 			{

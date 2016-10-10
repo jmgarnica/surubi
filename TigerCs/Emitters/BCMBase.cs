@@ -10,7 +10,7 @@ namespace TigerCs.Emitters
 		where H : class, IHolder
 		where S : EmitterScope<S>
 	{
-		protected GuidGenerator g { get; private set; }
+		public GuidGenerator g { get; private set; }
 		protected string nexlabelcomment;
 		protected S CurrentScope;
 

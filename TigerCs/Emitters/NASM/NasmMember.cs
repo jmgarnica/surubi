@@ -29,8 +29,6 @@ namespace TigerCs.Emitters.NASM
 
 		public virtual void PutValueInRegister(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
 		{
-			fw.WriteLine("");
-
 			int levels = Levels(accedingscope);
 			if(levels < 0) throw new NasmEmitterException("Unreachable Member");
 

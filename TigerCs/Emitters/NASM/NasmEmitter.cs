@@ -138,28 +138,7 @@ namespace TigerCs.Emitters.NASM
 		public override void EmitError(int code, string message = null)
 		{
 			SetLabel();
-			var l = CurrentScope.Lock;
-			CurrentScope.Lock = new RegisterLock();
-
-			fw.WriteLine(string.Format(";emitting error {0}{1}", code, message != null ? ": " + message : ""));
-			fw.IncrementIndentation();
-			var ret = AddConstant(code);
-			if (message != null)
-			{
-				var ms = AddConstant(message);
-				PrintS.Call(fw, null, CurrentScope, ms);
-			}
-
-			var curr = CurrentScope;
-			while(curr != null && curr.ScopeType == NasmScopeType.Nested)
-			{
-				curr.WirteCloseCode(fw, false, true);				
-				curr = curr.Parent;
-			}
-
-			if (curr != null) curr.WirteCloseCode(fw, false, true, ret);
-			fw.DecrementIndentation();
-			CurrentScope.Lock = l;
+			EmitError(fw, CurrentScope, this, code, message);
 		}
 
 		/// <summary>
@@ -221,6 +200,7 @@ namespace TigerCs.Emitters.NASM
 		{
 			if (index < 0)
 				throw new IndexOutOfRangeException("index must be non negative");
+			bool dynamicupperboundcheck = false;
 			switch (tigertype.RefType)
 			{
 				case NasmRefType.None:
@@ -232,9 +212,10 @@ namespace TigerCs.Emitters.NASM
 				case NasmRefType.Dynamic:
 				case NasmRefType.NoSet:
 				default:
+					dynamicupperboundcheck = true;
 					break;
 			}
-			return new NasmReference(op1, index, CurrentScope, ReferenceEquals(tigertype, NasmType.String) ? WordSize.Byte : WordSize.DWord);
+			return new NasmReference(op1, index, this, CurrentScope, ReferenceEquals(tigertype, NasmType.String) ? WordSize.Byte : WordSize.DWord, dynamicupperboundcheck);
 		}
 		#endregion
 
@@ -641,6 +622,32 @@ namespace TigerCs.Emitters.NASM
 
 		#region [Helpers]
 
+		public static void EmitError(FormatWriter fw, NasmEmitterScope acceding, NasmEmitter bound, int code, string message = null)
+		{
+			var l = acceding.Lock;
+			acceding.Lock = new RegisterLock();
+
+			fw.WriteLine(string.Format(";emitting error {0}{1}", code, message != null ? ": " + message : ""));
+			fw.IncrementIndentation();
+			var ret = bound.AddConstant(code);
+			if (message != null)
+			{
+				var ms = bound.AddConstant(message);
+				bound.PrintS.Call(fw, null, acceding, ms);
+			}
+
+			var curr = acceding;
+			while (curr != null && curr.ScopeType == NasmScopeType.Nested)
+			{
+				curr.WirteCloseCode(fw, false, true);
+				curr = curr.Parent;
+			}
+
+			if (curr != null) curr.WirteCloseCode(fw, false, true, ret);
+			fw.DecrementIndentation();
+			acceding.Lock = l;
+		}
+
 		public bool SetLabel()
 		{
 			if (string.IsNullOrEmpty(nexlabelcomment)) return false;
@@ -746,7 +753,7 @@ namespace TigerCs.Emitters.NASM
 		/// 
 		/// throws IndexOutOfRange Error
 		/// </summary>
-		static void MemberReadAccess(FormatWriter fw, NasmEmitter bound, RegisterLock locks, Register[] args)
+		static void MemberReadAccess(FormatWriter fw, NasmEmitter bound, NasmEmitterScope acceding, Register[] args)
 		{
 			Guid doit = bound.g.GNext();
 			Guid ndoit = bound.g.GNext();
@@ -760,7 +767,7 @@ namespace TigerCs.Emitters.NASM
 
 			fw.WriteLine(string.Format("jmp _{0}", ndoit.ToString("N")));
 			fw.WriteLine(string.Format("_{0}:", doit.ToString("N")));
-			bound.EmitError(1, "Index out of range");
+			EmitError(fw, acceding, bound, 1, "Index out of range");
 
 			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
 			fw.WriteLine("inc " + args[1]);
@@ -770,7 +777,7 @@ namespace TigerCs.Emitters.NASM
 			fw.DecrementIndentation();
 		}
 
-		static void MemberReadAccessByteString(FormatWriter fw, NasmEmitter bound, RegisterLock locks, Register[] args)
+		static void MemberReadAccessByteString(FormatWriter fw, NasmEmitter bound, NasmEmitterScope acceding, Register[] args)
 		{
 			Guid doit = bound.g.GNext();
 			Guid ndoit = bound.g.GNext();
@@ -784,7 +791,7 @@ namespace TigerCs.Emitters.NASM
 
 			fw.WriteLine(string.Format("jmp _{0}", ndoit.ToString("N")));
 			fw.WriteLine(string.Format("_{0}:", doit.ToString("N")));
-			bound.EmitError(1, "Index out of range");
+			EmitError(fw, acceding, bound, 1, "Index out of range");
 
 			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
 			fw.WriteLine(string.Format("add {0}, 4", args[1]));
@@ -804,7 +811,7 @@ namespace TigerCs.Emitters.NASM
 		/// 
 		/// throws IndexOutOfRange Error
 		/// </summary>
-		static void MemberWriteAccess(FormatWriter fw, NasmEmitter bound, RegisterLock locks, Register[] args)
+		static void MemberWriteAccess(FormatWriter fw, NasmEmitter bound, NasmEmitterScope acceding, Register[] args)
 		{
 			Guid doit = bound.g.GNext();
 			Guid ndoit = bound.g.GNext();
@@ -818,7 +825,7 @@ namespace TigerCs.Emitters.NASM
 
 			fw.WriteLine(string.Format("jmp _{0}", ndoit.ToString("N")));
 			fw.WriteLine(string.Format("_{0}:", doit.ToString("N")));
-			bound.EmitError(1, "Index out of range");
+			EmitError(fw, acceding, bound, 1, "Index out of range");
 
 			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
 			fw.WriteLine("inc " + args[1]);
