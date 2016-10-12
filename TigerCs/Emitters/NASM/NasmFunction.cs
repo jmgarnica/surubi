@@ -18,7 +18,7 @@ namespace TigerCs.Emitters.NASM
 			Name = name;
 		}
 
-		public bool CFunction { get; protected set; }
+		public bool CFunction { get; set; }
 		public bool ErrorCheck { get; protected set; } = true;
 
 		public string Name { get; private set; }
@@ -145,6 +145,11 @@ namespace TigerCs.Emitters.NASM
 		/// </summary>		
 		public delegate void MacroCall(FormatWriter fw, NasmEmitter bound, NasmEmitterScope acceding, Register[] args);
 
+		/// <summary>
+		/// If not null must contains one register per expected argumet and the argumets are guaranteed to follow this order 
+		/// </summary>
+		public Register[] Requested { get; set; }
+
 		public readonly MacroCall CallPoint;
 		public NasmMacroFunction(MacroCall call, NasmEmitter bound, string macroname = "")
 			:base(null, -1, bound, macroname)
@@ -168,19 +173,38 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine(string.Format(";before calling {0}", Name));
 			var pops = new List<Register>(4);
 			var param = new List<Register>(4);
-			for (int i = 0; i < args.Length; i++)
+			if (Requested == null)
 			{
-				var d = (Register)(1 << i);
-                var reg = accedingscope.Lock.LockGPR(d);
-				if (reg == null)
+				for (int i = 0; i < args.Length; i++)
 				{
-					pops.Add(d);
-					fw.WriteLine(string.Format("push {0}", d));
-					reg = d;
+					var d = (Register)(1 << i);
+					var reg = accedingscope.Lock.LockGPR(d);
+					if (reg == null)
+					{
+						pops.Add(d);
+						fw.WriteLine(string.Format("push {0}", d));
+						reg = d;
+					}
+					args[i].PutValueInRegister(reg.Value, fw, accedingscope);
+					param.Add(reg.Value);
 				}
-				args[i].PutValueInRegister(reg.Value, fw, accedingscope);
-				param.Add(reg.Value);
-            }
+			}
+			else
+			{
+				if (Requested.Length != args.Length)
+					throw new ArgumentException("unexpected arguments number");
+				param.AddRange(Requested);
+				for (int i = 0; i < args.Length; i++)
+				{
+					if (accedingscope.Lock.Locked(Requested[i]))
+					{
+						pops.Add(Requested[i]);
+						fw.WriteLine(string.Format("push {0}", Requested[i]));
+					}
+					args[i].PutValueInRegister(Requested[i], fw, accedingscope);
+				}
+					
+			}
 			if (result != null && param.Count == 0 && accedingscope.Lock.Locked(Register.EAX))
 			{
 				pops.Add(Register.EAX);

@@ -15,6 +15,8 @@ namespace TigerCs.Emitters.NASM
 		public const string StringConstName = "stringconst";
 		public const string PrintSFunctionLabel = "_cprintS";
 		public const string PrintIFunctionLabel = "_cprintI";
+		public const string MallocLabel = "_malloc";
+		public const string FreeLabel = "_free";
 
 		public const int ErrorCode = 0xe7707;
 
@@ -35,16 +37,20 @@ namespace TigerCs.Emitters.NASM
 
 		public NasmEmitter()
 		{
+			fw = new FormatWriter();
 			Externs = new HashSet<string>();
 			std = new Dictionary<string, NasmFunction>();
+
 			PrintS = new NasmCFunction(PrintSFunctionLabel, false, this, name: "PrintS");
 			std["prints"] = PrintS;
-			fw = new FormatWriter();
-			NasmType.Int = new NasmType(null, -1, NasmRefType.None);
-			NasmType.String = new NasmType(null, -1, NasmRefType.Dynamic, -1);
+
+			NasmType.Int = new NasmType(NasmRefType.None);
+			NasmType.String = new NasmType(NasmRefType.Dynamic, -1);
 			NasmType.QuadWordRMemberAccess = new NasmMacroFunction(MemberReadAccess, this, "MemberReadAccess");
 			NasmType.QuadWordWMemberAccess = new NasmMacroFunction(MemberWriteAccess, this,"MemberWriteAccess");
 			NasmType.ByteRMemberAccess = new NasmMacroFunction(MemberReadAccessByteString, this, "MemberReadAccess(Bytes)");
+			NasmType.ArrayAllocator = new NasmMacroFunction(ArrayAllocator, this, "ArrayAllocator") { Requested = new[] { Register.ECX, Register.EAX } };
+			NasmType.ByteZeroEndArrayAllocator = new NasmMacroFunction(ArrayAllocatorBytesZeroEnd, this, "ArrayAllocator") { Requested = new[] { Register.ECX, Register.EAX } };
 		}
 
 		public override void InitializeCodeGeneration(ErrorReport report)
@@ -105,8 +111,8 @@ namespace TigerCs.Emitters.NASM
 					sb.Append(string.Format("extern {0}\n", ex));
 				return sb.ToString();
 			}));
-			NasmFunction.Malloc = new NasmCFunction("_malloc", true, this,name: "Malloc");
-			NasmFunction.Free = new NasmCFunction("_free", true, this, name: "Free");
+			NasmFunction.Malloc = new NasmCFunction(MallocLabel, true, this,name: "Malloc");
+			NasmFunction.Free = new NasmCFunction(FreeLabel, true, this, name: "Free");
 
 			fw.WriteLine("global CMAIN");
 			BlankLine();
@@ -268,18 +274,82 @@ namespace TigerCs.Emitters.NASM
 		#region [Types]
 		public override NasmType DeclareType(string name)
 		{
-			//var func = new NasmType(CurrentScope, CurrentScope.VarsCount, this) { ParamsCount = args.Length };
-			//CurrentScope.FuncTypePos.Add(func);
-			//CurrentScope.VarsCount++;
-			//return func;
-			throw new NotImplementedException();
+			var type = new NasmType(NasmRefType.NoSet, name: name);
+			return type;
 		}
 
-		public override NasmType BindRecordType(string name, Tuple<string, NasmType>[] members, bool global = false){ throw new NotImplementedException(); }
-		public override void BindRecordType(NasmType aheadedtype, Tuple<string, NasmType>[] members, bool global = false){ throw new NotImplementedException(); }
+		public override NasmType BindRecordType(string name, Tuple<string, NasmType>[] members, bool global = false)
+		{
+			var type = DeclareType(name);
+			BindRecordType(type, members, global);
+			return type;
+		}
+		public override void BindRecordType(NasmType aheadedtype, Tuple<string, NasmType>[] members, bool global = false)
+		{
+			aheadedtype.RefType = NasmRefType.Fixed;
+			aheadedtype.AsRefSize = members.Length;
+			SetLabel();
+			CurrentScope = new NasmEmitterScope(CurrentScope, g.GNext(), g.GNext(), g.GNext(), g.GNext(), NasmScopeType.CFunction, members.Length);
+			fw.WriteLine("");
+			fw.WriteLine(";record " + aheadedtype.Name);
+			fw.WriteLine(string.Format("jmp _{0}", CurrentScope.AfterEndScope.ToString("N")));
+			fw.WriteLine(string.Format("_{0}:", CurrentScope.BeforeEnterScope.ToString("N")));
+			fw.IncrementIndentation();			
 
-		public override NasmType BindArrayType(string name, NasmType underlayingtype){ throw new NotImplementedException(); }
-		public override void BindArrayType(NasmType aheadedtype, NasmType underlayingtype){ throw new NotImplementedException(); }
+			fw.WriteLine(string.Format("mov {0}, {1}", Register.ECX, (members.Length + 1) * 4));
+			fw.WriteLine("push " + Register.ECX);
+			fw.WriteLine("call " + MallocLabel);
+			fw.WriteLine(string.Format("add {0}, 4 ", Register.ESP));
+
+			fw.WriteLine(string.Format("mov {0}, {1}", Register.ECX, members.Length));
+			fw.WriteLine(string.Format("move [{0}], {1}", Register.EAX, Register.ECX));
+			fw.WriteLine(string.Format("move {0}, {1}", Register.EDI, Register.EAX));
+			fw.WriteLine(string.Format("add {0}, {1}", Register.EDI, 4));
+
+			fw.WriteLine(string.Format("move {0}, {1}", Register.ESI, Register.ESP));
+			fw.WriteLine(string.Format("add {0}, {1}", Register.ESI, 4));
+
+			fw.WriteLine("cdl");
+			fw.WriteLine("rep movsd");
+
+			fw.WriteLine("ret");
+			fw.DecrementIndentation();
+			fw.WriteLine(string.Format("_{0}:", CurrentScope.AfterEndScope.ToString("N")));
+
+			var label = CurrentScope.BeforeEnterScope;
+			CurrentScope = CurrentScope.Parent;
+
+			var f = new NasmFunction(CurrentScope, CurrentScope.VarsCount, this) { ParamsCount = members.Length, CFunction = true };
+			CurrentScope.FuncTypePos.Add(f);
+			CurrentScope.VarsCount++;
+			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
+			bool stackback = reg == null;
+			if (stackback)
+			{
+				fw.WriteLine("push " + Register.EAX);
+				reg = Register.EAX;
+			}
+
+			NasmFunction.AlocateFunction(fw, reg.Value, CurrentScope, this, label);
+			f.StackBackValue(reg.Value, fw, CurrentScope);
+
+			if (stackback) fw.WriteLine("pop " + Register.EAX);
+			else CurrentScope.Lock.Release(reg.Value);
+
+			aheadedtype.Allocator = f;
+		}
+
+		public override NasmType BindArrayType(string name, NasmType underlayingtype)
+		{
+			var type = DeclareType(name);
+			BindArrayType(type, underlayingtype);
+			return type;
+		}
+		public override void BindArrayType(NasmType aheadedtype, NasmType underlayingtype)
+		{
+			aheadedtype.RefType = NasmRefType.Dynamic;
+			aheadedtype.AsRefSize = -1;
+		}
 		#endregion
 
 		#region [STD]
@@ -304,6 +374,7 @@ namespace TigerCs.Emitters.NASM
 
 		public override bool TryBindSTDFunction(string name, out NasmFunction function)
 		{
+			if (std.TryGetValue(name.ToLower(), out function)) return true;
 			switch (name.ToLower())
 			{
 				case "prints":
@@ -442,21 +513,25 @@ namespace TigerCs.Emitters.NASM
 		public override void Call(NasmFunction function, NasmHolder[] args, NasmHolder returnval = null)
 		{
 			var reg = returnval != null ? CurrentScope.Lock.LockGPR(Register.EDX) : null;
-			bool stackbacked = false;
+			bool stackback = false;
 			if (returnval != null && reg == null)
 			{
-				stackbacked = true;
+				stackback = true;
 				fw.WriteLine("push " + Register.EDX);
 				reg = Register.EDX;
 			}
+			if (reg != null) CurrentScope.Lock.Release(reg.Value);
 
 			function.Call(fw, reg, CurrentScope, args);
 
 			if (reg != null)
 			{
 				returnval.StackBackValue(reg.Value, fw, CurrentScope);
-				if (stackbacked) fw.WriteLine("pop " + reg.Value);
-				else CurrentScope.Lock.Release(reg.Value);
+				if (stackback)
+				{
+					fw.WriteLine("pop " + reg.Value);
+					CurrentScope.Lock.Lock(reg.Value);
+				}
 			}
 
 		}
@@ -691,6 +766,7 @@ namespace TigerCs.Emitters.NASM
 		string STD()
 		{
 			FormatWriter f = new FormatWriter();
+
 			foreach (var item in std)
 			{
 				switch (item.Key.ToLower())
@@ -707,7 +783,7 @@ namespace TigerCs.Emitters.NASM
 						throw new ArgumentException("No definition for " + item.Key);
 				}
 			}
-
+			
 			return f.Flush();
 		}		
 
@@ -741,6 +817,148 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine("xor ECX, ECX");
 			fw.WriteLine("ret");
 			fw.WriteLine("");
+			fw.DecrementIndentation();
+		}
+
+		/// <summary>
+		/// Gets the bounded function that will allocate a new object of this type
+		/// Array Case
+		/// parameters: left -> right = top -> down
+		/// 1 IHolder : int -> element count
+		/// 2 IHolder : ArrayType -> default value
+		/// returns :
+		/// IHolder -> array
+		/// </summary>
+		static void ArrayAllocator(FormatWriter fw, NasmEmitter bound, NasmEmitterScope acceding, Register[] args)
+		{
+
+			// ECX -> legth
+			// EAX -> Default value
+			fw.IncrementIndentation();
+			Guid ndoit = bound.g.GNext();
+			Guid zero = bound.g.GNext();
+
+			//<error checking>
+			fw.WriteLine(string.Format("cmp {0}, 0", Register.ECX));
+			fw.WriteLine(string.Format("jge _{0}", ndoit.ToString("N")));
+			EmitError(fw, acceding, bound, 2, "Array size must be non-negative");
+			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
+			//</error checking>
+
+			bool stackback = false;
+			var reg = acceding.Lock.LockGPR(Register.EBX);
+			if (reg == null)
+			{
+				stackback = true;
+				reg = Register.EBX;
+				fw.WriteLine(string.Format("push {0}", Register.EBX));
+			}
+			fw.WriteLine(string.Format(";push {0}", reg.Value));
+
+			fw.WriteLine(string.Format("push {0}", Register.EAX));
+			fw.WriteLine(string.Format("push {0}", Register.ECX));
+
+			acceding.Lock.Release(Register.EAX);
+			acceding.Lock.Release(Register.ECX);
+
+			fw.WriteLine(string.Format("inc {0}", Register.ECX));
+			fw.WriteLine(string.Format("shl {0}, {1}", Register.ECX, 2));
+			NasmFunction.Malloc.Call(fw, reg, acceding, new NasmRegisterHolder(Register.ECX));
+
+
+			fw.WriteLine(string.Format("pop {0}", Register.ECX));
+			fw.WriteLine(string.Format("pop {0}", Register.EAX));
+			acceding.Lock.Lock(Register.EAX);
+			acceding.Lock.Lock(Register.ECX);
+
+			fw.WriteLine(string.Format("mov {0}, {1}", Register.EDI, reg.Value));
+			fw.WriteLine(string.Format("mov [{0}], {1}", Register.EDI, Register.ECX));
+			fw.WriteLine(string.Format("add {0}, {1}", Register.EDI, 4));
+
+			fw.WriteLine(string.Format("cmp {0}, 0", Register.ECX));
+			fw.WriteLine(string.Format("je _{0}", zero.ToString("N")));			
+
+			fw.WriteLine("cld");
+			fw.WriteLine("rep stosd");
+
+			fw.WriteLine(string.Format("mov {0}, {1}", Register.ECX, reg.Value));
+
+			if (stackback) fw.WriteLine(string.Format("pop {0}", reg.Value));
+			else
+				acceding.Lock.Release(reg.Value);
+
+			fw.DecrementIndentation();
+			fw.WriteLine(string.Format("_{0}:", zero.ToString("N")));			
+		}
+
+		/// <summary>
+		/// Gets the bounded function that will allocate a new object of this type
+		/// Array Case
+		/// parameters: left -> right = top -> down
+		/// 1 IHolder : int -> element count
+		/// 2 IHolder : ArrayType -> default value
+		/// returns :
+		/// IHolder -> array
+		/// </summary>
+		static void ArrayAllocatorBytesZeroEnd(FormatWriter fw, NasmEmitter bound, NasmEmitterScope acceding, Register[] args)
+		{
+			// ECX -> legth
+			// EAX -> Default value
+			fw.IncrementIndentation();
+			Guid ndoit = bound.g.GNext();
+			Guid zero = bound.g.GNext();
+
+			//<error checking>
+			fw.WriteLine(string.Format("cmp {0}, 0", Register.ECX));
+			fw.WriteLine(string.Format("jge _{0}", ndoit.ToString("N")));
+			EmitError(fw, acceding, bound, 2, "Array size must be non-negative");
+			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
+			//</error checking>
+
+			bool stackback = false;
+			var reg = acceding.Lock.LockGPR(Register.EBX);
+			if (reg == null)
+			{
+				stackback = true;
+				reg = Register.EBX;
+				fw.WriteLine(string.Format("push {0}", Register.EBX));
+				
+			}
+			fw.WriteLine(string.Format(";push {0}",reg.Value));
+
+			fw.WriteLine(string.Format("push {0}", Register.EAX));
+			fw.WriteLine(string.Format("push {0}", Register.ECX));
+
+			acceding.Lock.Release(Register.EAX);
+			acceding.Lock.Release(Register.ECX);
+
+			fw.WriteLine(string.Format("add {0}, 5", Register.ECX));
+			NasmFunction.Malloc.Call(fw, reg, acceding, new NasmRegisterHolder(Register.ECX));
+
+			fw.WriteLine(string.Format("pop {0}", Register.ECX));
+			fw.WriteLine(string.Format("pop {0}", Register.EAX));
+			acceding.Lock.Lock(Register.EAX);
+			acceding.Lock.Lock(Register.ECX);
+
+			fw.WriteLine(string.Format("mov {0}, {1}", Register.EDI, reg.Value));
+			fw.WriteLine(string.Format("mov [{0}], {1}", Register.EDI, Register.ECX));
+			fw.WriteLine(string.Format("add {0}, {1}", Register.EDI, 4));
+
+			fw.WriteLine(string.Format("cmp {0}, 0", Register.ECX));
+			fw.WriteLine(string.Format("je _{0}", zero.ToString("N")));
+
+			fw.WriteLine("cld");
+			fw.WriteLine("rep stosb");
+
+			fw.WriteLine(string.Format("mov {0}, {1}", Register.ECX, reg.Value));
+
+			if (stackback) fw.WriteLine(string.Format("pop {0}", reg.Value));
+			else
+				acceding.Lock.Release(reg.Value);
+
+			fw.WriteLine(string.Format("_{0}:", zero.ToString("N")));
+			fw.WriteLine(string.Format("xor {0}, {0}", Register.EAX.ByteVersion()));
+			fw.WriteLine(string.Format("mov [{0}], {1}", Register.EDI, Register.EAX.ByteVersion()));
 			fw.DecrementIndentation();
 		}
 

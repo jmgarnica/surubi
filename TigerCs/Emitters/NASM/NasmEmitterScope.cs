@@ -14,14 +14,14 @@ namespace TigerCs.Emitters.NASM
 		public readonly NasmScopeType ScopeType;
 		public readonly NasmFunction DeclaringFunction;
 
-		public List<NasmMember> FuncTypePos { get; private set; }
+		public List<NasmFunction> FuncTypePos { get; private set; }
 		public Queue<int> ReleasedTempVars { get; set; }
 
 		public NasmEmitterScope(NasmEmitterScope parent, Guid beforeenterlabel, Guid biginlabel, Guid endlabel, Guid afterend, NasmScopeType function = NasmScopeType.Nested, int argscount = 0, NasmFunction declaringfucn = null)
 			: base(parent, beforeenterlabel, biginlabel, endlabel, afterend)
 		{
 			Lock = new RegisterLock();
-			FuncTypePos = new List<NasmMember>();
+			FuncTypePos = new List<NasmFunction>();
 			ArgumentsCount = argscount;
 			ScopeType = function;
 			ReleasedTempVars = new Queue<int>();
@@ -52,10 +52,7 @@ namespace TigerCs.Emitters.NASM
 				Lock = l;
 				FormatWriter f = new FormatWriter();
 				foreach (var m in FuncTypePos)
-				{
-					if (m is NasmFunction) ((NasmFunction)m).DealocateFunction(f, this);
-					if (m is NasmType) ((NasmType)m).DealocateType(f, this);
-				}
+					m.DealocateFunction(f, this);
 
 				if (ScopeType == NasmScopeType.TigerFunction || ScopeType == NasmScopeType.CFunction)
 				{

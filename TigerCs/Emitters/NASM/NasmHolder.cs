@@ -108,7 +108,21 @@ namespace TigerCs.Emitters.NASM
 				Guid doit = bound.g.GNext();
 				Guid ndoit = bound.g.GNext();
 
-				fw.WriteLine(string.Format("cmp dword {0}, [{1}]", offset, gpr));
+				bool stackback = false;
+				var reg = accedingscope.Lock.LockGPR(Register.EDX);
+				if (reg == null)
+				{
+					reg = Register.EDX != gpr ? Register.EDX : Register.EBX;
+					fw.WriteLine(string.Format("push {0}", reg.Value));
+					stackback = true;
+				}
+
+				fw.WriteLine(string.Format("mov {0}, {1}", reg.Value, offset));
+				fw.WriteLine(string.Format("cmp {0}, [{1}]", reg.Value, gpr));
+
+				if (stackback) fw.WriteLine(string.Format("pop {0}", reg.Value));
+				else accedingscope.Lock.Release(reg.Value);
+
 				fw.WriteLine(string.Format("jge _{0}", doit.ToString("N")));
 				fw.WriteLine(string.Format("jmp _{0}", ndoit.ToString("N")));
 
@@ -173,6 +187,37 @@ namespace TigerCs.Emitters.NASM
 				fw.WriteLine("pop " + reg.Value);
 			else accedingscope.Lock.Release(reg.Value);
 			fw.WriteLine("");
+		}
+	}
+
+	class NasmRegisterHolder : NasmHolder
+	{
+		Register r;
+		public NasmRegisterHolder(Register r)
+			:base(null, -1)
+		{
+			this.r = r;
+		}
+
+		public override void PutValueInRegister(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
+		{
+			if (gpr != r)
+			{
+				fw.WriteLine(string.Format("mov {0}, {1}", gpr, r));
+			}
+		}
+
+		public override void StackBackValue(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
+		{
+			throw new InvalidOperationException("this is a read only holder");
+		}
+
+		public override bool Assignable
+		{
+			get
+			{
+				return false;
+			}
 		}
 	}
 }

@@ -112,11 +112,11 @@ namespace TigerCs.Emitters.NASM
 		EBP = 32,
 
 		/// <summary>
-		/// Source Pointer
+		/// Source Pointer, volatile
 		/// </summary>
 		ESI = 64,
 		/// <summary>
-		/// Destination Pointer
+		/// Destination Pointer, volatile
 		/// </summary>
 		EDI = 128,
 

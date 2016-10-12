@@ -3,24 +3,26 @@ using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Emitters.NASM
 {
-	public class NasmType : NasmMember, IType<NasmType, NasmFunction>
+	public class NasmType : IType<NasmType, NasmFunction>
 	{
 		public static NasmType Int { get; set; }
 		public static NasmType String { get; set; }
 		public static NasmFunction QuadWordRMemberAccess { get; set; }
 		public static NasmFunction ByteRMemberAccess { get; set; }
 		public static NasmFunction QuadWordWMemberAccess { get; set; }
+		public static NasmFunction ArrayAllocator { get; set; }
+		public static NasmFunction ByteZeroEndArrayAllocator { get; set; }
 
 		const int typesize = 4;
 		public NasmRefType RefType { get; set; }
 		public int AsRefSize { get; set; }
-
-		public NasmType(NasmEmitterScope dscope, int sindex, NasmRefType reff, int asrefsize = 0)
-			: base(dscope, sindex)
+		public readonly string Name;
+		public NasmType(NasmRefType reff, int asrefsize = 0, string name = "")
 		{
 			RefType = reff;
 			switch (RefType)
 			{
+				case NasmRefType.NoSet:
 				case NasmRefType.None: AsRefSize = 0;
 					break;
 				case NasmRefType.Fixed:
@@ -33,6 +35,7 @@ namespace TigerCs.Emitters.NASM
 				default:
 					throw new ArgumentException("unknow reference type");
 			}
+			Name = name;
 		}
 
 		public NasmFunction Deallocator
@@ -80,15 +83,21 @@ namespace TigerCs.Emitters.NASM
 			}
 		}
 
-		public void DealocateType(FormatWriter fw, NasmEmitterScope accedingscope) => NasmFunction.Free.Call(fw, null, accedingscope, this);
-
-		public static void AlocateType(FormatWriter fw, Register target, NasmEmitterScope accedingscope, NasmEmitter bound)
+		NasmFunction recorallocator;
+		public NasmFunction Allocator
 		{
-			var sp = bound.AddConstant(typesize);
-			NasmFunction.Malloc.Call(fw, target, accedingscope, sp);
+			get
+			{
+				if (Equals(String)) return ByteZeroEndArrayAllocator;
+				if (RefType == NasmRefType.Dynamic) return ArrayAllocator;
+				return recorallocator;
+			}
+			set
+			{
+				if (RefType != NasmRefType.Fixed || RefType != NasmRefType.NoSet) throw new InvalidOperationException("Cant override default allocator");
+				recorallocator = value;
+			}
 		}
-
-		public NasmFunction Allocator { get; set; }
 
 	}
 
