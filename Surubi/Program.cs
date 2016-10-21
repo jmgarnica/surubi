@@ -19,8 +19,8 @@ namespace Surubi
 
 			NasmType _int;
 			e.TryBindSTDType("int", out _int);
-			NasmType _string;
-			e.TryBindSTDType("string", out _string);
+			//NasmType _string;
+			//e.TryBindSTDType("string", out _string);
 			NasmFunction print;
 			e.TryBindSTDFunction("prints", out print);
 			NasmFunction printi;
@@ -32,7 +32,25 @@ namespace Surubi
 			e.EntryPoint(true, true);
 			var _0 = e.AddConstant(0);
 
-			var a = e.BindVar(_string, e.AddConstant("hola"), "a");
+			#region [array]
+			//var _4 = e.AddConstant(4);
+			//var lf = e.AddConstant("\n");
+
+			//var t = e.BindArrayType("intarray", _int);
+			//var array = e.BindVar(t, name: "array_int");
+			//e.Call(t.Allocator, new[] { _4, _0 }, array);
+
+			//for (int i = 0; i < 50; i++)
+			//{
+			//	var item = e.StaticMemberAcces(t, array, i);
+			//	e.InstrAssing(item, e.AddConstant(i));
+			//	e.Call(printi, new[] { item });
+			//	e.Call(print, new[] { lf });
+			//}
+			#endregion
+
+			#region [var test]
+			//var a = e.BindVar(_string, e.AddConstant("hola"), "a");
 
 			//var f = e.BindFunction("f", _int, new[] { new Tuple<string, NasmType>("x", _string) });
 			//var px = e.GetParam(0);
@@ -47,7 +65,7 @@ namespace Surubi
 
 			//e.EnterNestedScope(namehint: "nested 1");
 			//var hh = e.AddConstant("mundo");
-			//var x = e.BindVar(_string, "x");
+			//var x = e.BindVar(_string, name: "x");
 			//e.InstrAssing(x, hh);
 			//e.Call(f, new[] { x });
 			//e.Call(f, new[] { a });
@@ -57,14 +75,15 @@ namespace Surubi
 			//e.Call(printi, new[] { _0 });
 
 
-			var _2 = e.AddConstant(2);
-			var res = e.BindVar(_int, e.AddConstant('t'), "res");
-			e.InstrAssing(e.StaticMemberAcces(_string, a, 2), res);
-			e.InstrAssing(e.StaticMemberAcces(_string, a, 0), e.AddConstant('j'));
-			e.Call(print, new[] { a });
+			//var _2 = e.AddConstant(2);
+			//var res = e.BindVar(_int, e.AddConstant('t'), "res");
+			//e.InstrAssing(e.StaticMemberAcces(_string, a, 2), res);
+			//e.InstrAssing(e.StaticMemberAcces(_string, a, 0), e.AddConstant('j'));
+			//e.Call(print, new[] { a });
 
-			e.Call(_string.DynamicMemberReadAccess, new[] { a, _2 }, res);
-			e.Call(printi, new[] { res });
+			//e.Call(_string.DynamicMemberReadAccess, new[] { a, _2 }, res);
+			//e.Call(printi, new[] { res });
+			#endregion
 
 			e.Ret(_0);
 			e.LeaveScope();
