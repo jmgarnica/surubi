@@ -27,35 +27,38 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Generation\AST\Expresions\LvalueNode.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TigerCs.Generation.AST.Expresions.ArrayAccess" Collapsed="true">
     <Position X="2.75" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAABAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Generation\AST\Expresions\LvalueNode.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TigerCs.Generation.AST.Expresions.MemberAccess" Collapsed="true">
     <Position X="4.75" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAIAAAAAAAAIAAAAgAAAAAAAAAABAA=</HashCode>
       <FileName>Generation\AST\Expresions\RecordAcces.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TigerCs.Generation.AST.Expresions.BinaryOperator" Collapsed="true">
     <Position X="10.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAACACAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
       <FileName>Generation\AST\Expresions\BinaryOperator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TigerCs.Generation.AST.Expresions.ComparisonOperator" Collapsed="true">
     <Position X="7.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAAAAAQAAAACAAgAAAAQAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAACAAgAAAAQAAAAAAAA=</HashCode>
       <FileName>Generation\AST\Expresions\ComparisonOperator.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -76,7 +79,7 @@
   <Class Name="TigerCs.Generation.AST.Expresions.Call" Collapsed="true">
     <Position X="26" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAIAAACAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
       <FileName>Generation\AST\Expresions\Call.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -188,7 +191,7 @@
   <Class Name="TigerCs.Generation.AST.Expresions.ExpresionList&lt;E&gt;" Collapsed="true">
     <Position X="15" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAAACAAAIAIAAAAAAAAQgAAAgAAAAAAEAAABAA=</HashCode>
+      <HashCode>AAEAAAAAAAAAAIAIAAAAAAAAQgAAAgAAAAAAEAAABAA=</HashCode>
       <FileName>Generation\AST\Expresions\ExpresionList.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -210,14 +213,14 @@
   <Class Name="TigerCs.Generation.AST.Expresions.MAIN" Collapsed="true">
     <Position X="6.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAACCAAAAAIAAAgAAAAAAAAAgAAABQABAAAAAQ=</HashCode>
+      <HashCode>AAQAAAAACAAAAAAIAAAgAAAAAAAAAgAAABQABAAAAAQ=</HashCode>
       <FileName>Generation\AST\Expresions\MAIN.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TigerCs.Generation.AST.Expresions.Expresion" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="12.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAAACAAAIAIAAAAAAAAQgAAAgAAAAAAEAAABAA=</HashCode>
+      <HashCode>AAEAAAAAAAAAAIAIAAAAAAAAQgAAAgAAAAAAEAAABAA=</HashCode>
       <FileName>Generation\AST\Expresions\IExpresion.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />

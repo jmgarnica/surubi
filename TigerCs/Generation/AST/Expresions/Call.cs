@@ -9,6 +9,9 @@ namespace TigerCs.Generation.AST.Expresions
 {
 	public class Call : Expresion
 	{
+		public string FunctionName { get; set; }
+
+
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
 		{
 			throw new NotImplementedException();

@@ -50,7 +50,7 @@ namespace TigerCs.Generation.AST.Expresions
 		{
 			operand.GenerateCode(cg, report);
 			if (!operand.ReturnValue.Bounded) return;
-
+			
 			ReturnValue.BCMMember = cg.InstrInverse_TempBound((H)operand.ReturnValue.BCMMember);
 		}
 	}

@@ -7,16 +7,57 @@ using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expresions
 {
-	public class MemberAccess : Expresion
+	public class MemberAccess : Expresion, ILValue
 	{
+		public IExpresion Record { get; set; }
+		public string MemberName { get; set; }
+
+		int index = -1;
+
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
 		{
-			throw new NotImplementedException();
+			if (Record == null || string.IsNullOrEmpty(MemberName))
+			{
+				report.IncompleteMemberInitialization(GetType().Name);
+				return false;
+			}
+
+			if (!Record.CheckSemantics(sc, report)) return false;
+
+			var member = (from i in Enumerable.Range(0, Record.Return.Members.Count)
+						  let c = new { t = Record.Return.Members[i], i = i }
+						  where c.t.Item1 == MemberName
+						  select new { t = c.t.Item2, i = c.i }).FirstOrDefault();
+
+			if (member == null)
+			{
+				report.Add(new TigerStaticError(line,
+					column,
+					string.Format("Type {0} does not have a definition for member {1}",
+					Record.Return.Name, MemberName), ErrorLevel.Error));
+				return false;
+			}
+
+			Return = member.t;
+			index = member.i;
+			ReturnValue = new HolderInfo { Type = Return, Name = "Member Acces" };
+			return true;
 		}
 
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			throw new NotImplementedException();
+			Record.GenerateCode(cg, report);
+			ReturnValue.BCMMember = cg.StaticMemberAcces((T)Return.BCMMember, (H)Record.Return.BCMMember, index);
+		}
+
+		public void SetValue<T, F, H>(IByteCodeMachine<T, F, H> cg, H source, ErrorReport report)
+			where T : class, IType<T, F>
+			where F : class, IFunction<T, F>
+			where H : class, IHolder
+		{
+			GenerateCode(cg, report);
+			cg.InstrAssing((H)ReturnValue.BCMMember, source);
+			//TODO: probar si no hace nada extraño
 		}
 	}
 }
