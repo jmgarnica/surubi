@@ -7,9 +7,9 @@ namespace TigerCs.Emitters.NASM
 	{
 		public static NasmType Int { get; set; }
 		public static NasmType String { get; set; }
-		public static NasmFunction QuadWordRMemberAccess { get; set; }
+		public static NasmFunction DWordRMemberAccess { get; set; }
 		public static NasmFunction ByteRMemberAccess { get; set; }
-		public static NasmFunction QuadWordWMemberAccess { get; set; }
+		public static NasmFunction DWordWMemberAccess { get; set; }
 		public static NasmFunction ArrayAllocator { get; set; }
 		public static NasmFunction ByteZeroEndArrayAllocator { get; set; }
 
@@ -60,7 +60,7 @@ namespace TigerCs.Emitters.NASM
 			get
 			{
 				if (ReferenceEquals(this, String)) return ByteRMemberAccess;
-				return RefType != NasmRefType.None ? QuadWordRMemberAccess : null;
+				return RefType != NasmRefType.None ? DWordRMemberAccess : null;
 			}
 		}
 
@@ -79,7 +79,7 @@ namespace TigerCs.Emitters.NASM
 			get
 			{
 				if (ReferenceEquals(this, String)) return null;
-				return RefType != NasmRefType.None ? QuadWordWMemberAccess : null;
+				return RefType != NasmRefType.None ? DWordWMemberAccess : null;
 			}
 		}
 

@@ -31,7 +31,7 @@ namespace TigerCs.Generation.ByteCode
 		#region [Holders]
 		H AddConstant(int value);
 		H AddConstant(string value);
-		H BindVar(T tigertype, H defaultvalue = null, string name = null, bool global = false);
+		H BindVar(T tigertype = null, H defaultvalue = null, string name = null, bool global = false);
 
 		H StaticMemberAcces(T tigertype, H op1, int index);
 		#endregion
@@ -80,22 +80,16 @@ namespace TigerCs.Generation.ByteCode
 		void InstrAssing(H dest_nonconst, H value);
 
 		void InstrAdd(H dest_nonconst, H op1, H op2);
-		H InstrAdd_TempBound(H op1, H op2);
 
 		void InstrSub(H dest_nonconst, H op1, H op2);
-		H InstrSub_TempBound(H op1, H op2);
 
 		void InstrMult(H dest_nonconst, H op1, H op2);
-		H InstrMult_TempBound(H op1, H op2);
-
+		
 		void InstrDiv(H dest_nonconst, H op1, H op2);
-		H InstrDiv_TempBound(H op1, H op2);
 
 		void InstrInverse(H dest_nonconst, H op1);
-		H InstrInverse_TempBound(H op1);
 
 		void InstrRefEq(H dest_nonconst, H op1, H op2);
-		H InstrRefEq_TempBound( H op1, H op2);
 
 		/// <summary>
 		/// Returns the count of elements currently storage in the array, returns lower than o for non-array holders
@@ -108,8 +102,6 @@ namespace TigerCs.Generation.ByteCode
 		/// </param>
 		/// <returns></returns>
 		void InstrSize(H array, H size);
-
-		
 
 		#endregion
 
@@ -183,30 +175,35 @@ namespace TigerCs.Generation.ByteCode
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
-		/// [IMPLEMENTATION_TIP] no jumps to outer or inner scopes are allowed, you can get as far as the END label
+		/// Jumps are only legal inside the current scope or parent scope, and not to an inner scope of these.
+		/// This can not cross over functions borders.
 		/// </summary>
 		/// <param name="label"></param>
 		void Goto(Guid label);
 
-		void UnstructuredGoto(Guid abslabel);
-
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
-		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
+		/// No jumps to outers or inner scopes are allowed. 
+		/// BeforeEnterScope and AfterEndScope labels are not part of the current scope. 
+		/// This can not cross over functions borders.
 		/// </summary>
 		/// <param name="label"></param>
 		void GotoIfZero(Guid label, H int_op);
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
-		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
+		/// No jumps to outers or inner scopes are allowed. 
+		/// BeforeEnterScope and AfterEndScope labels are not part of the current scope. 
+		/// This can not cross over functions borders.
 		/// </summary>
 		/// <param name="label"></param>
 		void GotoIfNotZero(Guid label, H int_op);
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
-		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
+		/// No jumps to outers or inner scopes are allowed. 
+		/// BeforeEnterScope and AfterEndScope labels are not part of the current scope. 
+		/// This can not cross over functions borders.
 		/// [IMPLEMENTATION_TIP] int_op >= 0
 		/// </summary>
 		/// <param name="label"></param>
@@ -214,7 +211,9 @@ namespace TigerCs.Generation.ByteCode
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
-		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
+		/// No jumps to outers or inner scopes are allowed. 
+		/// BeforeEnterScope and AfterEndScope labels are not part of the current scope. 
+		/// This can not cross over functions borders.
 		/// [IMPLEMENTATION_TIP] int_op less than 0
 		/// </summary>
 		/// <param name="label"></param>
@@ -243,4 +242,78 @@ namespace TigerCs.Generation.ByteCode
 
 		#endregion
 	}
+
+	public static class IByteCodeMachineExtensions
+		
+	{
+		public static H InstrAdd_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1, H op2) 
+			where T : class, IType<T, F>
+			where F : class, IFunction<T, F>
+			where H : class, IHolder
+		{
+			H tmp = machine.BindVar();
+			machine.InstrAdd(tmp, op1, op2);
+			return tmp;
+		}
+
+		public static H InstrSub_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1, H op2) 
+			where T : class, IType<T, F>
+			where F : class, IFunction<T, F>
+			where H : class, IHolder
+		{
+			H tmp = machine.BindVar();
+			machine.InstrSub(tmp, op1, op2);
+			return tmp;
+		}
+
+		public static H InstrMult_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1, H op2) 
+			where T : class, IType<T, F>
+			where F : class, IFunction<T, F>
+			where H : class, IHolder
+		{
+			H tmp = machine.BindVar();
+			machine.InstrMult(tmp, op1, op2);
+			return tmp;
+		}
+
+		public static H InstrDiv_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1, H op2) 
+			where T : class, IType<T, F>
+			where F : class, IFunction<T, F>
+			where H : class, IHolder
+		{
+			H tmp = machine.BindVar();
+			machine.InstrDiv(tmp, op1, op2);
+			return tmp;
+		}
+
+		public static H InstrInverse_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1) 
+			where T : class, IType<T, F>
+			where F : class, IFunction<T, F>
+			where H : class, IHolder
+		{
+			H tmp = machine.BindVar();
+			machine.InstrInverse(tmp, op1);
+			return tmp;
+		}
+
+		public static H InstrRefEq_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1, H op2)
+			where T : class, IType<T, F>
+			where F : class, IFunction<T, F>
+			where H : class, IHolder
+		{
+			H tmp = machine.BindVar();
+			machine.InstrRefEq(tmp, op1, op2);
+			return tmp;
+		}
+
+		public static H InstrSize_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H array)
+			where T : class, IType<T, F>
+			where F : class, IFunction<T, F>
+			where H : class, IHolder
+		{
+			H tmp = machine.BindVar();
+			machine.InstrSize(array, tmp);
+			return tmp;
+		}
+    }
 }

@@ -89,7 +89,6 @@ namespace TigerCs.Emitters.NASM
 			{
 				fw.WriteLine(string.Format("mov {0}, EAX", result.Value));
 			}
-			else if (bound.SetLabel() && !pop) fw.WriteLine("nop");
 			if (result != Register.EAX) accedingscope.Lock.Release(Register.EAX);
 
 			foreach (var r in lockreglist)

@@ -17,7 +17,12 @@ namespace TigerCs.Emitters
 			BiginScope = bs;
 			EndScope = es;
 			AfterEndScope = ae;
-			ScopeLabels = new Dictionary<Guid, string> { [bes] = "BeforeEnter", [bs] = "Begin", [es] = "End" };
+			ScopeLabels = new Dictionary<Guid, string> {[bs] = "Begin", [es] = "End" };
+			if (parent != null)
+			{
+				parent.ScopeLabels.Add(bes, "BeforeEnter");
+				parent.ScopeLabels.Add(ae, "AfterEnd");
+			}
 			ExpectedLabels = new Dictionary<Guid, string>();
 			Parent = parent;
 		}

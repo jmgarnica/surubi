@@ -14,7 +14,7 @@ namespace TigerCs.Emitters.NASM
 
 	public class NasmIntConst : NasmHolder
 	{
-		int value;
+		public readonly int value;
 
 		public NasmIntConst(int value)
 			: base(null, -1)
@@ -101,6 +101,7 @@ namespace TigerCs.Emitters.NASM
 
 		public override void PutValueInRegister(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
 		{
+			//TODO: aceptar array de direcciones y comprobar el nill* , a[3,2,3] = ((a[3])[2])[3] = a.item4.item3.item4
 			H.PutValueInRegister(gpr, fw, accedingscope);
 			if (offset > 0 && checkupperbound)
 			{
@@ -140,6 +141,7 @@ namespace TigerCs.Emitters.NASM
 
 		public override void StackBackValue(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
 		{
+			fw.WriteLine("");
 			bool stackback = false;
 			var reg = accedingscope.Lock.LockGPR(Register.EBX);
 			if (reg == null)
@@ -186,7 +188,6 @@ namespace TigerCs.Emitters.NASM
 			if (stackback)
 				fw.WriteLine("pop " + reg.Value);
 			else accedingscope.Lock.Release(reg.Value);
-			fw.WriteLine("");
 		}
 	}
 

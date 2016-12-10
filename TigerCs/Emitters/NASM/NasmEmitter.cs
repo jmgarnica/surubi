@@ -46,8 +46,8 @@ namespace TigerCs.Emitters.NASM
 
 			NasmType.Int = new NasmType(NasmRefType.None);
 			NasmType.String = new NasmType(NasmRefType.Dynamic, -1);
-			NasmType.QuadWordRMemberAccess = new NasmMacroFunction(MemberReadAccess, this, "MemberReadAccess");
-			NasmType.QuadWordWMemberAccess = new NasmMacroFunction(MemberWriteAccess, this,"MemberWriteAccess");
+			NasmType.DWordRMemberAccess = new NasmMacroFunction(MemberReadAccess, this, "MemberReadAccess");
+			NasmType.DWordWMemberAccess = new NasmMacroFunction(MemberWriteAccess, this,"MemberWriteAccess");
 			NasmType.ByteRMemberAccess = new NasmMacroFunction(MemberReadAccessByteString, this, "MemberReadAccess(Bytes)");
 			NasmType.ArrayAllocator = new NasmMacroFunction(ArrayAllocator, this, "ArrayAllocator") { Requested = new[] { Register.ECX, Register.EAX } };
 			NasmType.ByteZeroEndArrayAllocator = new NasmMacroFunction(ArrayAllocatorBytesZeroEnd, this, "ArrayAllocator") { Requested = new[] { Register.ECX, Register.EAX } };
@@ -176,7 +176,7 @@ namespace TigerCs.Emitters.NASM
 			StringConstEnd += value.Length + 5;// 4 for size and 1 for \0
 			return svar;
 		}
-		public override NasmHolder BindVar(NasmType type, NasmHolder defaultvalue = null, string name = null, bool global = false)
+		public override NasmHolder BindVar(NasmType type = null, NasmHolder defaultvalue = null, string name = null, bool global = false)
 		{
 			NasmHolder v;
 			if (name != null || CurrentScope.ReleasedTempVars.Count <= 0)
@@ -289,8 +289,8 @@ namespace TigerCs.Emitters.NASM
 			aheadedtype.RefType = NasmRefType.Fixed;
 			aheadedtype.AsRefSize = members.Length;
 			SetLabel();
+
 			CurrentScope = new NasmEmitterScope(CurrentScope, g.GNext(), g.GNext(), g.GNext(), g.GNext(), NasmScopeType.CFunction, members.Length);
-			fw.WriteLine("");
 			fw.WriteLine(";record " + aheadedtype.Name);
 			fw.WriteLine(string.Format("jmp _{0}", CurrentScope.AfterEndScope.ToString("N")));
 			fw.WriteLine(string.Format("_{0}:", CurrentScope.BeforeEnterScope.ToString("N")));
@@ -302,11 +302,11 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine(string.Format("add {0}, 4 ", Register.ESP));
 
 			fw.WriteLine(string.Format("mov {0}, {1}", Register.ECX, members.Length));
-			fw.WriteLine(string.Format("move [{0}], {1}", Register.EAX, Register.ECX));
-			fw.WriteLine(string.Format("move {0}, {1}", Register.EDI, Register.EAX));
+			fw.WriteLine(string.Format("mov [{0}], {1}", Register.EAX, Register.ECX));
+			fw.WriteLine(string.Format("mov {0}, {1}", Register.EDI, Register.EAX));
 			fw.WriteLine(string.Format("add {0}, {1}", Register.EDI, 4));
 
-			fw.WriteLine(string.Format("move {0}, {1}", Register.ESI, Register.ESP));
+			fw.WriteLine(string.Format("mov {0}, {1}", Register.ESI, Register.ESP));
 			fw.WriteLine(string.Format("add {0}, {1}", Register.ESI, 4));
 
 			fw.WriteLine("cdl");
@@ -422,23 +422,209 @@ namespace TigerCs.Emitters.NASM
 			else CurrentScope.Lock.Release(reg.Value);
 		}
 
-		public override void InstrAdd(NasmHolder dest_nonconst, NasmHolder op1, NasmHolder op2){ throw new NotImplementedException(); }
-		public override NasmHolder InstrAdd_TempBound(NasmHolder op1, NasmHolder op2){ throw new NotImplementedException(); }
+		public override void InstrAdd(NasmHolder dest_nonconst, NasmHolder op1, NasmHolder op2)
+		{
+			SetLabel();
+			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
+			bool stackback = reg == null;
+			if (stackback)
+			{
+				fw.WriteLine("push " + Register.EAX);
+				reg = Register.EAX;
+			}
 
-		public override void InstrSub(NasmHolder dest_nonconst, NasmHolder op1, NasmHolder op2){ throw new NotImplementedException(); }
-		public override NasmHolder InstrSub_TempBound(NasmHolder op1, NasmHolder op2){ throw new NotImplementedException(); }
+			if (op1 is NasmIntConst && op2 is NasmIntConst)
+			{
+				fw.Write(string.Format("mov {0}, {1}", reg, (op1 as NasmIntConst).value + (op2 as NasmIntConst).value));
+			}
+			else if (op1 is NasmIntConst)
+			{
+				op2.PutValueInRegister(reg.Value, fw, CurrentScope);
+				fw.Write(string.Format("add {0}, {1}", reg, (op1 as NasmIntConst).value));
+			}
+			else if (op2 is NasmIntConst)
+			{
+				op1.PutValueInRegister(reg.Value, fw, CurrentScope);
+				fw.Write(string.Format("add {0}, {1}", reg, (op2 as NasmIntConst).value));
+			}
+			else
+			{
+				var regB = CurrentScope.Lock.LockGPR(Register.EDX);
+				bool stackbackB = regB == null;
+				if (stackbackB)
+				{
+					regB = reg == Register.EDX? Register.EBX : Register.EDX;
+					fw.WriteLine("push " + regB);
+					
+				}
 
-		public override void InstrMult(NasmHolder dest_nonconst, NasmHolder op1, NasmHolder op2){ throw new NotImplementedException(); }
-		public override NasmHolder InstrMult_TempBound(NasmHolder op1, NasmHolder op2){ throw new NotImplementedException(); }
+				op1.PutValueInRegister(reg.Value, fw, CurrentScope);
+				op2.PutValueInRegister(regB.Value, fw, CurrentScope);
 
-		public override void InstrDiv(NasmHolder dest_nonconst, NasmHolder op1, NasmHolder op2){ throw new NotImplementedException(); }
-		public override NasmHolder InstrDiv_TempBound(NasmHolder op1, NasmHolder op2){ throw new NotImplementedException(); }
+				fw.Write(string.Format("add {0}, {1}", reg, regB));
 
-		public override void InstrInverse(NasmHolder dest_nonconst, NasmHolder op1){ throw new NotImplementedException(); }
-		public override NasmHolder InstrInverse_TempBound(NasmHolder op1){ throw new NotImplementedException(); }
+				if (stackbackB) fw.WriteLine("pop " + regB);
+				else CurrentScope.Lock.Release(regB.Value);
+			}
+
+			dest_nonconst.StackBackValue(reg.Value, fw, CurrentScope);
+			if (stackback) fw.WriteLine("pop " + Register.EAX);
+			else CurrentScope.Lock.Release(reg.Value);
+		}
+
+		public override void InstrSub(NasmHolder dest_nonconst, NasmHolder op1, NasmHolder op2)
+		{
+			SetLabel();
+			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
+			bool stackback = reg == null;
+			if (stackback)
+			{
+				fw.WriteLine("push " + Register.EAX);
+				reg = Register.EAX;
+			}
+
+			if (op1 is NasmIntConst && op2 is NasmIntConst)
+			{
+				fw.Write(string.Format("mov {0}, {1}", reg, (op1 as NasmIntConst).value - (op2 as NasmIntConst).value));
+			}
+			else if (op1 is NasmIntConst)
+			{
+				op2.PutValueInRegister(reg.Value, fw, CurrentScope);
+				fw.Write(string.Format("sub {0}, {1}", reg, (op1 as NasmIntConst).value));
+			}
+			else if (op2 is NasmIntConst)
+			{
+				op1.PutValueInRegister(reg.Value, fw, CurrentScope);
+				fw.Write(string.Format("sub {0}, {1}", reg, (op2 as NasmIntConst).value));
+			}
+			else
+			{
+				var regB = CurrentScope.Lock.LockGPR(Register.EDX);
+				bool stackbackB = regB == null;
+				if (stackbackB)
+				{
+					regB = reg == Register.EDX ? Register.EBX : Register.EDX;
+					fw.WriteLine("push " + regB);
+
+				}
+
+				op1.PutValueInRegister(reg.Value, fw, CurrentScope);
+				op2.PutValueInRegister(regB.Value, fw, CurrentScope);
+
+				fw.Write(string.Format("sub {0}, {1}", reg, regB));
+
+				if (stackbackB) fw.WriteLine("pop " + regB);
+				else CurrentScope.Lock.Release(regB.Value);
+			}
+
+			dest_nonconst.StackBackValue(reg.Value, fw, CurrentScope);
+			if (stackback) fw.WriteLine("pop " + Register.EAX);
+			else CurrentScope.Lock.Release(reg.Value);
+		}
+
+		public override void InstrMult(NasmHolder dest_nonconst, NasmHolder op1, NasmHolder op2)
+		{
+			SetLabel();
+			bool stackback;
+
+			if (op1 is NasmIntConst && op2 is NasmIntConst)
+			{
+				var reg = CurrentScope.Lock.LockGPR(Register.EAX);
+				stackback = reg == null;
+				if (stackback)
+				{
+					reg = Register.EAX;
+					fw.WriteLine("push " + Register.EAX);
+				}
+
+				fw.WriteLine(string.Format("mov {0}, {1}", reg, (op1 as NasmIntConst).value * (op2 as NasmIntConst).value));
+
+				dest_nonconst.StackBackValue(Register.EAX, fw, CurrentScope);
+				if (stackback) fw.WriteLine("pop " + Register.EAX);
+				else CurrentScope.Lock.Release(reg.Value);
+			}
+			else
+			{
+				stackback = !CurrentScope.Lock.Lock(Register.EAX);
+				if (stackback)
+					fw.WriteLine("push " + Register.EAX);
+
+				bool stackbackB = CurrentScope.Lock.Locked(Register.EDX);
+				if (stackbackB)
+					fw.WriteLine("push " + Register.EDX);
+
+				op1.PutValueInRegister(Register.EAX, fw, CurrentScope);
+				op2.PutValueInRegister(Register.EDX, fw, CurrentScope);
+
+				fw.Write(string.Format("imul {0}", Register.EDX));
+
+				if (stackbackB) fw.WriteLine("pop " + Register.EDX);
+
+				dest_nonconst.StackBackValue(Register.EAX, fw, CurrentScope);
+				if (stackback) fw.WriteLine("pop " + Register.EAX);
+				else CurrentScope.Lock.Release(Register.EAX);
+			}
+		}
+		
+		public override void InstrDiv(NasmHolder dest_nonconst, NasmHolder op1, NasmHolder op2)
+		{
+			SetLabel();
+			bool stackback;
+
+			if (op1 is NasmIntConst && op2 is NasmIntConst)
+			{
+				var reg = CurrentScope.Lock.LockGPR(Register.EAX);
+				stackback = reg == null;
+				if (stackback)
+				{
+					reg = Register.EAX;
+					fw.WriteLine("push " + Register.EAX);
+				}
+
+				fw.WriteLine(string.Format("mov {0}, {1}", reg, (op1 as NasmIntConst).value / (op2 as NasmIntConst).value));
+
+				dest_nonconst.StackBackValue(Register.EAX, fw, CurrentScope);
+				if (stackback) fw.WriteLine("pop " + Register.EAX);
+				else CurrentScope.Lock.Release(reg.Value);
+			}
+			else
+			{
+				stackback = !CurrentScope.Lock.Lock(Register.EAX);
+				if (stackback)
+					fw.WriteLine("push " + Register.EAX);
+				op1.PutValueInRegister(Register.EAX, fw, CurrentScope);
+
+				bool stackbackB = !CurrentScope.Lock.Lock(Register.EBX);
+				if (stackbackB)
+					fw.WriteLine("push " + Register.EBX);
+				op2.PutValueInRegister(Register.EBX, fw, CurrentScope);
+
+				bool stackbackD = CurrentScope.Lock.Locked(Register.EDX);
+				if (stackbackD)
+					fw.WriteLine("push " + Register.EDX);
+				fw.WriteLine(string.Format("mov {0}, {1}", Register.EDX, Register.EAX));
+				fw.WriteLine(string.Format("sar {0}, {1}", Register.EDX, 31));				
+
+				fw.Write(string.Format("idiv {0}", Register.EBX));
+
+				if (stackbackD) fw.WriteLine("pop " + Register.EDX);
+
+				dest_nonconst.StackBackValue(Register.EAX, fw, CurrentScope);
+
+				if (stackback) fw.WriteLine("pop " + Register.EAX);
+				else CurrentScope.Lock.Release(Register.EAX);
+
+				if (stackbackB) fw.WriteLine("pop " + Register.EBX);
+				else CurrentScope.Lock.Release(Register.EBX);
+			}
+		}
+
+		public override void InstrInverse(NasmHolder dest_nonconst, NasmHolder op1)
+		{
+			throw new NotImplementedException();
+		}
 
 		public override void InstrRefEq(NasmHolder dest_nonconst, NasmHolder op1, NasmHolder op2){ throw new NotImplementedException(); }
-		public override NasmHolder InstrRefEq_TempBound(NasmHolder op1, NasmHolder op2){ throw new NotImplementedException(); }
 
 		/// <summary>
 		/// Returns the count of elements currently storage in the array, returns lower than o for non-array holders
@@ -512,6 +698,8 @@ namespace TigerCs.Emitters.NASM
 		/// </param>
 		public override void Call(NasmFunction function, NasmHolder[] args, NasmHolder returnval = null)
 		{
+			SetLabel();
+
 			var reg = returnval != null ? CurrentScope.Lock.LockGPR(Register.EDX) : null;
 			bool stackback = false;
 			if (returnval != null && reg == null)
@@ -542,6 +730,8 @@ namespace TigerCs.Emitters.NASM
 		/// <param name="value"></param>
 		public override void Ret(NasmHolder value = null)
 		{
+			SetLabel();			
+
 			bool release = false;
 			if (value != null)
 			{
@@ -551,8 +741,7 @@ namespace TigerCs.Emitters.NASM
 					release = true;
 				}
 				value.PutValueInRegister(Register.EAX, fw, CurrentScope);
-			}
-			SetLabel();
+			}			
 			var curr = CurrentScope;
 			while (curr != null && curr.ScopeType == NasmScopeType.Nested)
 			{
@@ -598,9 +787,25 @@ namespace TigerCs.Emitters.NASM
 		/// [IMPLEMENTATION_TIP] no jumps to outer or inner scopes are allowed, you can get as far as the END label
 		/// </summary>
 		/// <param name="label"></param>
-		public override void Goto(Guid label){ throw new NotImplementedException(); }
+		public override void Goto(Guid label)
+		{
+			SetLabel();
 
-		public override void UnstructuredGoto(Guid abslabel){ throw new NotImplementedException(); }
+			var scope = CurrentScope;
+			while (scope != null &&	scope.DeclaringFunction == null)
+			{
+				if (scope.ScopeLabels.ContainsKey(label) || scope.ExpectedLabels.ContainsKey(label))
+				{
+					fw.WriteLine(string.Format("jmp _{0}", label.ToString("N")));
+					return;
+				}
+
+				scope.WirteCloseCode(fw, false, false);
+				scope = scope.Parent;
+			}
+
+			throw new InvalidOperationException("the label was not found before reaching the " + (scope == null ? "root scope" : "function definition"));
+		}
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
@@ -645,6 +850,8 @@ namespace TigerCs.Emitters.NASM
 		[ScopeChanger(Reason = "Creates and enters in a nested scope", ScopeName = "InnerScope_<scopelabel>")]
 		public override void EnterNestedScope(bool definetype = false, string namehint = null)
 		{
+			SetLabel();
+
 			CurrentScope = new NasmEmitterScope(CurrentScope, g.GNext(), g.GNext(), g.GNext(), g.GNext(), NasmScopeType.Nested);
 
 			if (!string.IsNullOrWhiteSpace(namehint)) fw.WriteLine(";" + namehint);
@@ -725,12 +932,15 @@ namespace TigerCs.Emitters.NASM
 
 		public bool SetLabel()
 		{
+			BlankLine();
 			if (string.IsNullOrEmpty(nexlabelcomment)) return false;
 
 			fw.WriteLine(";" + nexlabelcomment);
 			fw.WriteLine(string.Format("_{0}:", NextInstructionLabel.ToString("N")));
 
-			nexlabelcomment = null;
+			CurrentScope.ScopeLabels.Add(NextInstructionLabel, nexlabelcomment);
+
+            nexlabelcomment = null;
 			NextInstructionLabel = Guid.Empty;
 			return true;
 		}

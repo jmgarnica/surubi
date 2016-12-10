@@ -1,10 +1,12 @@
-﻿namespace TigerCs.Generation
+﻿using System;
+
+namespace TigerCs.Generation
 {
 	public class FunctionScopeDescriptor
 	{ }
 
 	public class LoopScopeDescriptor
 	{
-		public string ENDLabel { get; set; }
+		public Guid ENDLabel { get; set; }
 	}
 }

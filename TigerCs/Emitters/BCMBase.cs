@@ -42,7 +42,7 @@ namespace TigerCs.Emitters
 		#region [Holders]
 		public abstract H AddConstant(int value);
 		public abstract H AddConstant(string value);
-		public abstract H BindVar(T tigertype, H defaultvalue = null, string name = null, bool global = false);
+		public abstract H BindVar(T tigertype = null, H defaultvalue = null, string name = null, bool global = false);
 		public abstract H StaticMemberAcces(T tigertype, H op1, int index);
 		#endregion
 
@@ -89,22 +89,16 @@ namespace TigerCs.Emitters
 		public abstract void InstrAssing(H dest_nonconst, H value);
 
 		public abstract void InstrAdd(H dest_nonconst, H op1, H op2);
-		public abstract H InstrAdd_TempBound(H op1, H op2);
 
 		public abstract void InstrSub(H dest_nonconst, H op1, H op2);
-		public abstract H InstrSub_TempBound(H op1, H op2);
 
 		public abstract void InstrMult(H dest_nonconst, H op1, H op2);
-		public abstract H InstrMult_TempBound(H op1, H op2);
 
 		public abstract void InstrDiv(H dest_nonconst, H op1, H op2);
-		public abstract H InstrDiv_TempBound(H op1, H op2);
 
 		public abstract void InstrInverse(H dest_nonconst, H op1);
-		public abstract H InstrInverse_TempBound(H op1);
 
 		public abstract void InstrRefEq(H dest_nonconst, H op1, H op2);
-		public abstract H InstrRefEq_TempBound(H op1, H op2);
 
 		/// <summary>
 		/// Returns the count of elements currently storage in the array, returns lower than o for non-array holders
@@ -187,7 +181,7 @@ namespace TigerCs.Emitters
 				NextInstructionLabel = g.GNext();
 			}
 			else nexlabelcomment += " " + label;
-			
+
 			return NextInstructionLabel;
 		}
 
@@ -213,8 +207,6 @@ namespace TigerCs.Emitters
 		/// </summary>
 		/// <param name="label"></param>
 		public abstract void Goto(Guid label);
-
-		public abstract void UnstructuredGoto(Guid abslabel);
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
