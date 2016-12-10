@@ -19,18 +19,19 @@ namespace Surubi
 
 			NasmType _int;
 			e.TryBindSTDType("int", out _int);
-			//NasmType _string;
-			//e.TryBindSTDType("string", out _string);
+			NasmType _string;
+			e.TryBindSTDType("string", out _string);
 			NasmFunction print;
 			e.TryBindSTDFunction("prints", out print);
 			NasmFunction printi;
 			e.TryBindSTDFunction("printi", out printi);
 
-
+			
 			e.InitializeCodeGeneration(r);
 
 			e.EntryPoint(true, true);
 			var _0 = e.AddConstant(0);
+			var lend = e.AddConstant("\n");
 
 			#region [array]
 			//var _4 = e.AddConstant(4);
@@ -85,6 +86,42 @@ namespace Surubi
 			//e.Call(printi, new[] { res });
 			#endregion
 
+			#region [idiv]
+
+			//var s = e.AddConstant(-6);
+			//var d = e.BindVar();
+			//e.InstrAssing(d, s);
+
+			//var q = e.AddConstant(-4);
+			//e.InstrDiv(d, d, q);
+
+			//e.Call(printi, new[] { d });
+
+			#endregion
+
+			#region [goto]
+
+			var a = e.BindVar(_string, e.AddConstant("unchanged value"));
+			var label = e.ReserveInstructionLabel("jump point");
+
+			e.EnterNestedScope();
+
+			var c = e.BindVar(_int, e.AddConstant(9));
+
+			e.Call(printi, new[] { c });
+			e.Call(print, new[] { lend });
+			e.Call(print, new[] { a });
+			e.Call(print, new[] { lend });
+			e.Goto(label);
+			e.InstrAssing(a, e.AddConstant("changed value"));
+
+			e.LeaveScope();
+
+			e.ApplyReservedLabel(label);
+			e.Call(print, new[] { a });
+			e.Call(print, new[] { lend });
+
+			#endregion
 			e.Ret(_0);
 			e.LeaveScope();
 			e.End();
