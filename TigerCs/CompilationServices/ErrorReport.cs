@@ -46,6 +46,9 @@ namespace TigerCs.CompilationServices
 		{
 			return GetEnumerator();
 		}
+
+		public void IncompleteMemberInitialization(string source = null)
+			=> Add(new TigerStaticError(0, 0, "Incomple member initialization", ErrorLevel.Critical, source));			
 	}
 
 	public struct TigerStaticError

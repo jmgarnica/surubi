@@ -39,6 +39,11 @@ namespace TigerCs.Generation
 	{
 		public TypeInfo Type { get; set; }
 
+		/// <summary>
+		/// Set the apropiate value if it can be resolved at compilation time, null otherwise.
+		/// </summary>
+		public object ConstValue { get; set; }
+
 	}
 
 	public class FunctionInfo : MemberInfo
@@ -52,7 +57,7 @@ namespace TigerCs.Generation
 
 	public class TypeInfo : MemberInfo
 	{
-		public Dictionary<string, TypeInfo> Members { get; set; }
+		public List<Tuple<string, TypeInfo>> Members { get; set; }
 
 		public Guid TypeId { get; set; }
 
@@ -63,7 +68,7 @@ namespace TigerCs.Generation
 
 		public TypeInfo()
 		{
-			Members = new Dictionary<string, TypeInfo>();
+			Members = new List<Tuple<string, TypeInfo>>();
 			TypeId = Guid.NewGuid();
 		}
 

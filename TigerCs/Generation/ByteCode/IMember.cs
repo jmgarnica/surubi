@@ -50,8 +50,8 @@
 
 		/// <summary> 
 		/// parameters:
-		/// IHolder : int -> element index
 		/// IHolder : instance
+		/// IHolder : int -> element index
 		/// returns:
 		/// member value
 		/// 
@@ -61,9 +61,9 @@
 
 		/// <summary> 
 		/// parameters:
-		/// IHolder : source
-		/// IHolder : int -> element index
 		/// IHolder : instance
+		/// IHolder : int -> element index
+		/// IHolder : source
 		/// returns:
 		/// void
 		/// 
