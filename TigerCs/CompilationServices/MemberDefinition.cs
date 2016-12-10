@@ -11,6 +11,6 @@ namespace TigerCs.CompilationServices
 		public int column { get; set; }
 		public int line { get; set; }
 
-		public Declaration Generator { get; set; }		
+		public IDeclaration Generator { get; set; }		
 	}
 }

@@ -1,26 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TigerCs.CompilationServices;
-using TigerCs.Generation.AST.Expresions;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Declarations
 {
-	public class FunctionDeclaration : IDeclaration
+	public class DeclarationList : List<IDeclaration>, IDeclaration
 	{
-		[Release]
-		public IExpresion Body { get; set; }
-		[Release(collection: true)]
-		public List<ParameterDeclaration> Parameters { get; set; }
-		public FunctionInfo Func { get; private set; }
+		public int column
+		{
+			get;
 
-		public int column {	get; set; }
+			set;
+		}
 
-		public int line	{ get; set;	}
+		public bool CorrectSemantics
+		{
+			get;
+		}
 
-		public string Lex {	get; set; }
+		public string Lex
+		{
+			get;
 
-		public bool CorrectSemantics { get;	}
+			set;
+		}
+
+		public int line
+		{
+			get;
+
+			set;
+		}
 
 		public void BindName(ISemanticChecker sc, ErrorReport report)
 		{

@@ -58,8 +58,10 @@
     <Compile Include="Generation\AST\Declarations\AliasDeclaration.cs" />
     <Compile Include="Generation\AST\Declarations\ArrayDeclaration.cs" />
     <Compile Include="CompilationServices\MemberDefinition.cs" />
-    <Compile Include="Generation\AST\Declarations\Declaration.cs" />
+    <Compile Include="Generation\AST\Declarations\IDeclaration.cs" />
+    <Compile Include="Generation\AST\Declarations\DeclarationList.cs" />
     <Compile Include="Generation\AST\IASTNode.cs" />
+    <Compile Include="Generation\AST\Expresions\ILValue.cs" />
     <Compile Include="Generation\ByteCode\IMember.cs" />
     <Compile Include="Generation\AST\Expresions\Assign.cs" />
     <Compile Include="Generation\AST\Expresions\Break.cs" />
