@@ -1,11 +1,10 @@
-﻿using System;
-using TigerCs.CompilationServices;
+﻿using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expresions
 {
 	public interface IExpresion : IASTNode
-	{		
+	{
 		TypeInfo Return { get; }
 		HolderInfo ReturnValue { get; }
 	}

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using TigerCs.Generation.ByteCode;
 using TigerCs.Generation;
-using TigerCs.Generation.AST;
 using TigerCs.Generation.AST.Expresions;
 
 namespace TigerCs.CompilationServices
@@ -13,10 +10,10 @@ namespace TigerCs.CompilationServices
 		where F : class, IFunction<T, F>
 		where H : class, IHolder
 	{
-		public ErrorReport Report { get; private set; }
+		public ErrorReport Report { get; }
 
-		ISemanticChecker sc;
-		IByteCodeMachine<T,F,H> bcm;
+		readonly ISemanticChecker sc;
+		readonly IByteCodeMachine<T,F,H> bcm;
 		public TigerGenerator(ISemanticChecker checker, IByteCodeMachine<T, F, H> bcm)
 		{
 			sc = checker;
@@ -31,7 +28,7 @@ namespace TigerCs.CompilationServices
 
 			var main = new MAIN(rootprogram);
 
-			if (!main.CheckSemantics(sc, Report)) return;			
+			if (!main.CheckSemantics(sc, Report)) return;
 
 			bcm.InitializeCodeGeneration(Report);
 			foreach (var m in std)
@@ -59,7 +56,7 @@ namespace TigerCs.CompilationServices
 					return;
 				}
 			}
-			
+
 			foreach (var m in std)
 			{
 				if (!m.Value.Member.BCMBackup) continue;
@@ -74,7 +71,7 @@ namespace TigerCs.CompilationServices
 			main.ReleaseStaticData();
 			bcm.End();
 		}
-		
+
 	}
 
 }

@@ -53,11 +53,9 @@ namespace TigerCs.Emitters.NASM
 				}
 				for (int i = 1; i <= 8; i *= 2)
 				{
-					if ((rlock & i) == 0)
-					{
-						rlock |= i;
-						return (Register)i;
-					}
+					if ((rlock & i) != 0) continue;
+					rlock |= i;
+					return (Register)i;
 				}
 				return null;
 			}
@@ -83,7 +81,7 @@ namespace TigerCs.Emitters.NASM
 		}
 	}
 
-	public enum Register : int
+	public enum Register
 	{
 		/// <summary>
 		/// Acumulation, Return

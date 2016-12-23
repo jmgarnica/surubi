@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
@@ -25,16 +22,15 @@ namespace TigerCs.Generation.AST.Expresions
 			if (!Record.CheckSemantics(sc, report)) return false;
 
 			var member = (from i in Enumerable.Range(0, Record.Return.Members.Count)
-						  let c = new { t = Record.Return.Members[i], i = i }
+						  let c = new { t = Record.Return.Members[i], i }
 						  where c.t.Item1 == MemberName
-						  select new { t = c.t.Item2, i = c.i }).FirstOrDefault();
+						  select new { t = c.t.Item2, c.i }).FirstOrDefault();
 
 			if (member == null)
 			{
 				report.Add(new TigerStaticError(line,
 					column,
-					string.Format("Type {0} does not have a definition for member {1}",
-					Record.Return.Name, MemberName), ErrorLevel.Error));
+				                                $"Type {Record.Return.Name} does not have a definition for member {MemberName}", ErrorLevel.Error));
 				return false;
 			}
 

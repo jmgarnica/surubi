@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TigerCs.Emitters.NASM
 {
@@ -14,7 +11,7 @@ namespace TigerCs.Emitters.NASM
 		public readonly NasmScopeType ScopeType;
 		public readonly NasmFunction DeclaringFunction;
 
-		public List<NasmFunction> FuncTypePos { get; private set; }
+		public List<NasmFunction> FuncTypePos { get; }
 		public Queue<int> ReleasedTempVars { get; set; }
 
 		public NasmEmitterScope(NasmEmitterScope parent, Guid beforeenterlabel, Guid biginlabel, Guid endlabel, Guid afterend, NasmScopeType function = NasmScopeType.Nested, int argscount = 0, NasmFunction declaringfucn = null)
@@ -34,7 +31,7 @@ namespace TigerCs.Emitters.NASM
 			if (ScopeType == NasmScopeType.TigerFunction)
 			{
 				fw.WriteLine("mov EBX, ESP");
-				fw.WriteLine(string.Format("add EBX, {0}", 4 * (ArgumentsCount + 2)));
+				fw.WriteLine($"add EBX, {4 * (ArgumentsCount + 2)}");
 				fw.WriteLine("mov EBX, [EBX]");
 				fw.WriteLine("push EBX");
 			}
@@ -56,14 +53,14 @@ namespace TigerCs.Emitters.NASM
 
 				if (ScopeType == NasmScopeType.TigerFunction || ScopeType == NasmScopeType.CFunction)
 				{
-					if (ret != null) ret.PutValueInRegister(Register.EAX, f, this);
+					ret?.PutValueInRegister(Register.EAX, f, this);
 
 					if (error)
-						f.WriteLine(string.Format("mov ECX, {0}", NasmEmitter.ErrorCode));
+						f.WriteLine($"mov ECX, {NasmEmitter.ErrorCode}");
 					else f.WriteLine("xor ECX, ECX");
 				}
 
-				f.WriteLine(string.Format("add ESP, {0}", 4 * (ScopeType == NasmScopeType.TigerFunction ? VarsCount + 1 : VarsCount)));
+				f.WriteLine($"add ESP, {4 * (ScopeType == NasmScopeType.TigerFunction? VarsCount + 1 : VarsCount)}");
 				f.WriteLine("pop EBP");
 
 				if (ScopeType == NasmScopeType.TigerFunction || ScopeType == NasmScopeType.CFunction)

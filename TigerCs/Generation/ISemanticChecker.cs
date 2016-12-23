@@ -10,9 +10,10 @@ namespace TigerCs.Generation
 		/// <summary>
 		/// Initializate a new semantic checker context
 		/// </summary>
+		/// <param name="report"></param>
 		/// <param name="trappedSTD">
-		/// when not null all missing members from a call to Reachable whith 
-		/// enough information on the desired field, desired field not null, of type(or derived from) 
+		/// when not null all missing members from a call to Reachable whith
+		/// enough information on the desired field, desired field not null, of type(or derived from)
 		/// TypeInfo, FunctionInfo and HolderInfo,
 		/// and with only null values in those members of a type difined in ByteCode namespace,
 		/// will be added to the given dictionary, if the same name is missing more than once will not cause an error report
@@ -44,7 +45,7 @@ namespace TigerCs.Generation
 		/// <param name="desired"></param>
 		/// <returns></returns>
 		bool Reachable(string name, out MemberInfo member, MemberDefinition desired = null);
-		
+
 		T SeekDescriptor<T>(Predicate<object> stop = null)
 			where T : class;
 

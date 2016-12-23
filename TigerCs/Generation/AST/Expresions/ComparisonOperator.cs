@@ -43,7 +43,7 @@ namespace TigerCs.Generation.AST.Expresions
 		//	//cg.GotoIfNotZero(retcero, nlessm);
 
 		//	cg.ApplyReservedLabel(beging);
-			
+
 		//}
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
@@ -78,7 +78,8 @@ namespace TigerCs.Generation.AST.Expresions
 							Column = column,
 							Line = line,
 							Level = ErrorLevel.Error,
-							ErrorMessage = string.Format("Comparisons must be between objects of the same type left: {0}, rigth: {1} ", Left.Return, Rigth.Return)
+							ErrorMessage =
+								$"Comparisons must be between objects of the same type left: {Left.Return}, rigth: {Rigth.Return} "
 						});
 				return false;
 			}
@@ -90,7 +91,7 @@ namespace TigerCs.Generation.AST.Expresions
 						Column = column,
 						Line = line,
 						Level = ErrorLevel.Error,
-						ErrorMessage = string.Format("Type {0} not supported for comparison, only string and int", Left.Return)
+						ErrorMessage = $"Type {Left.Return} not supported for comparison, only string and int"
 					});
 				return false;
 			}
@@ -98,7 +99,7 @@ namespace TigerCs.Generation.AST.Expresions
 			Return = _int;
 			ReturnValue = new HolderInfo { Type = _int, Name = Rigth.ReturnValue.Name + "=>?<=" + Left.ReturnValue.Name + "|> comparison" };
 
-			if (StringComparer == null && Rigth.Equals(_string))
+			if (StringComparer == null && Rigth.Return.Equals(_string))
 			{
 				_nill = sc.Nill();
 
@@ -109,7 +110,7 @@ namespace TigerCs.Generation.AST.Expresions
 					Return = _int,
 				};
 
-				
+
 			}
 
 			return true;
@@ -128,7 +129,7 @@ namespace TigerCs.Generation.AST.Expresions
 			if (Left.Return.Equals(Return))
 			{
 				var val = cg.InstrSub_TempBound((H)Left.ReturnValue.BCMMember, (H)Rigth.ReturnValue.BCMMember);
-				
+
 			}
 			else { }
 		}

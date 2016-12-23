@@ -1,12 +1,11 @@
-﻿using System;
-using TigerCs.CompilationServices;
+﻿using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expresions
 {
 	public class IntegerConstant : Expresion
 	{
-		int value;
+		public int Value;
 
 		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report)
 		{
@@ -24,7 +23,7 @@ namespace TigerCs.Generation.AST.Expresions
 			ReturnValue = new HolderInfo
 			{
 				//Bounded = true,
-				BCMMember = cg.AddConstant(value),
+				BCMMember = cg.AddConstant(Value),
 				Name = "",
 				Type = Return
 			};

@@ -1,5 +1,4 @@
-﻿using System;
-using TigerCs.CompilationServices;
+﻿using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expresions
@@ -25,7 +24,7 @@ namespace TigerCs.Generation.AST.Expresions
 
 			if (!(var is HolderInfo))
 			{
-				report.Add(new TigerStaticError { Column = column, Line = line, ErrorMessage = string.Format("Member {0} is not a variable", Name), Level = ErrorLevel.Error });
+				report.Add(new TigerStaticError { Column = column, Line = line, ErrorMessage = $"Member {Name} is not a variable", Level = ErrorLevel.Error });
 				return false;
 			}
 
@@ -40,7 +39,7 @@ namespace TigerCs.Generation.AST.Expresions
 		{
 			if (!ReturnValue.Bounded)
 			{
-				report.Add(new TigerStaticError { Column = column, Line = line, ErrorMessage = string.Format("Member {0} not initialized", Name), Level = ErrorLevel.Critical });
+				report.Add(new TigerStaticError { Column = column, Line = line, ErrorMessage = $"Member {Name} not initialized", Level = ErrorLevel.Critical });
 			}
 		}
 
@@ -51,7 +50,7 @@ namespace TigerCs.Generation.AST.Expresions
 		{
 			if (!ReturnValue.Bounded)
 			{
-				report.Add(new TigerStaticError { Column = column, Line = line, ErrorMessage = string.Format("Member {0} not initialized", Name), Level = ErrorLevel.Critical });
+				report.Add(new TigerStaticError { Column = column, Line = line, ErrorMessage = $"Member {Name} not initialized", Level = ErrorLevel.Critical });
 			}
 			else cg.InstrAssing((H)Return.BCMMember, source);
 		}

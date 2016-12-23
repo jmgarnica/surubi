@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TigerCs.CompilationServices;
+﻿using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expresions
 {
 	/// <summary>
-	/// Represents a 
+	/// Represents a
 	/// </summary>
 	public interface ILValue : IExpresion
 	{
 		/// <summary>
 		/// Generate the code for setting the Return Holder's value of the espresion.
-		/// </summary>		
+		/// </summary>
 		/// <param name="cg"></param>
 		/// <param name="source"></param>
 		/// <param name="report"></param>

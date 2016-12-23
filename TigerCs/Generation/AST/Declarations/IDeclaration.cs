@@ -1,5 +1,4 @@
 ﻿using TigerCs.CompilationServices;
-using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Declarations
 {

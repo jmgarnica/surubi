@@ -21,7 +21,7 @@ namespace TigerCs.Emitters.NASM
 		public bool CFunction { get; set; }
 		public bool ErrorCheck { get; protected set; } = true;
 
-		public string Name { get; private set; }
+		public string Name { get; }
 		public int ParamsCount { get; set; }
 		public bool Bounded
 		{
@@ -39,55 +39,53 @@ namespace TigerCs.Emitters.NASM
 		public virtual void Call(FormatWriter fw, Register? result, NasmEmitterScope accedingscope, params NasmMember[] args)
 		{
 			var lockreglist = accedingscope.Lock.Locked();
-			fw.WriteLine(string.Format(";before calling {0}", Name));
+			fw.WriteLine($";before calling {Name}");
 
-			bool pop = false;
 			foreach (var r in lockreglist)
 			{
 				if (!r.GeneralPurposeRegister() || (result != null && result == r)) continue;
 				fw.WriteLine("push " + r);
-				pop = true;
 				accedingscope.Lock.Release(r);
 			}
 
-			fw.WriteLine(string.Format(";getting {0}", Name));
+			fw.WriteLine($";getting {Name}");
 			accedingscope.Lock.Lock(Register.EAX);
 			PutValueInRegister(Register.EAX, fw, accedingscope);
 
 			if (!CFunction)
 			{
-				fw.WriteLine(string.Format(";{0}.EBP", Name));
+				fw.WriteLine($";{Name}.EBP");
 				fw.WriteLine("mov EDX, [EAX + 4]");
 				fw.WriteLine("push EDX");
 			}
 
-			fw.WriteLine(string.Format(";{0}.Params", Name));
+			fw.WriteLine($";{Name}.Params");
 			accedingscope.Lock.Lock(Register.EDX);
 			foreach (var arg in args)
 			{
 				arg.PutValueInRegister(Register.EDX, fw, accedingscope);
-				fw.WriteLine("push " + Register.EDX);				
+				fw.WriteLine("push " + Register.EDX);
 			}
 			fw.WriteLine("");
 			accedingscope.Lock.Release(Register.EDX);
 
 			if (!CFunction)
 			{
-				fw.WriteLine(string.Format(";{0}.F*", Name));
+				fw.WriteLine($";{Name}.F*");
 				fw.WriteLine("mov EAX, [EAX]");
 			}
 
-			fw.WriteLine(string.Format(";calling {0}", Name));
+			fw.WriteLine($";calling {Name}");
 			fw.WriteLine("call EAX");
-			fw.WriteLine(string.Format("add ESP, {0}", (CFunction ? args.Length : args.Length + 1) * 4));
+			fw.WriteLine($"add ESP, {(CFunction? args.Length : args.Length + 1) * 4}");
 			if (ErrorCheck)
 			{
-				fw.WriteLine(string.Format(";error catching", Name));
-				NasmEmitter.CatchAndRethrow(fw, accedingscope, bound);				
+				fw.WriteLine($";error catching {Name}");
+				NasmEmitter.CatchAndRethrow(fw, accedingscope, bound);
 			}
 			if (result != null && result != Register.EAX)
 			{
-				fw.WriteLine(string.Format("mov {0}, EAX", result.Value));
+				fw.WriteLine($"mov {result.Value}, EAX");
 			}
 			if (result != Register.EAX) accedingscope.Lock.Release(Register.EAX);
 
@@ -105,14 +103,14 @@ namespace TigerCs.Emitters.NASM
 		{
 			var sp = bound.AddConstant(8);
 			Malloc.Call(fw, target, accedingscope, sp);
-			fw.WriteLine(string.Format("mov [{0}], dword _{1}", target, beforeenterlabel.ToString("N")));
-			fw.WriteLine(string.Format("mov [{0} + 4], EBP", target));
+			fw.WriteLine($"mov [{target}], dword _{beforeenterlabel:N}");
+			fw.WriteLine($"mov [{target} + 4], EBP");
 		}
 	}
 
 	public class NasmCFunction : NasmFunction
 	{
-		string label;
+		readonly string label;
 
 		public NasmCFunction(string label, bool exf, NasmEmitter bound, bool errorcheck = false, string name = "")
 			:base(null, -1, bound, name)
@@ -125,7 +123,7 @@ namespace TigerCs.Emitters.NASM
 
 		public override void PutValueInRegister(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
 		{
-			fw.WriteLine(string.Format("mov {0}, {1}", gpr, label));
+			fw.WriteLine($"mov {gpr}, {label}");
 		}
 
 		public override void StackBackValue(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
@@ -141,11 +139,11 @@ namespace TigerCs.Emitters.NASM
 	{
 		/// <summary>
 		/// Return value always in args[0] or EAX when args.Length = 0
-		/// </summary>		
+		/// </summary>
 		public delegate void MacroCall(FormatWriter fw, NasmEmitter bound, NasmEmitterScope acceding, Register[] args);
 
 		/// <summary>
-		/// If not null must contains one register per expected argumet and the argumets are guaranteed to follow this order 
+		/// If not null must contains one register per expected argumet and the argumets are guaranteed to follow this order
 		/// </summary>
 		public Register[] Requested { get; set; }
 
@@ -169,7 +167,7 @@ namespace TigerCs.Emitters.NASM
 		public override void Call(FormatWriter fw, Register? result, NasmEmitterScope accedingscope, params NasmMember[] args)
 		{
 			if (args.Length > 4) throw new ArgumentException("Macros can't have more than 4 parameters");
-			fw.WriteLine(string.Format(";before calling {0}", Name));
+			fw.WriteLine($";before calling {Name}");
 			var pops = new List<Register>(4);
 			var param = new List<Register>(4);
 			if (Requested == null)
@@ -181,7 +179,7 @@ namespace TigerCs.Emitters.NASM
 					if (reg == null)
 					{
 						pops.Add(d);
-						fw.WriteLine(string.Format("push {0}", d));
+						fw.WriteLine($"push {d}");
 						reg = d;
 					}
 					args[i].PutValueInRegister(reg.Value, fw, accedingscope);
@@ -198,18 +196,18 @@ namespace TigerCs.Emitters.NASM
 					if (accedingscope.Lock.Locked(Requested[i]))
 					{
 						pops.Add(Requested[i]);
-						fw.WriteLine(string.Format("push {0}", Requested[i]));
+						fw.WriteLine($"push {Requested[i]}");
 					}
 					args[i].PutValueInRegister(Requested[i], fw, accedingscope);
 				}
-					
+
 			}
 			if (result != null && param.Count == 0 && accedingscope.Lock.Locked(Register.EAX))
 			{
 				pops.Add(Register.EAX);
-				fw.WriteLine(string.Format("push {0}", Register.EAX));
+				fw.WriteLine($"push {Register.EAX}");
 			}
-			fw.WriteLine(string.Format(";calling Macro {0}", Name));
+			fw.WriteLine($";calling Macro {Name}");
 			CallPoint(fw, bound, accedingscope, param.ToArray());
 
 			if (result != null)
@@ -217,14 +215,14 @@ namespace TigerCs.Emitters.NASM
 				if (param.Count > 0)
 				{
 					if (result != param[0])
-						fw.WriteLine(string.Format("mov {0}, {1}", result.Value, param[0]));
+						fw.WriteLine($"mov {result.Value}, {param[0]}");
 				}
 				else if(result != Register.EAX)
-					fw.WriteLine(string.Format("mov {0}, EAX", result.Value));
+					fw.WriteLine($"mov {result.Value}, EAX");
 			}
 
 			for (int i = pops.Count - 1; i >= 0; i--)
-				fw.WriteLine(string.Format("pop {0}", pops[i]));
+				fw.WriteLine($"pop {pops[i]}");
 
 			foreach (var r in param.Except(pops))
 			{

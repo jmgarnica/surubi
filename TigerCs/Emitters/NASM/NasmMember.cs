@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TigerCs.Generation.ByteCode;
+﻿using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Emitters.NASM
 {
@@ -35,15 +30,15 @@ namespace TigerCs.Emitters.NASM
 
 			var reg = accedingscope.Lock.Locked(Register.EBX)? gpr : Register.EBX;
 
-			fw.WriteLine(string.Format("mov {0}, {1}", reg, Register.EBP));
+			fw.WriteLine($"mov {reg}, {Register.EBP}");
 
 			for (int i = 0; i < levels; i++)
 			{
 				fw.WriteLine(string.Format("mov {0}, [{0}]", reg));
 			}
 
-			fw.WriteLine(string.Format("add {0}, {1}", reg, -(DeclaringScopeIndex + 1)*4));
-			fw.WriteLine(string.Format("mov {0}, [{1}]", gpr, reg));
+			fw.WriteLine($"add {reg}, {-(DeclaringScopeIndex + 1) * 4}");
+			fw.WriteLine($"mov {gpr}, [{reg}]");
 		}
 
 		public virtual void StackBackValue(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
@@ -61,24 +56,24 @@ namespace TigerCs.Emitters.NASM
 				fw.WriteLine("push " + reg.Value);
 			}
 
-			fw.WriteLine(string.Format("mov {0}, EBP", reg.Value));
+			fw.WriteLine($"mov {reg.Value}, EBP");
 
 			for (int i = 0; i < levels; i++)
 			{
 				fw.WriteLine(string.Format("mov {0}, [{0}]", reg.Value));
 			}
 
-			fw.WriteLine(string.Format("add {0}, {1}", reg.Value, -(DeclaringScopeIndex + 1) * 4));
-			fw.WriteLine(string.Format("mov [{0}], {1}", reg.Value, gpr));
+			fw.WriteLine($"add {reg.Value}, {-(DeclaringScopeIndex + 1) * 4}");
+			fw.WriteLine($"mov [{reg.Value}], {gpr}");
 
 			if (stackback)
 				fw.WriteLine("pop " + reg.Value);
 			else accedingscope.Lock.Release(reg.Value);
 		}
 
-		public NasmEmitterScope DeclaratingScope { get; private set; }
+		public NasmEmitterScope DeclaratingScope { get; }
 
-		public int DeclaringScopeIndex { get; private set; }
+		public int DeclaringScopeIndex { get; }
 	}
-	
+
 }

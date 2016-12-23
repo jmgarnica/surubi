@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
@@ -18,9 +15,7 @@ namespace TigerCs.Generation.AST.Declarations
 		}
 
 		public bool CorrectSemantics
-		{
-			get;
-		}
+		{ get; set; }
 
 		public string Lex
 		{

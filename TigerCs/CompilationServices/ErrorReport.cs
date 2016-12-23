@@ -6,7 +6,7 @@ namespace TigerCs.CompilationServices
 {
 	public class ErrorReport : IEnumerable<TigerStaticError>
 	{
-		List<TigerStaticError> report;
+		readonly List<TigerStaticError> report;
 		public event Action<TigerStaticError> CriticalError, Error, Warning, Info;
 
 		public ErrorReport()
@@ -20,19 +20,19 @@ namespace TigerCs.CompilationServices
 			switch (error.Level)
 			{
 				case ErrorLevel.Info:
-					if (Info != null) Info(error);
+					Info?.Invoke(error);
 					break;
 				case ErrorLevel.Warning:
-					if (Info != null) Info(error);
+					Warning?.Invoke(error);
 					break;
 				case ErrorLevel.Error:
-					if (Info != null) Info(error);
+					Error?.Invoke(error);
 					break;
 				case ErrorLevel.Critical:
-					if (Info != null) Info(error);
+					CriticalError?.Invoke(error);
 					break;
 				default:
-					if (Info != null) Info(error);
+					Info?.Invoke(error);
 					break;
 			}
 		}
@@ -48,7 +48,7 @@ namespace TigerCs.CompilationServices
 		}
 
 		public void IncompleteMemberInitialization(string source = null)
-			=> Add(new TigerStaticError(0, 0, "Incomple member initialization", ErrorLevel.Critical, source));			
+			=> Add(new TigerStaticError(0, 0, "Incomple member initialization", ErrorLevel.Critical, source));
 	}
 
 	public struct TigerStaticError
@@ -58,7 +58,7 @@ namespace TigerCs.CompilationServices
 		public string SourceCode;
 		public int Line;
 		public int Column;
-		   
+
 		public TigerStaticError(int line, int colunm, string error, ErrorLevel level, string source = null)
 		{
 			ErrorMessage = error;

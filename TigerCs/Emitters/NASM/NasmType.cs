@@ -13,7 +13,6 @@ namespace TigerCs.Emitters.NASM
 		public static NasmFunction ArrayAllocator { get; set; }
 		public static NasmFunction ByteZeroEndArrayAllocator { get; set; }
 
-		const int typesize = 4;
 		public NasmRefType RefType { get; set; }
 		public int AsRefSize { get; set; }
 		public readonly string Name;
@@ -46,7 +45,7 @@ namespace TigerCs.Emitters.NASM
 			}
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// parameters:
 		/// IHolder : int -> element index
 		/// IHolder : instance
@@ -64,7 +63,7 @@ namespace TigerCs.Emitters.NASM
 			}
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// parameters:
 		/// IHolder : source
 		/// IHolder : int -> element index
@@ -89,8 +88,7 @@ namespace TigerCs.Emitters.NASM
 			get
 			{
 				if (Equals(String)) return ByteZeroEndArrayAllocator;
-				if (RefType == NasmRefType.Dynamic) return ArrayAllocator;
-				return recorallocator;
+				return RefType == NasmRefType.Dynamic? ArrayAllocator : recorallocator;
 			}
 			set
 			{

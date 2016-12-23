@@ -8,20 +8,19 @@ using TigerCs.Generation.AST.Declarations;
 
 namespace TigerCs.Generation
 {
-	[AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
+	[AttributeUsage(AttributeTargets.Property)]
 	public class StaticDataAttribute : Attribute
 	{ }
 
-	[AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = true)]
+	[AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
 	public class ReleaseAttribute : Attribute
 	{
-		readonly bool c;
 		public ReleaseAttribute(bool collection = false)
 		{
-			c = collection;
+			Collection = collection;
 		}
 
-		public bool Collection { get { return c; } }
+		public bool Collection { get; }
 	}
 
 	public static class CheckerExtensions
@@ -31,8 +30,7 @@ namespace TigerCs.Generation
 			MemberInfo Int;
 			if (!sc.Reachable("int", out Int, new MemberDefinition { Member = new TypeInfo { Name = "int" } }))
 			{
-				if (report != null)
-					report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Integer STD type not defined" });
+				report?.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Integer STD type not defined" });
 				return null;
 			}
 
@@ -44,8 +42,7 @@ namespace TigerCs.Generation
 			MemberInfo String;
 			if (!sc.Reachable("string", out String, new MemberDefinition { Member = new TypeInfo { Name = "string" } }))
 			{
-				if (report != null)
-					report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "String STD type not defined" });
+				report?.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "String STD type not defined" });
 				return null;
 			}
 
@@ -63,8 +60,7 @@ namespace TigerCs.Generation
 			MemberInfo Void;
 			if (!sc.Reachable("void", out Void, new MemberDefinition { Member = new TypeInfo { Name = "void", BCMBackup = false } }))
 			{
-				if (report != null)
-					report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Void STD type not defined" });
+				report?.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Void STD type not defined" });
 				return null;
 			}
 
@@ -76,16 +72,14 @@ namespace TigerCs.Generation
 			MemberInfo Null;
 			if (!sc.Reachable("Null", out Null, new MemberDefinition { Member = new TypeInfo { Name = "Null" } }))
 			{
-				if (report != null)
-					report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Null STD type not defined" });
+				report?.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Null STD type not defined" });
 				return null;
 			}
 
 			MemberInfo Nill;
 			if (!sc.Reachable("nill", out Nill, new MemberDefinition { Member = new HolderInfo { Name = "nill", Type = (TypeInfo)Null } }))
 			{
-				if (report != null)
-					report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Nill STD const not defined" });
+				report?.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Nill STD const not defined" });
 				return null;
 			}
 
@@ -171,13 +165,12 @@ namespace TigerCs.Generation
 				{
 					Name = "print",
 					Return = sc.Void(report),
-					Parameters = new List<System.Tuple<string, TypeInfo>> { new System.Tuple<string, TypeInfo>("s", sc.String(report)) }
+					Parameters = new List<Tuple<string, TypeInfo>> { new Tuple<string, TypeInfo>("s", sc.String(report)) }
 				}
 			};
 			if (!sc.Reachable("print", out cmps, md))
 			{
-				if (report != null)
-					report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Print STD function not defined" });
+				report?.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Print STD function not defined" });
 				return null;
 			}
 			return (FunctionInfo)cmps;
@@ -185,22 +178,23 @@ namespace TigerCs.Generation
 
 		public static void ReleaseStaticData(this object o)
 		{
-			var i_props = o.GetType().GetProperties(BindingFlags.Instance|BindingFlags.Static).Where(p => p.CustomAttributes.OfType<ReleaseAttribute>().Any() && p.CanRead);
+			var i_props = o.GetType().GetProperties(BindingFlags.Instance|BindingFlags.Static).Where(p => p.GetCustomAttributes<ReleaseAttribute>().Any() && p.CanRead);
 			foreach (var p in i_props)
 			{
-				var attr = p.CustomAttributes.OfType<ReleaseAttribute>();
-				if (attr.FirstOrDefault(r => r.Collection) != null && p.PropertyType.GetInterface("IEnumerable") != null)
-				{   
+				var attr = p.GetCustomAttributes<ReleaseAttribute>();
+				var release_attributes = attr as ReleaseAttribute[] ?? attr.ToArray();
+				if (release_attributes.FirstOrDefault(r => r.Collection) != null && p.PropertyType.GetInterface("IEnumerable") != null)
+				{
 					IEnumerable ie = (IEnumerable)p.GetValue(o);
 				}
-				if (attr.FirstOrDefault(r => !r.Collection) != null)
+				if (release_attributes.FirstOrDefault(r => !r.Collection) != null)
 				{
 					var op = p.GetValue(o);
 					if (op == null) continue;
 					op.ReleaseStaticData();
-				}				
+				}
 			}
-			var s_props = o.GetType().GetProperties(BindingFlags.Static).Where(p => p.CustomAttributes.OfType<StaticDataAttribute>().Any() && p.CanWrite);
+			var s_props = o.GetType().GetProperties(BindingFlags.Static).Where(p => p.GetCustomAttributes<ReleaseAttribute>().Any() && p.CanWrite);
 			foreach (var p in s_props)
 			{
 				if (!p.PropertyType.IsByRef) continue;

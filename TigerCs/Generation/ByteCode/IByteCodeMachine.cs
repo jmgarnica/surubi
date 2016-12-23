@@ -76,7 +76,6 @@ namespace TigerCs.Generation.ByteCode
 		/// </summary>
 		/// <param name="dest_nonconst"></param>
 		/// <param name="value"></param>
-		/// <param name="dest_as_pointer"></param>
 		void InstrAssing(H dest_nonconst, H value);
 
 		void InstrAdd(H dest_nonconst, H op1, H op2);
@@ -84,7 +83,7 @@ namespace TigerCs.Generation.ByteCode
 		void InstrSub(H dest_nonconst, H op1, H op2);
 
 		void InstrMult(H dest_nonconst, H op1, H op2);
-		
+
 		void InstrDiv(H dest_nonconst, H op1, H op2);
 
 		void InstrInverse(H dest_nonconst, H op1);
@@ -121,7 +120,7 @@ namespace TigerCs.Generation.ByteCode
 		/// <param name="function"></param>
 		/// <param name="args"></param>
 		/// <param name="returnval">
-		/// if diferent of null the return value of the function will be placed there
+		/// if different of null the return value of the function will be placed there
 		/// </param>
 		void Call(F function, H[] args, H returnval = null);
 
@@ -183,40 +182,36 @@ namespace TigerCs.Generation.ByteCode
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
-		/// No jumps to outers or inner scopes are allowed. 
-		/// BeforeEnterScope and AfterEndScope labels are not part of the current scope. 
+		/// No jumps to outers or inner scopes are allowed.
+		/// BeforeEnterScope and AfterEndScope labels are not part of the current scope.
 		/// This can not cross over functions borders.
 		/// </summary>
-		/// <param name="label"></param>
 		void GotoIfZero(Guid label, H int_op);
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
-		/// No jumps to outers or inner scopes are allowed. 
-		/// BeforeEnterScope and AfterEndScope labels are not part of the current scope. 
+		/// No jumps to outers or inner scopes are allowed.
+		/// BeforeEnterScope and AfterEndScope labels are not part of the current scope.
 		/// This can not cross over functions borders.
 		/// </summary>
-		/// <param name="label"></param>
 		void GotoIfNotZero(Guid label, H int_op);
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
-		/// No jumps to outers or inner scopes are allowed. 
-		/// BeforeEnterScope and AfterEndScope labels are not part of the current scope. 
+		/// No jumps to outers or inner scopes are allowed.
+		/// BeforeEnterScope and AfterEndScope labels are not part of the current scope.
 		/// This can not cross over functions borders.
 		/// [IMPLEMENTATION_TIP] int_op >= 0
 		/// </summary>
-		/// <param name="label"></param>
 		void GotoIfNotNegative(Guid label, H int_op);
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
-		/// No jumps to outers or inner scopes are allowed. 
-		/// BeforeEnterScope and AfterEndScope labels are not part of the current scope. 
+		/// No jumps to outers or inner scopes are allowed.
+		/// BeforeEnterScope and AfterEndScope labels are not part of the current scope.
 		/// This can not cross over functions borders.
 		/// [IMPLEMENTATION_TIP] int_op less than 0
 		/// </summary>
-		/// <param name="label"></param>
 		void GotoIfNegative(Guid label, H int_op);
 
 		#endregion
@@ -244,9 +239,9 @@ namespace TigerCs.Generation.ByteCode
 	}
 
 	public static class IByteCodeMachineExtensions
-		
+
 	{
-		public static H InstrAdd_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1, H op2) 
+		public static H InstrAdd_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1, H op2)
 			where T : class, IType<T, F>
 			where F : class, IFunction<T, F>
 			where H : class, IHolder
@@ -256,7 +251,7 @@ namespace TigerCs.Generation.ByteCode
 			return tmp;
 		}
 
-		public static H InstrSub_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1, H op2) 
+		public static H InstrSub_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1, H op2)
 			where T : class, IType<T, F>
 			where F : class, IFunction<T, F>
 			where H : class, IHolder
@@ -266,7 +261,7 @@ namespace TigerCs.Generation.ByteCode
 			return tmp;
 		}
 
-		public static H InstrMult_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1, H op2) 
+		public static H InstrMult_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1, H op2)
 			where T : class, IType<T, F>
 			where F : class, IFunction<T, F>
 			where H : class, IHolder
@@ -276,7 +271,7 @@ namespace TigerCs.Generation.ByteCode
 			return tmp;
 		}
 
-		public static H InstrDiv_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1, H op2) 
+		public static H InstrDiv_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1, H op2)
 			where T : class, IType<T, F>
 			where F : class, IFunction<T, F>
 			where H : class, IHolder
@@ -286,7 +281,7 @@ namespace TigerCs.Generation.ByteCode
 			return tmp;
 		}
 
-		public static H InstrInverse_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1) 
+		public static H InstrInverse_TempBound<T, F, H>(this IByteCodeMachine<T, F, H> machine, H op1)
 			where T : class, IType<T, F>
 			where F : class, IFunction<T, F>
 			where H : class, IHolder

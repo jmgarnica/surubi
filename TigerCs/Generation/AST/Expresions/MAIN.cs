@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
@@ -19,7 +16,7 @@ namespace TigerCs.Generation.AST.Expresions
 		public static TypeInfo ArrayOfString { get; set; }
 
 		[Release]
-		public IExpresion root { get; private set; }
+		public IExpresion root { get; }
 		public HolderInfo args { get; private set; }
 
 		public MAIN(IExpresion root)

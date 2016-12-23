@@ -59,7 +59,7 @@ namespace TigerCs.Generation
 	{
 		public List<Tuple<string, TypeInfo>> Members { get; set; }
 
-		public Guid TypeId { get; set; }
+		public Guid TypeId { get; }
 
 		/// <summary>
 		/// Null for no-array types
@@ -74,12 +74,12 @@ namespace TigerCs.Generation
 
 		public static bool operator ==(TypeInfo a, TypeInfo b)
 		{
-			return a.TypeId == b.TypeId;
+			return b != null && a != null && a.TypeId == b.TypeId;
 		}
 
 		public static bool operator !=(TypeInfo a, TypeInfo b)
 		{
-			return a.TypeId != b.TypeId;
+			return b != null && a != null && a.TypeId != b.TypeId;
 		}
 
 		public override int GetHashCode()
@@ -89,10 +89,10 @@ namespace TigerCs.Generation
 
 		public override bool Equals(object obj)
 		{
-			if (obj is TypeInfo)
-			{
-				return ((TypeInfo)obj).TypeId == TypeId;
-			}
+			var info = obj as TypeInfo;
+			if (info != null)
+				return info.TypeId == TypeId;
+
 			return false;
 		}
 

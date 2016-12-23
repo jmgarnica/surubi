@@ -17,7 +17,7 @@ namespace TigerCs.Generation.AST.Expresions
 		public bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
 		{
 			foreach (var item in this)
-				if (!CheckSemantics(sc, report)) return false;
+				if (!item.CheckSemantics(sc, report)) return false;
 
 			if (Count > 0)
 			{
@@ -34,7 +34,7 @@ namespace TigerCs.Generation.AST.Expresions
 			where H : class, IHolder
 		{
 			foreach (var item in this)
-				GenerateCode(cg, report);
+				item.GenerateCode(cg, report);
 		}
 	}
 }

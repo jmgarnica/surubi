@@ -3,6 +3,8 @@ using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Emitters.NASM
 {
+	using System.Diagnostics.CodeAnalysis;
+
 	public class NasmHolder : NasmMember, IHolder
 	{
 		public NasmHolder(NasmEmitterScope dscope, int sindex)
@@ -29,7 +31,7 @@ namespace TigerCs.Emitters.NASM
 
 		public override void PutValueInRegister(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
 		{
-			if (value != 0) fw.WriteLine(string.Format("mov {0}, {1}", gpr, value));
+			if (value != 0) fw.WriteLine($"mov {gpr}, {value}");
 			else fw.WriteLine(string.Format("xor {0}, {0}", gpr));
 		}
 
@@ -41,8 +43,10 @@ namespace TigerCs.Emitters.NASM
 
 	public class NasmStringConst : NasmHolder
 	{
+		[SuppressMessage("ReSharper", "NotAccessedField.Local")]
 		string value;
-		string label;
+
+		readonly string label;
 		public readonly int offset;
 
 		public NasmStringConst(string value, string label, int offset)
@@ -60,7 +64,7 @@ namespace TigerCs.Emitters.NASM
 
 		public override void PutValueInRegister(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
 		{
-			fw.WriteLine(string.Format("mov {0}, {1}", gpr, label));
+			fw.WriteLine($"mov {gpr}, {label}");
 			fw.WriteLine(string.Format("{2}add {0}, {1}", gpr, offset, offset != 0 ? "" : ";"));
 		}
 
@@ -72,26 +76,28 @@ namespace TigerCs.Emitters.NASM
 
 	public class NasmReference : NasmHolder
 	{
-		NasmHolder H;
-		int offset;
-		WordSize size;
-		NasmEmitter bound;
-		bool checkupperbound;
+		readonly NasmHolder H;
+		readonly int offset;
+		readonly WordSize size;
+		readonly NasmEmitter bound;
+		readonly bool checkupperbound;
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="h"></param>
 		/// <param name="offset"></param>
+		/// <param name="bound"></param>
 		/// <param name="dscope">
 		/// 
 		/// </param>
 		/// <param name="size">
 		/// Only on byte an dword mode
 		/// </param>
+		/// <param name="checkupperbound"></param>
 		public NasmReference(NasmHolder h, int offset, NasmEmitter bound, NasmEmitterScope dscope = null, WordSize size = WordSize.DWord, bool checkupperbound = false)
 			:base(dscope ?? h.DeclaratingScope, 0)
-		{ 
+		{
 			H = h;
 			this.size = size;
 			this.bound = bound;
@@ -114,29 +120,29 @@ namespace TigerCs.Emitters.NASM
 				if (reg == null)
 				{
 					reg = Register.EDX != gpr ? Register.EDX : Register.EBX;
-					fw.WriteLine(string.Format("push {0}", reg.Value));
+					fw.WriteLine($"push {reg.Value}");
 					stackback = true;
 				}
 
-				fw.WriteLine(string.Format("mov {0}, {1}", reg.Value, offset));
-				fw.WriteLine(string.Format("cmp {0}, [{1}]", reg.Value, gpr));
+				fw.WriteLine($"mov {reg.Value}, {offset}");
+				fw.WriteLine($"cmp {reg.Value}, [{gpr}]");
 
-				if (stackback) fw.WriteLine(string.Format("pop {0}", reg.Value));
+				if (stackback) fw.WriteLine($"pop {reg.Value}");
 				else accedingscope.Lock.Release(reg.Value);
 
-				fw.WriteLine(string.Format("jge _{0}", doit.ToString("N")));
-				fw.WriteLine(string.Format("jmp _{0}", ndoit.ToString("N")));
+				fw.WriteLine($"jge _{doit:N}");
+				fw.WriteLine($"jmp _{ndoit:N}");
 
-				fw.WriteLine(string.Format("_{0}:", doit.ToString("N")));
+				fw.WriteLine($"_{doit:N}:");
 				NasmEmitter.EmitError(fw, accedingscope, bound, 1, "Index out of range");
 
-				fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
+				fw.WriteLine($"_{ndoit:N}:");
 				//</error catch>
 			}
-			fw.WriteLine(string.Format("add {0}, {1}", gpr, 4 + offset * (int)size));
-			fw.WriteLine(string.Format("mov {0}, [{1}]", size == WordSize.Byte ? gpr.ByteVersion() : gpr, gpr));
+			fw.WriteLine($"add {gpr}, {4 + offset * (int)size}");
+			fw.WriteLine($"mov {(size == WordSize.Byte? gpr.ByteVersion() : gpr)}, [{gpr}]");
 			if (size == WordSize.Byte)
-				fw.WriteLine(string.Format("movzx {0}, {1}", gpr, gpr.ByteVersion()));
+				fw.WriteLine($"movzx {gpr}, {gpr.ByteVersion()}");
         }
 
 		public override void StackBackValue(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
@@ -163,18 +169,18 @@ namespace TigerCs.Emitters.NASM
 					stackback2 = true;
 					fw.WriteLine("push " + reg2.Value);
 				}
-				
+
 				Guid doit = bound.g.GNext();
 				Guid ndoit = bound.g.GNext();
-				fw.WriteLine(string.Format("mov {0}, {1}", reg2.Value, offset));
-				fw.WriteLine(string.Format("cmp {0}, [{1}]", reg2.Value, reg.Value));
-				fw.WriteLine(string.Format("jge _{0}", doit.ToString("N")));
-				fw.WriteLine(string.Format("jmp _{0}", ndoit.ToString("N")));
+				fw.WriteLine($"mov {reg2.Value}, {offset}");
+				fw.WriteLine($"cmp {reg2.Value}, [{reg.Value}]");
+				fw.WriteLine($"jge _{doit:N}");
+				fw.WriteLine($"jmp _{ndoit:N}");
 
-				fw.WriteLine(string.Format("_{0}:", doit.ToString("N")));
+				fw.WriteLine($"_{doit:N}:");
 				NasmEmitter.EmitError(fw, accedingscope, bound, 1, "Index out of range");
 
-				fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
+				fw.WriteLine($"_{ndoit:N}:");
 
 				if (stackback2)
 					fw.WriteLine("pop " + reg2.Value);
@@ -182,8 +188,8 @@ namespace TigerCs.Emitters.NASM
 			}
 			//</error catch>
 			//<new code>
-			fw.WriteLine(string.Format("add {0}, {1}", reg.Value, 4 + offset * (int)size));
-			fw.WriteLine(string.Format("mov [{0}], {1}", reg.Value, size == WordSize.Byte? gpr.ByteVersion() : gpr));
+			fw.WriteLine($"add {reg.Value}, {4 + offset * (int)size}");
+			fw.WriteLine($"mov [{reg.Value}], {(size == WordSize.Byte? gpr.ByteVersion() : gpr)}");
 			//</new code>
 			if (stackback)
 				fw.WriteLine("pop " + reg.Value);
@@ -193,7 +199,7 @@ namespace TigerCs.Emitters.NASM
 
 	class NasmRegisterHolder : NasmHolder
 	{
-		Register r;
+		readonly Register r;
 		public NasmRegisterHolder(Register r)
 			:base(null, -1)
 		{
@@ -204,7 +210,7 @@ namespace TigerCs.Emitters.NASM
 		{
 			if (gpr != r)
 			{
-				fw.WriteLine(string.Format("mov {0}, {1}", gpr, r));
+				fw.WriteLine($"mov {gpr}, {r}");
 			}
 		}
 

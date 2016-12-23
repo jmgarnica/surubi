@@ -23,17 +23,17 @@ namespace TigerCs.Emitters.NASM
 		[InArgument(Comment = "the name of the output file, empty for standar output", ConsoleShortName = "-o", DefaultValue ="out.asm")]
 		public string OutputFile { get; set; }
 
-		FormatWriter fw;
+		readonly FormatWriter fw;
 		ErrorReport r;
 
 		TextWriter t;
 		FileStream toclose;
 
-		Dictionary<string, NasmFunction> std;
-		HashSet<string> Externs;
+		readonly Dictionary<string, NasmFunction> std;
+		readonly HashSet<string> Externs;
 		Dictionary<string, NasmStringConst> StringConst;
 		int StringConstEnd;
-		NasmFunction PrintS;
+		readonly NasmFunction PrintS;
 
 		public NasmEmitter()
 		{
@@ -70,13 +70,13 @@ namespace TigerCs.Emitters.NASM
 
 			fw.WriteLine("%include \"io.inc\"");
 			fw.WriteLine("section .data");
-			fw.WriteLine(string.Format("{0} db '%', 's', 0", PrintSFormatName));
-			fw.WriteLine(string.Format("{0} db '%', 'i', 0", PrintIFormatName));
+			fw.WriteLine($"{PrintSFormatName} db '%', 's', 0");
+			fw.WriteLine($"{PrintIFormatName} db '%', 'i', 0");
 			fw.WriteLine(string.Format("{1}{0}{2}", fw.IndexOfFormat, '{', '}'), (Func<string>)(() =>
 			{
 				if (StringConst.Count == 0) return ";no string const\n";
 				StringBuilder sb = new StringBuilder();
-				sb.Append(string.Format("{0} db ", StringConstName));
+				sb.Append($"{StringConstName} db ");
 
 				var dict = StringConst.ToList();
 				dict.Sort((a, b) => a.Value.offset.CompareTo(b.Value.offset));
@@ -103,12 +103,12 @@ namespace TigerCs.Emitters.NASM
 
 			fw.WriteLine("section .text");
 			fw.WriteLine(";externs");
-			fw.WriteLine(string.Format("{1}{0}{2}", fw.IndexOfFormat, '{', '}'), (Func<string>)(() => 
+			fw.WriteLine(string.Format("{1}{0}{2}", fw.IndexOfFormat, '{', '}'), (Func<string>)(() =>
 			{
 				AddExterns();
 				StringBuilder sb = new StringBuilder();
 				foreach (var ex in Externs)
-					sb.Append(string.Format("extern {0}\n", ex));
+					sb.Append($"extern {ex}\n");
 				return sb.ToString();
 			}));
 			NasmFunction.Malloc = new NasmCFunction(MallocLabel, true, this,name: "Malloc");
@@ -181,7 +181,7 @@ namespace TigerCs.Emitters.NASM
 			NasmHolder v;
 			if (name != null || CurrentScope.ReleasedTempVars.Count <= 0)
 			{
-				fw.WriteLine(string.Format("; {0}<EBP - {1}>", name, (CurrentScope.VarsCount + 1) * 4));
+				fw.WriteLine($"; {name}<EBP - {(CurrentScope.VarsCount + 1) * 4}>");
 				v = new NasmHolder(CurrentScope, CurrentScope.VarsCount);
 				CurrentScope.VarsCount++;
 			}
@@ -192,15 +192,13 @@ namespace TigerCs.Emitters.NASM
 				defaultvalue = AddConstant(0);
 
 			InstrAssing(v, defaultvalue);
-			
+
 			return v;
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="op1"></param>
-		/// <param name="index"></param>
 		/// <returns></returns>
 		public override NasmHolder StaticMemberAcces(NasmType tigertype, NasmHolder op1, int index)
 		{
@@ -215,8 +213,8 @@ namespace TigerCs.Emitters.NASM
 					if (index >= tigertype.AsRefSize)
 						throw new IndexOutOfRangeException("index exceed members count");
 					break;
-				case NasmRefType.Dynamic:
-				case NasmRefType.NoSet:
+				//case NasmRefType.Dynamic:
+				//case NasmRefType.NoSet:
 				default:
 					dynamicupperboundcheck = true;
 					break;
@@ -230,13 +228,13 @@ namespace TigerCs.Emitters.NASM
 		public override NasmFunction EntryPoint(bool returns = false, bool stringparams = false)
 		{
 			CurrentScope = new NasmEmitterScope(null, g.GNext(), g.GNext(), g.GNext(), g.GNext(), NasmScopeType.CFunction, 2);
-			
+
 			fw.WriteLine(";Main");
 			fw.WriteLine("CMAIN:");
-			fw.WriteLine(string.Format("_{0}:", CurrentScope.BeforeEnterScope.ToString("N")));
+			fw.WriteLine($"_{CurrentScope.BeforeEnterScope:N}:");
 			fw.IncrementIndentation();
 			CurrentScope.WriteEnteringCode(fw);
-			fw.WriteLine(string.Format("_{0}:", CurrentScope.BiginScope.ToString("N")));
+			fw.WriteLine($"_{CurrentScope.BiginScope:N}:");
 
 			return new NasmCFunction(CurrentScope.BiginScope.ToString(), false, this, name: "Main") { Bounded = true };
 		}
@@ -263,11 +261,11 @@ namespace TigerCs.Emitters.NASM
 			CurrentScope = new NasmEmitterScope(CurrentScope, g.GNext(), g.GNext(), g.GNext(), g.GNext(), NasmScopeType.TigerFunction, aheadedfunction.ParamsCount, aheadedfunction);
 
 			fw.WriteLine(";" + aheadedfunction.Name);
-			fw.WriteLine(string.Format("jmp _{0}", CurrentScope.AfterEndScope.ToString("N")));
-			fw.WriteLine(string.Format("_{0}:", CurrentScope.BeforeEnterScope.ToString("N")));
+			fw.WriteLine($"jmp _{CurrentScope.AfterEndScope:N}");
+			fw.WriteLine($"_{CurrentScope.BeforeEnterScope:N}:");
 			fw.IncrementIndentation();
 			CurrentScope.WriteEnteringCode(fw);
-			fw.WriteLine(string.Format("_{0}:", CurrentScope.BiginScope.ToString("N")));
+			fw.WriteLine($"_{CurrentScope.BiginScope:N}:");
 		}
 		#endregion
 
@@ -292,29 +290,29 @@ namespace TigerCs.Emitters.NASM
 
 			CurrentScope = new NasmEmitterScope(CurrentScope, g.GNext(), g.GNext(), g.GNext(), g.GNext(), NasmScopeType.CFunction, members.Length);
 			fw.WriteLine(";record " + aheadedtype.Name);
-			fw.WriteLine(string.Format("jmp _{0}", CurrentScope.AfterEndScope.ToString("N")));
-			fw.WriteLine(string.Format("_{0}:", CurrentScope.BeforeEnterScope.ToString("N")));
-			fw.IncrementIndentation();			
+			fw.WriteLine($"jmp _{CurrentScope.AfterEndScope:N}");
+			fw.WriteLine($"_{CurrentScope.BeforeEnterScope:N}:");
+			fw.IncrementIndentation();
 
-			fw.WriteLine(string.Format("mov {0}, {1}", Register.ECX, (members.Length + 1) * 4));
+			fw.WriteLine($"mov {Register.ECX}, {(members.Length + 1) * 4}");
 			fw.WriteLine("push " + Register.ECX);
 			fw.WriteLine("call " + MallocLabel);
-			fw.WriteLine(string.Format("add {0}, 4 ", Register.ESP));
+			fw.WriteLine($"add {Register.ESP}, 4 ");
 
-			fw.WriteLine(string.Format("mov {0}, {1}", Register.ECX, members.Length));
-			fw.WriteLine(string.Format("mov [{0}], {1}", Register.EAX, Register.ECX));
-			fw.WriteLine(string.Format("mov {0}, {1}", Register.EDI, Register.EAX));
-			fw.WriteLine(string.Format("add {0}, {1}", Register.EDI, 4));
+			fw.WriteLine($"mov {Register.ECX}, {members.Length}");
+			fw.WriteLine($"mov [{Register.EAX}], {Register.ECX}");
+			fw.WriteLine($"mov {Register.EDI}, {Register.EAX}");
+			fw.WriteLine($"add {Register.EDI}, {4}");
 
-			fw.WriteLine(string.Format("mov {0}, {1}", Register.ESI, Register.ESP));
-			fw.WriteLine(string.Format("add {0}, {1}", Register.ESI, 4));
+			fw.WriteLine($"mov {Register.ESI}, {Register.ESP}");
+			fw.WriteLine($"add {Register.ESI}, {4}");
 
 			fw.WriteLine("cdl");
 			fw.WriteLine("rep movsd");
 
 			fw.WriteLine("ret");
 			fw.DecrementIndentation();
-			fw.WriteLine(string.Format("_{0}:", CurrentScope.AfterEndScope.ToString("N")));
+			fw.WriteLine($"_{CurrentScope.AfterEndScope:N}:");
 
 			var label = CurrentScope.BeforeEnterScope;
 			CurrentScope = CurrentScope.Parent;
@@ -403,7 +401,6 @@ namespace TigerCs.Emitters.NASM
 		/// </summary>
 		/// <param name="dest_nonconst"></param>
 		/// <param name="value"></param>
-		/// <param name="dest_as_pointer"></param>
 		public override void InstrAssing(NasmHolder dest_nonconst, NasmHolder value)
 		{
 			SetLabel();
@@ -435,17 +432,17 @@ namespace TigerCs.Emitters.NASM
 
 			if (op1 is NasmIntConst && op2 is NasmIntConst)
 			{
-				fw.Write(string.Format("mov {0}, {1}", reg, (op1 as NasmIntConst).value + (op2 as NasmIntConst).value));
+				fw.Write($"mov {reg}, {((NasmIntConst)op1).value + ((NasmIntConst)op2).value}");
 			}
 			else if (op1 is NasmIntConst)
 			{
 				op2.PutValueInRegister(reg.Value, fw, CurrentScope);
-				fw.Write(string.Format("add {0}, {1}", reg, (op1 as NasmIntConst).value));
+				fw.Write($"add {reg}, {((NasmIntConst)op1).value}");
 			}
 			else if (op2 is NasmIntConst)
 			{
 				op1.PutValueInRegister(reg.Value, fw, CurrentScope);
-				fw.Write(string.Format("add {0}, {1}", reg, (op2 as NasmIntConst).value));
+				fw.Write($"add {reg}, {((NasmIntConst)op2).value}");
 			}
 			else
 			{
@@ -455,13 +452,12 @@ namespace TigerCs.Emitters.NASM
 				{
 					regB = reg == Register.EDX? Register.EBX : Register.EDX;
 					fw.WriteLine("push " + regB);
-					
 				}
 
 				op1.PutValueInRegister(reg.Value, fw, CurrentScope);
 				op2.PutValueInRegister(regB.Value, fw, CurrentScope);
 
-				fw.Write(string.Format("add {0}, {1}", reg, regB));
+				fw.Write($"add {reg}, {regB}");
 
 				if (stackbackB) fw.WriteLine("pop " + regB);
 				else CurrentScope.Lock.Release(regB.Value);
@@ -485,17 +481,17 @@ namespace TigerCs.Emitters.NASM
 
 			if (op1 is NasmIntConst && op2 is NasmIntConst)
 			{
-				fw.Write(string.Format("mov {0}, {1}", reg, (op1 as NasmIntConst).value - (op2 as NasmIntConst).value));
+				fw.Write($"mov {reg}, {((NasmIntConst)op1).value - ((NasmIntConst)op2).value}");
 			}
 			else if (op1 is NasmIntConst)
 			{
 				op2.PutValueInRegister(reg.Value, fw, CurrentScope);
-				fw.Write(string.Format("sub {0}, {1}", reg, (op1 as NasmIntConst).value));
+				fw.Write($"sub {reg}, {((NasmIntConst)op1).value}");
 			}
 			else if (op2 is NasmIntConst)
 			{
 				op1.PutValueInRegister(reg.Value, fw, CurrentScope);
-				fw.Write(string.Format("sub {0}, {1}", reg, (op2 as NasmIntConst).value));
+				fw.Write($"sub {reg}, {((NasmIntConst)op2).value}");
 			}
 			else
 			{
@@ -511,7 +507,7 @@ namespace TigerCs.Emitters.NASM
 				op1.PutValueInRegister(reg.Value, fw, CurrentScope);
 				op2.PutValueInRegister(regB.Value, fw, CurrentScope);
 
-				fw.Write(string.Format("sub {0}, {1}", reg, regB));
+				fw.Write($"sub {reg}, {regB}");
 
 				if (stackbackB) fw.WriteLine("pop " + regB);
 				else CurrentScope.Lock.Release(regB.Value);
@@ -537,7 +533,7 @@ namespace TigerCs.Emitters.NASM
 					fw.WriteLine("push " + Register.EAX);
 				}
 
-				fw.WriteLine(string.Format("mov {0}, {1}", reg, (op1 as NasmIntConst).value * (op2 as NasmIntConst).value));
+				fw.WriteLine($"mov {reg}, {((NasmIntConst)op1).value * ((NasmIntConst)op2).value}");
 
 				dest_nonconst.StackBackValue(Register.EAX, fw, CurrentScope);
 				if (stackback) fw.WriteLine("pop " + Register.EAX);
@@ -556,7 +552,7 @@ namespace TigerCs.Emitters.NASM
 				op1.PutValueInRegister(Register.EAX, fw, CurrentScope);
 				op2.PutValueInRegister(Register.EDX, fw, CurrentScope);
 
-				fw.Write(string.Format("imul {0}", Register.EDX));
+				fw.Write($"imul {Register.EDX}");
 
 				if (stackbackB) fw.WriteLine("pop " + Register.EDX);
 
@@ -565,7 +561,7 @@ namespace TigerCs.Emitters.NASM
 				else CurrentScope.Lock.Release(Register.EAX);
 			}
 		}
-		
+
 		public override void InstrDiv(NasmHolder dest_nonconst, NasmHolder op1, NasmHolder op2)
 		{
 			SetLabel();
@@ -581,7 +577,7 @@ namespace TigerCs.Emitters.NASM
 					fw.WriteLine("push " + Register.EAX);
 				}
 
-				fw.WriteLine(string.Format("mov {0}, {1}", reg, (op1 as NasmIntConst).value / (op2 as NasmIntConst).value));
+				fw.WriteLine($"mov {reg}, {((NasmIntConst)op1).value / ((NasmIntConst)op2).value}");
 
 				dest_nonconst.StackBackValue(Register.EAX, fw, CurrentScope);
 				if (stackback) fw.WriteLine("pop " + Register.EAX);
@@ -602,10 +598,10 @@ namespace TigerCs.Emitters.NASM
 				bool stackbackD = CurrentScope.Lock.Locked(Register.EDX);
 				if (stackbackD)
 					fw.WriteLine("push " + Register.EDX);
-				fw.WriteLine(string.Format("mov {0}, {1}", Register.EDX, Register.EAX));
-				fw.WriteLine(string.Format("sar {0}, {1}", Register.EDX, 31));				
+				fw.WriteLine($"mov {Register.EDX}, {Register.EAX}");
+				fw.WriteLine($"sar {Register.EDX}, {31}");
 
-				fw.Write(string.Format("idiv {0}", Register.EBX));
+				fw.Write($"idiv {Register.EBX}");
 
 				if (stackbackD) fw.WriteLine("pop " + Register.EDX);
 
@@ -694,7 +690,7 @@ namespace TigerCs.Emitters.NASM
 		/// <param name="function"></param>
 		/// <param name="args"></param>
 		/// <param name="returnval">
-		/// if diferent of null the return value of the function will be placed there
+		/// if different of null the return value of the function will be placed there
 		/// </param>
 		public override void Call(NasmFunction function, NasmHolder[] args, NasmHolder returnval = null)
 		{
@@ -710,6 +706,7 @@ namespace TigerCs.Emitters.NASM
 			}
 			if (reg != null) CurrentScope.Lock.Release(reg.Value);
 
+			// ReSharper disable once CoVariantArrayConversion
 			function.Call(fw, reg, CurrentScope, args);
 
 			if (reg != null)
@@ -730,7 +727,7 @@ namespace TigerCs.Emitters.NASM
 		/// <param name="value"></param>
 		public override void Ret(NasmHolder value = null)
 		{
-			SetLabel();			
+			SetLabel();
 
 			bool release = false;
 			if (value != null)
@@ -741,7 +738,7 @@ namespace TigerCs.Emitters.NASM
 					release = true;
 				}
 				value.PutValueInRegister(Register.EAX, fw, CurrentScope);
-			}			
+			}
 			var curr = CurrentScope;
 			while (curr != null && curr.ScopeType == NasmScopeType.Nested)
 			{
@@ -749,38 +746,13 @@ namespace TigerCs.Emitters.NASM
 				curr = curr.Parent;
 			}
 
-			if (curr != null) curr.WirteCloseCode(fw, false, false);
+			curr?.WirteCloseCode(fw, false, false);
 			if (release) CurrentScope.Lock.Release(Register.EAX);
 		}
 
 		#endregion
 
 		#region [GOTO & Labeling]
-
-		/// <summary>
-		/// Scope dependent label, before enter the scope
-		/// </summary>
-		//public override Guid BeforeEnterScope { get{ } }
-
-		/// <summary>
-		/// Scope dependent label, first instruction of the current scope
-		/// </summary>
-		//public override Guid BiginScope { get; }
-
-		/// <summary>
-		/// Scope dependent label, before exiting the scope
-		/// </summary>
-		//public override Guid EndScope { get; }
-
-		/// <summary>
-		/// [IMPLEMENTATION_TIP] On labels collision returns the actual label
-		/// [IMPLEMENTATION_TIP] if the label for the next instruction is already setted will return the setted label
-		/// </summary>
-		/// <param name="label"></param>
-		/// <returns></returns>
-		//public override Guid SetLabelToNextInstruction(string label){ throw new NotImplementedException(); }
-		//public override Guid ReserveInstructionLabel(string label){ throw new NotImplementedException(); }
-		//public override void ApplyReservedLabel(Guid reservedlabel){ throw new NotImplementedException(); }
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
@@ -796,7 +768,7 @@ namespace TigerCs.Emitters.NASM
 			{
 				if (scope.ScopeLabels.ContainsKey(label) || scope.ExpectedLabels.ContainsKey(label))
 				{
-					fw.WriteLine(string.Format("jmp _{0}", label.ToString("N")));
+					fw.WriteLine($"jmp _{label:N}");
 					return;
 				}
 
@@ -811,14 +783,12 @@ namespace TigerCs.Emitters.NASM
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
 		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
 		/// </summary>
-		/// <param name="label"></param>
 		public override void GotoIfZero(Guid label, NasmHolder int_op){ throw new NotImplementedException(); }
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
 		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
 		/// </summary>
-		/// <param name="label"></param>
 		public override void GotoIfNotZero(Guid label, NasmHolder int_op){ throw new NotImplementedException(); }
 
 		/// <summary>
@@ -826,7 +796,6 @@ namespace TigerCs.Emitters.NASM
 		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
 		/// [IMPLEMENTATION_TIP] int_op >= 0
 		/// </summary>
-		/// <param name="label"></param>
 		public override void GotoIfNotNegative(Guid label, NasmHolder int_op){ throw new NotImplementedException(); }
 
 		/// <summary>
@@ -834,7 +803,6 @@ namespace TigerCs.Emitters.NASM
 		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
 		/// [IMPLEMENTATION_TIP] int_op less than 0
 		/// </summary>
-		/// <param name="label"></param>
 		public override void GotoIfNegative(Guid label, NasmHolder int_op){ throw new NotImplementedException(); }
 
 		#endregion
@@ -852,13 +820,13 @@ namespace TigerCs.Emitters.NASM
 		{
 			SetLabel();
 
-			CurrentScope = new NasmEmitterScope(CurrentScope, g.GNext(), g.GNext(), g.GNext(), g.GNext(), NasmScopeType.Nested);
+			CurrentScope = new NasmEmitterScope(CurrentScope, g.GNext(), g.GNext(), g.GNext(), g.GNext());
 
 			if (!string.IsNullOrWhiteSpace(namehint)) fw.WriteLine(";" + namehint);
-			fw.WriteLine(string.Format("_{0}:", CurrentScope.BeforeEnterScope.ToString("N")));
+			fw.WriteLine($"_{CurrentScope.BeforeEnterScope:N}:");
 			fw.IncrementIndentation();
 			CurrentScope.WriteEnteringCode(fw);
-			fw.WriteLine(string.Format("_{0}:", CurrentScope.BiginScope.ToString("N")));
+			fw.WriteLine($"_{CurrentScope.BiginScope:N}:");
         }
 
 		/// <summary>
@@ -869,7 +837,7 @@ namespace TigerCs.Emitters.NASM
 		[ScopeChanger(Reason = "Closes the current scope and returns to it's parent")]
 		public override void LeaveScope()
 		{
-			fw.WriteLine(string.Format("_{0}:", CurrentScope.EndScope.ToString("N")));
+			fw.WriteLine($"_{CurrentScope.EndScope:N}:");
 			if (SetLabel() && CurrentScope.ScopeType != NasmScopeType.Nested)
 				fw.WriteLine("nop");
 
@@ -877,7 +845,7 @@ namespace TigerCs.Emitters.NASM
 				CurrentScope.WirteCloseCode(fw, true, false);
 
 			fw.DecrementIndentation();
-			fw.WriteLine(string.Format("_{0}:", CurrentScope.AfterEndScope.ToString("N")));
+			fw.WriteLine($"_{CurrentScope.AfterEndScope:N}:");
 			var f = CurrentScope.DeclaringFunction;
 			var label = CurrentScope.BeforeEnterScope;
 			CurrentScope = CurrentScope.Parent;
@@ -892,7 +860,7 @@ namespace TigerCs.Emitters.NASM
 					reg = Register.EAX;
 				}
 
-				NasmFunction.AlocateFunction(fw, reg.Value, CurrentScope, this, label);				
+				NasmFunction.AlocateFunction(fw, reg.Value, CurrentScope, this, label);
 				f.StackBackValue(reg.Value, fw, CurrentScope);
 
 				if (stackback) fw.WriteLine("pop " + Register.EAX);
@@ -909,7 +877,7 @@ namespace TigerCs.Emitters.NASM
 			var l = acceding.Lock;
 			acceding.Lock = new RegisterLock();
 
-			fw.WriteLine(string.Format(";emitting error {0}{1}", code, message != null ? ": " + message : ""));
+			fw.WriteLine($";emitting error {code}{(message != null? ": " + message : "")}");
 			fw.IncrementIndentation();
 			var ret = bound.AddConstant(code);
 			if (message != null)
@@ -925,7 +893,7 @@ namespace TigerCs.Emitters.NASM
 				curr = curr.Parent;
 			}
 
-			if (curr != null) curr.WirteCloseCode(fw, false, true, ret);
+			curr?.WirteCloseCode(fw, false, true, ret);
 			fw.DecrementIndentation();
 			acceding.Lock = l;
 		}
@@ -936,7 +904,7 @@ namespace TigerCs.Emitters.NASM
 			if (string.IsNullOrEmpty(nexlabelcomment)) return false;
 
 			fw.WriteLine(";" + nexlabelcomment);
-			fw.WriteLine(string.Format("_{0}:", NextInstructionLabel.ToString("N")));
+			fw.WriteLine($"_{NextInstructionLabel:N}:");
 
 			CurrentScope.ScopeLabels.Add(NextInstructionLabel, nexlabelcomment);
 
@@ -952,9 +920,9 @@ namespace TigerCs.Emitters.NASM
 		{
 
 			fw.IncrementIndentation();
-			fw.WriteLine(string.Format("cmp {0}, dword {1}", Register.ECX, ErrorCode));
+			fw.WriteLine($"cmp {Register.ECX}, dword {ErrorCode}");
 			var ndoit = bound.g.GNext();
-			fw.WriteLine(string.Format("jne _{0}", ndoit.ToString("N")));
+			fw.WriteLine($"jne _{ndoit:N}");
 
 			var curr = acceding;
 			while (curr != null && curr.ScopeType == NasmScopeType.Nested)
@@ -963,9 +931,9 @@ namespace TigerCs.Emitters.NASM
 				curr = curr.Parent;
 			}
 
-			if (curr != null) curr.WirteCloseCode(fw, false, true);
+			curr?.WirteCloseCode(fw, false, true);
 			fw.DecrementIndentation();
-			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
+			fw.WriteLine($"_{ndoit:N}:");
 		}
 
 		public void AddExtern(string exf)
@@ -993,9 +961,9 @@ namespace TigerCs.Emitters.NASM
 						throw new ArgumentException("No definition for " + item.Key);
 				}
 			}
-			
+
 			return f.Flush();
-		}		
+		}
 
 		static void AddPrintS(FormatWriter fw)
 		{
@@ -1004,7 +972,7 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine("mov EAX, [ESP + 4]");
 			fw.WriteLine("add EAX, 4");//size space
 			fw.WriteLine("push EAX");
-			fw.WriteLine(string.Format("push dword {0}", PrintSFormatName));
+			fw.WriteLine($"push dword {PrintSFormatName}");
 			fw.WriteLine("call _printf");
 			fw.WriteLine("add ESP, 8");
 			fw.WriteLine("xor EAX, EAX");
@@ -1020,7 +988,7 @@ namespace TigerCs.Emitters.NASM
 			fw.IncrementIndentation();
 			fw.WriteLine("mov EAX, [ESP + 4]");
 			fw.WriteLine("push EAX");
-			fw.WriteLine(string.Format("push dword {0}", PrintIFormatName));
+			fw.WriteLine($"push dword {PrintIFormatName}");
 			fw.WriteLine("call _printf");
 			fw.WriteLine("add ESP, 8");
 			fw.WriteLine("xor EAX, EAX");
@@ -1049,10 +1017,10 @@ namespace TigerCs.Emitters.NASM
 			Guid zero = bound.g.GNext();
 
 			//<error checking>
-			fw.WriteLine(string.Format("cmp {0}, 0", Register.ECX));
-			fw.WriteLine(string.Format("jge _{0}", ndoit.ToString("N")));
+			fw.WriteLine($"cmp {Register.ECX}, 0");
+			fw.WriteLine($"jge _{ndoit:N}");
 			EmitError(fw, acceding, bound, 2, "Array size must be non-negative");
-			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
+			fw.WriteLine($"_{ndoit:N}:");
 			//</error checking>
 
 			bool stackback = false;
@@ -1061,44 +1029,44 @@ namespace TigerCs.Emitters.NASM
 			{
 				stackback = true;
 				reg = Register.EBX;
-				fw.WriteLine(string.Format("push {0}", Register.EBX));
+				fw.WriteLine($"push {Register.EBX}");
 			}
-			fw.WriteLine(string.Format(";push {0}", reg.Value));
+			fw.WriteLine($";push {reg.Value}");
 
-			fw.WriteLine(string.Format("push {0}", Register.EAX));
-			fw.WriteLine(string.Format("push {0}", Register.ECX));
+			fw.WriteLine($"push {Register.EAX}");
+			fw.WriteLine($"push {Register.ECX}");
 
 			acceding.Lock.Release(Register.EAX);
 			acceding.Lock.Release(Register.ECX);
 
-			fw.WriteLine(string.Format("inc {0}", Register.ECX));
-			fw.WriteLine(string.Format("shl {0}, {1}", Register.ECX, 2));
+			fw.WriteLine($"inc {Register.ECX}");
+			fw.WriteLine($"shl {Register.ECX}, {2}");
 			NasmFunction.Malloc.Call(fw, reg, acceding, new NasmRegisterHolder(Register.ECX));
 
 
-			fw.WriteLine(string.Format("pop {0}", Register.ECX));
-			fw.WriteLine(string.Format("pop {0}", Register.EAX));
+			fw.WriteLine($"pop {Register.ECX}");
+			fw.WriteLine($"pop {Register.EAX}");
 			acceding.Lock.Lock(Register.EAX);
 			acceding.Lock.Lock(Register.ECX);
 
-			fw.WriteLine(string.Format("mov {0}, {1}", Register.EDI, reg.Value));
-			fw.WriteLine(string.Format("mov [{0}], {1}", Register.EDI, Register.ECX));
-			fw.WriteLine(string.Format("add {0}, {1}", Register.EDI, 4));
+			fw.WriteLine($"mov {Register.EDI}, {reg.Value}");
+			fw.WriteLine($"mov [{Register.EDI}], {Register.ECX}");
+			fw.WriteLine($"add {Register.EDI}, {4}");
 
-			fw.WriteLine(string.Format("cmp {0}, 0", Register.ECX));
-			fw.WriteLine(string.Format("je _{0}", zero.ToString("N")));			
+			fw.WriteLine($"cmp {Register.ECX}, 0");
+			fw.WriteLine($"je _{zero:N}");
 
 			fw.WriteLine("cld");
 			fw.WriteLine("rep stosd");
 
-			fw.WriteLine(string.Format("mov {0}, {1}", Register.ECX, reg.Value));
+			fw.WriteLine($"mov {Register.ECX}, {reg.Value}");
 
-			if (stackback) fw.WriteLine(string.Format("pop {0}", reg.Value));
+			if (stackback) fw.WriteLine($"pop {reg.Value}");
 			else
 				acceding.Lock.Release(reg.Value);
 
 			fw.DecrementIndentation();
-			fw.WriteLine(string.Format("_{0}:", zero.ToString("N")));			
+			fw.WriteLine($"_{zero:N}:");
 		}
 
 		/// <summary>
@@ -1119,10 +1087,10 @@ namespace TigerCs.Emitters.NASM
 			Guid zero = bound.g.GNext();
 
 			//<error checking>
-			fw.WriteLine(string.Format("cmp {0}, 0", Register.ECX));
-			fw.WriteLine(string.Format("jge _{0}", ndoit.ToString("N")));
+			fw.WriteLine($"cmp {Register.ECX}, 0");
+			fw.WriteLine($"jge _{ndoit:N}");
 			EmitError(fw, acceding, bound, 2, "Array size must be non-negative");
-			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
+			fw.WriteLine($"_{ndoit:N}:");
 			//</error checking>
 
 			bool stackback = false;
@@ -1131,48 +1099,47 @@ namespace TigerCs.Emitters.NASM
 			{
 				stackback = true;
 				reg = Register.EBX;
-				fw.WriteLine(string.Format("push {0}", Register.EBX));
-				
+				fw.WriteLine($"push {Register.EBX}");
 			}
-			fw.WriteLine(string.Format(";push {0}",reg.Value));
+			fw.WriteLine($";push {reg.Value}");
 
-			fw.WriteLine(string.Format("push {0}", Register.EAX));
-			fw.WriteLine(string.Format("push {0}", Register.ECX));
+			fw.WriteLine($"push {Register.EAX}");
+			fw.WriteLine($"push {Register.ECX}");
 
 			acceding.Lock.Release(Register.EAX);
 			acceding.Lock.Release(Register.ECX);
 
-			fw.WriteLine(string.Format("add {0}, 5", Register.ECX));
+			fw.WriteLine($"add {Register.ECX}, 5");
 			NasmFunction.Malloc.Call(fw, reg, acceding, new NasmRegisterHolder(Register.ECX));
 
-			fw.WriteLine(string.Format("pop {0}", Register.ECX));
-			fw.WriteLine(string.Format("pop {0}", Register.EAX));
+			fw.WriteLine($"pop {Register.ECX}");
+			fw.WriteLine($"pop {Register.EAX}");
 			acceding.Lock.Lock(Register.EAX);
 			acceding.Lock.Lock(Register.ECX);
 
-			fw.WriteLine(string.Format("mov {0}, {1}", Register.EDI, reg.Value));
-			fw.WriteLine(string.Format("mov [{0}], {1}", Register.EDI, Register.ECX));
-			fw.WriteLine(string.Format("add {0}, {1}", Register.EDI, 4));
+			fw.WriteLine($"mov {Register.EDI}, {reg.Value}");
+			fw.WriteLine($"mov [{Register.EDI}], {Register.ECX}");
+			fw.WriteLine($"add {Register.EDI}, {4}");
 
-			fw.WriteLine(string.Format("cmp {0}, 0", Register.ECX));
-			fw.WriteLine(string.Format("je _{0}", zero.ToString("N")));
+			fw.WriteLine($"cmp {Register.ECX}, 0");
+			fw.WriteLine($"je _{zero:N}");
 
 			fw.WriteLine("cld");
 			fw.WriteLine("rep stosb");
 
-			fw.WriteLine(string.Format("mov {0}, {1}", Register.ECX, reg.Value));
+			fw.WriteLine($"mov {Register.ECX}, {reg.Value}");
 
-			if (stackback) fw.WriteLine(string.Format("pop {0}", reg.Value));
+			if (stackback) fw.WriteLine($"pop {reg.Value}");
 			else
 				acceding.Lock.Release(reg.Value);
 
-			fw.WriteLine(string.Format("_{0}:", zero.ToString("N")));
+			fw.WriteLine($"_{zero:N}:");
 			fw.WriteLine(string.Format("xor {0}, {0}", Register.EAX.ByteVersion()));
-			fw.WriteLine(string.Format("mov [{0}], {1}", Register.EDI, Register.EAX.ByteVersion()));
+			fw.WriteLine($"mov [{Register.EDI}], {Register.EAX.ByteVersion()}");
 			fw.DecrementIndentation();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// parameters:
 		/// IHolder : int -> element index
 		/// IHolder : instance
@@ -1188,19 +1155,19 @@ namespace TigerCs.Emitters.NASM
 			fw.IncrementIndentation();
 
 			//TODO: revisar chekeo de errores
-			fw.WriteLine(string.Format("cmp {0}, 0", args[1]));
-			fw.WriteLine(string.Format("jl _{0}", doit.ToString("N")));
-			fw.WriteLine(string.Format("cmp {0}, [{1}]", args[1], args[0]));
-			fw.WriteLine(string.Format("jge _{0}", doit.ToString("N")));
+			fw.WriteLine($"cmp {args[1]}, 0");
+			fw.WriteLine($"jl _{doit:N}");
+			fw.WriteLine($"cmp {args[1]}, [{args[0]}]");
+			fw.WriteLine($"jge _{doit:N}");
 
-			fw.WriteLine(string.Format("jmp _{0}", ndoit.ToString("N")));
-			fw.WriteLine(string.Format("_{0}:", doit.ToString("N")));
+			fw.WriteLine($"jmp _{ndoit:N}");
+			fw.WriteLine($"_{doit:N}:");
 			EmitError(fw, acceding, bound, 1, "Index out of range");
 
-			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
+			fw.WriteLine($"_{ndoit:N}:");
 			fw.WriteLine("inc " + args[1]);
-			fw.WriteLine(string.Format("shl {0}, 2", args[1]));			
-			fw.WriteLine(string.Format("add {0}, {1}", args[0], args[1]));
+			fw.WriteLine($"shl {args[1]}, 2");
+			fw.WriteLine($"add {args[0]}, {args[1]}");
 			fw.WriteLine(string.Format("mov {0}, [{0}]", args[0]));
 			fw.DecrementIndentation();
 		}
@@ -1212,24 +1179,24 @@ namespace TigerCs.Emitters.NASM
 			fw.IncrementIndentation();
 
 			//TODO: revisar chekeo de errores
-			fw.WriteLine(string.Format("cmp {0}, 0", args[1]));
-			fw.WriteLine(string.Format("jl _{0}", doit.ToString("N")));
-			fw.WriteLine(string.Format("cmp {0}, [{1}]", args[1], args[0]));
-			fw.WriteLine(string.Format("jge _{0}", doit.ToString("N")));
+			fw.WriteLine($"cmp {args[1]}, 0");
+			fw.WriteLine($"jl _{doit:N}");
+			fw.WriteLine($"cmp {args[1]}, [{args[0]}]");
+			fw.WriteLine($"jge _{doit:N}");
 
-			fw.WriteLine(string.Format("jmp _{0}", ndoit.ToString("N")));
-			fw.WriteLine(string.Format("_{0}:", doit.ToString("N")));
+			fw.WriteLine($"jmp _{ndoit:N}");
+			fw.WriteLine($"_{doit:N}:");
 			EmitError(fw, acceding, bound, 1, "Index out of range");
 
-			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
-			fw.WriteLine(string.Format("add {0}, 4", args[1]));
-			fw.WriteLine(string.Format("add {0}, {1}", args[0], args[1]));
-			fw.WriteLine(string.Format("mov {0}, [{1}]", args[0].ByteVersion(), args[0]));
-			fw.WriteLine(string.Format("movzx {0}, {1}", args[0], args[0].ByteVersion()));
+			fw.WriteLine($"_{ndoit:N}:");
+			fw.WriteLine($"add {args[1]}, 4");
+			fw.WriteLine($"add {args[0]}, {args[1]}");
+			fw.WriteLine($"mov {args[0].ByteVersion()}, [{args[0]}]");
+			fw.WriteLine($"movzx {args[0]}, {args[0].ByteVersion()}");
 			fw.DecrementIndentation();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// parameters:
 		/// IHolder : source
 		/// IHolder : int -> element index
@@ -1246,20 +1213,20 @@ namespace TigerCs.Emitters.NASM
 			fw.IncrementIndentation();
 
 			//TODO: revisar chekeo de errores
-			fw.WriteLine(string.Format("cmp {0}, 0", args[1]));
-			fw.WriteLine(string.Format("jl _{0}", doit.ToString("N")));
-			fw.WriteLine(string.Format("cmp {0}, [{1}]", args[1], args[0]));
-			fw.WriteLine(string.Format("jge _{0}", doit.ToString("N")));
+			fw.WriteLine($"cmp {args[1]}, 0");
+			fw.WriteLine($"jl _{doit:N}");
+			fw.WriteLine($"cmp {args[1]}, [{args[0]}]");
+			fw.WriteLine($"jge _{doit:N}");
 
-			fw.WriteLine(string.Format("jmp _{0}", ndoit.ToString("N")));
-			fw.WriteLine(string.Format("_{0}:", doit.ToString("N")));
+			fw.WriteLine($"jmp _{ndoit:N}");
+			fw.WriteLine($"_{doit:N}:");
 			EmitError(fw, acceding, bound, 1, "Index out of range");
 
-			fw.WriteLine(string.Format("_{0}:", ndoit.ToString("N")));
+			fw.WriteLine($"_{ndoit:N}:");
 			fw.WriteLine("inc " + args[1]);
-			fw.WriteLine(string.Format("shl {0}, 2", args[1]));
-			fw.WriteLine(string.Format("add {0}, {1}", args[0], args[1]));
-			fw.WriteLine(string.Format("mov [{0}], {1}", args[0], args[2]));
+			fw.WriteLine($"shl {args[1]}, 2");
+			fw.WriteLine($"add {args[0]}, {args[1]}");
+			fw.WriteLine($"mov [{args[0]}], {args[2]}");
 			fw.DecrementIndentation();
 		}
 
@@ -1277,8 +1244,8 @@ namespace TigerCs.Emitters.NASM
 					case "getchar":
 						Externs.Add("_scanf");
 						break;
-					default:
-						break;
+					//default:
+						//break;
 				}
 			}
 		}

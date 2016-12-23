@@ -56,7 +56,6 @@ namespace TigerCs.Emitters
 
 		public bool Reachable(string name, out MemberInfo member, MemberDefinition desired = null)
 		{
-			member = null;
 			var closures = new List<Dictionary<string, MemberInfo>>();
 			var current = currentscope;
 			do
@@ -78,9 +77,14 @@ namespace TigerCs.Emitters
 					member = std.Member;
 					if (desired != null)
 					{
-						if (!desired.GetType().Equals(std.Member.GetType()))
+						if (desired.GetType() != std.Member.GetType())
 						{
-							report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage = "using before declaration :" + name });
+							var error = new TigerStaticError
+							{
+								Level = ErrorLevel.Error,
+								ErrorMessage = "using before declaration :" + name
+							};
+							report.Add(error);
 							return false;
 						}
 
@@ -92,7 +96,11 @@ namespace TigerCs.Emitters
 							var hd = desired.Member as HolderInfo;
 							if (!hm.Type.Equals(hd.Type))
 							{
-								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage = string.Format("{0} using as holders of diferent types {1}, {2}", name, hm.Type, hd.Type) });
+								report.Add(new TigerStaticError
+								{
+									Level = ErrorLevel.Error,
+									ErrorMessage = $"{name} using as holders of different types {hm.Type}, {hd.Type}"
+								});
 								return false;
 							}
 						}
@@ -101,13 +109,17 @@ namespace TigerCs.Emitters
 							var fd = desired.Member as FunctionInfo;
 							if (!fm.Return.Equals(fd.Return))
 							{
-								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage = string.Format("{0} using as function of diferent return types {1}, {2}", name, fm.Return, fd.Return) });
+								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage =
+										           $"{name} using as function of different return types {fm.Return}, {fd.Return}"
+								           });
 								return false;
 							}
 
 							if (fm.Parameters.Count != fd.Parameters.Count)
 							{
-								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage = string.Format("{0} using as function of diferent number of parameters {1}, {2}", name, fm.Parameters.Count, fd.Parameters.Count) });
+								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage =
+										           $"{name} using as function of different number of parameters {fm.Parameters.Count}, {fd.Parameters.Count}"
+								           });
 								return false;
 							}
 
@@ -119,7 +131,7 @@ namespace TigerCs.Emitters
 									{
 										Level = ErrorLevel.Error,
 										ErrorMessage = string.Format(
-										"in function {0} formal parameter ({5}) {1}: {2} difers in type from expected {3}: {4}",
+										"in function {0} formal parameter ({5}) {1}: {2} differs in type from expected {3}: {4}",
 										name,
 										fm.Parameters[i].Item1,
 										fm.Parameters[i].Item2,
@@ -136,41 +148,47 @@ namespace TigerCs.Emitters
 							var td = desired.Member as TypeInfo;
 							if ((tm.ArrayOf == null && td.ArrayOf != null) || (tm.ArrayOf != null && td.ArrayOf == null))
 							{
-								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage = string.Format("using {0} to name array and non-array types", name) });
+								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage =
+										           $"using {name} to name array and non-array types"
+								           });
 								return false;
 							}
-							else if (tm.ArrayOf != null && !tm.ArrayOf.Equals(td.ArrayOf))
+							if (tm.ArrayOf != null && !tm.ArrayOf.Equals(td.ArrayOf))
 							{
-								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage = string.Format("using {0} to name arrays of deferent types {1}, {2}", name, tm.ArrayOf, td.ArrayOf) });
+								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage =
+										           $"using {name} to name arrays of deferent types {tm.ArrayOf}, {td.ArrayOf}"
+								           });
 								return false;
 							}
-							else if (tm.ArrayOf == null)
+							if (tm.ArrayOf == null)
 							{
 								if (tm.Members.Count != td.Members.Count)
 								{
-									report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage = string.Format("in record {0} number of members difer from expected {1}, {2}", name, tm.Members.Count, td.Members.Count) });
+									report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage =
+											           $"in record {name} number of members differs from expected {tm.Members.Count}, {td.Members.Count}"
+									           });
 									return false;
 								}
 
 								foreach (var item in td.Members)
 								{
 									TypeInfo i;
-									if (!tm.Members.TryGetValue(item.Key, out i))
+									if (!tm.Members.TryGetValue(item.Item1, out i))
 									{
 										report.Add(new TigerStaticError
-										{
-											Level = ErrorLevel.Error,
-											ErrorMessage = string.Format("mising member {0} in record {1}", item.Key, name)
-										});
+										           {
+											           Level = ErrorLevel.Error,
+											           ErrorMessage = $"mising member {item.Item1} in record {name}"
+										           });
 										return false;
 									}
-									if (!i.Equals(item.Value))
+									if (!i.Equals(item.Item2))
 									{
 										report.Add(new TigerStaticError
-										{
-											Level = ErrorLevel.Error,
-											ErrorMessage = string.Format("type of member {0}: {2} in record {1} difers from expected {3}", item.Key, name, i, item.Value)
-										});
+										           {
+											           Level = ErrorLevel.Error,
+											           ErrorMessage = string.Format("type of member {0}: {2} in record {1} differs from expected {3}", item.Item1, name, i, item.Item2)
+										           });
 										return false;
 									}
 								}
@@ -183,11 +201,11 @@ namespace TigerCs.Emitters
 					report.Add(new TigerStaticError
 					{
 						Level = ErrorLevel.Error,
-						ErrorMessage = string.Format("mising member {0}, an auto trapped std member with the same name exist", name)
+						ErrorMessage = $"mising member {name}, an auto trapped std member with the same name exist"
 					});
 					return false;
 				}
-			
+
 			}
 			#endregion
 
@@ -208,9 +226,12 @@ namespace TigerCs.Emitters
 			{
 				for (int i = current.Descriptors.Length - 1; i >= 0; i--)
 				{
-					if (current.Descriptors[i] is T) return (T)current.Descriptors[i];
-					else if (stop(current.Descriptors[i])) return null;
+					var descriptor = current.Descriptors[i] as T;
+					if (descriptor != null) return descriptor;
+					if (stop != null && stop(current.Descriptors[i])) return null;
 				}
+
+				current = current.Parent;
 			} while (current != null);
 
 			return null;

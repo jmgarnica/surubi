@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TigerCs.CompilationServices;
-using TigerCs.Generation;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Declarations
@@ -16,7 +12,7 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public string Lex { get; set; }
 
-		public bool CorrectSemantics { get; }
+		public bool CorrectSemantics { get; private set; }
 
 		public virtual void BindName(ISemanticChecker sc, ErrorReport report)
 		{

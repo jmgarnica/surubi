@@ -20,7 +20,7 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public string Lex {	get; set; }
 
-		public bool CorrectSemantics { get;	}
+		public bool CorrectSemantics { get; private set; }
 
 		public void BindName(ISemanticChecker sc, ErrorReport report)
 		{

@@ -10,7 +10,7 @@ namespace TigerCs.Emitters
 		where H : class, IHolder
 		where S : EmitterScope<S>
 	{
-		public GuidGenerator g { get; private set; }
+		public GuidGenerator g { get; protected set; }
 		protected string nexlabelcomment;
 		protected S CurrentScope;
 
@@ -85,7 +85,6 @@ namespace TigerCs.Emitters
 		/// </summary>
 		/// <param name="dest_nonconst"></param>
 		/// <param name="value"></param>
-		/// <param name="dest_as_pointer"></param>
 		public abstract void InstrAssing(H dest_nonconst, H value);
 
 		public abstract void InstrAdd(H dest_nonconst, H op1, H op2);
@@ -129,7 +128,7 @@ namespace TigerCs.Emitters
 		/// <param name="function"></param>
 		/// <param name="args"></param>
 		/// <param name="returnval">
-		/// if diferent of null the return value of the function will be placed there
+		/// if different of null the return value of the function will be placed there
 		/// </param>
 		public abstract void Call(F function, H[] args, H returnval = null);
 
@@ -187,9 +186,9 @@ namespace TigerCs.Emitters
 
 		public virtual Guid ReserveInstructionLabel(string label)
 		{
-			var g = this.g.GNext();
-			CurrentScope.ExpectedLabels[g] = label;
-			return g;
+			var _g = g.GNext();
+			CurrentScope.ExpectedLabels[_g] = label;
+			return _g;
 		}
 		public virtual void ApplyReservedLabel(Guid reservedlabel)
 		{
@@ -212,14 +211,12 @@ namespace TigerCs.Emitters
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
 		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
 		/// </summary>
-		/// <param name="label"></param>
 		public abstract void GotoIfZero(Guid label, H int_op);
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
 		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
 		/// </summary>
-		/// <param name="label"></param>
 		public abstract void GotoIfNotZero(Guid label, H int_op);
 
 		/// <summary>
@@ -227,7 +224,6 @@ namespace TigerCs.Emitters
 		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
 		/// [IMPLEMENTATION_TIP] int_op >= 0
 		/// </summary>
-		/// <param name="label"></param>
 		public abstract void GotoIfNotNegative(Guid label, H int_op);
 
 		/// <summary>
@@ -235,7 +231,6 @@ namespace TigerCs.Emitters
 		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
 		/// [IMPLEMENTATION_TIP] int_op less than 0
 		/// </summary>
-		/// <param name="label"></param>
 		public abstract void GotoIfNegative(Guid label, H int_op);
 		#endregion
 
