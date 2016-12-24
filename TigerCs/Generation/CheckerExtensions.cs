@@ -30,7 +30,7 @@ namespace TigerCs.Generation
 			MemberInfo Int;
 			if (!sc.Reachable("int", out Int, new MemberDefinition { Member = new TypeInfo { Name = "int" } }))
 			{
-				report?.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Integer STD type not defined" });
+				report?.Add(new StaticError { Level = ErrorLevel.Internal, ErrorMessage = "Integer STD type not defined" });
 				return null;
 			}
 
@@ -42,7 +42,7 @@ namespace TigerCs.Generation
 			MemberInfo String;
 			if (!sc.Reachable("string", out String, new MemberDefinition { Member = new TypeInfo { Name = "string" } }))
 			{
-				report?.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "String STD type not defined" });
+				report?.Add(new StaticError { Level = ErrorLevel.Internal, ErrorMessage = "String STD type not defined" });
 				return null;
 			}
 
@@ -60,7 +60,7 @@ namespace TigerCs.Generation
 			MemberInfo Void;
 			if (!sc.Reachable("void", out Void, new MemberDefinition { Member = new TypeInfo { Name = "void", BCMBackup = false } }))
 			{
-				report?.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Void STD type not defined" });
+				report?.Add(new StaticError { Level = ErrorLevel.Internal, ErrorMessage = "Void STD type not defined" });
 				return null;
 			}
 
@@ -72,14 +72,14 @@ namespace TigerCs.Generation
 			MemberInfo Null;
 			if (!sc.Reachable("Null", out Null, new MemberDefinition { Member = new TypeInfo { Name = "Null" } }))
 			{
-				report?.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Null STD type not defined" });
+				report?.Add(new StaticError { Level = ErrorLevel.Internal, ErrorMessage = "Null STD type not defined" });
 				return null;
 			}
 
 			MemberInfo Nill;
 			if (!sc.Reachable("nill", out Nill, new MemberDefinition { Member = new HolderInfo { Name = "nill", Type = (TypeInfo)Null } }))
 			{
-				report?.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Nill STD const not defined" });
+				report?.Add(new StaticError { Level = ErrorLevel.Internal, ErrorMessage = "Nill STD const not defined" });
 				return null;
 			}
 
@@ -170,7 +170,7 @@ namespace TigerCs.Generation
 			};
 			if (!sc.Reachable("print", out cmps, md))
 			{
-				report?.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "Print STD function not defined" });
+				report?.Add(new StaticError { Level = ErrorLevel.Internal, ErrorMessage = "Print STD function not defined" });
 				return null;
 			}
 			return (FunctionInfo)cmps;

@@ -5,16 +5,15 @@ using System.Linq;
 
 namespace TigerCs.Emitters.NASM
 {
+	using CompilationServices;
+
 	public class NasmFunction : NasmMember, IFunction<NasmType, NasmFunction>
 	{
 		public static NasmFunction Malloc, Free;
 
-		protected NasmEmitter bound;
-
 		public NasmFunction(NasmEmitterScope dscope, int sindex, NasmEmitter bound, string name = "")
-			: base(dscope, sindex)
+			: base(bound, dscope, sindex)
 		{
-			this.bound = bound;
 			Name = name;
 		}
 
@@ -150,7 +149,8 @@ namespace TigerCs.Emitters.NASM
 
 		public override void PutValueInRegister(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
 		{
-			throw new InvalidOperationException("Macros have no pointer form");
+			bound.Report.Add(new StaticError(bound.SourceLine, bound.SourceColumn, "Macros have no pointer form",
+			                                      ErrorLevel.Internal));
 		}
 
 		public override void StackBackValue(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
@@ -183,7 +183,8 @@ namespace TigerCs.Emitters.NASM
 			else
 			{
 				if (Requested.Length != args.Length)
-					throw new ArgumentException("unexpected arguments number");
+					bound.Report.Add(new StaticError(bound.SourceLine, bound.SourceColumn,
+					                                      "Calling a marco with the wrong arguments number", ErrorLevel.Internal));
 				param.AddRange(Requested);
 				for (int i = 0; i < args.Length; i++)
 				{
@@ -205,7 +206,6 @@ namespace TigerCs.Emitters.NASM
 			CallPoint(fw, bound, accedingscope, param.ToArray());
 
 			if (result != null)
-			{
 				if (param.Count > 0)
 				{
 					if (result != param[0])
@@ -213,15 +213,12 @@ namespace TigerCs.Emitters.NASM
 				}
 				else if(result != Register.EAX)
 					fw.WriteLine($"mov {result.Value}, EAX");
-			}
 
 			for (int i = pops.Count - 1; i >= 0; i--)
 				fw.WriteLine($"pop {pops[i]}");
 
 			foreach (var r in param.Except(pops))
-			{
 				accedingscope.Lock.Release(r);
-			}
 		}
 	}
 }

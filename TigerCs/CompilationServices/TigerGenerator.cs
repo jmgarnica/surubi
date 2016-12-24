@@ -52,7 +52,7 @@ namespace TigerCs.CompilationServices
 
 				if (!m.Value.Member.Bounded && m.Value.Generator == null)
 				{
-					Report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "BCM does not have a definition for " + m.Key, Column = m.Value.column, Line = m.Value.column });
+					Report.Add(new StaticError { Level = ErrorLevel.Internal, ErrorMessage = "BCM does not have a definition for " + m.Key, Column = m.Value.column, Line = m.Value.column });
 					return;
 				}
 			}

@@ -51,11 +51,11 @@ namespace TigerCs.Generation.AST.Expresions
 			if (Rigth == null || Left == null)
 			{
 				report.Add(
-					new TigerStaticError
+					new StaticError
 					{
 						Column = column,
 						Line = line,
-						Level = ErrorLevel.Critical,
+						Level = ErrorLevel.Internal,
 						ErrorMessage = "Null operand"
 					});
 				return false;
@@ -73,7 +73,7 @@ namespace TigerCs.Generation.AST.Expresions
 			if (!Rigth.Return.Equals(Left.Return))
 			{
 				report.Add(
-						new TigerStaticError
+						new StaticError
 						{
 							Column = column,
 							Line = line,
@@ -86,7 +86,7 @@ namespace TigerCs.Generation.AST.Expresions
 			else if(!(Rigth.Return.Equals(_int) || Rigth.Return.Equals(_string)))
             {
 				report.Add(
-					new TigerStaticError
+					new StaticError
 					{
 						Column = column,
 						Line = line,

@@ -17,6 +17,12 @@ namespace TigerCs.Generation.ByteCode
 
 		void EmitError(int code, string message = null);
 
+		int SourceLine { set; }
+		int SourceColumn { set; }
+		//debug
+		//int ByteCodeLine { get; }
+		//int ByteCodeColumn { get; }
+
 		/// <summary>
 		/// invalidate the holder making it eligible for temp holders and optimizations
 		/// [IMPLEMENTATION_TIP] Should not be used with the same meaning this point on.

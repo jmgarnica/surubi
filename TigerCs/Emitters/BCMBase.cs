@@ -13,8 +13,13 @@ namespace TigerCs.Emitters
 		public GuidGenerator g { get; protected set; }
 		protected string nexlabelcomment;
 		protected S CurrentScope;
+		internal ErrorReport Report;
 
-		public abstract void InitializeCodeGeneration(ErrorReport report);
+		public virtual void InitializeCodeGeneration(ErrorReport report)
+		{
+			Report = report;
+		}
+
 		public abstract void End();
 
 		protected BCMBase()
@@ -35,6 +40,10 @@ namespace TigerCs.Emitters
 		/// </summary>
 		/// <param name="holder"></param>
 		public abstract void Release(H holder);
+
+		public int SourceLine { set; internal get; }
+
+		public int SourceColumn { set; internal get; }
 		#endregion
 
 		#region [Bind]
@@ -192,9 +201,13 @@ namespace TigerCs.Emitters
 		}
 		public virtual void ApplyReservedLabel(Guid reservedlabel)
 		{
-			if (!string.IsNullOrEmpty(nexlabelcomment)) throw new InvalidOperationException("Labels conflict");
+			if (!string.IsNullOrEmpty(nexlabelcomment))
+				Report.Add(new StaticError(SourceLine,SourceColumn, "Reserved label can not be applied because the next line already has a label", ErrorLevel.Internal));
+
 			string comment;
-			if (!CurrentScope.ExpectedLabels.TryGetValue(reservedlabel, out comment)) throw new ArgumentException("Unknown label");
+			if (!CurrentScope.ExpectedLabels.TryGetValue(reservedlabel, out comment))
+				Report.Add(new StaticError(SourceLine, SourceColumn, "The label was not expected", ErrorLevel.Internal));
+
 			CurrentScope.ExpectedLabels.Remove(reservedlabel);
 			NextInstructionLabel = reservedlabel;
 			nexlabelcomment = comment;

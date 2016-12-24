@@ -2,10 +2,14 @@
 
 namespace TigerCs.Emitters.NASM
 {
+	using CompilationServices;
+
 	public abstract class NasmMember : IMember
 	{
-		protected NasmMember(NasmEmitterScope dscope, int sindex)
+		protected readonly NasmEmitter bound;
+		protected NasmMember(NasmEmitter bound, NasmEmitterScope dscope, int sindex)
 		{
+			this.bound = bound;
 			DeclaratingScope = dscope;
 			DeclaringScopeIndex = sindex;
 		}
@@ -26,7 +30,11 @@ namespace TigerCs.Emitters.NASM
 		{
 			fw.WriteLine("");
 			int levels = Levels(accedingscope);
-			if(levels < 0) throw new NasmEmitterException("Unreachable Member");
+			if (levels < 0)
+			{
+				bound.Report.Add(new StaticError(bound.SourceLine,bound.SourceColumn, "Unreachable member", ErrorLevel.Internal));
+				return;
+			}
 
 			var reg = accedingscope.Lock.Locked(Register.EBX)? gpr : Register.EBX;
 

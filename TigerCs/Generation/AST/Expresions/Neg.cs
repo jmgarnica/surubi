@@ -17,11 +17,11 @@ namespace TigerCs.Generation.AST.Expresions
 			if (operand == null)
 			{
 				report.Add(
-					new TigerStaticError
+					new StaticError
 					{
 						Column = column,
 						Line = line,
-						Level = ErrorLevel.Critical,
+						Level = ErrorLevel.Internal,
 						ErrorMessage = "Null operand"
 					});
 				return false;
@@ -30,7 +30,7 @@ namespace TigerCs.Generation.AST.Expresions
 			if (!operand.Return.Equals(_int))
 			{
 				report.Add(
-					new TigerStaticError
+					new StaticError
 					{
 						Column = column,
 						Line = line,

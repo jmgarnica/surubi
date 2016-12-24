@@ -51,7 +51,7 @@ namespace TigerCs.Emitters
 		{
 			currentscope.Closure = null;
 			currentscope = currentscope.Parent;
-			if (currentscope == null) report.Add(new TigerStaticError { Level = ErrorLevel.Critical, ErrorMessage = "attempt to leave root scope" });
+			if (currentscope == null) report.Add(new StaticError { Level = ErrorLevel.Internal, ErrorMessage = "attempt to leave root scope" });
 		}
 
 		public bool Reachable(string name, out MemberInfo member, MemberDefinition desired = null)
@@ -79,7 +79,7 @@ namespace TigerCs.Emitters
 					{
 						if (desired.GetType() != std.Member.GetType())
 						{
-							var error = new TigerStaticError
+							var error = new StaticError
 							{
 								Level = ErrorLevel.Error,
 								ErrorMessage = "using before declaration :" + name
@@ -96,7 +96,7 @@ namespace TigerCs.Emitters
 							var hd = desired.Member as HolderInfo;
 							if (!hm.Type.Equals(hd.Type))
 							{
-								report.Add(new TigerStaticError
+								report.Add(new StaticError
 								{
 									Level = ErrorLevel.Error,
 									ErrorMessage = $"{name} using as holders of different types {hm.Type}, {hd.Type}"
@@ -109,7 +109,7 @@ namespace TigerCs.Emitters
 							var fd = desired.Member as FunctionInfo;
 							if (!fm.Return.Equals(fd.Return))
 							{
-								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage =
+								report.Add(new StaticError { Level = ErrorLevel.Error, ErrorMessage =
 										           $"{name} using as function of different return types {fm.Return}, {fd.Return}"
 								           });
 								return false;
@@ -117,7 +117,7 @@ namespace TigerCs.Emitters
 
 							if (fm.Parameters.Count != fd.Parameters.Count)
 							{
-								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage =
+								report.Add(new StaticError { Level = ErrorLevel.Error, ErrorMessage =
 										           $"{name} using as function of different number of parameters {fm.Parameters.Count}, {fd.Parameters.Count}"
 								           });
 								return false;
@@ -127,7 +127,7 @@ namespace TigerCs.Emitters
 							{
 								if (!fm.Parameters[i].Item2.Equals(fd.Parameters[i].Item2))
 								{
-									report.Add(new TigerStaticError
+									report.Add(new StaticError
 									{
 										Level = ErrorLevel.Error,
 										ErrorMessage = string.Format(
@@ -148,14 +148,14 @@ namespace TigerCs.Emitters
 							var td = desired.Member as TypeInfo;
 							if ((tm.ArrayOf == null && td.ArrayOf != null) || (tm.ArrayOf != null && td.ArrayOf == null))
 							{
-								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage =
+								report.Add(new StaticError { Level = ErrorLevel.Error, ErrorMessage =
 										           $"using {name} to name array and non-array types"
 								           });
 								return false;
 							}
 							if (tm.ArrayOf != null && !tm.ArrayOf.Equals(td.ArrayOf))
 							{
-								report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage =
+								report.Add(new StaticError { Level = ErrorLevel.Error, ErrorMessage =
 										           $"using {name} to name arrays of deferent types {tm.ArrayOf}, {td.ArrayOf}"
 								           });
 								return false;
@@ -164,7 +164,7 @@ namespace TigerCs.Emitters
 							{
 								if (tm.Members.Count != td.Members.Count)
 								{
-									report.Add(new TigerStaticError { Level = ErrorLevel.Error, ErrorMessage =
+									report.Add(new StaticError { Level = ErrorLevel.Error, ErrorMessage =
 											           $"in record {name} number of members differs from expected {tm.Members.Count}, {td.Members.Count}"
 									           });
 									return false;
@@ -175,7 +175,7 @@ namespace TigerCs.Emitters
 									TypeInfo i;
 									if (!tm.Members.TryGetValue(item.Item1, out i))
 									{
-										report.Add(new TigerStaticError
+										report.Add(new StaticError
 										           {
 											           Level = ErrorLevel.Error,
 											           ErrorMessage = $"mising member {item.Item1} in record {name}"
@@ -184,7 +184,7 @@ namespace TigerCs.Emitters
 									}
 									if (!i.Equals(item.Item2))
 									{
-										report.Add(new TigerStaticError
+										report.Add(new StaticError
 										           {
 											           Level = ErrorLevel.Error,
 											           ErrorMessage = string.Format("type of member {0}: {2} in record {1} differs from expected {3}", item.Item1, name, i, item.Item2)
@@ -198,7 +198,7 @@ namespace TigerCs.Emitters
 				}
 				else
 				{
-					report.Add(new TigerStaticError
+					report.Add(new StaticError
 					{
 						Level = ErrorLevel.Error,
 						ErrorMessage = $"mising member {name}, an auto trapped std member with the same name exist"

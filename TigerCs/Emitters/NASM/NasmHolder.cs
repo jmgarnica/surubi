@@ -7,8 +7,8 @@ namespace TigerCs.Emitters.NASM
 
 	public class NasmHolder : NasmMember, IHolder
 	{
-		public NasmHolder(NasmEmitterScope dscope, int sindex)
-			: base(dscope, sindex)
+		public NasmHolder(NasmEmitter bound, NasmEmitterScope dscope, int sindex)
+			: base(bound, dscope, sindex)
 		{ }
 
 		public virtual bool Assignable { get { return true; } }
@@ -18,8 +18,8 @@ namespace TigerCs.Emitters.NASM
 	{
 		public readonly int value;
 
-		public NasmIntConst(int value)
-			: base(null, -1)
+		public NasmIntConst(NasmEmitter bound, int value)
+			: base(bound, null, -1)
 		{
 			this.value = value;
 		}
@@ -49,8 +49,8 @@ namespace TigerCs.Emitters.NASM
 		readonly string label;
 		public readonly int offset;
 
-		public NasmStringConst(string value, string label, int offset)
-			: base(null, -1)
+		public NasmStringConst(NasmEmitter bound, string value, string label, int offset)
+			: base(bound, null, -1)
 		{
 			this.value = value;
 			this.label = label;
@@ -79,7 +79,6 @@ namespace TigerCs.Emitters.NASM
 		readonly NasmHolder H;
 		readonly int offset;
 		readonly WordSize size;
-		readonly NasmEmitter bound;
 		readonly bool checkupperbound;
 
 		/// <summary>
@@ -96,18 +95,17 @@ namespace TigerCs.Emitters.NASM
 		/// </param>
 		/// <param name="checkupperbound"></param>
 		public NasmReference(NasmHolder h, int offset, NasmEmitter bound, NasmEmitterScope dscope = null, WordSize size = WordSize.DWord, bool checkupperbound = false)
-			:base(dscope ?? h.DeclaratingScope, 0)
+			:base(bound, dscope ?? h.DeclaratingScope, 0)
 		{
 			H = h;
 			this.size = size;
-			this.bound = bound;
 			this.checkupperbound = checkupperbound;
 			this.offset = offset; //+4 see NasmEmitter.InstrSize <remarks>[second mode]</remarks>
 		}
 
 		public override void PutValueInRegister(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
 		{
-			//TODO: aceptar array de direcciones y comprobar el nill* , a[3,2,3] = ((a[3])[2])[3] = a.item4.item3.item4
+			//TODO: aceptar array de direcciones, a[3,2,3] = ((a[3])[2])[3] = a.item4.item3.item4
 			H.PutValueInRegister(gpr, fw, accedingscope);
 			Guid passnull = bound.g.GNext();
 
@@ -216,8 +214,8 @@ namespace TigerCs.Emitters.NASM
 	class NasmRegisterHolder : NasmHolder
 	{
 		readonly Register r;
-		public NasmRegisterHolder(Register r)
-			:base(null, -1)
+		public NasmRegisterHolder(NasmEmitter bound, Register r)
+			:base(bound,null, -1)
 		{
 			this.r = r;
 		}

@@ -18,13 +18,13 @@ namespace TigerCs.Generation.AST.Expresions
 			MemberInfo var;
 			if (!sp.Reachable(Name, out var))
 			{
-				report.Add(new TigerStaticError { Column = column, Line = line, ErrorMessage = "Unknown symbol " + Name, Level = ErrorLevel.Error });
+				report.Add(new StaticError { Column = column, Line = line, ErrorMessage = "Unknown symbol " + Name, Level = ErrorLevel.Error });
 				return false;
 			}
 
 			if (!(var is HolderInfo))
 			{
-				report.Add(new TigerStaticError { Column = column, Line = line, ErrorMessage = $"Member {Name} is not a variable", Level = ErrorLevel.Error });
+				report.Add(new StaticError { Column = column, Line = line, ErrorMessage = $"Member {Name} is not a variable", Level = ErrorLevel.Error });
 				return false;
 			}
 
@@ -39,7 +39,7 @@ namespace TigerCs.Generation.AST.Expresions
 		{
 			if (!ReturnValue.Bounded)
 			{
-				report.Add(new TigerStaticError { Column = column, Line = line, ErrorMessage = $"Member {Name} not initialized", Level = ErrorLevel.Critical });
+				report.Add(new StaticError { Column = column, Line = line, ErrorMessage = $"Member {Name} not initialized", Level = ErrorLevel.Internal });
 			}
 		}
 
@@ -50,7 +50,7 @@ namespace TigerCs.Generation.AST.Expresions
 		{
 			if (!ReturnValue.Bounded)
 			{
-				report.Add(new TigerStaticError { Column = column, Line = line, ErrorMessage = $"Member {Name} not initialized", Level = ErrorLevel.Critical });
+				report.Add(new StaticError { Column = column, Line = line, ErrorMessage = $"Member {Name} not initialized", Level = ErrorLevel.Internal });
 			}
 			else cg.InstrAssing((H)Return.BCMMember, source);
 		}
@@ -75,13 +75,13 @@ namespace TigerCs.Generation.AST.Expresions
 
 			if (Array.Return.ArrayOf == null)
 			{
-				report.Add(new TigerStaticError(line, column, "Array access to non-array type", ErrorLevel.Error));
+				report.Add(new StaticError(line, column, "Array access to non-array type", ErrorLevel.Error));
 				return false;
 			}
 
 			if (!Indexer.Return.Equals(sp.Int(report)))
 			{
-				report.Add(new TigerStaticError(line, column, "Array indexer must be an expresion of type 'int'", ErrorLevel.Error));
+				report.Add(new StaticError(line, column, "Array indexer must be an expresion of type 'int'", ErrorLevel.Error));
 				return false;
 			}
 
@@ -99,7 +99,7 @@ namespace TigerCs.Generation.AST.Expresions
 				int index = (int)Indexer.ReturnValue.ConstValue;
 				if (index < 0)
 				{
-					report.Add(new TigerStaticError(line, column, "Index must be non-negative", ErrorLevel.Error));
+					report.Add(new StaticError(line, column, "Index must be non-negative", ErrorLevel.Error));
 					return;
 				}
 				ReturnValue.BCMMember = cg.StaticMemberAcces((T)Array.Return.BCMMember, (H)Array.ReturnValue.BCMMember, index);
@@ -124,7 +124,7 @@ namespace TigerCs.Generation.AST.Expresions
 				int index = (int)Indexer.ReturnValue.ConstValue;
 				if (index < 0)
 				{
-					report.Add(new TigerStaticError(line, column, "Index must be non-negative", ErrorLevel.Error));
+					report.Add(new StaticError(line, column, "Index must be non-negative", ErrorLevel.Error));
 					return;
 				}
 				var sma = cg.StaticMemberAcces((T)Array.Return.BCMMember, (H)Array.ReturnValue.BCMMember, index);

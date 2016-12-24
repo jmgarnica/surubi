@@ -28,7 +28,7 @@ namespace TigerCs.Generation.AST.Expresions
 
 			if (member == null)
 			{
-				report.Add(new TigerStaticError(line,
+				report.Add(new StaticError(line,
 					column,
 				                                $"Type {Record.Return.Name} does not have a definition for member {MemberName}", ErrorLevel.Error));
 				return false;

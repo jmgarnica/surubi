@@ -4,17 +4,17 @@ using System.Collections.Generic;
 
 namespace TigerCs.CompilationServices
 {
-	public class ErrorReport : IEnumerable<TigerStaticError>
+	public class ErrorReport : IEnumerable<StaticError>
 	{
-		readonly List<TigerStaticError> report;
-		public event Action<TigerStaticError> CriticalError, Error, Warning, Info;
+		readonly List<StaticError> report;
+		public event Action<StaticError> CriticalError, Error, Warning, Info;
 
 		public ErrorReport()
 		{
-			report = new List<TigerStaticError>();
+			report = new List<StaticError>();
 		}
 
-		public void Add(TigerStaticError error)
+		public void Add(StaticError error)
 		{
 			report.Add(error);
 			switch (error.Level)
@@ -28,7 +28,7 @@ namespace TigerCs.CompilationServices
 				case ErrorLevel.Error:
 					Error?.Invoke(error);
 					break;
-				case ErrorLevel.Critical:
+				case ErrorLevel.Internal:
 					CriticalError?.Invoke(error);
 					break;
 				default:
@@ -37,7 +37,7 @@ namespace TigerCs.CompilationServices
 			}
 		}
 
-		public IEnumerator<TigerStaticError> GetEnumerator()
+		public IEnumerator<StaticError> GetEnumerator()
 		{
 			return report.GetEnumerator();
 		}
@@ -48,10 +48,10 @@ namespace TigerCs.CompilationServices
 		}
 
 		public void IncompleteMemberInitialization(string source = null)
-			=> Add(new TigerStaticError(0, 0, "Incomple member initialization", ErrorLevel.Critical, source));
+			=> Add(new StaticError(0, 0, "Incomple member initialization", ErrorLevel.Internal, source));
 	}
 
-	public struct TigerStaticError
+	public struct StaticError
 	{
 		public string ErrorMessage;
 		public ErrorLevel Level;
@@ -59,7 +59,7 @@ namespace TigerCs.CompilationServices
 		public int Line;
 		public int Column;
 
-		public TigerStaticError(int line, int colunm, string error, ErrorLevel level, string source = null)
+		public StaticError(int line, int colunm, string error, ErrorLevel level, string source = null)
 		{
 			ErrorMessage = error;
 			Level = level;
@@ -80,9 +80,24 @@ namespace TigerCs.CompilationServices
 
 	public enum ErrorLevel
 	{
+		/// <summary>
+		/// Compiler information
+		/// </summary>
 		Info,
+
+		/// <summary>
+		/// Possible error
+		/// </summary>
 		Warning,
+
+		/// <summary>
+		/// Error from user code
+		/// </summary>
 		Error,
-		Critical,
+
+		/// <summary>
+		/// Unspected error, likely from developer code
+		/// </summary>
+		Internal,
 	}
 }

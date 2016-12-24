@@ -25,7 +25,6 @@ namespace TigerCs.Emitters.NASM
 		public string OutputFile { get; set; }
 
 		readonly FormatWriter fw;
-		ErrorReport r;
 
 		TextWriter t;
 		FileStream toclose;
@@ -56,6 +55,8 @@ namespace TigerCs.Emitters.NASM
 
 		public override void InitializeCodeGeneration(ErrorReport report)
 		{
+			base.InitializeCodeGeneration(report);
+
 			if (string.IsNullOrWhiteSpace(OutputFile))
 				t = Console.Out;
 			else
@@ -65,7 +66,6 @@ namespace TigerCs.Emitters.NASM
 
 			}
 
-			r = report;
 			StringConst = new Dictionary<string, NasmStringConst>();
 			StringConstEnd = 0;
 
@@ -165,29 +165,31 @@ namespace TigerCs.Emitters.NASM
 		#region [Holders]
 		public override NasmHolder AddConstant(int value)
 		{
-			return new NasmIntConst(value);
+			return new NasmIntConst(this, value);
 		}
 		public override NasmHolder AddConstant(string value)
 		{
 			NasmStringConst svar;
 			if (StringConst.TryGetValue(value, out svar)) return svar;
 
-			svar = new NasmStringConst(value, StringConstName, StringConstEnd);
+			svar = new NasmStringConst(this, value, StringConstName, StringConstEnd);
 			StringConst[value] = svar;
 			StringConstEnd += value.Length + 5;// 4 for size and 1 for \0
 			return svar;
 		}
-		public override NasmHolder BindVar(NasmType type = null, NasmHolder defaultvalue = null, string name = null, bool global = false)
+
+		public override NasmHolder BindVar(NasmType type = null, NasmHolder defaultvalue = null, string name = null,
+		                                   bool global = false)
 		{
 			NasmHolder v;
 			if (name != null || CurrentScope.ReleasedTempVars.Count <= 0)
 			{
 				fw.WriteLine($"; {name}<EBP - {(CurrentScope.VarsCount + 1) * 4}>");
-				v = new NasmHolder(CurrentScope, CurrentScope.VarsCount);
+				v = new NasmHolder(this, CurrentScope, CurrentScope.VarsCount);
 				CurrentScope.VarsCount++;
 			}
 			else
-				v = new NasmHolder(CurrentScope, CurrentScope.ReleasedTempVars.Dequeue());
+				v = new NasmHolder(this, CurrentScope, CurrentScope.ReleasedTempVars.Dequeue());
 
 			if (defaultvalue == null)
 				defaultvalue = AddConstant(0);
@@ -204,15 +206,19 @@ namespace TigerCs.Emitters.NASM
 		public override NasmHolder StaticMemberAcces(NasmType tigertype, NasmHolder op1, int index)
 		{
 			if (index < 0)
-				throw new IndexOutOfRangeException("index must be non negative");
+				Report.Add(new StaticError(SourceLine, SourceColumn, "Static reference index must be non-negative",
+				                                ErrorLevel.Error));
 			bool dynamicupperboundcheck = false;
 			switch (tigertype.RefType)
 			{
 				case NasmRefType.None:
-					throw new InvalidOperationException("the provided type has no members to be referenced");
+					Report.Add(new StaticError(SourceLine, SourceColumn, "The provided type has no members to be referenced",
+					                                ErrorLevel.Internal));
+					break;
 				case NasmRefType.Fixed:
 					if (index >= tigertype.AsRefSize)
-						throw new IndexOutOfRangeException("index exceed members count");
+						Report.Add(new StaticError(SourceLine, SourceColumn, "Static reference index exceeds members count",
+						                                ErrorLevel.Internal));
 					break;
 				//case NasmRefType.Dynamic:
 				//case NasmRefType.NoSet:
@@ -220,7 +226,9 @@ namespace TigerCs.Emitters.NASM
 					dynamicupperboundcheck = true;
 					break;
 			}
-			return new NasmReference(op1, index, this, CurrentScope, ReferenceEquals(tigertype, NasmType.String) ? WordSize.Byte : WordSize.DWord, dynamicupperboundcheck);
+			return new NasmReference(op1, index, this, CurrentScope,
+			                         ReferenceEquals(tigertype, NasmType.String)? WordSize.Byte : WordSize.DWord,
+			                         dynamicupperboundcheck);
 		}
 		#endregion
 
@@ -395,7 +403,7 @@ namespace TigerCs.Emitters.NASM
 			constant = null;
 			if (name != "nill") return false;
 
-			constant = new NasmIntConst(Null);
+			constant = new NasmIntConst(this, Null);
 			return true;
 		}
 
@@ -743,7 +751,7 @@ namespace TigerCs.Emitters.NASM
 		{
 			if (CurrentScope.ScopeType == NasmScopeType.Nested) throw new InvalidOperationException("no function scope");
 			if (position < 0 || position >= CurrentScope.ArgumentsCount) throw new ArgumentException("params position exided");
-			return new NasmHolder(CurrentScope, -(position + 4));
+			return new NasmHolder(this, CurrentScope, -(position + 4));
 		}
 
 		/// <summary>
@@ -848,7 +856,7 @@ namespace TigerCs.Emitters.NASM
 		public override void GotoIfZero(Guid label, NasmHolder int_op)
 		{
 			if (!CurrentScope.ExpectedLabels.ContainsKey(label) && !CurrentScope.ScopeLabels.ContainsKey(label))
-				r.Add(new TigerStaticError(0, 0, "Conditional jump out of the current scope", ErrorLevel.Critical));
+				Report.Add(new StaticError(0, 0, "Conditional jump out of the current scope", ErrorLevel.Internal));
 
 			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
 			bool pop = reg == null;
@@ -876,7 +884,7 @@ namespace TigerCs.Emitters.NASM
 		public override void GotoIfNotZero(Guid label, NasmHolder int_op)
 		{
 			if (!CurrentScope.ExpectedLabels.ContainsKey(label) && !CurrentScope.ScopeLabels.ContainsKey(label))
-				r.Add(new TigerStaticError(0, 0, "Conditional jump out of the current scope", ErrorLevel.Critical));
+				Report.Add(new StaticError(0, 0, "Conditional jump out of the current scope", ErrorLevel.Internal));
 
 			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
 			bool pop = reg == null;
@@ -905,7 +913,7 @@ namespace TigerCs.Emitters.NASM
 		public override void GotoIfNotNegative(Guid label, NasmHolder int_op)
 		{
 			if (!CurrentScope.ExpectedLabels.ContainsKey(label) && !CurrentScope.ScopeLabels.ContainsKey(label))
-				r.Add(new TigerStaticError(0, 0, "Conditional jump out of the current scope", ErrorLevel.Critical));
+				Report.Add(new StaticError(0, 0, "Conditional jump out of the current scope", ErrorLevel.Internal));
 
 			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
 			bool pop = reg == null;
@@ -934,7 +942,7 @@ namespace TigerCs.Emitters.NASM
 		public override void GotoIfNegative(Guid label, NasmHolder int_op)
 		{
 			if (!CurrentScope.ExpectedLabels.ContainsKey(label) && !CurrentScope.ScopeLabels.ContainsKey(label))
-				r.Add(new TigerStaticError(0, 0, "Conditional jump out of the current scope", ErrorLevel.Critical));
+				Report.Add(new StaticError(0, 0, "Conditional jump out of the current scope", ErrorLevel.Internal));
 
 			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
 			bool pop = reg == null;
@@ -1191,7 +1199,7 @@ namespace TigerCs.Emitters.NASM
 
 			fw.WriteLine($"inc {Register.ECX}");
 			fw.WriteLine($"shl {Register.ECX}, {2}");
-			NasmFunction.Malloc.Call(fw, reg, acceding, new NasmRegisterHolder(Register.ECX));
+			NasmFunction.Malloc.Call(fw, reg, acceding, new NasmRegisterHolder(bound, Register.ECX));
 
 
 			fw.WriteLine($"pop {Register.ECX}");
@@ -1260,7 +1268,7 @@ namespace TigerCs.Emitters.NASM
 			acceding.Lock.Release(Register.ECX);
 
 			fw.WriteLine($"add {Register.ECX}, 5");
-			NasmFunction.Malloc.Call(fw, reg, acceding, new NasmRegisterHolder(Register.ECX));
+			NasmFunction.Malloc.Call(fw, reg, acceding, new NasmRegisterHolder(bound, Register.ECX));
 
 			fw.WriteLine($"pop {Register.ECX}");
 			fw.WriteLine($"pop {Register.EAX}");
