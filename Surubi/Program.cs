@@ -19,6 +19,8 @@ namespace Surubi
 			e.TryBindSTDFunction("prints", out print);
 			NasmFunction printi;
 			e.TryBindSTDFunction("printi", out printi);
+			NasmHolder nill;
+			e.TryBindSTDConst("nill", out nill);
 
 
 			e.InitializeCodeGeneration(r);
@@ -28,20 +30,20 @@ namespace Surubi
 			var lend = e.AddConstant("\n");
 
 			#region [array]
-			//var _4 = e.AddConstant(4);
-			//var lf = e.AddConstant("\n");
+			var _4 = e.AddConstant(4);
+			var lf = e.AddConstant("\n");
 
-			//var t = e.BindArrayType("intarray", _int);
-			//var array = e.BindVar(t, name: "array_int");
+			var t = e.BindArrayType("intarray", _int);
+			var array = e.BindVar(t, name: "array_int");
 			//e.Call(t.Allocator, new[] { _4, _0 }, array);
 
-			//for (int i = 0; i < 50; i++)
-			//{
-			//	var item = e.StaticMemberAcces(t, array, i);
-			//	e.InstrAssing(item, e.AddConstant(i));
-			//	e.Call(printi, new[] { item });
-			//	e.Call(print, new[] { lf });
-			//}
+			for (int i = 0; i < 5; i++)
+			{
+				var item = e.StaticMemberAcces(t, array, i);
+				e.InstrAssing(item, e.AddConstant(i));
+				e.Call(printi, new[] { item });
+				e.Call(print, new[] { lf });
+			}
 			#endregion
 
 			#region [var test]
@@ -95,25 +97,25 @@ namespace Surubi
 
 			#region [goto]
 
-			var a = e.BindVar(_string, e.AddConstant("unchanged value"));
-			var label = e.ReserveInstructionLabel("jump point");
+			//var a = e.BindVar(_string, e.AddConstant("unchanged value"));
+			//var label = e.ReserveInstructionLabel("jump point");
 
-			e.EnterNestedScope();
+			//e.EnterNestedScope();
 
-			var c = e.BindVar(_int, e.AddConstant(9));
+			//var c = e.BindVar(_int, e.AddConstant(9));
 
-			e.Call(printi, new[] { c });
-			e.Call(print, new[] { lend });
-			e.Call(print, new[] { a });
-			e.Call(print, new[] { lend });
-			e.Goto(label);
-			e.InstrAssing(a, e.AddConstant("changed value"));
+			//e.Call(printi, new[] { c });
+			//e.Call(print, new[] { lend });
+			//e.Call(print, new[] { a });
+			//e.Call(print, new[] { lend });
+			//e.Goto(label);
+			//e.InstrAssing(a, e.AddConstant("changed value"));
 
-			e.LeaveScope();
+			//e.LeaveScope();
 
-			e.ApplyReservedLabel(label);
-			e.Call(print, new[] { a });
-			e.Call(print, new[] { lend });
+			//e.ApplyReservedLabel(label);
+			//e.Call(print, new[] { a });
+			//e.Call(print, new[] { lend });
 
 			#endregion
 			e.Ret(_0);
