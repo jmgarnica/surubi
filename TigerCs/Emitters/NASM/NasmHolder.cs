@@ -109,11 +109,19 @@ namespace TigerCs.Emitters.NASM
 		{
 			//TODO: aceptar array de direcciones y comprobar el nill* , a[3,2,3] = ((a[3])[2])[3] = a.item4.item3.item4
 			H.PutValueInRegister(gpr, fw, accedingscope);
+			Guid passnull = bound.g.GNext();
+
+			fw.WriteLine($"cmp {gpr}, {NasmEmitter.Null}");
+			fw.WriteLine($"jne _{passnull:N}");
+
+			NasmEmitter.EmitError(fw, accedingscope, bound, 3, "Null Refernce");
+
+			fw.WriteLine($"_{passnull:N}:");
 			if (offset > 0 && checkupperbound)
 			{
 				//<error catch>
-				Guid doit = bound.g.GNext();
-				Guid ndoit = bound.g.GNext();
+				Guid IOEexcept = bound.g.GNext();
+				Guid code = bound.g.GNext();
 
 				bool stackback = false;
 				var reg = accedingscope.Lock.LockGPR(Register.EDX);
@@ -130,13 +138,13 @@ namespace TigerCs.Emitters.NASM
 				if (stackback) fw.WriteLine($"pop {reg.Value}");
 				else accedingscope.Lock.Release(reg.Value);
 
-				fw.WriteLine($"jge _{doit:N}");
-				fw.WriteLine($"jmp _{ndoit:N}");
+				fw.WriteLine($"jge _{IOEexcept:N}");
+				fw.WriteLine($"jmp _{code:N}");
 
-				fw.WriteLine($"_{doit:N}:");
+				fw.WriteLine($"_{IOEexcept:N}:");
 				NasmEmitter.EmitError(fw, accedingscope, bound, 1, "Index out of range");
 
-				fw.WriteLine($"_{ndoit:N}:");
+				fw.WriteLine($"_{code:N}:");
 				//</error catch>
 			}
 			fw.WriteLine($"add {gpr}, {4 + offset * (int)size}");
@@ -158,6 +166,14 @@ namespace TigerCs.Emitters.NASM
 			}
 
 			H.PutValueInRegister(reg.Value, fw, accedingscope);
+			Guid passnull = bound.g.GNext();
+
+			fw.WriteLine($"cmp {gpr}, {NasmEmitter.Null}");
+			fw.WriteLine($"jne _{passnull:N}");
+
+			NasmEmitter.EmitError(fw, accedingscope, bound, 3, "Null Refernce");
+
+			fw.WriteLine($"_{passnull:N}:");
 			//<error catch>
 			if (offset > 0 && checkupperbound)
 			{

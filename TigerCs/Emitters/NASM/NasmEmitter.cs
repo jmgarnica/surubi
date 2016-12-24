@@ -17,6 +17,7 @@ namespace TigerCs.Emitters.NASM
 		public const string PrintIFunctionLabel = "_cprintI";
 		public const string MallocLabel = "_malloc";
 		public const string FreeLabel = "_free";
+		public const int Null = 0;
 
 		public const int ErrorCode = 0xe7707;
 
@@ -389,7 +390,14 @@ namespace TigerCs.Emitters.NASM
 			}
 		}
 
-		public override bool TryBindSTDConst(string name, out NasmHolder constant){ throw new NotImplementedException(); }
+		public override bool TryBindSTDConst(string name, out NasmHolder constant)
+		{
+			constant = null;
+			if (name != "nill") return false;
+
+			constant = new NasmIntConst(Null);
+			return true;
+		}
 
 		#endregion
 
@@ -617,10 +625,64 @@ namespace TigerCs.Emitters.NASM
 
 		public override void InstrInverse(NasmHolder dest_nonconst, NasmHolder op1)
 		{
-			throw new NotImplementedException();
+			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
+			bool pop = reg == null;
+			if (pop)
+			{
+				fw.WriteLine($"push {Register.EAX}");
+				reg = Register.EAX;
+			}
+
+			op1.PutValueInRegister(reg.Value, fw, CurrentScope);
+
+			fw.WriteLine($"neg {reg}");
+
+			dest_nonconst.StackBackValue(reg.Value, fw, CurrentScope);
+
+			if (pop)
+				fw.WriteLine($"pop {reg}");
+			else
+				CurrentScope.Lock.Release(reg.Value);
 		}
 
-		public override void InstrRefEq(NasmHolder dest_nonconst, NasmHolder op1, NasmHolder op2){ throw new NotImplementedException(); }
+		public override void InstrRefEq(NasmHolder dest_nonconst, NasmHolder op1, NasmHolder op2)
+		{
+			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
+			bool pop = reg == null;
+			if (pop)
+			{
+				fw.WriteLine($"push {Register.EAX}");
+				reg = Register.EAX;
+			}
+
+			var reg2 = CurrentScope.Lock.LockGPR(Register.EDX);
+			bool pop2 = reg2 == null;
+			if (pop2)
+			{
+				reg2 = reg != Register.EDX? Register.EDX : Register.EBX;
+				fw.WriteLine($"push {reg2}");
+			}
+
+			op1.PutValueInRegister(reg.Value, fw, CurrentScope);
+			op2.PutValueInRegister(reg2.Value, fw, CurrentScope);
+
+			fw.WriteLine($"sub {reg}, {reg2}");
+			fw.WriteLine($"mov {reg}, {0}");
+			fw.WriteLine($"mov {reg2}, {1}");
+			fw.WriteLine($"cmovz {reg}, {reg2}");
+
+			dest_nonconst.StackBackValue(reg.Value, fw, CurrentScope);
+
+			if (pop2)
+				fw.WriteLine($"pop {reg2}");
+			else
+				CurrentScope.Lock.Release(reg2.Value);
+
+			if (pop)
+				fw.WriteLine($"pop {reg}");
+			else
+				CurrentScope.Lock.Release(reg.Value);
+		}
 
 		/// <summary>
 		/// Returns the count of elements currently storage in the array, returns lower than o for non-array holders
@@ -783,27 +845,115 @@ namespace TigerCs.Emitters.NASM
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
 		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
 		/// </summary>
-		public override void GotoIfZero(Guid label, NasmHolder int_op){ throw new NotImplementedException(); }
+		public override void GotoIfZero(Guid label, NasmHolder int_op)
+		{
+			if (!CurrentScope.ExpectedLabels.ContainsKey(label) && !CurrentScope.ScopeLabels.ContainsKey(label))
+				r.Add(new TigerStaticError(0, 0, "Conditional jump out of the current scope", ErrorLevel.Critical));
+
+			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
+			bool pop = reg == null;
+			if (pop)
+			{
+				reg = Register.EAX;
+				fw.WriteLine($"push {reg}");
+			}
+
+			int_op.PutValueInRegister(reg.Value, fw, CurrentScope);
+			fw.WriteLine($"cmp {reg}, 0");
+
+			if (pop)
+				fw.WriteLine($"pop {reg}");
+			else
+				CurrentScope.Lock.Release(reg.Value);
+
+			fw.WriteLine($"jz {label:N}");
+		}
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
 		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
 		/// </summary>
-		public override void GotoIfNotZero(Guid label, NasmHolder int_op){ throw new NotImplementedException(); }
+		public override void GotoIfNotZero(Guid label, NasmHolder int_op)
+		{
+			if (!CurrentScope.ExpectedLabels.ContainsKey(label) && !CurrentScope.ScopeLabels.ContainsKey(label))
+				r.Add(new TigerStaticError(0, 0, "Conditional jump out of the current scope", ErrorLevel.Critical));
+
+			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
+			bool pop = reg == null;
+			if (pop)
+			{
+				reg = Register.EAX;
+				fw.WriteLine($"push {reg}");
+			}
+
+			int_op.PutValueInRegister(reg.Value, fw, CurrentScope);
+			fw.WriteLine($"cmp {reg}, 0");
+
+			if (pop)
+				fw.WriteLine($"pop {reg}");
+			else
+				CurrentScope.Lock.Release(reg.Value);
+
+			fw.WriteLine($"jnz {label:N}");
+		}
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
 		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
 		/// [IMPLEMENTATION_TIP] int_op >= 0
 		/// </summary>
-		public override void GotoIfNotNegative(Guid label, NasmHolder int_op){ throw new NotImplementedException(); }
+		public override void GotoIfNotNegative(Guid label, NasmHolder int_op)
+		{
+			if (!CurrentScope.ExpectedLabels.ContainsKey(label) && !CurrentScope.ScopeLabels.ContainsKey(label))
+				r.Add(new TigerStaticError(0, 0, "Conditional jump out of the current scope", ErrorLevel.Critical));
+
+			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
+			bool pop = reg == null;
+			if (pop)
+			{
+				reg = Register.EAX;
+				fw.WriteLine($"push {reg}");
+			}
+
+			int_op.PutValueInRegister(reg.Value, fw, CurrentScope);
+			fw.WriteLine($"cmp {reg}, 0");
+
+			if (pop)
+				fw.WriteLine($"pop {reg}");
+			else
+				CurrentScope.Lock.Release(reg.Value);
+
+			fw.WriteLine($"jge {label:N}");
+		}
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
 		/// [IMPLEMENTATION_TIP] no jumps to outers scopes are allowed, you can get as far as END label
 		/// [IMPLEMENTATION_TIP] int_op less than 0
 		/// </summary>
-		public override void GotoIfNegative(Guid label, NasmHolder int_op){ throw new NotImplementedException(); }
+		public override void GotoIfNegative(Guid label, NasmHolder int_op)
+		{
+			if (!CurrentScope.ExpectedLabels.ContainsKey(label) && !CurrentScope.ScopeLabels.ContainsKey(label))
+				r.Add(new TigerStaticError(0, 0, "Conditional jump out of the current scope", ErrorLevel.Critical));
+
+			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
+			bool pop = reg == null;
+			if (pop)
+			{
+				reg = Register.EAX;
+				fw.WriteLine($"push {reg}");
+			}
+
+			int_op.PutValueInRegister(reg.Value, fw, CurrentScope);
+			fw.WriteLine($"cmp {reg}, 0");
+
+			if (pop)
+				fw.WriteLine($"pop {reg}");
+			else
+				CurrentScope.Lock.Release(reg.Value);
+
+			fw.WriteLine($"jl {label:N}");
+		}
 
 		#endregion
 
@@ -1150,21 +1300,30 @@ namespace TigerCs.Emitters.NASM
 		/// </summary>
 		static void MemberReadAccess(FormatWriter fw, NasmEmitter bound, NasmEmitterScope acceding, Register[] args)
 		{
-			Guid doit = bound.g.GNext();
-			Guid ndoit = bound.g.GNext();
+			Guid IORexcept = bound.g.GNext();
+			Guid code = bound.g.GNext();
+			Guid passnull = bound.g.GNext();
 			fw.IncrementIndentation();
 
-			//TODO: revisar chekeo de errores
-			fw.WriteLine($"cmp {args[1]}, 0");
-			fw.WriteLine($"jl _{doit:N}");
-			fw.WriteLine($"cmp {args[1]}, [{args[0]}]");
-			fw.WriteLine($"jge _{doit:N}");
+			//Null Reference
+			fw.WriteLine($"cmp {args[0]}, {Null}");
+			fw.WriteLine($"jne _{passnull:N}");
 
-			fw.WriteLine($"jmp _{ndoit:N}");
-			fw.WriteLine($"_{doit:N}:");
+			EmitError(fw, acceding, bound, 3, "Null Refernce");
+
+			fw.WriteLine($"_{passnull:N}:");
+
+			//Index out of range
+			fw.WriteLine($"cmp {args[1]}, 0");
+			fw.WriteLine($"jl _{IORexcept:N}");
+			fw.WriteLine($"cmp {args[1]}, [{args[0]}]");
+			fw.WriteLine($"jge _{IORexcept:N}");
+
+			fw.WriteLine($"jmp _{code:N}");
+			fw.WriteLine($"_{IORexcept:N}:");
 			EmitError(fw, acceding, bound, 1, "Index out of range");
 
-			fw.WriteLine($"_{ndoit:N}:");
+			fw.WriteLine($"_{code:N}:");
 			fw.WriteLine("inc " + args[1]);
 			fw.WriteLine($"shl {args[1]}, 2");
 			fw.WriteLine($"add {args[0]}, {args[1]}");
@@ -1174,21 +1333,30 @@ namespace TigerCs.Emitters.NASM
 
 		static void MemberReadAccessByteString(FormatWriter fw, NasmEmitter bound, NasmEmitterScope acceding, Register[] args)
 		{
-			Guid doit = bound.g.GNext();
-			Guid ndoit = bound.g.GNext();
+			Guid IORexcept = bound.g.GNext();
+			Guid code = bound.g.GNext();
+			Guid passnull = bound.g.GNext();
 			fw.IncrementIndentation();
 
-			//TODO: revisar chekeo de errores
-			fw.WriteLine($"cmp {args[1]}, 0");
-			fw.WriteLine($"jl _{doit:N}");
-			fw.WriteLine($"cmp {args[1]}, [{args[0]}]");
-			fw.WriteLine($"jge _{doit:N}");
+			//Null Reference
+			fw.WriteLine($"cmp {args[0]}, {Null}");
+			fw.WriteLine($"jne _{passnull:N}");
 
-			fw.WriteLine($"jmp _{ndoit:N}");
-			fw.WriteLine($"_{doit:N}:");
+			EmitError(fw, acceding, bound, 3, "Null Refernce");
+
+			fw.WriteLine($"_{passnull:N}:");
+
+			//Index out of range
+			fw.WriteLine($"cmp {args[1]}, 0");
+			fw.WriteLine($"jl _{IORexcept:N}");
+			fw.WriteLine($"cmp {args[1]}, [{args[0]}]");
+			fw.WriteLine($"jge _{IORexcept:N}");
+
+			fw.WriteLine($"jmp _{code:N}");
+			fw.WriteLine($"_{IORexcept:N}:");
 			EmitError(fw, acceding, bound, 1, "Index out of range");
 
-			fw.WriteLine($"_{ndoit:N}:");
+			fw.WriteLine($"_{code:N}:");
 			fw.WriteLine($"add {args[1]}, 4");
 			fw.WriteLine($"add {args[0]}, {args[1]}");
 			fw.WriteLine($"mov {args[0].ByteVersion()}, [{args[0]}]");
@@ -1208,21 +1376,30 @@ namespace TigerCs.Emitters.NASM
 		/// </summary>
 		static void MemberWriteAccess(FormatWriter fw, NasmEmitter bound, NasmEmitterScope acceding, Register[] args)
 		{
-			Guid doit = bound.g.GNext();
-			Guid ndoit = bound.g.GNext();
+			Guid IORexcept = bound.g.GNext();
+			Guid code = bound.g.GNext();
+			Guid passnull = bound.g.GNext();
 			fw.IncrementIndentation();
 
-			//TODO: revisar chekeo de errores
-			fw.WriteLine($"cmp {args[1]}, 0");
-			fw.WriteLine($"jl _{doit:N}");
-			fw.WriteLine($"cmp {args[1]}, [{args[0]}]");
-			fw.WriteLine($"jge _{doit:N}");
+			//Null Reference
+			fw.WriteLine($"cmp {args[0]}, {Null}");
+			fw.WriteLine($"jne _{passnull:N}");
 
-			fw.WriteLine($"jmp _{ndoit:N}");
-			fw.WriteLine($"_{doit:N}:");
+			EmitError(fw, acceding, bound, 3, "Null Refernce");
+
+			fw.WriteLine($"_{passnull:N}:");
+
+			//Index out of range
+			fw.WriteLine($"cmp {args[1]}, 0");
+			fw.WriteLine($"jl _{IORexcept:N}");
+			fw.WriteLine($"cmp {args[1]}, [{args[0]}]");
+			fw.WriteLine($"jge _{IORexcept:N}");
+
+			fw.WriteLine($"jmp _{code:N}");
+			fw.WriteLine($"_{IORexcept:N}:");
 			EmitError(fw, acceding, bound, 1, "Index out of range");
 
-			fw.WriteLine($"_{ndoit:N}:");
+			fw.WriteLine($"_{code:N}:");
 			fw.WriteLine("inc " + args[1]);
 			fw.WriteLine($"shl {args[1]}, 2");
 			fw.WriteLine($"add {args[0]}, {args[1]}");

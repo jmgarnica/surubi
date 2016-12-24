@@ -28,13 +28,7 @@ namespace TigerCs.Emitters.NASM
 			get; set;
 		}
 
-		public NasmType Return
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-		}
+		public NasmType Return { get; set; }
 
 		public virtual void Call(FormatWriter fw, Register? result, NasmEmitterScope accedingscope, params NasmMember[] args)
 		{
