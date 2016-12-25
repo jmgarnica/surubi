@@ -43,6 +43,7 @@
     <Compile Include="CompilationServices\GuidGenerator.cs" />
     <Compile Include="CompilationServices\InArgumentAttribute.cs" />
     <Compile Include="CompilationServices\Extensions.cs" />
+    <Compile Include="CompilationServices\NotNullAttribute.cs" />
     <Compile Include="Emitters\BCMBase.cs" />
     <Compile Include="Emitters\EmitterExeption.cs" />
     <Compile Include="Emitters\EmitterScope.cs" />

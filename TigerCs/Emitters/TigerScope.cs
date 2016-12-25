@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
 using TigerCs.Generation;
+using TigerCs.CompilationServices;
 
 namespace TigerCs.Emitters
 {
+	
+
 	public class TigerSemanticScope
 	{
 		public const string ScopeNameSeparator = "_";
 
 		public TigerSemanticScope Parent { get; set; } = null;
 
-		public Dictionary<string, MemberInfo> Namespace { get; protected set; } = new Dictionary<string, MemberInfo>();
+		public Dictionary<string, MemberDefinition> Namespace { get; protected set; } = new Dictionary<string, MemberDefinition>();
 		public Dictionary<string, MemberInfo> Closure { get; set; }
 		public bool ContainsTypeDefinitions { get; set; } = false;
 		public object[] Descriptors { get; set; } = null;

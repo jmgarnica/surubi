@@ -35,7 +35,7 @@ namespace TigerCs.Generation
 		/// <param name="name"></param>
 		/// <param name="member"></param>
 		/// <returns></returns>
-		bool DeclareMember(string name, MemberInfo member);
+		bool DeclareMember(string name, MemberDefinition member);
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] set to true MemberInfo.Use before outing it

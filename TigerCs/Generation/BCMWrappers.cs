@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using TigerCs.CompilationServices;
 
 namespace TigerCs.Generation
 {
 
 	public abstract class MemberInfo
 	{
-		private object bcmmember;
+		object bcmmember;
 
 		public string Name { get; set; }
 
@@ -33,6 +34,9 @@ namespace TigerCs.Generation
 		/// When false cant be bounded to bcm objects
 		/// </summary>
 		public bool BCMBackup { get; set; } = true;
+
+		public abstract bool FillInconsistencyReport(MemberInfo mem, ErrorReport report, int thisline, int thiscol,
+		                                             int memline, int memcol);
 	}
 
 	public class HolderInfo : MemberInfo
@@ -44,19 +48,103 @@ namespace TigerCs.Generation
 		/// </summary>
 		public object ConstValue { get; set; }
 
+		public override bool FillInconsistencyReport(MemberInfo mem, ErrorReport report, int thisline, int thiscol, int memline, int memcol)
+		{
+			var hol = mem as HolderInfo;
+			if (hol == null)
+			{
+				report.Add(new StaticError(memline, memcol, "Holder expected", ErrorLevel.Error));
+				return false;
+			}
+
+			if (Type == hol.Type) return true;
+
+			report.Add(new StaticError(memline, memcol, $"Previous declaration at ({thisline}, {thiscol}) " +
+			                                            "differs in type", ErrorLevel.Error));
+			return false;
+		}
 	}
 
 	public class FunctionInfo : MemberInfo
 	{
+		[NotNull]
 		public List<Tuple<string, TypeInfo>> Parameters { get; set; }
 
 		public List<Tuple<string, MemberInfo>> Closure { get; set; }
 
+		[NotNull]
 		public TypeInfo Return { get; set; }
+
+		/// <summary>Serves as the default hash function. </summary>
+		/// <returns>A hash code for the current object.</returns>
+		public override int GetHashCode()
+		{
+			return Return.GetHashCode();
+		}
+
+		public override bool Equals(object obj)
+		{
+			var func = obj as FunctionInfo;
+			if (func == null) return false;
+
+			if (Return != func.Return) return false;
+
+			if (Parameters.Count != func.Parameters.Count) return false;
+			for (int i = 0; i < Parameters.Count; i++)
+				if (Parameters[i].Item2 != func.Parameters[i].Item2) return false;
+
+			return true;
+		}
+
+		public override bool FillInconsistencyReport(MemberInfo mem, ErrorReport report, int thisline, int thiscol,
+		                                             int memline, int memcol)
+		{
+			var func = mem as FunctionInfo;
+			if (func == null)
+			{
+				report.Add(new StaticError(memline, memcol, "Function expected",
+				                           ErrorLevel.Error));
+				return false;
+			}
+
+			if (Return != func.Return)
+			{
+				report.Add(new StaticError(memline, memcol, $"Previous definition at ({thisline}, {thiscol})" +
+				                                            " differs in return type",
+				                           ErrorLevel.Error));
+				return false;
+			}
+
+			if (Parameters.Count != func.Parameters.Count)
+			{
+				report.Add(new StaticError(memline, memcol, $"Previous definition at ({thisline}, {thiscol})" +
+				                                            " differs in arguments count",
+										   ErrorLevel.Error));
+				return false;
+			}
+			for (int i = 0; i < Parameters.Count; i++)
+			{
+				if (Parameters[i].Item2 == func.Parameters[i].Item2) continue;
+				report.Add(new StaticError(memline, memcol,
+				                           $"Previous definition at ({thisline}, {thiscol}) differs in the type" +
+				                           $" of positional argument {i}: {func.Parameters[i].Item1}",
+				                           ErrorLevel.Error));
+				return false;
+			}
+
+			return true;
+		}
 	}
 
 	public class TypeInfo : MemberInfo
 	{
+		static readonly GuidGenerator types;
+
+		static TypeInfo()
+		{
+			types = new GuidGenerator();
+		}
+
 		public List<Tuple<string, TypeInfo>> Members { get; set; }
 
 		public Guid TypeId { get; }
@@ -68,18 +156,17 @@ namespace TigerCs.Generation
 
 		public TypeInfo()
 		{
-			Members = new List<Tuple<string, TypeInfo>>();
-			TypeId = Guid.NewGuid();
+			TypeId = types.GNext();
 		}
 
 		public static bool operator ==(TypeInfo a, TypeInfo b)
 		{
-			return b != null && a != null && a.TypeId == b.TypeId;
+			return (b?.TypeId ?? Guid.Empty) == (a?.TypeId ?? Guid.Empty);
 		}
 
 		public static bool operator !=(TypeInfo a, TypeInfo b)
 		{
-			return b != null && a != null && a.TypeId != b.TypeId;
+			return (b?.TypeId ?? Guid.Empty) != (a?.TypeId ?? Guid.Empty);
 		}
 
 		public override int GetHashCode()
@@ -90,13 +177,71 @@ namespace TigerCs.Generation
 		public override bool Equals(object obj)
 		{
 			var info = obj as TypeInfo;
-			if (info != null)
-				return info.TypeId == TypeId;
+			if (info == null) return false;
 
-			return false;
+			return info.TypeId == TypeId;
 		}
 
-		public static string MakeArrayName(string t) => "<array> of " + t;
+		public static string MakeArrayName(string t) => $"<array_of>{t}<array_of>";
+		public static string MakeTypeName(string t) => $"<type>{t}<type>";
+
+		public override bool FillInconsistencyReport(MemberInfo mem, ErrorReport report, int thisline, int thiscol, int memline, int memcol)
+		{
+			var type = mem as TypeInfo;
+			if (type == null)
+			{
+				report.Add(new StaticError(memline, memcol, "Type expected", ErrorLevel.Error));
+				return false;
+			}
+
+			if (ArrayOf != null)
+			{
+				if (type.Members != null || type.ArrayOf == null)
+				{
+					report.Add(new StaticError(memline, memcol, $"Previous declaration at ({thisline}, {thiscol})" +
+																" is an array alias",
+											   ErrorLevel.Error));
+					return false;
+				}
+
+				if (ArrayOf == type.ArrayOf) return true;
+				report.Add(new StaticError(memline, memcol, $"Previous declaration at ({thisline}, {thiscol})" +
+				                                            " differs in the type of it´s elemets",
+				                           ErrorLevel.Error));
+				return false;
+			}
+
+			if (Members == null) return true;
+
+			if (type.ArrayOf != null || type.Members == null)
+			{
+				report.Add(new StaticError(memline, memcol, $"Previous declaration at ({thisline}, {thiscol})" +
+				                                            " is a record",
+				                           ErrorLevel.Error));
+				return false;
+			}
+
+			if(Members.Count != type.Members.Count)
+			{
+				report.Add(new StaticError(memline, memcol, $"Previous declaration at ({thisline}, {thiscol})" +
+				                                            " differs in members count",
+				                           ErrorLevel.Error));
+				return false;
+			}
+
+			for (int i = 0; i < Members.Count; i++)
+			{
+				if (Members[i].Item2 == type.Members[i].Item2) continue;
+
+				report.Add(new StaticError(memline, memcol, $"Previous declaration at ({thisline}, {thiscol})" +
+				                                            " differs in the type of member" +
+				                                            $" {i}: {type.Members[i].Item1}",
+				                           ErrorLevel.Error));
+				return false;
+			}
+
+			return true;
+		}
 	}
 
 	public class Alias : MemberInfo
@@ -117,8 +262,13 @@ namespace TigerCs.Generation
 
 			protected set
 			{
-				throw new InvalidOperationException("bound the true type");
+				throw new InvalidOperationException("bound the true member");
 			}
+		}
+
+		public override bool FillInconsistencyReport(MemberInfo mem, ErrorReport report, int thisline, int thiscol, int memline, int memcol)
+		{
+			return InternalInfo.FillInconsistencyReport(mem, report, thisline, thiscol, memline, memcol);
 		}
 	}
 

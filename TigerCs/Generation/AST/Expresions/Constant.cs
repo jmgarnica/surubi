@@ -5,28 +5,21 @@ namespace TigerCs.Generation.AST.Expresions
 {
 	public class IntegerConstant : Expresion
 	{
-		public int Value;
+		int value;
 
 		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report)
 		{
-			//if (!int.TryParse(Lex, out value))
-			//{
-			//	report.Add(new TigerStaticError(line, column, "parsing error", ErrorLevel.Error, Lex));
-			//	return false;
-			//}
-			////Return = sp.Int;
-			return true;
+			Return = sp.Int(report);
+			ReturnValue = new HolderInfo { Type = Return };
+
+			if (int.TryParse(Lex, out value)) return true;
+			report.Add(new StaticError(line, column, "Integer parsing error", ErrorLevel.Error, Lex));
+			return false;
 		}
 
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			ReturnValue = new HolderInfo
-			{
-				//Bounded = true,
-				BCMMember = cg.AddConstant(Value),
-				Name = "",
-				Type = Return
-			};
+			ReturnValue.BCMMember = cg.AddConstant(value);
 		}
 	}
 
@@ -34,24 +27,19 @@ namespace TigerCs.Generation.AST.Expresions
 	{
 		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report)
 		{
-			//if (Lex == null)
-			//{
-			//	report.Add(new TigerStaticError(line, column, "parsing error, null lex", ErrorLevel.Error));
-			//	return false;
-			//}
-			//Return = sp.String;
+			if (Lex == null)
+			{
+				report.Add(new StaticError(line, column, "String constant parsing error, null lex", ErrorLevel.Error));
+				return false;
+			}
+			Return = sp.String(report);
+			ReturnValue = new HolderInfo {Type = Return};
 			return true;
 		}
 
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			ReturnValue = new HolderInfo
-			{
-				//Bounded = true,
-				//Holder = te.AddConstant(Lex),
-				//Name = "",
-				//Type = Return
-			};
+			ReturnValue.BCMMember = cg.AddConstant(Lex);
 		}
 	}
 

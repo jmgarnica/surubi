@@ -50,17 +50,22 @@ namespace TigerCs.CompilationServices
 					if (bcm.TryBindSTDFunction(m.Key, out o)) m.Value.Member.BCMMember = o;
 				}
 
-				if (!m.Value.Member.Bounded && m.Value.Generator == null)
-				{
-					Report.Add(new StaticError { Level = ErrorLevel.Internal, ErrorMessage = "BCM does not have a definition for " + m.Key, Column = m.Value.column, Line = m.Value.column });
-					return;
-				}
+				if (m.Value.Member.Bounded || m.Value.Generator != null) continue;
+				Report.Add(new StaticError
+				           {
+					           Level = ErrorLevel.Internal,
+					           ErrorMessage = $"BCM does not have a definition for {m.Key}",
+					           Column = m.Value.column,
+					           Line = m.Value.column
+				           });
+				return;
 			}
 
 			foreach (var m in std)
 			{
 				if (!m.Value.Member.BCMBackup) continue;
-				if (m.Value == null || m.Value.Generator != null) continue;
+				if (m.Value?.Generator == null) continue;
+
 				m.Value.Generator.CheckSemantics(sc, Report);
 				m.Value.Generator.GenerateCode(bcm, Report);
 			}
