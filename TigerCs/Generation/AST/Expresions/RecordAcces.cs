@@ -1,25 +1,34 @@
 ﻿using System.Linq;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
+using TigerCs.Interpretation;
 
 namespace TigerCs.Generation.AST.Expresions
 {
 	public class MemberAccess : Expresion, ILValue
 	{
+		[Release]
+		[NotNull]
 		public IExpresion Record { get; set; }
 		public string MemberName { get; set; }
 
 		int index = -1;
 
-		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
+		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
 			if (Record == null || string.IsNullOrEmpty(MemberName))
 			{
-				report.IncompleteMemberInitialization(GetType().Name);
+				report.IncompleteMemberInitialization(GetType().Name, line, column);
 				return false;
 			}
 
 			if (!Record.CheckSemantics(sc, report)) return false;
+
+			if (Record.Return.Members == null)
+			{
+				report.Add(new StaticError(line, column, $"Type {Record.Return} is not a record type", ErrorLevel.Error));
+				return false;
+			}
 
 			var member = (from i in Enumerable.Range(0, Record.Return.Members.Count)
 						  let c = new { t = Record.Return.Members[i], i }
@@ -29,21 +38,36 @@ namespace TigerCs.Generation.AST.Expresions
 			if (member == null)
 			{
 				report.Add(new StaticError(line,
-					column,
-				                                $"Type {Record.Return.Name} does not have a definition for member {MemberName}", ErrorLevel.Error));
+				                           column, $"Type {Record.Return.Name} does not have a definition for member {MemberName}",
+				                           ErrorLevel.Error));
 				return false;
 			}
 
 			Return = member.t;
 			index = member.i;
 			ReturnValue = new HolderInfo { Type = Return, Name = "Member Acces" };
+
+			Pure = Record.Pure;
+
+			IntpObject o = null;
+			if (Record.ReturnValue.ConstValue?.TryGetMember(index, out o) == true) ReturnValue.ConstValue = o;
+
 			return true;
 		}
 
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			Record.GenerateCode(cg, report);
-			ReturnValue.BCMMember = cg.StaticMemberAcces((T)Return.BCMMember, (H)Record.Return.BCMMember, index);
+			H member = null;
+			if(!Record.Pure) Record.GenerateCode(cg, report);
+			if (ReturnValue.ConstValue?.GenerateBCMMember(cg, out member) != true)
+			{
+				if (Record.Pure) Record.GenerateCode(cg, report);
+				ReturnValue.BCMMember = cg.StaticMemberAcces((T)Return.BCMMember, (H)Record.Return.BCMMember, index);
+			}
+			else
+			{
+				ReturnValue.BCMMember = member;
+			}
 		}
 
 		public void SetValue<T, F, H>(IByteCodeMachine<T, F, H> cg, H source, ErrorReport report)

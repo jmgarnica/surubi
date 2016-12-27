@@ -6,6 +6,8 @@ using TigerCs.Emitters;
 
 namespace Surubi
 {
+	using System;
+	using System.Diagnostics;
 
 
 	class Program
@@ -26,8 +28,8 @@ namespace Surubi
 			//e.TryBindSTDFunction("prints", out print);
 			//NasmFunction printi;
 			//e.TryBindSTDFunction("printi", out printi);
-			//NasmHolder nill;
-			//e.TryBindSTDConst("nill", out nill);
+			//NasmHolder nil;
+			//e.TryBindSTDConst("nil", out nil);
 
 
 			//e.InitializeCodeGeneration(r);
@@ -134,9 +136,41 @@ namespace Surubi
 			#region AST
 
 			var tg = new TigerGenerator<NasmType, NasmFunction, NasmHolder>(dsc, e);
-			var m = new StringConstant { Lex = "Hello World" };
+
+			#region hello world
+
+			var m = new IfThenElse
+			{
+				If = new IntegerConstant {Lex = "0"},
+				Then = //new StringConstant {Lex = "2"},
+					new Call
+					{
+						FunctionName = "prints",
+						Arguments = new ExpresionList<IExpresion> { new StringConstant { Lex = "hola mundo" } }
+					},
+				Else =
+					new Call
+					{
+						FunctionName = "prints",
+						Arguments = new ExpresionList<IExpresion> {new NillConstant {Lex = "Hello World"}}
+					}
+			};
+
+			#endregion
 
 			tg.Compile(m);
+
+			int count = tg.Report.Count();
+			Console.WriteLine("Compilation " + (count == 0
+				                                    ? "success"
+				                                    : $"fail with {count} error{(count > 1? "s" : "")}:"));
+
+			Console.WriteLine();
+
+			foreach (var error in tg.Report)
+				Console.WriteLine(error);
+
+			if (Debugger.IsAttached) Console.ReadKey();
 
 			#endregion
 		}

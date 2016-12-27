@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 namespace TigerCs.CompilationServices
 {
+	using System.Linq;
+
 	public class ErrorReport : IEnumerable<StaticError>
 	{
 		readonly List<StaticError> report;
@@ -12,6 +14,14 @@ namespace TigerCs.CompilationServices
 		public ErrorReport()
 		{
 			report = new List<StaticError>();
+		}
+
+		public int Count()
+		{
+			return (from e in report
+			        where e.Level != ErrorLevel.Info && e.Level != ErrorLevel.Warning
+			        select e).
+				Count();
 		}
 
 		public void Add(StaticError error)
@@ -47,8 +57,8 @@ namespace TigerCs.CompilationServices
 			return GetEnumerator();
 		}
 
-		public void IncompleteMemberInitialization(string source = null)
-			=> Add(new StaticError(0, 0, "Incomple member initialization", ErrorLevel.Internal, source));
+		public void IncompleteMemberInitialization(string source = null, int line = 0, int column = 0)
+			=> Add(new StaticError(line, column, "Incomple member initialization", ErrorLevel.Internal, source));
 	}
 
 	public struct StaticError

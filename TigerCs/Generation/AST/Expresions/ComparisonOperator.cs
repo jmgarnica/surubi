@@ -46,7 +46,7 @@ namespace TigerCs.Generation.AST.Expresions
 
 		//}
 
-		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
+		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
 			if (Rigth == null || Left == null)
 			{
@@ -101,7 +101,7 @@ namespace TigerCs.Generation.AST.Expresions
 
 			if (StringComparer == null && Rigth.Return.Equals(_string))
 			{
-				_nill = sc.Nill();
+				_nill = sc.Nil();
 
 				StringComparer = new FunctionInfo()
 				{

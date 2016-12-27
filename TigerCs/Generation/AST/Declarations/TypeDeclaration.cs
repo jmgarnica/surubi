@@ -14,12 +14,14 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public bool CorrectSemantics { get; private set; }
 
+		public bool Pure { get; protected set; }
+
 		public virtual void BindName(ISemanticChecker sc, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}
 
-		public virtual bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
+		public virtual bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
 			throw new NotImplementedException();
 		}

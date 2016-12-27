@@ -11,7 +11,7 @@ namespace TigerCs.Generation.AST.Expresions
 		public const string ArgumentName = "args";
 		public const string PrintSName = "prints";
 
-		TypeInfo _string, _int, _void, arrayof_string;
+		TypeInfo _string, _int, _void, _null, arrayof_string;
 		FunctionInfo prints, Main;
 		HolderInfo args;
 
@@ -27,12 +27,13 @@ namespace TigerCs.Generation.AST.Expresions
 		}
 
 
-		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
+		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
 			sc.EnterNestedScope();
 			_string = sc.String(report);
 			_int = sc.Int(report);
 			_void = sc.Void(report);
+			_null = sc.Null(report);
 
 			arrayof_string = new TypeInfo
 			{
@@ -85,14 +86,14 @@ namespace TigerCs.Generation.AST.Expresions
 				                  }))
 				{
 					report.Add(new StaticError(line, column,
-					                           $"There is no definition for {PrintSName}, and the return value of the program is {_string.Name}",
+					                           $"There is no definition for ({PrintSName}), and the return value of the program is {_string}",
 					                           ErrorLevel.Internal));
 					return false;
 				}
 				prints = ps as FunctionInfo;
 				return true;
 			}
-			if (Root.Return == _int || Root.Return == _void) return true;
+			if (Root.Return == _int || Root.Return == _void || Root.Return == _null) return true;
 
 			report.Add(new StaticError(0, 0, "A program must return a value of type integer or string, or don't return any",
 			                           ErrorLevel.Error));

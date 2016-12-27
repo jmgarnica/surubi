@@ -7,11 +7,11 @@ namespace TigerCs.Generation.AST.Expresions
 	{
 		public string Name { get; set; }
 
-		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report)
+		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report, TypeInfo expected = null)
 		{
 			if (string.IsNullOrEmpty(Name))
 			{
-				report.IncompleteMemberInitialization(GetType().Name);
+				report.IncompleteMemberInitialization(GetType().Name, line, column);
 				return false;
 			}
 
@@ -38,9 +38,7 @@ namespace TigerCs.Generation.AST.Expresions
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
 			if (!ReturnValue.Bounded)
-			{
 				report.Add(new StaticError { Column = column, Line = line, ErrorMessage = $"Member {Name} not initialized", Level = ErrorLevel.Internal });
-			}
 		}
 
 		public void SetValue<T, F, H>(IByteCodeMachine<T, F, H> cg, H source, ErrorReport report)
@@ -49,9 +47,8 @@ namespace TigerCs.Generation.AST.Expresions
 			where H : class, IHolder
 		{
 			if (!ReturnValue.Bounded)
-			{
 				report.Add(new StaticError { Column = column, Line = line, ErrorMessage = $"Member {Name} not initialized", Level = ErrorLevel.Internal });
-			}
+
 			else cg.InstrAssing((H)Return.BCMMember, source);
 		}
 	}
@@ -59,17 +56,14 @@ namespace TigerCs.Generation.AST.Expresions
 	public class ArrayAccess : Expresion, ILValue
 	{
 		[Release]
+		[NotNull]
 		public IExpresion Array { get; set; }
 		[Release]
+		[NotNull]
 		public IExpresion Indexer { get; set; }
 
-		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report)
+		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report, TypeInfo expected = null)
 		{
-			if (Array == null || Indexer == null)
-			{
-				report.IncompleteMemberInitialization(GetType().Name);
-				return false;
-			}
 			if (!Array.CheckSemantics(sp, report)) return false;
 			if (!Indexer.CheckSemantics(sp, report)) return false;
 

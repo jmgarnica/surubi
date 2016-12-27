@@ -5,52 +5,47 @@ namespace TigerCs.Generation.AST.Expresions
 {
 	public class Neg : Expresion
 	{
+		[NotNull]
+		[Release]
 		IExpresion operand { get; set; }
 
-		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
+		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
 			if (!operand.CheckSemantics(sc, report)) return false;
 
 			TypeInfo _int = sc.Int(report);
 			if (_int == null) return false;
 
-			if (operand == null)
-			{
-				report.Add(
-					new StaticError
-					{
-						Column = column,
-						Line = line,
-						Level = ErrorLevel.Internal,
-						ErrorMessage = "Null operand"
-					});
-				return false;
-			}
-
 			if (!operand.Return.Equals(_int))
 			{
 				report.Add(
-					new StaticError
-					{
-						Column = column,
-						Line = line,
-						Level = ErrorLevel.Error,
-						ErrorMessage = "The expresion to negate must be of integer type, type provided: " + operand.Return
-					});
+				           new StaticError
+				           {
+					           Column = column,
+					           Line = line,
+					           Level = ErrorLevel.Error,
+					           ErrorMessage = $"Can not perform (-)({operand.Return})"
+				           });
 				return false;
 			}
 
 			Return = _int;
-			ReturnValue = new HolderInfo { Type = _int, Name = operand.ReturnValue.Name + "|> negation" };
+			ReturnValue = new HolderInfo { Type = _int };
 
+			if (operand.ReturnValue.ConstValue != null)
+				ReturnValue.ConstValue = -(int)operand.ReturnValue.ConstValue;
 			return true;
 		}
 
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			operand.GenerateCode(cg, report);
-			if (!operand.ReturnValue.Bounded) return;
+			if (ReturnValue.ConstValue != null)
+			{
+				ReturnValue.BCMMember = cg.AddConstant((int)ReturnValue.ConstValue);
+				return;
+			}
 
+			operand.GenerateCode(cg, report);
 			ReturnValue.BCMMember = cg.InstrInverse_TempBound((H)operand.ReturnValue.BCMMember);
 		}
 	}

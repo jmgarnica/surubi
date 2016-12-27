@@ -9,7 +9,7 @@ namespace TigerCs.Emitters
 	{
 		#region [fields]
 		Dictionary<string, MemberDefinition> trappedSTD;
-		TigerSemanticScope rootscope, currentscope;
+		SemanticScope rootscope, currentscope;
 		ErrorReport report;
 		#endregion
 
@@ -34,7 +34,7 @@ namespace TigerCs.Emitters
 
 		public void EnterNestedScope(Dictionary<string, MemberInfo> autoclosure = null, params object[] descriptors)
 		{
-			var newscope = new TigerSemanticScope { Parent = currentscope, Descriptors = descriptors, Closure = autoclosure };
+			var newscope = new SemanticScope { Parent = currentscope, Descriptors = descriptors, Closure = autoclosure };
 			//currentscope.Children.Add(newscope);
 			currentscope = newscope;
 		}
@@ -43,7 +43,7 @@ namespace TigerCs.Emitters
 		{
 			this.report = report;
 			this.trappedSTD = trappedSTD;
-			rootscope = new TigerSemanticScope();
+			rootscope = new SemanticScope();
 			currentscope = rootscope;
 		}
 

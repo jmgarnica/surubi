@@ -6,11 +6,11 @@ namespace TigerCs.Emitters
 {
 	
 
-	public class TigerSemanticScope
+	public class SemanticScope
 	{
 		public const string ScopeNameSeparator = "_";
 
-		public TigerSemanticScope Parent { get; set; } = null;
+		public SemanticScope Parent { get; set; } = null;
 
 		public Dictionary<string, MemberDefinition> Namespace { get; protected set; } = new Dictionary<string, MemberDefinition>();
 		public Dictionary<string, MemberInfo> Closure { get; set; }
@@ -20,11 +20,11 @@ namespace TigerCs.Emitters
 
 	}
 
-	public class TigerGenerationScope
+	public class GenerationScope
 	{
-		public TigerGenerationScope Parent { get; set; } = null;
+		public GenerationScope Parent { get; set; } = null;
 		public string ScopeTag { get; set; }
-		public List<TigerGenerationScope> Children { get; protected set; } = new List<TigerGenerationScope>();
+		public List<GenerationScope> Children { get; protected set; } = new List<GenerationScope>();
 		public HashSet<string> RegistedLabel { get; protected set; } = new HashSet<string>();
 		public HashSet<string> PendingLabels { get; protected set; } = new HashSet<string>();
 		public HashSet<string> UnusedLabels { get; protected set; } = new HashSet<string>();

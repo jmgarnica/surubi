@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TigerCs.CompilationServices;
+using TigerCs.Interpretation;
 
 namespace TigerCs.Generation
 {
@@ -41,12 +42,16 @@ namespace TigerCs.Generation
 
 	public class HolderInfo : MemberInfo
 	{
+		public HolderInfo()
+		{
+			Name = "<tmp>";
+		}
 		public TypeInfo Type { get; set; }
 
 		/// <summary>
 		/// Set the apropiate value if it can be resolved at compilation time, null otherwise.
 		/// </summary>
-		public object ConstValue { get; set; }
+		public IntpObject ConstValue { get; set; }
 
 		public override bool FillInconsistencyReport(MemberInfo mem, ErrorReport report, int thisline, int thiscol, int memline, int memcol)
 		{
@@ -71,6 +76,8 @@ namespace TigerCs.Generation
 		public List<Tuple<string, TypeInfo>> Parameters { get; set; }
 
 		public List<Tuple<string, MemberInfo>> Closure { get; set; }
+
+		public bool Pure { get; set; }
 
 		[NotNull]
 		public TypeInfo Return { get; set; }
@@ -180,6 +187,13 @@ namespace TigerCs.Generation
 			if (info == null) return false;
 
 			return info.TypeId == TypeId;
+		}
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		public override string ToString()
+		{
+			return $"{Name}<cp_id: {TypeId.MinToString()}>";
 		}
 
 		public static string MakeArrayName(string t) => $"<array_of>{t}<array_of>";

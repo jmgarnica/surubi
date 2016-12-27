@@ -6,15 +6,18 @@ namespace TigerCs.Generation.AST.Expresions
 {
 	public abstract class BinaryOperator : Expresion
 	{
+		[NotNull]
 		[Release]
 		public IExpresion Rigth { get; set; }
+
+		[NotNull]
 		[Release]
 		public IExpresion Left { get; set; }
 	}
 
 	public class EqualityOperator : BinaryOperator
 	{
-		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
+		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
 			throw new NotImplementedException();
 		}

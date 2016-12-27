@@ -5,7 +5,15 @@ using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Declarations
 {
-	public class DeclarationList : List<IDeclaration>, IDeclaration
+	public interface IDeclarationList<out R> : IEnumerable<R>, IDeclaration
+		where R : IDeclaration
+	{
+		int Count { get; }
+		R this[int index] { get; }
+	}
+
+	public class DeclarationList<R> : List<R>, IDeclarationList<R>
+		where R : IDeclaration
 	{
 		public int column
 		{
@@ -16,6 +24,8 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public bool CorrectSemantics
 		{ get; set; }
+
+		public bool Pure { get; protected set; }
 
 		public string Lex
 		{
@@ -36,7 +46,7 @@ namespace TigerCs.Generation.AST.Declarations
 			throw new NotImplementedException();
 		}
 
-		public bool CheckSemantics(ISemanticChecker sc, ErrorReport report)
+		public bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
 			throw new NotImplementedException();
 		}

@@ -5,16 +5,23 @@ namespace TigerCs.Generation.AST.Expresions
 {
 	public class IntegerConstant : Expresion
 	{
+		public IntegerConstant()
+		{
+			Pure = true;
+		}
 		int value;
 
-		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report)
+		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report, TypeInfo expected = null)
 		{
-			Return = sp.Int(report);
-			ReturnValue = new HolderInfo { Type = Return };
+			if (!int.TryParse(Lex, out value))
+			{
+				report.Add(new StaticError(line, column, "Integer parsing error", ErrorLevel.Internal, Lex));
+				return false;
+			}
 
-			if (int.TryParse(Lex, out value)) return true;
-			report.Add(new StaticError(line, column, "Integer parsing error", ErrorLevel.Error, Lex));
-			return false;
+			Return = sp.Int(report);
+			ReturnValue = new HolderInfo {Type = Return, ConstValue = value};
+			return true;
 		}
 
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
@@ -25,15 +32,21 @@ namespace TigerCs.Generation.AST.Expresions
 
 	public class StringConstant : Expresion
 	{
-		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report)
+		public StringConstant()
 		{
+			Pure = true;
+		}
+
+		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report, TypeInfo expected = null)
+		{
+			//TODO: check string format
 			if (Lex == null)
 			{
-				report.Add(new StaticError(line, column, "String constant parsing error, null lex", ErrorLevel.Error));
+				report.Add(new StaticError(line, column, "String constant parsing error, null lex", ErrorLevel.Internal));
 				return false;
 			}
 			Return = sp.String(report);
-			ReturnValue = new HolderInfo {Type = Return};
+			ReturnValue = new HolderInfo {Type = Return, ConstValue = Lex};
 			return true;
 		}
 
@@ -45,15 +58,30 @@ namespace TigerCs.Generation.AST.Expresions
 
 	public class NillConstant : Expresion
 	{
-		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report)
+		public NillConstant()
 		{
-			//Return = sp.Nill.Type;
+			Pure = true;
+		}
+
+		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report, TypeInfo expected = null)
+		{
+			Return = sp.Null(report);
+			ReturnValue = sp.Nil(report);
 			return true;
 		}
 
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			//ReturnValue = te.Nill;
+			if(ReturnValue.Bounded) return;
+
+			H nil;
+			if (!cg.TryBindSTDConst("nil", out nil))
+			{
+				report.Add(new StaticError(line,column,$"There is no definition for nil in {cg.GetType().FullName}", ErrorLevel.Internal));
+				return;
+			}
+
+			ReturnValue.BCMMember = nil;
 		}
 	}
 }

@@ -41,7 +41,7 @@ namespace TigerCs.Emitters.NASM
 			Externs = new HashSet<string>();
 			std = new Dictionary<string, NasmFunction>();
 
-			PrintS = new NasmCFunction(PrintSFunctionLabel, false, this, name: "PrintS");
+			PrintS = new NasmCFunction(PrintSFunctionLabel, false, this, true, "PrintS");
 			std["prints"] = PrintS;
 
 			NasmType.Int = new NasmType(NasmRefType.None);
@@ -68,6 +68,7 @@ namespace TigerCs.Emitters.NASM
 
 			StringConst = new Dictionary<string, NasmStringConst>();
 			StringConstEnd = 0;
+			AddConstant("Null Reference");
 
 			fw.WriteLine("%include \"io.inc\"");
 			fw.WriteLine("section .data");
@@ -401,7 +402,7 @@ namespace TigerCs.Emitters.NASM
 		public override bool TryBindSTDConst(string name, out NasmHolder constant)
 		{
 			constant = null;
-			if (name != "nill") return false;
+			if (name != "nil") return false;
 
 			constant = new NasmIntConst(this, Null);
 			return true;
@@ -874,7 +875,7 @@ namespace TigerCs.Emitters.NASM
 			else
 				CurrentScope.Lock.Release(reg.Value);
 
-			fw.WriteLine($"jz {label:N}");
+			fw.WriteLine($"jz _{label:N}");
 		}
 
 		/// <summary>
@@ -902,7 +903,7 @@ namespace TigerCs.Emitters.NASM
 			else
 				CurrentScope.Lock.Release(reg.Value);
 
-			fw.WriteLine($"jnz {label:N}");
+			fw.WriteLine($"jnz _{label:N}");
 		}
 
 		/// <summary>
@@ -931,7 +932,7 @@ namespace TigerCs.Emitters.NASM
 			else
 				CurrentScope.Lock.Release(reg.Value);
 
-			fw.WriteLine($"jge {label:N}");
+			fw.WriteLine($"jge _{label:N}");
 		}
 
 		/// <summary>
@@ -960,7 +961,7 @@ namespace TigerCs.Emitters.NASM
 			else
 				CurrentScope.Lock.Release(reg.Value);
 
-			fw.WriteLine($"jl {label:N}");
+			fw.WriteLine($"jl _{label:N}");
 		}
 
 		#endregion
@@ -1108,7 +1109,7 @@ namespace TigerCs.Emitters.NASM
 				switch (item.Key.ToLower())
 				{
 					case "prints":
-						AddPrintS(f);
+						AddPrintS(f, this);
 						break;
 
 					case "printi":
@@ -1123,11 +1124,13 @@ namespace TigerCs.Emitters.NASM
 			return f.Flush();
 		}
 
-		static void AddPrintS(FormatWriter fw)
+		static void AddPrintS(FormatWriter fw, NasmEmitter bound)
 		{
 			fw.WriteLine(PrintSFunctionLabel + ":");
 			fw.IncrementIndentation();
 			fw.WriteLine("mov EAX, [ESP + 4]");
+			fw.WriteLine("cmp EAX, 0");
+			fw.WriteLine("je .null_error_exit");
 			fw.WriteLine("add EAX, 4");//size space
 			fw.WriteLine("push EAX");
 			fw.WriteLine($"push dword {PrintSFormatName}");
@@ -1137,6 +1140,16 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine("xor ECX, ECX");
 			fw.WriteLine("ret");
 			fw.WriteLine("");
+			fw.WriteLine(".null_error_exit:");
+			//TODO: crear un diccionario con los errores y los codigos
+			var m = bound.AddConstant("Null Reference");
+			m.PutValueInRegister(Register.EAX, fw, null);
+			fw.WriteLine("push EAX");
+			fw.WriteLine($"call {PrintSFunctionLabel}");
+			fw.WriteLine("add ESP, 4");
+			fw.WriteLine("mov EAX, 3");
+			fw.WriteLine($"mov ECX, {ErrorCode}");
+			fw.WriteLine("ret");
 			fw.DecrementIndentation();
 		}
 
