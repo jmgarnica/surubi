@@ -5,49 +5,49 @@ using TigerCs.Generation.AST.Expresions;
 
 namespace TigerCs.CompilationServices
 {
-	public sealed class TigerGenerator<T, F, H>
+	public sealed class TigerGenerator<T, F, H> : IGenerator
 		where T : class, IType<T, F>
 		where F : class, IFunction<T, F>
 		where H : class, IHolder
 	{
 		public ErrorReport Report { get; }
 
-		readonly ISemanticChecker sc;
-		readonly IByteCodeMachine<T,F,H> bcm;
-		public TigerGenerator(ISemanticChecker checker, IByteCodeMachine<T, F, H> bcm)
+		public ISemanticChecker SemanticChecker { get; set; }
+
+		public IByteCodeMachine<T, F, H> ByteCodeMachine { get; set; }
+
+		public TigerGenerator()
 		{
-			sc = checker;
-			this.bcm = bcm;
 			Report = new ErrorReport();
 		}
 
 		public void Compile(IExpresion rootprogram)
 		{
 			var std = new Dictionary<string, MemberDefinition>();
-			sc.InitializeSemanticCheck(Report, std);
+			SemanticChecker.InitializeSemanticCheck(Report, std);
 
 			var main = new MAIN(rootprogram);
 
-			if (!main.CheckSemantics(sc, Report)) return;
+			if (!main.CheckSemantics(SemanticChecker, Report)) return;
 
-			bcm.InitializeCodeGeneration(Report);
+			ByteCodeMachine.InitializeCodeGeneration(Report);
 			foreach (var m in std)
 			{
 				if (!m.Value.Member.BCMBackup) continue;
 				if (m.Value.Member is TypeInfo)
 				{
 					T o;
-					if (bcm.TryBindSTDType(m.Key, out o)) m.Value.Member.BCMMember = o;
+					if (ByteCodeMachine.TryBindSTDType(m.Key, out o)) m.Value.Member.BCMMember = o;
 				}
 				else if (m.Value.Member is HolderInfo)
 				{
 					H o;
-					if (bcm.TryBindSTDConst(m.Key, out o)) m.Value.Member.BCMMember = o;
+					if (ByteCodeMachine.TryBindSTDConst(m.Key, out o)) m.Value.Member.BCMMember = o;
 				}
 				else if (m.Value.Member is FunctionInfo)
 				{
 					F o;
-					if (bcm.TryBindSTDFunction(m.Key, out o)) m.Value.Member.BCMMember = o;
+					if (ByteCodeMachine.TryBindSTDFunction(m.Key, out o)) m.Value.Member.BCMMember = o;
 				}
 
 				if (m.Value.Member.Bounded || m.Value.Generator != null) continue;
@@ -66,15 +66,15 @@ namespace TigerCs.CompilationServices
 				if (!m.Value.Member.BCMBackup) continue;
 				if (m.Value?.Generator == null) continue;
 
-				m.Value.Generator.CheckSemantics(sc, Report);
-				m.Value.Generator.GenerateCode(bcm, Report);
+				m.Value.Generator.CheckSemantics(SemanticChecker, Report);
+				m.Value.Generator.GenerateCode(ByteCodeMachine, Report);
 			}
-			sc.End();
+			SemanticChecker.End();
 
-			main.GenerateCode(bcm, Report);
+			main.GenerateCode(ByteCodeMachine, Report);
 
 			main.ReleaseStaticData();
-			bcm.End();
+			ByteCodeMachine.End();
 		}
 
 	}

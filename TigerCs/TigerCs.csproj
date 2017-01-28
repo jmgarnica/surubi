@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -41,8 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompilationServices\GuidGenerator.cs" />
-    <Compile Include="CompilationServices\InArgumentAttribute.cs" />
     <Compile Include="CompilationServices\Extensions.cs" />
+    <Compile Include="CompilationServices\IGenerator.cs" />
     <Compile Include="CompilationServices\NotNullAttribute.cs" />
     <Compile Include="Emitters\BCMBase.cs" />
     <Compile Include="Emitters\EmitterExeption.cs" />
@@ -64,6 +64,7 @@
     <Compile Include="Generation\AST\Declarations\DeclarationList.cs" />
     <Compile Include="Generation\AST\IASTNode.cs" />
     <Compile Include="Generation\AST\Expresions\ILValue.cs" />
+    <Compile Include="Generation\ByteCode\MemberOptions.cs" />
     <Compile Include="Generation\ByteCode\IMember.cs" />
     <Compile Include="Generation\AST\Expresions\Assign.cs" />
     <Compile Include="Generation\AST\Expresions\Break.cs" />

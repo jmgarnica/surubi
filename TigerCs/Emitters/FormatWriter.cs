@@ -31,9 +31,7 @@ namespace TigerCs.Emitters
 			StringBuilder b = new StringBuilder();
 			b.Append(NewLine);
 			for (int i = 0; i < indentationlevel; i++)
-			{
 				b.Append(IndentChar);
-			}
 
 			return (s[s.Length - 1] == NewLine? s.Substring(0,s.Length - 1) : s).Replace(NewLine.ToString(), b.ToString()) + NewLine;
         }
@@ -77,10 +75,8 @@ namespace TigerCs.Emitters
 		public string Flush()
 		{
 			for (int i = 0; i < objects.Count; i++)
-			{
 				if (objects[i] is Func<object>) objects[i] = ((Func<object>)objects[i])();
-			}
-			return string.Format(builder.ToString(), objects);
+			return string.Format(builder.ToString(), objects.ToArray());
 		}
 	}
 

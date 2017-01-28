@@ -9,7 +9,7 @@ namespace TigerCs.Emitters.NASM
 
 	public class NasmFunction : NasmMember, IFunction<NasmType, NasmFunction>
 	{
-		public static NasmFunction Malloc, Free;
+		public static NasmFunction Malloc, Free, _Malloc;
 
 		public NasmFunction(NasmEmitterScope dscope, int sindex, NasmEmitter bound, string name = "")
 			: base(bound, dscope, sindex)
@@ -19,6 +19,7 @@ namespace TigerCs.Emitters.NASM
 
 		public bool CFunction { get; set; }
 		public bool ErrorCheck { get; protected set; } = true;
+		public bool KeepOutScope { get; set; }
 
 		public string Name { get; }
 		public int ParamsCount { get; set; }
@@ -77,9 +78,7 @@ namespace TigerCs.Emitters.NASM
 				NasmEmitter.CatchAndRethrow(fw, accedingscope, bound);
 			}
 			if (result != null && result != Register.EAX)
-			{
 				fw.WriteLine($"mov {result.Value}, EAX");
-			}
 			if (result != Register.EAX) accedingscope.Lock.Release(Register.EAX);
 
 			foreach (var r in lockreglist)
@@ -97,7 +96,22 @@ namespace TigerCs.Emitters.NASM
 			var sp = bound.AddConstant(8);
 			Malloc.Call(fw, target, accedingscope, sp);
 			fw.WriteLine($"mov [{target}], dword _{beforeenterlabel:N}");
-			fw.WriteLine($"mov [{target} + 4], EBP");
+
+			var reg = accedingscope.Lock.LockGPR(Register.EBX);
+			bool stackback = reg == null;
+			if (reg == null)
+			{
+				reg = target != Register.EBX? Register.EBX : Register.EDX;
+                fw.WriteLine($"push {reg}");
+			}
+
+			fw.WriteLine($"mov {reg}, [EBP - 4]");
+			fw.WriteLine($"add {reg}, 8");
+			fw.WriteLine($"mov [{target} + 4], {reg}");
+
+			if (stackback)
+				fw.WriteLine($"pop {reg}");
+			else accedingscope.Lock.Release(reg.Value);
 		}
 	}
 

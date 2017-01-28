@@ -41,11 +41,9 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine($"mov {reg}, {Register.EBP}");
 
 			for (int i = 0; i < levels; i++)
-			{
 				fw.WriteLine(string.Format("mov {0}, [{0}]", reg));
-			}
 
-			fw.WriteLine($"add {reg}, {-(DeclaringScopeIndex + 1) * 4}");
+			fw.WriteLine($"add {reg}, {-DeclaringScopeIndex * 4}");
 			fw.WriteLine($"mov {gpr}, [{reg}]");
 		}
 
@@ -67,11 +65,9 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine($"mov {reg.Value}, EBP");
 
 			for (int i = 0; i < levels; i++)
-			{
 				fw.WriteLine(string.Format("mov {0}, [{0}]", reg.Value));
-			}
 
-			fw.WriteLine($"add {reg.Value}, {-(DeclaringScopeIndex + 1) * 4}");
+			fw.WriteLine($"add {reg.Value}, {-DeclaringScopeIndex * 4}");
 			fw.WriteLine($"mov [{reg.Value}], {gpr}");
 
 			if (stackback)

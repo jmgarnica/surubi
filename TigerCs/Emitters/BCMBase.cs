@@ -12,7 +12,7 @@ namespace TigerCs.Emitters
 	{
 		public GuidGenerator g { get; protected set; }
 		protected string nexlabelcomment;
-		protected S CurrentScope;
+		protected internal S CurrentScope;
 		internal ErrorReport Report;
 
 		public virtual void InitializeCodeGeneration(ErrorReport report)
@@ -51,7 +51,7 @@ namespace TigerCs.Emitters
 		#region [Holders]
 		public abstract H AddConstant(int value);
 		public abstract H AddConstant(string value);
-		public abstract H BindVar(T tigertype = null, H defaultvalue = null, string name = null, bool global = false);
+		public abstract H BindVar(T tigertype = null, H defaultvalue = null, string name = null, HolderOptions opt = HolderOptions.Default);
 		public abstract H StaticMemberAcces(T tigertype, H op1, int index);
 		#endregion
 
@@ -59,10 +59,10 @@ namespace TigerCs.Emitters
 		[ScopeChanger(Reason = "Creates and enters in the primary scope of the program, this has no parent scope after closing it no fouther instructions can be emitted", ScopeName = "Main")]
 		public abstract F EntryPoint(bool returns = false, bool stringparams = false);
 
-		public abstract F DeclareFunction(string name, T returntype, Tuple<string, T>[] args, bool global = false);
+		public abstract F DeclareFunction(string name, T returntype, Tuple<string, T>[] args, FunctionOptions opt = FunctionOptions.Default);
 
 		[ScopeChanger(Reason = "Creates and enters in a function scope", ScopeName = "Funcion_<name>")]
-		public abstract F BindFunction(string name, T returntype, Tuple<string, T>[] args, bool global = false);
+		public abstract F BindFunction(string name, T returntype, Tuple<string, T>[] args, FunctionOptions opt = FunctionOptions.Default);
 		[ScopeChanger(Reason = "Creates and enters in a function scope", ScopeName = "AheadedFuncion_<name>")]
 		public abstract void BindFunction(F aheadedfunction);
 		#endregion
@@ -146,6 +146,12 @@ namespace TigerCs.Emitters
 		/// </summary>
 		/// <param name="value"></param>
 		public abstract void Ret(H value = null);
+
+		#region [Delegates]
+		public abstract void DelegateCall(H function, H[] args, H returnval = null);
+		public abstract void MekeDelegate(H target, F function);
+
+		#endregion
 
 		#endregion
 

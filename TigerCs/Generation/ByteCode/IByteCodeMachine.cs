@@ -37,7 +37,7 @@ namespace TigerCs.Generation.ByteCode
 		#region [Holders]
 		H AddConstant(int value);
 		H AddConstant(string value);
-		H BindVar(T tigertype = null, H defaultvalue = null, string name = null, bool global = false);
+		H BindVar(T tigertype = null, H defaultvalue = null, string name = null, HolderOptions opt = HolderOptions.Default);
 
 		H StaticMemberAcces(T tigertype, H op1, int index);
 		#endregion
@@ -46,10 +46,10 @@ namespace TigerCs.Generation.ByteCode
 		[ScopeChanger(Reason = "Creates and enters in the primary scope of the program, this has no parent scope after closing it no fouther instructions can be emitted", ScopeName = "Main")]
 		F EntryPoint(bool returns = false, bool stringparams = false);
 
-		F DeclareFunction(string name, T returntype, Tuple<string, T>[] args, bool global = false);
+		F DeclareFunction(string name, T returntype, Tuple<string, T>[] args, FunctionOptions opt = FunctionOptions.Default);
 
 		[ScopeChanger(Reason = "Creates and enters in a function scope", ScopeName = "Funcion_<name>")]
-		F BindFunction(string name, T returntype, Tuple<string, T>[] args, bool global = false);
+		F BindFunction(string name, T returntype, Tuple<string, T>[] args, FunctionOptions opt = FunctionOptions.Default);
 		[ScopeChanger(Reason = "Creates and enters in a function scope", ScopeName = "AheadedFuncion_<name>")]
 		void BindFunction(F aheadedfunction);
 		#endregion
@@ -135,6 +135,18 @@ namespace TigerCs.Generation.ByteCode
 		/// </summary>
 		/// <param name="value"></param>
 		void Ret(H value = null);
+
+		#region [Delegates]
+
+		void DelegateCall(H function, H[] args, H returnval = null);
+
+		/// <summary>
+		/// Create a delegate of the target function that is bound to the current scope
+		/// </summary>
+		/// <returns></returns>
+		void MekeDelegate(H target, F function);
+
+		#endregion
 
 		#endregion
 

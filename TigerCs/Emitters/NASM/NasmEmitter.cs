@@ -21,8 +21,7 @@ namespace TigerCs.Emitters.NASM
 
 		public const int ErrorCode = 0xe7707;
 
-		[InArgument(Comment = "the name of the output file, empty for standar output", ConsoleShortName = "-o", DefaultValue ="out.asm")]
-		public string OutputFile { get; set; }
+		public string OutputFile { get; }
 
 		readonly FormatWriter fw;
 
@@ -34,15 +33,19 @@ namespace TigerCs.Emitters.NASM
 		Dictionary<string, NasmStringConst> StringConst;
 		int StringConstEnd;
 		readonly NasmFunction PrintS;
+		readonly NasmFunction PrintI;
 
-		public NasmEmitter()
+		public NasmEmitter(string output)
 		{
+			OutputFile = output;
 			fw = new FormatWriter();
 			Externs = new HashSet<string>();
 			std = new Dictionary<string, NasmFunction>();
 
 			PrintS = new NasmCFunction(PrintSFunctionLabel, false, this, true, "PrintS");
 			std["prints"] = PrintS;
+			PrintI = new NasmCFunction(PrintIFunctionLabel, false, this, true, "PrintI");
+			std["printi"] = PrintI;
 
 			NasmType.Int = new NasmType(NasmRefType.None);
 			NasmType.String = new NasmType(NasmRefType.Dynamic, -1);
@@ -113,7 +116,14 @@ namespace TigerCs.Emitters.NASM
 					sb.Append($"extern {ex}\n");
 				return sb.ToString();
 			}));
-			NasmFunction.Malloc = new NasmCFunction(MallocLabel, true, this,name: "Malloc");
+
+#if DEBUG_Malloc
+			NasmFunction.Malloc = new NasmMacroFunction(Malloc, this, "__Malloc__");
+			NasmFunction._Malloc = new NasmCFunction(MallocLabel, true, this, name: "Malloc");
+#else
+			NasmFunction.Malloc = new NasmCFunction(MallocLabel, true, this, name: "Malloc");
+#endif
+
 			NasmFunction.Free = new NasmCFunction(FreeLabel, true, this, name: "Free");
 
 			fw.WriteLine("global CMAIN");
@@ -133,7 +143,7 @@ namespace TigerCs.Emitters.NASM
 			}
 		}
 
-		#region [Control]
+#region [Control]
 		public override void Comment(string comment)
 		{
 			fw.WriteLine(comment.Replace("\n\r", "\n").Replace("\n", "\n;"));
@@ -159,11 +169,11 @@ namespace TigerCs.Emitters.NASM
 		{
 			holder.DeclaratingScope.ReleasedTempVars.Enqueue(holder.DeclaringScopeIndex);
 		}
-		#endregion
+#endregion
 
-		#region [Bind]
+#region [Bind]
 
-		#region [Holders]
+#region [Holders]
 		public override NasmHolder AddConstant(int value)
 		{
 			return new NasmIntConst(this, value);
@@ -180,10 +190,15 @@ namespace TigerCs.Emitters.NASM
 		}
 
 		public override NasmHolder BindVar(NasmType type = null, NasmHolder defaultvalue = null, string name = null,
-		                                   bool global = false)
+										   HolderOptions opt = HolderOptions.Default)
 		{
 			NasmHolder v;
-			if (name != null || CurrentScope.ReleasedTempVars.Count <= 0)
+			if ((opt & HolderOptions.Trapped) == HolderOptions.Trapped)
+			{
+				v = new NasmHolder(this, CurrentScope, 1) {OnClosure = CurrentScope.TrappedVarsCount};
+				CurrentScope.TrappedVarsCount++;
+			}
+			else if (name != null || CurrentScope.ReleasedTempVars.Count <= 0)
 			{
 				fw.WriteLine($"; {name}<EBP - {(CurrentScope.VarsCount + 1) * 4}>");
 				v = new NasmHolder(this, CurrentScope, CurrentScope.VarsCount);
@@ -231,9 +246,9 @@ namespace TigerCs.Emitters.NASM
 			                         ReferenceEquals(tigertype, NasmType.String)? WordSize.Byte : WordSize.DWord,
 			                         dynamicupperboundcheck);
 		}
-		#endregion
+#endregion
 
-		#region [Functions]
+#region [Functions]
 		[ScopeChanger(Reason = "Creates and enters in the primary scope of the program, this has no parent scope after closing it no fouther instructions can be emitted", ScopeName = "Main")]
 		public override NasmFunction EntryPoint(bool returns = false, bool stringparams = false)
 		{
@@ -243,24 +258,28 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine("CMAIN:");
 			fw.WriteLine($"_{CurrentScope.BeforeEnterScope:N}:");
 			fw.IncrementIndentation();
-			CurrentScope.WriteEnteringCode(fw);
+			CurrentScope.WriteEnteringCode(fw, this);
 			fw.WriteLine($"_{CurrentScope.BiginScope:N}:");
 
 			return new NasmCFunction(CurrentScope.BiginScope.ToString(), false, this, name: "Main") { Bounded = true };
 		}
 
-		public override NasmFunction DeclareFunction(string name, NasmType returntype, Tuple<string, NasmType>[] args, bool global = false)
+		public override NasmFunction DeclareFunction(string name, NasmType returntype, Tuple<string, NasmType>[] args, FunctionOptions opt = FunctionOptions.Default)
 		{
-			var func = new NasmFunction(CurrentScope, CurrentScope.VarsCount, this) { ParamsCount = args.Length };
+			var func = new NasmFunction(CurrentScope, CurrentScope.VarsCount, this)
+			{
+				ParamsCount = args.Length,
+				KeepOutScope = (opt & FunctionOptions.Delegate) == FunctionOptions.Delegate
+			};
 			CurrentScope.FuncTypePos.Add(func);
 			CurrentScope.VarsCount++;
 			return func;
 		}
 
 		[ScopeChanger(Reason = "Creates and enters in a function scope", ScopeName = "Funcion_<name>")]
-		public override NasmFunction BindFunction(string name, NasmType returntype, Tuple<string, NasmType>[] args, bool global = false)
+		public override NasmFunction BindFunction(string name, NasmType returntype, Tuple<string, NasmType>[] args, FunctionOptions opt = FunctionOptions.Default)
 		{
-			var func = DeclareFunction(name, returntype, args, global);
+			var func = DeclareFunction(name, returntype, args, opt);
 			BindFunction(func);
 
 			return func;
@@ -274,12 +293,12 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine($"jmp _{CurrentScope.AfterEndScope:N}");
 			fw.WriteLine($"_{CurrentScope.BeforeEnterScope:N}:");
 			fw.IncrementIndentation();
-			CurrentScope.WriteEnteringCode(fw);
+			CurrentScope.WriteEnteringCode(fw, this);
 			fw.WriteLine($"_{CurrentScope.BiginScope:N}:");
 		}
-		#endregion
+#endregion
 
-		#region [Types]
+#region [Types]
 		public override NasmType DeclareType(string name)
 		{
 			var type = new NasmType(NasmRefType.NoSet, name: name);
@@ -358,9 +377,9 @@ namespace TigerCs.Emitters.NASM
 			aheadedtype.RefType = NasmRefType.Dynamic;
 			aheadedtype.AsRefSize = -1;
 		}
-		#endregion
+#endregion
 
-		#region [STD]
+#region [STD]
 
 		public override bool TryBindSTDType(string name, out NasmType type)
 		{
@@ -408,11 +427,11 @@ namespace TigerCs.Emitters.NASM
 			return true;
 		}
 
-		#endregion
+#endregion
 
-		#endregion
+#endregion
 
-		#region [General Instructions]
+#region [General Instructions]
 
 		/// <summary>
 		/// </summary>
@@ -738,9 +757,9 @@ namespace TigerCs.Emitters.NASM
 			if (stackback) fw.WriteLine("pop " + Register.EAX);
 			else CurrentScope.Lock.Release(reg.Value);
 		}
-		#endregion
+#endregion
 
-		#region [Call]
+#region [Call]
 
 		/// <summary>
 		/// Retuns the holder that will contain the value of the parameter inside the function
@@ -752,7 +771,7 @@ namespace TigerCs.Emitters.NASM
 		{
 			if (CurrentScope.ScopeType == NasmScopeType.Nested) throw new InvalidOperationException("no function scope");
 			if (position < 0 || position >= CurrentScope.ArgumentsCount) throw new ArgumentException("params position exided");
-			return new NasmHolder(this, CurrentScope, -(position + 4));
+			return new NasmHolder(this, CurrentScope, -(position + 3));
 		}
 
 		/// <summary>
@@ -780,16 +799,12 @@ namespace TigerCs.Emitters.NASM
 			// ReSharper disable once CoVariantArrayConversion
 			function.Call(fw, reg, CurrentScope, args);
 
-			if (reg != null)
-			{
-				returnval.StackBackValue(reg.Value, fw, CurrentScope);
-				if (stackback)
-				{
-					fw.WriteLine("pop " + reg.Value);
-					CurrentScope.Lock.Lock(reg.Value);
-				}
-			}
+			if (reg == null) return;
+			returnval.StackBackValue(reg.Value, fw, CurrentScope);
 
+			if (!stackback) return;
+			fw.WriteLine("pop " + reg.Value);
+			CurrentScope.Lock.Lock(reg.Value);
 		}
 
 		/// <summary>
@@ -821,9 +836,40 @@ namespace TigerCs.Emitters.NASM
 			if (release) CurrentScope.Lock.Release(Register.EAX);
 		}
 
-		#endregion
+#region [Delegates]
 
-		#region [GOTO & Labeling]
+		public override void DelegateCall(NasmHolder function, NasmHolder[] args, NasmHolder returnval = null)
+		{
+			var f = new NasmFunction(function.DeclaratingScope, function.DeclaringScopeIndex, this);
+			if(f == null)throw new InvalidOperationException();
+			Call(f, args, returnval);
+		}
+
+		public override void MekeDelegate(NasmHolder target, NasmFunction function)
+		{
+			SetLabel();
+			fw.WriteLine(";DELEGATE");
+			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
+			bool stackback = reg == null;
+			if (stackback)
+			{
+				fw.WriteLine("push " + Register.EAX);
+				reg = Register.EAX;
+			}
+
+			function.PutValueInRegister(reg.Value, fw, CurrentScope);
+			target.StackBackValue(reg.Value, fw, CurrentScope);
+
+			if (stackback) fw.WriteLine("pop " + Register.EAX);
+			else CurrentScope.Lock.Release(reg.Value);
+
+		}
+
+#endregion
+
+#endregion
+
+#region [GOTO & Labeling]
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] jumping to unset label will not cause an error if the label is reserved
@@ -964,9 +1010,9 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine($"jl _{label:N}");
 		}
 
-		#endregion
+#endregion
 
-		#region [Scope Handling]
+#region [Scope Handling]
 
 		/// <summary>
 		/// </summary>
@@ -984,7 +1030,7 @@ namespace TigerCs.Emitters.NASM
 			if (!string.IsNullOrWhiteSpace(namehint)) fw.WriteLine(";" + namehint);
 			fw.WriteLine($"_{CurrentScope.BeforeEnterScope:N}:");
 			fw.IncrementIndentation();
-			CurrentScope.WriteEnteringCode(fw);
+			CurrentScope.WriteEnteringCode(fw, this);
 			fw.WriteLine($"_{CurrentScope.BiginScope:N}:");
         }
 
@@ -1009,27 +1055,26 @@ namespace TigerCs.Emitters.NASM
 			var label = CurrentScope.BeforeEnterScope;
 			CurrentScope = CurrentScope.Parent;
 
-			if (f != null)
+			if (f == null) return;
+
+			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
+			bool stackback = reg == null;
+			if (stackback)
 			{
-				var reg = CurrentScope.Lock.LockGPR(Register.EAX);
-				bool stackback = reg == null;
-				if (stackback)
-				{
-					fw.WriteLine("push " + Register.EAX);
-					reg = Register.EAX;
-				}
-
-				NasmFunction.AlocateFunction(fw, reg.Value, CurrentScope, this, label);
-				f.StackBackValue(reg.Value, fw, CurrentScope);
-
-				if (stackback) fw.WriteLine("pop " + Register.EAX);
-				else CurrentScope.Lock.Release(reg.Value);
+				fw.WriteLine("push " + Register.EAX);
+				reg = Register.EAX;
 			}
+
+			NasmFunction.AlocateFunction(fw, reg.Value, CurrentScope, this, label);
+			f.StackBackValue(reg.Value, fw, CurrentScope);
+
+			if (stackback) fw.WriteLine("pop " + Register.EAX);
+			else CurrentScope.Lock.Release(reg.Value);
 		}
 
-		#endregion
+#endregion
 
-		#region [Helpers]
+#region [Helpers]
 
 		public static void EmitError(FormatWriter fw, NasmEmitterScope acceding, NasmEmitter bound, int code, string message = null)
 		{
@@ -1167,6 +1212,43 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine("ret");
 			fw.WriteLine("");
 			fw.DecrementIndentation();
+		}
+
+		static void Malloc(FormatWriter fw, NasmEmitter bound, NasmEmitterScope acceding, Register[] args)
+		{
+			var malloc_fail = bound.ReserveInstructionLabel("malloc_fail");
+			var succeed = bound.ReserveInstructionLabel("succeed");
+			var reg = new NasmRegisterHolder(bound, args[0]);
+
+            NasmFunction._Malloc.Call(fw, args[0], acceding, reg);
+			fw.WriteLine($"cmp {args[0]}, 0");
+			fw.WriteLine($"jz _{malloc_fail:N}");
+			fw.WriteLine($"jmp _{succeed:N}");
+
+			fw.WriteLine($"_{malloc_fail:N}:");
+
+			var eax = new NasmRegisterHolder(bound, Register.EAX);
+			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("EAX: "));
+			bound.PrintI.Call(fw, null, acceding, eax);
+			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("\n"));
+
+			var ebx = new NasmRegisterHolder(bound, Register.EBX);
+			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("EBX: "));
+			bound.PrintI.Call(fw, null, acceding, ebx);
+			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("\n"));
+
+			var ecx = new NasmRegisterHolder(bound, Register.ECX);
+			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("ECX: "));
+			bound.PrintI.Call(fw, null, acceding, ecx);
+			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("\n"));
+
+			var edx = new NasmRegisterHolder(bound, Register.EDX);
+			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("EDX: "));
+			bound.PrintI.Call(fw, null, acceding, edx);
+			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("\n"));
+
+			EmitError(fw, acceding, bound, 10, "malloc fail");
+			fw.WriteLine($"_{succeed:N}:");
 		}
 
 		/// <summary>
@@ -1447,7 +1529,8 @@ namespace TigerCs.Emitters.NASM
 				}
 			}
 		}
-		#endregion
+
+#endregion
 	}
 
 }

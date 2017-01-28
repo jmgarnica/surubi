@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace TigerCs.Emitters.NASM
 {
 	public class NasmEmitterScope : EmitterScope<NasmEmitterScope>
 	{
 		public RegisterLock Lock { get; set; }
-		public int VarsCount { get; set; }
+		public int VarsCount { get; set; } = 2;
+		public int TrappedVarsCount { get; set; } = 0;
 		public readonly int ArgumentsCount;
 		public readonly NasmScopeType ScopeType;
 		public readonly NasmFunction DeclaringFunction;
@@ -25,9 +27,9 @@ namespace TigerCs.Emitters.NASM
 			DeclaringFunction = declaringfucn;
 		}
 
-		public void WriteEnteringCode(FormatWriter fw)
+		public void WriteEnteringCode(FormatWriter fw, NasmEmitter bound)
 		{
-			fw.WriteLine("push " + Register.EBP);
+			fw.WriteLine("push EBP");
 			if (ScopeType == NasmScopeType.TigerFunction)
 			{
 				fw.WriteLine("mov EBX, ESP");
@@ -37,6 +39,42 @@ namespace TigerCs.Emitters.NASM
 			}
 			fw.WriteLine("mov EBP, ESP");
 			fw.WriteLine(string.Format("sub ESP, {1}{0}{2}", fw.IndexOfFormat, '{', '}'), (Func<string>)(() => (VarsCount*4).ToString()));
+
+			//Closure
+
+			int indent = fw.IndentationLevel;
+			var scope = bound.CurrentScope;
+			fw.WriteLine(string.Format("{0}{2}{1}",'{', '}', fw.IndexOfFormat), (Func<string>)(() =>
+			{
+				FormatWriter f = new FormatWriter();
+
+				var cscope = bound.CurrentScope;
+				bound.CurrentScope = scope;
+				NasmFunction.Malloc.Call(f, Register.EAX, this, bound.AddConstant(TrappedVarsCount * 4 + 8));
+				bound.CurrentScope = cscope;
+
+				f.WriteLine("");
+				if(TrappedVarsCount != 1)
+					f.WriteLine($"add EAX, {TrappedVarsCount*4 - 4}");
+				f.WriteLine("mov [EBP - 4], EAX");
+				f.WriteLine("mov [EAX + 4], EAX");
+				f.WriteLine("add EAX, 8");
+				f.WriteLine("");
+				if (Parent == null || ScopeType == NasmScopeType.TigerFunction)
+				{
+					f.WriteLine("xor EDX, EDX");
+				}
+				else
+				{
+					f.WriteLine("mov EDX, [EBP]");
+					f.WriteLine("mov EDX, [EDX - 4]");
+					f.WriteLine("add EDX, 8");
+				}
+				f.WriteLine("mov [EAX], EDX");
+				f.WriteLine("");
+				return FormatWriter.Indent(f.Flush(), indent);
+			}));
+
 		}
 
 		public void WirteCloseCode(FormatWriter fw, bool releaselocks, bool error, NasmHolder ret = null)
@@ -49,15 +87,16 @@ namespace TigerCs.Emitters.NASM
 				Lock = l;
 				FormatWriter f = new FormatWriter();
 				foreach (var m in FuncTypePos)
-					m.DealocateFunction(f, this);
+				{
+					if(!m.KeepOutScope)
+						m.DealocateFunction(f, this);
+				}
 
 				if (ScopeType == NasmScopeType.TigerFunction || ScopeType == NasmScopeType.CFunction)
 				{
 					ret?.PutValueInRegister(Register.EAX, f, this);
 
-					if (error)
-						f.WriteLine($"mov ECX, {NasmEmitter.ErrorCode}");
-					else f.WriteLine("xor ECX, ECX");
+					f.WriteLine(error? $"mov ECX, {NasmEmitter.ErrorCode}" : "xor ECX, ECX");
 				}
 
 				f.WriteLine($"add ESP, {4 * (ScopeType == NasmScopeType.TigerFunction? VarsCount + 1 : VarsCount)}");

@@ -1,9 +1,10 @@
 ﻿using System;
+using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TigerCs.Emitters.NASM
 {
-	using System.Diagnostics.CodeAnalysis;
 
 	public class NasmHolder : NasmMember, IHolder
 	{
@@ -12,7 +13,40 @@ namespace TigerCs.Emitters.NASM
 		{ }
 
 		public virtual bool Assignable { get { return true; } }
-    }
+		public virtual int OnClosure { get; set; } = -1;
+
+		public override void PutValueInRegister(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
+		{
+			base.PutValueInRegister(gpr, fw, accedingscope);
+			if (OnClosure < 0) return;
+
+			fw.WriteLine($"mov {gpr}, [{gpr + (OnClosure > 0? $" - {OnClosure * 4}": "")}]");
+		}
+
+		public override void StackBackValue(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
+		{
+			if (OnClosure < 0)
+			{
+				base.StackBackValue(gpr,fw,accedingscope);
+				return;
+			}
+
+			var reg = accedingscope.Lock.LockGPR(Register.EDX);
+			bool stackback = reg == null;
+			if (stackback)
+			{
+				reg = gpr != Register.EDX? Register.EDX : Register.EBX;
+				fw.WriteLine($"push {reg}");
+			}
+			base.PutValueInRegister(reg.Value, fw, accedingscope);
+			if(OnClosure > 0)
+				fw.WriteLine($"add {reg}, {-OnClosure * 4}");
+			fw.WriteLine($"mov [{reg}], {gpr}");
+
+			if (stackback) fw.WriteLine($"pop {reg}");
+			else accedingscope.Lock.Release(reg.Value);
+		}
+	}
 
 	public class NasmIntConst : NasmHolder
 	{
@@ -211,6 +245,17 @@ namespace TigerCs.Emitters.NASM
 		}
 	}
 
+	public class NasmDelegate : NasmHolder
+	{
+		public NasmFunction Function { get; }
+
+		public NasmDelegate(NasmEmitter bound, NasmEmitterScope dscope, int sindex)
+			: base(bound, dscope, sindex)
+		{
+			Function = new NasmFunction(dscope, sindex, bound, "internal");
+		}
+	}
+
 	class NasmRegisterHolder : NasmHolder
 	{
 		readonly Register r;
@@ -223,9 +268,7 @@ namespace TigerCs.Emitters.NASM
 		public override void PutValueInRegister(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
 		{
 			if (gpr != r)
-			{
 				fw.WriteLine($"mov {gpr}, {r}");
-			}
 		}
 
 		public override void StackBackValue(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
