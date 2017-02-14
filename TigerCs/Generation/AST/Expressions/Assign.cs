@@ -1,10 +1,10 @@
 ﻿using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.AST.Expresions
+namespace TigerCs.Generation.AST.Expressions
 {
 
-	public class Assign : Expresion
+	public class Assign : Expression
 	{
 		[NotNull]
 		[Release]
@@ -12,7 +12,7 @@ namespace TigerCs.Generation.AST.Expresions
 
 		[NotNull]
 		[Release]
-		public IExpresion Source { get; set; }
+		public IExpression Source { get; set; }
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
@@ -38,8 +38,14 @@ namespace TigerCs.Generation.AST.Expresions
 
 			if (Target.Return != Source.Return)
 			{
-				report.Add(new StaticError(line, column, $"Assign between incompatible types: {Target.Return}, {Source.Return}",
+				report.Add(new StaticError(line, column, $"Assignation between incompatible types: {Target.Return}, {Source.Return}",
 				                           ErrorLevel.Error));
+				return false;
+			}
+
+			if (Target.ReturnValue.Const)
+			{
+				report.Add(new StaticError(Target.line, Target.column, "Assignation target is constant", ErrorLevel.Error));
 				return false;
 			}
 

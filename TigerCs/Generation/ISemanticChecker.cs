@@ -29,13 +29,11 @@ namespace TigerCs.Generation
 		void LeaveScope();
 
 		/// <summary>
-		/// Declare a new member, declaration of a already declared member or,
+		/// Declare a new member, declaration of a already declared member or
 		/// when trapping STD members, a missing member, will generate an error report
 		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="member"></param>
 		/// <returns></returns>
-		bool DeclareMember(string name, MemberDefinition member);
+		bool DeclareMember(string name, MemberDefinition member, bool hide = true);
 
 		/// <summary>
 		/// [IMPLEMENTATION_TIP] set to true MemberInfo.Use before outing it
@@ -45,6 +43,15 @@ namespace TigerCs.Generation
 		/// <param name="desired"></param>
 		/// <returns></returns>
 		bool Reachable(string name, out MemberInfo member, MemberDefinition desired = null);
+
+		/// <summary>
+		/// [IMPLEMENTATION_TIP] set to true MemberInfo.Use before outing it
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="member"></param>
+		/// <param name="desired"></param>
+		/// <returns></returns>
+		bool Reachable(string name, out MemberDefinition member, MemberDefinition desired = null);
 
 		T SeekDescriptor<T>(Predicate<object> stop = null)
 			where T : class;

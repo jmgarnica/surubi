@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.AST.Expresions
+namespace TigerCs.Generation.AST.Expressions
 {
-	public sealed class MAIN : Expresion
+	public sealed class MAIN : Expression
 	{
 		public const string EntryPointName = "Main";
 		public const string ArgumentName = "args";
@@ -17,9 +17,9 @@ namespace TigerCs.Generation.AST.Expresions
 
 		[NotNull]
 		[Release]
-		public IExpresion Root { get; }
+		public IExpression Root { get; }
 
-		public MAIN(IExpresion root)
+		public MAIN(IExpression root)
 		{
 			Root = root;
 			Main = null;
@@ -41,7 +41,7 @@ namespace TigerCs.Generation.AST.Expresions
 				ArrayOf = _string
 			};
 
-			sc.DeclareMember(arrayof_string.Name, new MemberDefinition
+			sc.DeclareMember(TypeInfo.MakeTypeName(arrayof_string.Name), new MemberDefinition
 				                 {Member = arrayof_string, column = column, line = line});
 
 			Main = new FunctionInfo

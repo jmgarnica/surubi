@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.AST.Expresions
+namespace TigerCs.Generation.AST.Expressions
 {
 	public abstract class ComparisonOperator : BinaryOperator
 	{

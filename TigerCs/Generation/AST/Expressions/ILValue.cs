@@ -1,12 +1,12 @@
 ﻿using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.AST.Expresions
+namespace TigerCs.Generation.AST.Expressions
 {
 	/// <summary>
 	/// Represents a
 	/// </summary>
-	public interface ILValue : IExpresion
+	public interface ILValue : IExpression
 	{
 		/// <summary>
 		/// Generate the code for setting the Return Holder's value of the espresion.

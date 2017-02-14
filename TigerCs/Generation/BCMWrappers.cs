@@ -53,6 +53,8 @@ namespace TigerCs.Generation
 		/// </summary>
 		public IntpObject ConstValue { get; set; }
 
+		public bool Const { get; set; }
+
 		public override bool FillInconsistencyReport(MemberInfo mem, ErrorReport report, int thisline, int thiscol, int memline, int memcol)
 		{
 			var hol = mem as HolderInfo;
@@ -160,6 +162,8 @@ namespace TigerCs.Generation
 		/// Null for no-array types
 		/// </summary>
 		public TypeInfo ArrayOf { get; set; }
+
+		public bool Complete { get; set; } = true;
 
 		public TypeInfo()
 		{

@@ -1,4 +1,4 @@
-﻿using TigerCs.Generation.AST.Expresions;
+﻿using TigerCs.Generation.AST.Expressions;
 
 namespace TigerCs.CompilationServices
 {
@@ -6,6 +6,6 @@ namespace TigerCs.CompilationServices
 	{
 		ErrorReport Report { get; }
 
-		void Compile(IExpresion rootprogram);
+		void Compile(IExpression rootprogram);
 	}
 }

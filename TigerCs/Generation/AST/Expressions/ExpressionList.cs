@@ -2,11 +2,13 @@
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.AST.Expresions
+namespace TigerCs.Generation.AST.Expressions
 {
-	public class ExpresionList<E> : List<E>, IExpresion
-		where E : IExpresion
+	public class ExpressionList<E> : List<E>, IExpression
+		where E : IExpression
 	{
+		public bool CanBreak { get; protected set; }
+
 		public int column { get; set; }
 		public bool CorrectSemantics { get; protected set; }
 		public string Lex { get; set; }
@@ -19,13 +21,26 @@ namespace TigerCs.Generation.AST.Expresions
 
 		public bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
+			CanBreak = false;
+			Pure = true;
+
 			foreach (var item in this)
+			{
 				if (!item.CheckSemantics(sc, report)) return false;
+
+				Pure &= item.Pure;
+				CanBreak |= item.CanBreak;
+			}
 
 			if (Count > 0)
 			{
 				Return = this[Count - 1].Return;
 				ReturnValue = this[Count - 1].ReturnValue;
+			}
+			else
+			{
+				Return = sc.Void(report);
+				ReturnValue = null;
 			}
 
 			return true;

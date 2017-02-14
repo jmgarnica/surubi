@@ -1,9 +1,9 @@
 ﻿using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.AST.Expresions
+namespace TigerCs.Generation.AST.Expressions
 {
-	public class Var : Expresion, ILValue
+	public class Var : Expression, ILValue
 	{
 		public string Name { get; set; }
 
@@ -47,20 +47,29 @@ namespace TigerCs.Generation.AST.Expresions
 			where H : class, IHolder
 		{
 			if (!ReturnValue.Bounded)
-				report.Add(new StaticError { Column = column, Line = line, ErrorMessage = $"Member {Name} not initialized", Level = ErrorLevel.Internal });
+			{
+				report.Add(new StaticError
+				           {
+					           Column = column,
+					           Line = line,
+					           ErrorMessage = $"Member {Name} not initialized",
+					           Level = ErrorLevel.Internal
+				           });
+				return;
+			}
 
-			else cg.InstrAssing((H)Return.BCMMember, source);
+			cg.InstrAssing((H)Return.BCMMember, source);
 		}
 	}
 
-	public class ArrayAccess : Expresion, ILValue
+	public class ArrayAccess : Expression, ILValue
 	{
 		[Release]
 		[NotNull]
-		public IExpresion Array { get; set; }
+		public IExpression Array { get; set; }
 		[Release]
 		[NotNull]
-		public IExpresion Indexer { get; set; }
+		public IExpression Indexer { get; set; }
 
 		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report, TypeInfo expected = null)
 		{

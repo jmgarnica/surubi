@@ -55,6 +55,7 @@
     <Compile Include="Emitters\NASM\NasmEmitterScope.cs" />
     <Compile Include="Emitters\NASM\NasmFunction.cs" />
     <Compile Include="Emitters\NASM\NasmHolder.cs" />
+    <Compile Include="Emitters\NASM\NasmTigerStandard.cs" />
     <Compile Include="Emitters\NASM\NasmType.cs" />
     <Compile Include="Emitters\NASM\RegisterLock.cs" />
     <Compile Include="Generation\AST\Declarations\AliasDeclaration.cs" />
@@ -62,38 +63,39 @@
     <Compile Include="CompilationServices\MemberDefinition.cs" />
     <Compile Include="Generation\AST\Declarations\IDeclaration.cs" />
     <Compile Include="Generation\AST\Declarations\DeclarationList.cs" />
+    <Compile Include="Generation\AST\Declarations\TypeDeclarationList.cs" />
     <Compile Include="Generation\AST\IASTNode.cs" />
-    <Compile Include="Generation\AST\Expresions\ILValue.cs" />
+    <Compile Include="Generation\AST\Expressions\ILValue.cs" />
     <Compile Include="Generation\ByteCode\MemberOptions.cs" />
     <Compile Include="Generation\ByteCode\IMember.cs" />
-    <Compile Include="Generation\AST\Expresions\Assign.cs" />
-    <Compile Include="Generation\AST\Expresions\Break.cs" />
-    <Compile Include="Generation\AST\Expresions\Call.cs" />
-    <Compile Include="Generation\AST\Expresions\ComparisonOperator.cs" />
-    <Compile Include="Generation\AST\Expresions\ExpresionList.cs" />
-    <Compile Include="Generation\AST\Expresions\For.cs" />
-    <Compile Include="Generation\AST\Expresions\BinaryOperator.cs" />
+    <Compile Include="Generation\AST\Expressions\Assign.cs" />
+    <Compile Include="Generation\AST\Expressions\Break.cs" />
+    <Compile Include="Generation\AST\Expressions\Call.cs" />
+    <Compile Include="Generation\AST\Expressions\ComparisonOperator.cs" />
+    <Compile Include="Generation\AST\Expressions\ExpressionList.cs" />
+    <Compile Include="Generation\AST\Expressions\For.cs" />
+    <Compile Include="Generation\AST\Expressions\BinaryOperator.cs" />
     <Compile Include="Emitters\DefaultSemanticChecker.cs" />
     <Compile Include="Generation\AST\Declarations\FunctionDeclaration.cs" />
-    <Compile Include="Generation\AST\Expresions\IExpresion.cs" />
-    <Compile Include="Generation\AST\Expresions\MAIN.cs" />
-    <Compile Include="Generation\AST\Expresions\Neg.cs" />
+    <Compile Include="Generation\AST\Expressions\IExpression.cs" />
+    <Compile Include="Generation\AST\Expressions\MAIN.cs" />
+    <Compile Include="Generation\AST\Expressions\Neg.cs" />
     <Compile Include="Generation\CheckerExtensions.cs" />
     <Compile Include="Generation\Descriptors.cs" />
     <Compile Include="CompilationServices\TigerGenerator.cs" />
     <Compile Include="Generation\ISemanticChecker.cs" />
-    <Compile Include="Generation\AST\Expresions\RecordAcces.cs" />
-    <Compile Include="Generation\AST\Expresions\IfThenElse.cs" />
-    <Compile Include="Generation\AST\Expresions\IntegerOperator.cs" />
-    <Compile Include="Generation\AST\Expresions\Let.cs" />
-    <Compile Include="Generation\AST\Expresions\While.cs" />
-    <Compile Include="Generation\AST\Expresions\Constant.cs" />
+    <Compile Include="Generation\AST\Expressions\RecordAcces.cs" />
+    <Compile Include="Generation\AST\Expressions\IfThenElse.cs" />
+    <Compile Include="Generation\AST\Expressions\IntegerOperator.cs" />
+    <Compile Include="Generation\AST\Expressions\Let.cs" />
+    <Compile Include="Generation\AST\Expressions\While.cs" />
+    <Compile Include="Generation\AST\Expressions\Constant.cs" />
     <Compile Include="Generation\ByteCode\IByteCodeMachine.cs" />
     <Compile Include="Generation\ByteCode\ScopeChangerAttribute.cs" />
     <Compile Include="CompilationServices\ErrorReport.cs" />
     <Compile Include="Generation\BCMWrappers.cs" />
     <Compile Include="Emitters\TigerScope.cs" />
-    <Compile Include="Generation\AST\Expresions\LvalueNode.cs" />
+    <Compile Include="Generation\AST\Expressions\LvalueNode.cs" />
     <Compile Include="Generation\AST\Declarations\ParameterDeclaration.cs" />
     <Compile Include="Generation\AST\Declarations\HolderDeclaration.cs" />
     <Compile Include="Generation\ReleaseAttribute.cs" />
@@ -107,7 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Generation\AST\Declarations\ASTDeclaration.cd" />
-    <None Include="Generation\AST\Expresions\ASTExpresions.cd">
+    <None Include="Generation\AST\Expressions\ASTExpressions.cd">
       <CustomToolNamespace>TigerCs.Generation.Semantic.AST</CustomToolNamespace>
     </None>
   </ItemGroup>

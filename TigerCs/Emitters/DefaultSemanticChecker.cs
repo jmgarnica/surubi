@@ -14,10 +14,14 @@ namespace TigerCs.Emitters
 		#endregion
 
 
-		public bool DeclareMember(string name, MemberDefinition member)
+		public bool DeclareMember(string name, MemberDefinition member, bool hide = true)
 		{
-			MemberInfo existent;
-			if (Reachable(name, out existent)) return false;
+			if (!hide)
+			{
+				MemberInfo existent;
+				if (Reachable(name, out existent)) return false;
+			}
+			else if (currentscope.Namespace.ContainsKey(name)) return false;
 
 			currentscope.Namespace[name] = member;
 			if (member.Member is TypeInfo) currentscope.ContainsTypeDefinitions = true;
@@ -56,6 +60,14 @@ namespace TigerCs.Emitters
 
 		public bool Reachable(string name, out MemberInfo member, MemberDefinition desired = null)
 		{
+			MemberDefinition md;
+			bool tmp = Reachable(name, out md, desired);
+			member = md.Member;
+			return tmp;
+		}
+
+		public bool Reachable(string name, out MemberDefinition member, MemberDefinition desired = null)
+		{
 			member = null;
 			MemberDefinition found;
 
@@ -83,10 +95,10 @@ namespace TigerCs.Emitters
 						found.line, found.column, desired.line, desired.column))
 				return false;
 
-			member = found.Member;
+			member = found;
 
 			foreach (var item in closures)
-				item.Add(name, member);
+				item.Add(name, member.Member);
 
 			return true;
 		}
@@ -99,9 +111,9 @@ namespace TigerCs.Emitters
 			{
 				for (int i = current.Descriptors.Length - 1; i >= 0; i--)
 				{
+					if (stop != null && stop(current.Descriptors[i])) return null;
 					var descriptor = current.Descriptors[i] as T;
 					if (descriptor != null) return descriptor;
-					if (stop != null && stop(current.Descriptors[i])) return null;
 				}
 
 				current = current.Parent;

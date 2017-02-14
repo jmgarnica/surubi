@@ -1,9 +1,9 @@
 ﻿using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.AST.Expresions
+namespace TigerCs.Generation.AST.Expressions
 {
-	public class IntegerConstant : Expresion
+	public class IntegerConstant : Expression
 	{
 		public IntegerConstant()
 		{
@@ -30,7 +30,7 @@ namespace TigerCs.Generation.AST.Expresions
 		}
 	}
 
-	public class StringConstant : Expresion
+	public class StringConstant : Expression
 	{
 		public StringConstant()
 		{
@@ -56,7 +56,7 @@ namespace TigerCs.Generation.AST.Expresions
 		}
 	}
 
-	public class NillConstant : Expresion
+	public class NillConstant : Expression
 	{
 		public NillConstant()
 		{

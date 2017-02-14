@@ -8,7 +8,7 @@ namespace TigerCs.Generation.AST.Declarations
 	{
 
 
-		public override void BindName(ISemanticChecker sc, ErrorReport report)
+		public override bool BindName(ISemanticChecker sc, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}

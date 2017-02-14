@@ -1,8 +1,9 @@
 ﻿using TigerCs.CompilationServices;
 using TigerCs.Emitters.NASM;
 using TigerCs.Emitters;
-using TigerCs.Generation.ByteCode;
 using System;
+using System.Diagnostics;
+using TigerCs.Generation.AST.Expressions;
 
 namespace Surubi
 {
@@ -17,23 +18,23 @@ namespace Surubi
 
 			#region [NASM Generation]
 
-			NasmType _int;
-			e.TryBindSTDType("int", out _int);
-			NasmType _string;
-			e.TryBindSTDType("string", out _string);
-			NasmFunction print;
-			e.TryBindSTDFunction("prints", out print);
-			NasmFunction printi;
-			e.TryBindSTDFunction("printi", out printi);
-			NasmHolder nil;
-			e.TryBindSTDConst("nil", out nil);
+			//NasmType _int;
+			//e.TryBindSTDType("int", out _int);
+			//NasmType _string;
+			//e.TryBindSTDType("string", out _string);
+			//NasmFunction print;
+			//e.TryBindSTDFunction("prints", out print);
+			//NasmFunction printi;
+			//e.TryBindSTDFunction("printi", out printi);
+			//NasmHolder nil;
+			//e.TryBindSTDConst("nil", out nil);
 
 
-			e.InitializeCodeGeneration(r);
+			//e.InitializeCodeGeneration(r);
 
-			e.EntryPoint(true, true);
-			var _0 = e.AddConstant(0);
-			var lend = e.AddConstant("\n");
+			//e.EntryPoint(true, true);
+			//var _0 = e.AddConstant(0);
+			//var lend = e.AddConstant("\n");
 
 			//#region [array]
 			////var _4 = e.AddConstant(4);
@@ -91,55 +92,55 @@ namespace Surubi
 
 			#region [Closure test]
 
-			var ff = e.BindVar();
-			var gg = e.BindVar();
+			//var ff = e.BindVar();
+			//var gg = e.BindVar();
 
-			e.EnterNestedScope(namehint: "closure one");
-			var c = e.BindVar(_int, e.AddConstant(0), "counter", HolderOptions.Trapped);
+			//e.EnterNestedScope(namehint: "closure one");
+			//var c = e.BindVar(_int, e.AddConstant(0), "counter", HolderOptions.Trapped);
 
-			e.Call(print, new[] { e.AddConstant("[static]c = ") });
-			e.Call(printi, new[] { c });
-			e.Call(print, new[] { lend });
+			//e.Call(print, new[] { e.AddConstant("[static]c = ") });
+			//e.Call(printi, new[] { c });
+			//e.Call(print, new[] { lend });
 
-			var f = e.BindFunction("print_c", _int, new Tuple<string, NasmType>[0], FunctionOptions.Delegate);
-			e.Call(print, new[] { e.AddConstant(" = ") });
-			e.Call(printi, new[] { c });
-			e.Call(print, new[] { lend });
-			e.Ret();
-			e.LeaveScope();
-			e.MekeDelegate(ff, f);
+			//var f = e.BindFunction("print_c", _int, new Tuple<string, NasmType>[0], FunctionOptions.Delegate);
+			//e.Call(print, new[] { e.AddConstant(" = ") });
+			//e.Call(printi, new[] { c });
+			//e.Call(print, new[] { lend });
+			//e.Ret();
+			//e.LeaveScope();
+			//e.MekeDelegate(ff, f);
 
-			var g = e.BindFunction("increment_c", _int, new[] { new Tuple<string, NasmType>("inc", _int) }, FunctionOptions.Delegate);
-			var inc = e.GetParam(0);
-			e.Call(printi, new[] { c });
-			e.Call(print, new[] { e.AddConstant(" + ") });
-			e.Call(printi, new[] { inc });
-			e.InstrAdd(c, c, inc);
-			e.Ret();
-			e.LeaveScope();
-			e.MekeDelegate(gg, g);
+			//var g = e.BindFunction("increment_c", _int, new[] { new Tuple<string, NasmType>("inc", _int) }, FunctionOptions.Delegate);
+			//var inc = e.GetParam(0);
+			//e.Call(printi, new[] { c });
+			//e.Call(print, new[] { e.AddConstant(" + ") });
+			//e.Call(printi, new[] { inc });
+			//e.InstrAdd(c, c, inc);
+			//e.Ret();
+			//e.LeaveScope();
+			//e.MekeDelegate(gg, g);
 
-			e.LeaveScope();
+			//e.LeaveScope();
 
-			e.EnterNestedScope(namehint: "nested 1");
+			//e.EnterNestedScope(namehint: "nested 1");
 
-			var i = e.BindVar(_int, e.AddConstant(0), "i");
-			var loop = e.SetLabelToNextInstruction("loop");
-			var end = e.ReserveInstructionLabel("END");
+			//var i = e.BindVar(_int, e.AddConstant(0), "i");
+			//var loop = e.SetLabelToNextInstruction("loop");
+			//var end = e.ReserveInstructionLabel("END");
 
-			var tmp = e.InstrRefEq_TempBound(i, e.AddConstant(10));
-			e.GotoIfNotZero(end, tmp);
+			//var tmp = e.InstrRefEq_TempBound(i, e.AddConstant(10));
+			//e.GotoIfNotZero(end, tmp);
 
-			e.DelegateCall(gg, new[] { i });
-			e.DelegateCall(ff, new NasmHolder[0]);
+			//e.DelegateCall(gg, new[] { i });
+			//e.DelegateCall(ff, new NasmHolder[0]);
 
-			e.InstrAdd(i, i, e.AddConstant(1));
+			//e.InstrAdd(i, i, e.AddConstant(1));
 
-			e.Goto(loop);
-			e.ApplyReservedLabel(end);
+			//e.Goto(loop);
+			//e.ApplyReservedLabel(end);
 
 
-			e.LeaveScope();
+			//e.LeaveScope();
 			#endregion
 
 			//#region [idiv]
@@ -179,60 +180,48 @@ namespace Surubi
 
 			//#endregion
 
-			e.Ret(_0);
-			e.LeaveScope();
-			e.End();
+			//e.Ret(_0);
+			//e.LeaveScope();
+			//e.End();
 			#endregion
 
 			#region AST
 
-			////ComandParser cp = new ComandParser(typeof(TigerGenerator<,,>));
+			TigerGenerator<NasmType, NasmFunction, NasmHolder> tg = new TigerGenerator<NasmType, NasmFunction, NasmHolder>
+			{
+				SemanticChecker = dsc,
+				ByteCodeMachine = e
+			};
 
-			////cp.Activate(args.Skip(1).Aggregate((s, t) => s + " " + t));
+			#region hello world
 
-			//TigerGenerator<NasmType, NasmFunction, NasmHolder> tg = new TigerGenerator<NasmType, NasmFunction, NasmHolder>
-			//{
-			//	SemanticChecker = dsc,
-			//	ByteCodeMachine = e
-			//};
+			var m = new BoundedFor
+			{
+				VarName = "i",
+				From = new IntegerConstant {Lex = "0"},
+				To = new IntegerConstant {Lex = "10"},
+				Body = new Call
+				{
+					Arguments = new ExpressionList<IExpression> {new Var {Name = "i"}},
+					FunctionName = "printi"
+				}
+			};
 
-			//#region hello world
-			//var m = new IfThenElse
-			//{
-			//	If = new Call
-			//	{
-			//		FunctionName = "geti",
-			//		Arguments = new ExpresionList<IExpresion>()
-			//	},
-			//	Then = new StringConstant {Lex = "2"},
-			//		//new Call
-			//		//{
-			//		//	FunctionName = "prints",
-			//		//	Arguments = new ExpresionList<IExpresion> { new StringConstant { Lex = "hola mundo" } }
-			//		//},
-			//	Else =
-			//		new Call
-			//		{
-			//			FunctionName = "prints",
-			//			Arguments = new ExpresionList<IExpresion> {new NillConstant {Lex = "Hello World"}}
-			//		}
-			//};
+			#endregion
 
-			//#endregion
+			tg.Compile(m);
 
-			//tg.Compile(m);
+			int count = tg.Report.Count();
+			Console.WriteLine("Compilation " + (count == 0
+													? "success"
+													: $"fail with {count} error{(count > 1 ? "s" : "")}:"));
 
-			//int count = tg.Report.Count();
-			//Console.WriteLine("Compilation " + (count == 0
-			//										? "success"
-			//										: $"fail with {count} error{(count > 1 ? "s" : "")}:"));
+			Console.WriteLine();
 
-			//Console.WriteLine();
+			foreach (var error in tg.Report)
+				Console.WriteLine(error);
 
-			//foreach (var error in tg.Report)
-			//	Console.WriteLine(error);
-
-			//if (Debugger.IsAttached) Console.ReadKey();
+			if (Debugger.IsAttached) Console.ReadKey();
 
 			#endregion
 		}

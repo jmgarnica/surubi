@@ -4,6 +4,6 @@ namespace TigerCs.Generation.AST.Declarations
 {
 	public interface IDeclaration : IASTNode
 	{
-		void BindName(ISemanticChecker sc, ErrorReport report);
+		bool BindName(ISemanticChecker sc, ErrorReport report);
 	}
 }

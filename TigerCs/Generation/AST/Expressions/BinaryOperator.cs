@@ -2,17 +2,17 @@
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.AST.Expresions
+namespace TigerCs.Generation.AST.Expressions
 {
-	public abstract class BinaryOperator : Expresion
+	public abstract class BinaryOperator : Expression
 	{
 		[NotNull]
 		[Release]
-		public IExpresion Rigth { get; set; }
+		public IExpression Rigth { get; set; }
 
 		[NotNull]
 		[Release]
-		public IExpresion Left { get; set; }
+		public IExpression Left { get; set; }
 	}
 
 	public class EqualityOperator : BinaryOperator

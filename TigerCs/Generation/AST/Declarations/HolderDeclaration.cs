@@ -18,7 +18,7 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public bool Pure { get; protected set; }
 
-		public virtual void BindName(ISemanticChecker sc, ErrorReport report)
+		public virtual bool BindName(ISemanticChecker sc, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}

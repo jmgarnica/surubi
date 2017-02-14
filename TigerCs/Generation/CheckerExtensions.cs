@@ -14,7 +14,7 @@ namespace TigerCs.Generation
 		public static TypeInfo Int(this ISemanticChecker sc, ErrorReport report = null)
 		{
 			MemberInfo Int;
-			if (sc.Reachable("int", out Int, new MemberDefinition {Member = new TypeInfo {Name = "int"}}))
+			if (sc.Reachable(TypeInfo.MakeTypeName("int"), out Int, new MemberDefinition {Member = new TypeInfo {Name = "int"}}))
 				return (TypeInfo)Int;
 
 			report?.Add(new StaticError
@@ -28,7 +28,7 @@ namespace TigerCs.Generation
 		public static TypeInfo String(this ISemanticChecker sc, ErrorReport report = null)
 		{
 			MemberInfo String;
-			if (sc.Reachable("string", out String, new MemberDefinition {Member = new TypeInfo {Name = "string"}}))
+			if (sc.Reachable(TypeInfo.MakeTypeName("string"), out String, new MemberDefinition {Member = new TypeInfo {Name = "string"}}))
 				return (TypeInfo)String;
 
 			report?.Add(new StaticError { Level = ErrorLevel.Internal, ErrorMessage = "String STD type not defined" });
@@ -44,7 +44,7 @@ namespace TigerCs.Generation
 		public static TypeInfo Void(this ISemanticChecker sc, ErrorReport report = null)
 		{
 			MemberInfo Void;
-			if (sc.Reachable("void", out Void, new MemberDefinition
+			if (sc.Reachable(TypeInfo.MakeTypeName("void"), out Void, new MemberDefinition
 			                 {
 				                 Member = new TypeInfo
 				                 {
@@ -61,7 +61,7 @@ namespace TigerCs.Generation
 		public static TypeInfo Null(this ISemanticChecker sc, ErrorReport report = null)
 		{
 			MemberInfo Null;
-			if (sc.Reachable("Null", out Null, new MemberDefinition
+			if (sc.Reachable(TypeInfo.MakeTypeName("Null"), out Null, new MemberDefinition
 			                 {
 				                 Member = new TypeInfo
 				                 {

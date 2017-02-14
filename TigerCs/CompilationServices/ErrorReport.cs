@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace TigerCs.CompilationServices
 {
@@ -40,6 +41,8 @@ namespace TigerCs.CompilationServices
 					break;
 				case ErrorLevel.Internal:
 					CriticalError?.Invoke(error);
+					if (Debugger.IsAttached)
+						Debugger.Break();
 					break;
 				default:
 					Info?.Invoke(error);

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TigerCs.Generation.ByteCode;
 using TigerCs.Generation;
-using TigerCs.Generation.AST.Expresions;
+using TigerCs.Generation.AST.Expressions;
 
 namespace TigerCs.CompilationServices
 {
@@ -21,7 +21,7 @@ namespace TigerCs.CompilationServices
 			Report = new ErrorReport();
 		}
 
-		public void Compile(IExpresion rootprogram)
+		public void Compile(IExpression rootprogram)
 		{
 			var std = new Dictionary<string, MemberDefinition>();
 			SemanticChecker.InitializeSemanticCheck(Report, std);
@@ -37,17 +37,17 @@ namespace TigerCs.CompilationServices
 				if (m.Value.Member is TypeInfo)
 				{
 					T o;
-					if (ByteCodeMachine.TryBindSTDType(m.Key, out o)) m.Value.Member.BCMMember = o;
+					if (ByteCodeMachine.TryBindSTDType(m.Value.Member.Name, out o)) m.Value.Member.BCMMember = o;
 				}
 				else if (m.Value.Member is HolderInfo)
 				{
 					H o;
-					if (ByteCodeMachine.TryBindSTDConst(m.Key, out o)) m.Value.Member.BCMMember = o;
+					if (ByteCodeMachine.TryBindSTDConst(m.Value.Member.Name, out o)) m.Value.Member.BCMMember = o;
 				}
 				else if (m.Value.Member is FunctionInfo)
 				{
 					F o;
-					if (ByteCodeMachine.TryBindSTDFunction(m.Key, out o)) m.Value.Member.BCMMember = o;
+					if (ByteCodeMachine.TryBindSTDFunction(m.Value.Member.Name, out o)) m.Value.Member.BCMMember = o;
 				}
 
 				if (m.Value.Member.Bounded || m.Value.Generator != null) continue;

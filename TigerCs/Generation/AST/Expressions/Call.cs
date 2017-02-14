@@ -4,14 +4,14 @@ using System.Linq;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.AST.Expresions
+namespace TigerCs.Generation.AST.Expressions
 {
-	public class Call : Expresion
+	public class Call : Expression
 	{
 		public string FunctionName { get; set; }
 
 		[Release(true)]
-		public List<IExpresion> Arguments { get; set; }
+		public List<IExpression> Arguments { get; set; }
 
 		FunctionInfo func;
 

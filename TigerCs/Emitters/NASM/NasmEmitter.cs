@@ -32,8 +32,11 @@ namespace TigerCs.Emitters.NASM
 		readonly HashSet<string> Externs;
 		Dictionary<string, NasmStringConst> StringConst;
 		int StringConstEnd;
-		readonly NasmFunction PrintS;
+		//readonly NasmFunction PrintS;
+
+#if DEBUG_Malloc
 		readonly NasmFunction PrintI;
+#endif
 
 		public NasmEmitter(string output)
 		{
@@ -42,10 +45,10 @@ namespace TigerCs.Emitters.NASM
 			Externs = new HashSet<string>();
 			std = new Dictionary<string, NasmFunction>();
 
-			PrintS = new NasmCFunction(PrintSFunctionLabel, false, this, true, "PrintS");
-			std["prints"] = PrintS;
-			PrintI = new NasmCFunction(PrintIFunctionLabel, false, this, true, "PrintI");
+#if DEBUG_Malloc
+			PrintI = new NasmCFunction(PrintIFunctionLabel, false, this, false, "PrintI");
 			std["printi"] = PrintI;
+#endif
 
 			NasmType.Int = new NasmType(NasmRefType.None);
 			NasmType.String = new NasmType(NasmRefType.Dynamic, -1);
@@ -146,7 +149,7 @@ namespace TigerCs.Emitters.NASM
 #region [Control]
 		public override void Comment(string comment)
 		{
-			fw.WriteLine(comment.Replace("\n\r", "\n").Replace("\n", "\n;"));
+			fw.WriteLine(";" + comment.Replace("\n\r", "\n").Replace("\n", "\n;"));
 		}
 		public override void BlankLine()
 		{
@@ -167,6 +170,7 @@ namespace TigerCs.Emitters.NASM
 		/// <param name="holder"></param>
 		public override void Release(NasmHolder holder)
 		{
+			if (holder is NasmIntConst || holder is NasmStringConst)return;
 			holder.DeclaratingScope.ReleasedTempVars.Enqueue(holder.DeclaringScopeIndex);
 		}
 #endregion
@@ -405,11 +409,11 @@ namespace TigerCs.Emitters.NASM
 			switch (name.ToLower())
 			{
 				case "prints":
-					function = std["prints"];
+					function = std["prints"] = NasmTigerStandard.AddPrintS(this);
 					return true;
 
 				case "printi":
-					function = std["printi"] = new NasmCFunction(PrintIFunctionLabel, false, this, name: "PrintI");
+					function = std["printi"] = NasmTigerStandard.AddPrintI(this);
 					return true;
 
 				default:
@@ -518,11 +522,6 @@ namespace TigerCs.Emitters.NASM
 			if (op1 is NasmIntConst && op2 is NasmIntConst)
 			{
 				fw.Write($"mov {reg}, {((NasmIntConst)op1).value - ((NasmIntConst)op2).value}");
-			}
-			else if (op1 is NasmIntConst)
-			{
-				op2.PutValueInRegister(reg.Value, fw, CurrentScope);
-				fw.Write($"sub {reg}, {((NasmIntConst)op1).value}");
 			}
 			else if (op2 is NasmIntConst)
 			{
@@ -1087,7 +1086,10 @@ namespace TigerCs.Emitters.NASM
 			if (message != null)
 			{
 				var ms = bound.AddConstant(message);
-				bound.PrintS.Call(fw, null, acceding, ms);
+
+				NasmFunction prints;
+				if(bound.TryBindSTDFunction("prints", out prints))
+					prints.Call(fw, null, acceding, ms);
 			}
 
 			var curr = acceding;
@@ -1154,7 +1156,7 @@ namespace TigerCs.Emitters.NASM
 				switch (item.Key.ToLower())
 				{
 					case "prints":
-						AddPrintS(f, this);
+						NasmTigerStandard.WritePrintS(f, this);
 						break;
 
 					case "printi":
@@ -1167,35 +1169,6 @@ namespace TigerCs.Emitters.NASM
 			}
 
 			return f.Flush();
-		}
-
-		static void AddPrintS(FormatWriter fw, NasmEmitter bound)
-		{
-			fw.WriteLine(PrintSFunctionLabel + ":");
-			fw.IncrementIndentation();
-			fw.WriteLine("mov EAX, [ESP + 4]");
-			fw.WriteLine("cmp EAX, 0");
-			fw.WriteLine("je .null_error_exit");
-			fw.WriteLine("add EAX, 4");//size space
-			fw.WriteLine("push EAX");
-			fw.WriteLine($"push dword {PrintSFormatName}");
-			fw.WriteLine("call _printf");
-			fw.WriteLine("add ESP, 8");
-			fw.WriteLine("xor EAX, EAX");
-			fw.WriteLine("xor ECX, ECX");
-			fw.WriteLine("ret");
-			fw.WriteLine("");
-			fw.WriteLine(".null_error_exit:");
-			//TODO: crear un diccionario con los errores y los codigos
-			var m = bound.AddConstant("Null Reference");
-			m.PutValueInRegister(Register.EAX, fw, null);
-			fw.WriteLine("push EAX");
-			fw.WriteLine($"call {PrintSFunctionLabel}");
-			fw.WriteLine("add ESP, 4");
-			fw.WriteLine("mov EAX, 3");
-			fw.WriteLine($"mov ECX, {ErrorCode}");
-			fw.WriteLine("ret");
-			fw.DecrementIndentation();
 		}
 
 		static void AddPrintI(FormatWriter fw)
@@ -1214,6 +1187,7 @@ namespace TigerCs.Emitters.NASM
 			fw.DecrementIndentation();
 		}
 
+#if DEBUG_Malloc
 		static void Malloc(FormatWriter fw, NasmEmitter bound, NasmEmitterScope acceding, Register[] args)
 		{
 			var malloc_fail = bound.ReserveInstructionLabel("malloc_fail");
@@ -1250,6 +1224,7 @@ namespace TigerCs.Emitters.NASM
 			EmitError(fw, acceding, bound, 10, "malloc fail");
 			fw.WriteLine($"_{succeed:N}:");
 		}
+#endif
 
 		/// <summary>
 		/// Gets the bounded function that will allocate a new object of this type

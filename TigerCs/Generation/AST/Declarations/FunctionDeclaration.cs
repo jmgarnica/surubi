@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TigerCs.CompilationServices;
-using TigerCs.Generation.AST.Expresions;
+using TigerCs.Generation.AST.Expressions;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Declarations
@@ -9,7 +9,7 @@ namespace TigerCs.Generation.AST.Declarations
 	public class FunctionDeclaration : IDeclaration
 	{
 		[Release]
-		public IExpresion Body { get; set; }
+		public IExpression Body { get; set; }
 		[Release(collection: true)]
 		public List<ParameterDeclaration> Parameters { get; set; }
 		public FunctionInfo Func { get; private set; }
@@ -24,7 +24,7 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public bool Pure { get; protected set; }
 
-		public void BindName(ISemanticChecker sc, ErrorReport report)
+		public bool BindName(ISemanticChecker sc, ErrorReport report)
 		{
 			throw new NotImplementedException();
 		}

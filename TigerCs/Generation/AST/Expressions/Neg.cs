@@ -1,13 +1,13 @@
 ﻿using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.AST.Expresions
+namespace TigerCs.Generation.AST.Expressions
 {
-	public class Neg : Expresion
+	public class Neg : Expression
 	{
 		[NotNull]
 		[Release]
-		IExpresion operand { get; set; }
+		IExpression operand { get; set; }
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{

@@ -1,20 +1,20 @@
 ﻿using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
-namespace TigerCs.Generation.AST.Expresions
+namespace TigerCs.Generation.AST.Expressions
 {
-	public class IfThenElse : Expresion
+	public class IfThenElse : Expression
 	{
 		[Release]
 		[NotNull]
-		public IExpresion If { get; set; }
+		public IExpression If { get; set; }
 
 		[Release]
 		[NotNull]
-		public IExpresion Then { get; set; }
+		public IExpression Then { get; set; }
 
 		[Release]
-		public IExpresion Else { get; set; }
+		public IExpression Else { get; set; }
 
 		bool? alwaystakethen;
 		HolderInfo nil;
@@ -127,7 +127,7 @@ namespace TigerCs.Generation.AST.Expresions
 
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			IExpresion always;
+			IExpression always;
 			if (alwaystakethen != null && (always = alwaystakethen.Value? Then : Else) != null)
 			{
 				if (!If.Pure) If.GenerateCode(cg, report);

@@ -3,13 +3,13 @@ using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 using TigerCs.Interpretation;
 
-namespace TigerCs.Generation.AST.Expresions
+namespace TigerCs.Generation.AST.Expressions
 {
-	public class MemberAccess : Expresion, ILValue
+	public class MemberAccess : Expression, ILValue
 	{
 		[Release]
 		[NotNull]
-		public IExpresion Record { get; set; }
+		public IExpression Record { get; set; }
 		public string MemberName { get; set; }
 
 		int index = -1;
