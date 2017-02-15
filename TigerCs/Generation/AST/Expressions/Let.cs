@@ -1,4 +1,5 @@
 ﻿#define ENFORCE_RETURN_TYPE_CHECK
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.AST.Declarations;
@@ -9,7 +10,7 @@ namespace TigerCs.Generation.AST.Expressions
 	public class Let : Expression
 	{
 		[Release(true)]
-		public IDeclarationList<IDeclarationList<IDeclaration>> Declarations { get; set; }
+		public DeclarationListList<IDeclaration> Declarations { get; set; }
 
 		[Release]
 		public IExpression Body { get; set; }
@@ -23,11 +24,8 @@ namespace TigerCs.Generation.AST.Expressions
 
 			if (Declarations != null)
 			{
-				foreach (var dex in Declarations)
-					dex.BindName(sc,report);
-
-				foreach (var dex in Declarations)
-					if (!dex.CheckSemantics(sc, report)) return false;
+				if(!Declarations.CheckSemantics(sc, report))
+					return false;
 
 				foreach (var dex in Declarations)
 				{
@@ -49,8 +47,12 @@ namespace TigerCs.Generation.AST.Expressions
 				ReturnValue = null;
 				Pure = true;
 				CanBreak = false;
+				sc.LeaveScope();
 				return true;
 			}
+
+			if (!Body.CheckSemantics(sc, report))
+				return false;
 
 #if ENFORCE_RETURN_TYPE_CHECK
 			if (declaredhere.Contains(Body.Return))
@@ -65,6 +67,7 @@ namespace TigerCs.Generation.AST.Expressions
 			ReturnValue = Return.Equals(_void)? null : new HolderInfo {ConstValue = Body.ReturnValue?.ConstValue, Type = Return};
 			Pure = Body.Pure;
 			CanBreak = Body.CanBreak;
+			sc.LeaveScope();
 			return true;
 		}
 

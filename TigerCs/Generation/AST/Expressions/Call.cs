@@ -61,7 +61,7 @@ namespace TigerCs.Generation.AST.Expressions
 						     arg.Return == _null)) continue;
 
 						report.Add(new StaticError(arg.line, arg.column,
-						                           $"Positional argument ({i}) must be of type {type}, but an expresion of type {arg.Return} was given",
+						                           $"Positional argument ({i}) must be of type {type}, but an expression of type {arg.Return} was given",
 						                           ErrorLevel.Error));
 						return false;
 					}

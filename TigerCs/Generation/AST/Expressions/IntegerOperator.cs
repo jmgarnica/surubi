@@ -25,7 +25,9 @@ namespace TigerCs.Generation.AST.Expressions
 			if (Optype != IntegerOp.Addition &&
 				Optype != IntegerOp.Division &&
 				Optype != IntegerOp.Multiplication &&
-			    Optype != IntegerOp.Subtraction)
+			    Optype != IntegerOp.Subtraction &&
+				Optype != IntegerOp.And &&
+				Optype != IntegerOp.Or)
 			{
 				report.Add(new StaticError(line, column, $"Unkown operator ({Optype})", ErrorLevel.Error));
 				return false;
@@ -58,6 +60,18 @@ namespace TigerCs.Generation.AST.Expressions
 				ReturnValue.ConstValue = (int)Left.ReturnValue.ConstValue / rigth;
 			}
 
+			if (Optype == IntegerOp.And)
+				if ((int)Left.ReturnValue.ConstValue == 0)
+					ReturnValue.ConstValue = 0;
+				else if (rigth == 0) ReturnValue.ConstValue = 0;
+				else ReturnValue.ConstValue = 1;
+
+			if (Optype == IntegerOp.Or)
+				if ((int)Left.ReturnValue.ConstValue != 0)
+					ReturnValue.ConstValue = 1;
+				else if (rigth != 0) ReturnValue.ConstValue = 1;
+				else ReturnValue.ConstValue = 0;
+
 			return true;
 		}
 
@@ -72,21 +86,36 @@ namespace TigerCs.Generation.AST.Expressions
 				return;
 			}
 
-			Left.GenerateCode(cg, report);
-			Rigth.GenerateCode(cg, report);
-			H rigth = (H)Rigth.ReturnValue.BCMMember;
-
 			if (Optype == IntegerOp.Addition)
+			{
+				Left.GenerateCode(cg, report);
+				Rigth.GenerateCode(cg, report);
+				H rigth = (H)Rigth.ReturnValue.BCMMember;
 				ReturnValue.BCMMember = cg.InstrAdd_TempBound((H)Left.ReturnValue.BCMMember, rigth);
+			}
 
 			if (Optype == IntegerOp.Subtraction)
+			{
+				Left.GenerateCode(cg, report);
+				Rigth.GenerateCode(cg, report);
+				H rigth = (H)Rigth.ReturnValue.BCMMember;
 				ReturnValue.BCMMember = cg.InstrSub_TempBound((H)Left.ReturnValue.BCMMember, rigth);
+			}
 
 			if (Optype == IntegerOp.Multiplication)
+			{
+				Left.GenerateCode(cg, report);
+				Rigth.GenerateCode(cg, report);
+				H rigth = (H)Rigth.ReturnValue.BCMMember;
 				ReturnValue.BCMMember = cg.InstrMult_TempBound((H)Left.ReturnValue.BCMMember, rigth);
+			}
 
 			if (Optype == IntegerOp.Division)
 			{
+				Left.GenerateCode(cg, report);
+				Rigth.GenerateCode(cg, report);
+				H rigth = (H)Rigth.ReturnValue.BCMMember;
+
 				var zero = cg.ReserveInstructionLabel("by zero division check fail");
 				var pass = cg.ReserveInstructionLabel("by zero division check success");
 
@@ -100,6 +129,52 @@ namespace TigerCs.Generation.AST.Expressions
 				cg.BlankLine();
 
 			}
+
+			if (Optype == IntegerOp.And)
+			{
+				var zero = cg.ReserveInstructionLabel("by zero division check fail");
+				var pass = cg.ReserveInstructionLabel("by zero division check success");
+
+				H r;
+				ReturnValue.BCMMember = r = cg.BindVar((T)_int.BCMMember);
+
+				Left.GenerateCode(cg, report);
+				cg.GotoIfZero(zero, (H)Left.ReturnValue.BCMMember);
+
+				Rigth.GenerateCode(cg, report);
+				cg.GotoIfZero(zero, (H)Rigth.ReturnValue.BCMMember);
+
+                cg.InstrAssing(r, cg.AddConstant(1));
+				cg.Goto(pass);
+
+				cg.ApplyReservedLabel(zero);
+				cg.InstrAssing(r, cg.AddConstant(0));
+
+				cg.ApplyReservedLabel(pass);
+			}
+
+			if (Optype == IntegerOp.Or)
+			{
+				var one = cg.ReserveInstructionLabel("by zero division check fail");
+				var pass = cg.ReserveInstructionLabel("by zero division check success");
+
+				H r;
+				ReturnValue.BCMMember = r = cg.BindVar((T)_int.BCMMember);
+
+				Left.GenerateCode(cg, report);
+				cg.GotoIfNotZero(one, (H)Left.ReturnValue.BCMMember);
+
+				Rigth.GenerateCode(cg, report);
+				cg.GotoIfNotZero(one, (H)Rigth.ReturnValue.BCMMember);
+
+				cg.InstrAssing(r, cg.AddConstant(0));
+				cg.Goto(pass);
+
+				cg.ApplyReservedLabel(one);
+				cg.InstrAssing(r, cg.AddConstant(1));
+
+				cg.ApplyReservedLabel(pass);
+			}
 		}
 	}
 
@@ -109,6 +184,8 @@ namespace TigerCs.Generation.AST.Expressions
 		public static readonly IntegerOp Subtraction;
 		public static readonly IntegerOp Multiplication;
 		public static readonly IntegerOp Division;
+		public static readonly IntegerOp And;
+		public static readonly IntegerOp Or;
 
 		readonly char op;
 
@@ -123,6 +200,8 @@ namespace TigerCs.Generation.AST.Expressions
 			Subtraction = new IntegerOp('-');
 			Multiplication = new IntegerOp('*');
 			Division = new IntegerOp('/');
+			And = new IntegerOp('&');
+			Or = new IntegerOp('|');
 		}
 
 		public override int GetHashCode()

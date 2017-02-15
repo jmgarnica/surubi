@@ -7,8 +7,8 @@ namespace TigerCs.Generation.AST.Expressions
 	{
 		/// <summary>
 		/// The type of ReturnValue.
-		/// Void => this expresion does not return a value
-		/// Null => this expresion always returns nil
+		/// Void => this expression does not return a value
+		/// Null => this expression always returns nil
 		/// </summary>
 		TypeInfo Return { get; }
 
@@ -23,7 +23,6 @@ namespace TigerCs.Generation.AST.Expressions
 	public abstract class Expression : IExpression
 	{
 		public int column { get; set; }
-		public bool CorrectSemantics { get; protected set; }
 		public bool Pure { get; protected set; }
 		public string Lex { get; set; }
 		public int line { get; set; }

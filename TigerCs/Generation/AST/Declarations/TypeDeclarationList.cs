@@ -54,10 +54,10 @@ namespace TigerCs.Generation.AST.Declarations
 				}
 			}
 
-			if (n >= Count) return true;
+			if (n >= toorder.Count) return true;
 
 			report.Add(new StaticError(line, column,
-				                        $"Recursive type loop detected in types {string.Join(",", this.Except(orderedList).Select(t => t.ToString()))}",
+				                        $"Recursive type loop detected in types {string.Join(",", this.Except(orderedList.Union(nonrecursive)).Select(t => t.ToString()))}",
 				                        ErrorLevel.Error));
 			return false;
 		}
@@ -73,8 +73,12 @@ namespace TigerCs.Generation.AST.Declarations
 			{
 				if (!dex.BindName(sc, report)) return false;
 				if (dex.Type.Complete)
+				{
 					nonrecursive.Add(dex);
-				else toorder.Add(dex);
+					continue;
+				}
+
+				toorder.Add(dex);
 
 				if(dex.Dependencies.Length == 0)
 					ceroex.Add(dex);

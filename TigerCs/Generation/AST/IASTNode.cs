@@ -8,7 +8,6 @@ namespace TigerCs.Generation.AST
 		int column { get; set; }
 		int line { get; set; }
 		string Lex { get; set; }
-		bool CorrectSemantics { get; }
 
 		bool Pure { get; }
 		bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null);

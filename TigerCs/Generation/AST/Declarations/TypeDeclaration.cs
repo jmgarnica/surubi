@@ -20,8 +20,6 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public string Lex { get; set; }
 
-		public bool CorrectSemantics { get; private set; }
-
 		public bool Pure { get; protected set; }
 
 		public abstract bool BindName(ISemanticChecker sc, ErrorReport report);

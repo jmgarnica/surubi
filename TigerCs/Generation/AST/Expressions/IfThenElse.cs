@@ -65,8 +65,8 @@ namespace TigerCs.Generation.AST.Expressions
 
 					if (Then.Return == _int || Else.Return == _int || (Then.Return != Null && Else.Return != Null))
 					{
-						report.Add(new StaticError(line, column, $"Then-expresion[{Then.Return}] and " +
-						                                         $"Else-expresion[{Else.Return}] must have the same return" +
+						report.Add(new StaticError(line, column, $"Then-expression[{Then.Return}] and " +
+						                                         $"Else-expression[{Else.Return}] must have the same return" +
 						                                         " type or do not return any value", ErrorLevel.Error));
 						return false;
 					}
@@ -76,7 +76,7 @@ namespace TigerCs.Generation.AST.Expressions
 			}
 			else if (Then.Return != _void)
 			{
-				report.Add(new StaticError(Then.line, Then.column, "If-Then expresion can not return a value",
+				report.Add(new StaticError(Then.line, Then.column, "If-Then expression can not return a value",
 				                           ErrorLevel.Error));
 				return false;
 			}

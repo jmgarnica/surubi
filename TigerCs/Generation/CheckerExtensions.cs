@@ -44,7 +44,7 @@ namespace TigerCs.Generation
 		public static TypeInfo Void(this ISemanticChecker sc, ErrorReport report = null)
 		{
 			MemberInfo Void;
-			if (sc.Reachable(TypeInfo.MakeTypeName("void"), out Void, new MemberDefinition
+			if (sc.Reachable(TypeInfo.MakeTypeName("<cg> void <cg>"), out Void, new MemberDefinition
 			                 {
 				                 Member = new TypeInfo
 				                 {
@@ -61,7 +61,7 @@ namespace TigerCs.Generation
 		public static TypeInfo Null(this ISemanticChecker sc, ErrorReport report = null)
 		{
 			MemberInfo Null;
-			if (sc.Reachable(TypeInfo.MakeTypeName("Null"), out Null, new MemberDefinition
+			if (sc.Reachable(TypeInfo.MakeTypeName("<cg> Null <cg>"), out Null, new MemberDefinition
 			                 {
 				                 Member = new TypeInfo
 				                 {

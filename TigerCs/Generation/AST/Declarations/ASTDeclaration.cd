@@ -3,69 +3,84 @@
   <Class Name="TigerCs.Generation.AST.Declarations.AliasDeclaration" Collapsed="true">
     <Position X="7.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAACAAAAAAAAgAAAAACAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAJAAAACAAAAAAAAgAAAAACAAAAAAA=</HashCode>
       <FileName>Generation\AST\Declarations\AliasDeclaration.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TigerCs.Generation.AST.Declarations.ArrayDeclaration" Collapsed="true">
     <Position X="9.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAIAAAAAAAAAAAAJAAAAAAAAAAAAAgAAAAACAAAAAAA=</HashCode>
       <FileName>Generation\AST\Declarations\ArrayDeclaration.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TigerCs.Generation.AST.Declarations.HolderDeclaration" Collapsed="true">
-    <Position X="4.5" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AQEAAAAAAAAAAIAIAAAAAAAAQAAAAgAAAAACAEAABAA=</HashCode>
-      <FileName>Generation\AST\Declarations\HolderDeclaration.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="TigerCs.Generation.AST.Declarations.ParameterDeclaration" Collapsed="true">
-    <Position X="3.25" Y="4.5" Width="1.5" />
+    <Position X="3.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAACAAAAAAA=</HashCode>
+      <HashCode>AQEAAAAAAAAAAIAoAAEAAAAAQAAAAhAAAQACAEAAAAA=</HashCode>
       <FileName>Generation\AST\Declarations\ParameterDeclaration.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TigerCs.Generation.AST.Declarations.RecordDeclaration" Collapsed="true">
     <Position X="11.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAJAAAAAAAAAAAAAgAAAAAGAAAAAAA=</HashCode>
       <FileName>Generation\AST\Declarations\RecordDeclaration.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TigerCs.Generation.AST.Declarations.TypeDeclaration" Collapsed="true">
     <Position X="9.75" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQEAAAAAAAAAAIAIAAAAAAAEQAAAAhAAAQACAAAABAA=</HashCode>
+      <HashCode>AQEAAAAAAAAAAICJAAAAAAAAQAAAAhAAAQACAAAAAAA=</HashCode>
       <FileName>Generation\AST\Declarations\TypeDeclaration.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TigerCs.Generation.AST.Declarations.VarDeclaration" Collapsed="true">
-    <Position X="5.75" Y="4.5" Width="1.5" />
+    <Position X="6" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQEAAAAAAABAAIAIAAEAAAAAQAAAAhAAAAACAEAAAAA=</HashCode>
       <FileName>Generation\AST\Declarations\VarDeclaration.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TigerCs.Generation.AST.Declarations.FunctionDeclaration" Collapsed="true">
-    <Position X="13.5" Y="3" Width="1.5" />
+    <Position X="14" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQEAAAAAAAAAAIAIAAABAAAAQAAAAgAAAIADAAAABAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAAACAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
       <FileName>Generation\AST\Declarations\FunctionDeclaration.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TigerCs.Generation.AST.Declarations.DeclarationList&lt;R&gt;" Collapsed="true">
-    <Position X="13.25" Y="0.5" Width="1.5" />
+    <Position X="17" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQEAAAAAAAAAAIAIAAAAAAAAQAAAAgAAAAACAAAABAA=</HashCode>
       <FileName>Generation\AST\Declarations\DeclarationList.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Declarations.TypeDeclarationList" Collapsed="true">
+    <Position X="15.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAIAAAAAAgAAAAAIAAAAAAAAAAAQAgAAAAACAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Declarations\TypeDeclarationList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Declarations.DeclarationListList&lt;R&gt;" Collapsed="true">
+    <Position X="21" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAACAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Declarations\DeclarationList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TigerCs.Generation.AST.Declarations.FunctionDeclarationList" Collapsed="true">
+    <Position X="18.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generation\AST\Declarations\DeclarationList.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Interface Name="TigerCs.Generation.AST.Declarations.IDeclaration" Collapsed="true">
     <Position X="4.75" Y="0.5" Width="1.5" />
@@ -75,7 +90,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="TigerCs.Generation.AST.Declarations.IDeclarationList&lt;R&gt;" Collapsed="true">
-    <Position X="10.75" Y="0.5" Width="1.5" />
+    <Position X="17" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAACAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Generation\AST\Declarations\DeclarationList.cs</FileName>

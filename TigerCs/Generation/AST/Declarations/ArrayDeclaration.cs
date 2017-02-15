@@ -20,7 +20,7 @@ namespace TigerCs.Generation.AST.Declarations
 					{
 						line = line,
 						column = column,
-						Member = new TypeInfo
+						Member = Type = new TypeInfo
 						{
 							ArrayOf = tem,
 							Complete = tem.Complete,
@@ -40,7 +40,7 @@ namespace TigerCs.Generation.AST.Declarations
 				{
 					line = line,
 					column = column,
-					Member = new TypeInfo
+					Member = Type = new TypeInfo
 					{
 						Name = TypeName,
 						Complete = false

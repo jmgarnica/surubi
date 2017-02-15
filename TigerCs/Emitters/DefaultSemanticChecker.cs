@@ -62,8 +62,13 @@ namespace TigerCs.Emitters
 		{
 			MemberDefinition md;
 			bool tmp = Reachable(name, out md, desired);
+			if (!tmp)
+			{
+				member = null;
+				return false;
+			}
 			member = md.Member;
-			return tmp;
+			return true;
 		}
 
 		public bool Reachable(string name, out MemberDefinition member, MemberDefinition desired = null)

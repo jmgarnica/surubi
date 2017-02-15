@@ -24,7 +24,7 @@ namespace TigerCs.Generation.AST.Expressions
 
 			if (Source.Return == _void)
 			{
-				report.Add(new StaticError(Source.line, Source.column, "The given expresion returns no value", ErrorLevel.Error));
+				report.Add(new StaticError(Source.line, Source.column, "The given expression returns no value", ErrorLevel.Error));
 				return false;
 			}
 

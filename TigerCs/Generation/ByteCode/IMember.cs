@@ -26,8 +26,8 @@
 		/// Gets the bounded function that will allocate a new object of this type
 		/// Array Case
 		/// parameters:
-		/// IHolder : int -> element count
-		/// IHolder : ArrayType -> default value
+		/// (0)IHolder : int -> element count
+		/// (1)IHolder : ArrayType -> default value
 		/// returns :
 		/// IHolder -> array
 		/// 
@@ -50,8 +50,8 @@
 
 		/// <summary>
 		/// parameters:
-		/// IHolder : instance
-		/// IHolder : int -> element index
+		/// (0)IHolder : instance
+		/// (1)IHolder : int -> element index
 		/// returns:
 		/// member value
 		/// 
@@ -61,9 +61,9 @@
 
 		/// <summary>
 		/// parameters:
-		/// IHolder : instance
-		/// IHolder : int -> element index
-		/// IHolder : source
+		/// (0)IHolder : instance
+		/// (1)IHolder : int -> element index
+		/// (2)IHolder : source
 		/// returns:
 		/// void
 		/// 

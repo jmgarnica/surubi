@@ -10,7 +10,6 @@ namespace TigerCs.Generation.AST.Expressions
 		public bool CanBreak { get; protected set; }
 
 		public int column { get; set; }
-		public bool CorrectSemantics { get; protected set; }
 		public string Lex { get; set; }
 		public int line { get; set; }
 
@@ -19,10 +18,13 @@ namespace TigerCs.Generation.AST.Expressions
 		public TypeInfo Return { get; protected set; }
 		public HolderInfo ReturnValue { get; protected set; }
 
+		TypeInfo _void;
 		public bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
 			CanBreak = false;
 			Pure = true;
+
+			_void = sc.Void(report);
 
 			foreach (var item in this)
 			{
@@ -34,12 +36,12 @@ namespace TigerCs.Generation.AST.Expressions
 
 			if (Count > 0)
 			{
-				Return = this[Count - 1].Return;
-				ReturnValue = this[Count - 1].ReturnValue;
+				Return = CanBreak? _void : this[Count - 1].Return;
+				ReturnValue = CanBreak? null : this[Count - 1].ReturnValue;
 			}
 			else
 			{
-				Return = sc.Void(report);
+				Return = _void;
 				ReturnValue = null;
 			}
 
@@ -51,8 +53,15 @@ namespace TigerCs.Generation.AST.Expressions
 			where F : class, IFunction<T, F>
 			where H : class, IHolder
 		{
-			foreach (var item in this)
+			for (int i = 0; i < Count - 1; i++)
+			{
+				var item = this[i];
 				item.GenerateCode(cg, report);
+				if(item.ReturnValue != null)
+					cg.Release((H)item.ReturnValue.BCMMember);
+			}
+
+			this[Count - 1].GenerateCode(cg, report);
 		}
 	}
 }

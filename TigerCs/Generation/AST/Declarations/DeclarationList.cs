@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
@@ -46,10 +47,6 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public virtual bool BindName(ISemanticChecker sc, ErrorReport report)
 		{
-			if (typeof(IEnumerable<IDeclaration>).IsAssignableFrom(typeof(R)))
-				//a collection of collections of declarations don't have any name to bind
-				return true;
-
 			foreach (var dex in this)
 				if (!dex.BindName(sc, report)) return false;
 
@@ -62,10 +59,6 @@ namespace TigerCs.Generation.AST.Declarations
 
 			foreach (var dex in this)
 			{
-				if (typeof(IEnumerable<IDeclaration>).IsAssignableFrom(typeof(R)))
-					//semantic check and name binding on collections of collections is done for each collection
-					if(!dex.BindName(sc, report)) return false;
-
 				if (!dex.CheckSemantics(sc, report))
 					return false;
 			}
@@ -80,6 +73,38 @@ namespace TigerCs.Generation.AST.Declarations
 		{
 			foreach (var dex in this)
 				dex.GenerateCode(cg,report);
+		}
+	}
+
+	public class DeclarationListList<R> : DeclarationList<IDeclarationList<R>>
+		where R : IDeclaration
+	{
+		public override bool BindName(ISemanticChecker sc, ErrorReport report)
+		{
+			return true;
+		}
+
+		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
+		{
+			foreach (var dex in this)
+				if (!dex.BindName(sc, report)) return false;
+
+			foreach (var dex in this)
+				if (!dex.CheckSemantics(sc, report)) return false;
+
+			return true;
+		}
+	}
+
+	public class FunctionDeclarationList : DeclarationList<FunctionDeclaration>
+	{
+		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
+		{
+			foreach (var f in this)
+				f.DeclareFunction(cg,report);
+
+			foreach (var f in this)
+				f.GenerateCode(cg, report);
 		}
 	}
 }

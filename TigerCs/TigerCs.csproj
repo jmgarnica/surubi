@@ -64,6 +64,7 @@
     <Compile Include="Generation\AST\Declarations\IDeclaration.cs" />
     <Compile Include="Generation\AST\Declarations\DeclarationList.cs" />
     <Compile Include="Generation\AST\Declarations\TypeDeclarationList.cs" />
+    <Compile Include="Generation\AST\Expressions\ArrayCreation.cs" />
     <Compile Include="Generation\AST\IASTNode.cs" />
     <Compile Include="Generation\AST\Expressions\ILValue.cs" />
     <Compile Include="Generation\ByteCode\MemberOptions.cs" />
@@ -97,7 +98,6 @@
     <Compile Include="Emitters\TigerScope.cs" />
     <Compile Include="Generation\AST\Expressions\LvalueNode.cs" />
     <Compile Include="Generation\AST\Declarations\ParameterDeclaration.cs" />
-    <Compile Include="Generation\AST\Declarations\HolderDeclaration.cs" />
     <Compile Include="Generation\ReleaseAttribute.cs" />
     <Compile Include="Generation\StaticDataAttribute.cs" />
     <Compile Include="Interpretation\Interpreter.cs" />

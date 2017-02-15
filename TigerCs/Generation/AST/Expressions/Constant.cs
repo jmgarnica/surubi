@@ -56,9 +56,9 @@ namespace TigerCs.Generation.AST.Expressions
 		}
 	}
 
-	public class NillConstant : Expression
+	public class NilConstant : Expression
 	{
-		public NillConstant()
+		public NilConstant()
 		{
 			Pure = true;
 		}

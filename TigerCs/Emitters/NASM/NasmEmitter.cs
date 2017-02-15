@@ -149,6 +149,7 @@ namespace TigerCs.Emitters.NASM
 #region [Control]
 		public override void Comment(string comment)
 		{
+			SetLabel();
 			fw.WriteLine(";" + comment.Replace("\n\r", "\n").Replace("\n", "\n;"));
 		}
 		public override void BlankLine()
@@ -270,7 +271,7 @@ namespace TigerCs.Emitters.NASM
 
 		public override NasmFunction DeclareFunction(string name, NasmType returntype, Tuple<string, NasmType>[] args, FunctionOptions opt = FunctionOptions.Default)
 		{
-			var func = new NasmFunction(CurrentScope, CurrentScope.VarsCount, this)
+			var func = new NasmFunction(CurrentScope, CurrentScope.VarsCount, this, name)
 			{
 				ParamsCount = args.Length,
 				KeepOutScope = (opt & FunctionOptions.Delegate) == FunctionOptions.Delegate
@@ -361,7 +362,7 @@ namespace TigerCs.Emitters.NASM
 				reg = Register.EAX;
 			}
 
-			NasmFunction.AlocateFunction(fw, reg.Value, CurrentScope, this, label);
+			NasmFunction.AlocateFunction(fw, reg.Value, CurrentScope, this, label, false);
 			f.StackBackValue(reg.Value, fw, CurrentScope);
 
 			if (stackback) fw.WriteLine("pop " + Register.EAX);
@@ -880,7 +881,7 @@ namespace TigerCs.Emitters.NASM
 			SetLabel();
 
 			var scope = CurrentScope;
-			while (scope != null &&	scope.DeclaringFunction == null)
+			while (scope != null)
 			{
 				if (scope.ScopeLabels.ContainsKey(label) || scope.ExpectedLabels.ContainsKey(label))
 				{
@@ -890,6 +891,7 @@ namespace TigerCs.Emitters.NASM
 
 				scope.WirteCloseCode(fw, false, false);
 				scope = scope.Parent;
+				if(scope.DeclaringFunction != null)break;
 			}
 
 			throw new InvalidOperationException("the label was not found before reaching the " + (scope == null ? "root scope" : "function definition"));
@@ -1064,7 +1066,7 @@ namespace TigerCs.Emitters.NASM
 				reg = Register.EAX;
 			}
 
-			NasmFunction.AlocateFunction(fw, reg.Value, CurrentScope, this, label);
+			NasmFunction.AlocateFunction(fw, reg.Value, CurrentScope, this, label, f.KeepOutScope);
 			f.StackBackValue(reg.Value, fw, CurrentScope);
 
 			if (stackback) fw.WriteLine("pop " + Register.EAX);

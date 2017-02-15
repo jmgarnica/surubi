@@ -91,7 +91,7 @@ namespace TigerCs.Emitters.NASM
 
 		public void DealocateFunction(FormatWriter fw, NasmEmitterScope accedingscope) => Free.Call(fw, null, accedingscope, this);
 
-		public static void AlocateFunction(FormatWriter fw, Register target, NasmEmitterScope accedingscope, NasmEmitter bound, Guid beforeenterlabel)
+		public static void AlocateFunction(FormatWriter fw, Register target, NasmEmitterScope accedingscope, NasmEmitter bound, Guid beforeenterlabel, bool closure)
 		{
 			var sp = bound.AddConstant(8);
 			Malloc.Call(fw, target, accedingscope, sp);
@@ -105,9 +105,16 @@ namespace TigerCs.Emitters.NASM
                 fw.WriteLine($"push {reg}");
 			}
 
-			fw.WriteLine($"mov {reg}, [EBP - 4]");
-			fw.WriteLine($"add {reg}, 8");
-			fw.WriteLine($"mov [{target} + 4], {reg}");
+			if (closure)
+			{
+				fw.WriteLine($"mov {reg}, [EBP - 4]");
+				fw.WriteLine($"add {reg}, 8");
+				fw.WriteLine($"mov [{target} + 4], {reg}");
+			}
+			else
+			{
+				fw.WriteLine($"mov [{target} + 4], EBP");
+			}
 
 			if (stackback)
 				fw.WriteLine($"pop {reg}");

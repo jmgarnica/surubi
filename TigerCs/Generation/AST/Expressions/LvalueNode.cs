@@ -58,7 +58,7 @@ namespace TigerCs.Generation.AST.Expressions
 				return;
 			}
 
-			cg.InstrAssing((H)Return.BCMMember, source);
+			cg.InstrAssing((H)ReturnValue.BCMMember, source);
 		}
 	}
 
@@ -82,9 +82,10 @@ namespace TigerCs.Generation.AST.Expressions
 				return false;
 			}
 
-			if (!Indexer.Return.Equals(sp.Int(report)))
+			var _int = sp.Int(report);
+            if (!Indexer.Return.Equals(_int))
 			{
-				report.Add(new StaticError(line, column, "Array indexer must be an expresion of type 'int'", ErrorLevel.Error));
+				report.Add(new StaticError(line, column, $"Array indexer must be an expression of type {_int}", ErrorLevel.Error));
 				return false;
 			}
 
