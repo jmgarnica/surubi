@@ -1,4 +1,5 @@
 ﻿using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expressions
@@ -6,7 +7,6 @@ namespace TigerCs.Generation.AST.Expressions
 	public class Neg : Expression
 	{
 		[NotNull]
-		[Release]
 		IExpression operand { get; set; }
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)

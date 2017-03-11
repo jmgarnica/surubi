@@ -72,8 +72,6 @@ namespace TigerCs.CompilationServices
 			SemanticChecker.End();
 
 			main.GenerateCode(ByteCodeMachine, Report);
-
-			main.ReleaseStaticData();
 			ByteCodeMachine.End();
 		}
 

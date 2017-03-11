@@ -1,7 +1,7 @@
 ﻿#define ENFORCE_RETURN_TYPE_CHECK
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.AST.Declarations;
 using TigerCs.Generation.ByteCode;
 
@@ -9,10 +9,8 @@ namespace TigerCs.Generation.AST.Expressions
 {
 	public class Let : Expression
 	{
-		[Release(true)]
 		public DeclarationListList<IDeclaration> Declarations { get; set; }
 
-		[Release]
 		public IExpression Body { get; set; }
 
 		List<TypeInfo> declaredhere;

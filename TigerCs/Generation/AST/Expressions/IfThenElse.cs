@@ -1,19 +1,22 @@
 ﻿using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expressions
 {
 	public class IfThenElse : Expression
 	{
-		[Release]
 		[NotNull]
+		[SemanticChecked(Expected = RetrurnType.Int)]
+		[ReturnType(RetrurnType.Int)]
 		public IExpression If { get; set; }
 
-		[Release]
 		[NotNull]
+		[SemanticChecked(CheckOrder = 1, NestedScope = true, Expected = RetrurnType.Expected)]
 		public IExpression Then { get; set; }
 
-		[Release]
+		[SemanticChecked(CheckOrder = 2, NestedScope = true, Expected = RetrurnType.Dependent, Dependency = nameof(Then))]
+		[ReturnType(RetrurnType.Dependent, Dependency = nameof(Then))]
 		public IExpression Else { get; set; }
 
 		bool? alwaystakethen;
@@ -22,55 +25,57 @@ namespace TigerCs.Generation.AST.Expressions
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
-			var _int = sc.Int(report);
+			//var _int = sc.Int(report);
 			var _void = sc.Void(report);
 			Null = sc.Null(report);
 			nil = sc.Nil(report);
 
 			alwaystakethen = null;
 
-			if (!If.CheckSemantics(sc, report, _int) ) return  false;
+			if (!this.AutoCheck(sc, report, expected)) return false;
 
-			if (If.Return != _int)
-			{
-				report.Add(new StaticError(If.line, If.column,
-										   $"The type of given condition is {If.Return}" +
-										   $" where it should be {_int}", ErrorLevel.Error));
-				return false;
-			}
+			//if (!If.CheckSemantics(sc, report, _int) ) return  false;
 
-			sc.EnterNestedScope();
-			if (!Then.CheckSemantics(sc, report, expected))
-			{
-				sc.LeaveScope();
-				return false;
-			}
-			sc.LeaveScope();
+			//if (If.Return != _int)
+			//{
+			//	report.Add(new StaticError(If.line, If.column,
+			//							   $"The type of given condition is {If.Return}" +
+			//							   $" where it should be {_int}", ErrorLevel.Error));
+			//	return false;
+			//}
 
-			if (Else != null)
-			{
-				sc.EnterNestedScope();
-				if (!Else.CheckSemantics(sc, report, Then.Return))
-				{
-					sc.LeaveScope();
-					return false;
-				}
-				sc.LeaveScope();
-			}
+			//sc.EnterNestedScope();
+			//if (!Then.CheckSemantics(sc, report, expected))
+			//{
+			//	sc.LeaveScope();
+			//	return false;
+			//}
+			//sc.LeaveScope();
+
+			//if (Else != null)
+			//{
+			//	sc.EnterNestedScope();
+			//	if (!Else.CheckSemantics(sc, report, Then.Return))
+			//	{
+			//		sc.LeaveScope();
+			//		return false;
+			//	}
+			//	sc.LeaveScope();
+			//}
 
 			if (Else != null)
 			{
 				if (Then.Return != Else.Return)
 				{
 
-					if (Then.Return == _int || Else.Return == _int || (Then.Return != Null && Else.Return != Null))
-					{
-						report.Add(new StaticError(line, column, $"Then-expression[{Then.Return}] and " +
-						                                         $"Else-expression[{Else.Return}] must have the same return" +
-						                                         " type or do not return any value", ErrorLevel.Error));
-						return false;
-					}
-					Return = Then.Return != Null? Then.Return : Else.Return;
+					//if (Then.Return == _int || Else.Return == _int || (Then.Return != Null && Else.Return != Null))
+					//{
+					//	report.Add(new StaticError(line, column, $"Then-expression[{Then.Return}] and " +
+					//											 $"Else-expression[{Else.Return}] must have the same return" +
+					//											 " type or do not return any value", ErrorLevel.Error));
+					//	return false;
+					//}
+					Return = Then.Return != Null ? Then.Return : Else.Return;
 				}
 				else Return = Then.Return;
 			}

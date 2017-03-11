@@ -1,14 +1,13 @@
 ﻿using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expressions
 {
 	public class While : Expression
 	{
-		[Release]
 		public IExpression Condition { get; set; }
 
-		[Release]
 		[NotNull]
 		public IExpression Body { get; set; }
 

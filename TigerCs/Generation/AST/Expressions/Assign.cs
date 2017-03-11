@@ -1,4 +1,5 @@
 ﻿using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expressions
@@ -7,11 +8,9 @@ namespace TigerCs.Generation.AST.Expressions
 	public class Assign : Expression
 	{
 		[NotNull]
-		[Release]
 		public ILValue Target { get; set; }
 
 		[NotNull]
-		[Release]
 		public IExpression Source { get; set; }
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)

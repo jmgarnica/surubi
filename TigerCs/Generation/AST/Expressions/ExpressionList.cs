@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expressions

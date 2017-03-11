@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Interpretation;
 
 namespace TigerCs.Generation

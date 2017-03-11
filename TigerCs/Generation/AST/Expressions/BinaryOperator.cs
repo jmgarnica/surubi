@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expressions
@@ -8,11 +9,9 @@ namespace TigerCs.Generation.AST.Expressions
 	public abstract class BinaryOperator : Expression
 	{
 		[NotNull]
-		[Release]
 		public IExpression Rigth { get; set; }
 
 		[NotNull]
-		[Release]
 		public IExpression Left { get; set; }
 	}
 

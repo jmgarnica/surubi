@@ -24,7 +24,7 @@ namespace TigerCs.Generation.AST.Expressions
 	{
 		public int column { get; set; }
 		public bool Pure { get; protected set; }
-		public string Lex { get; set; }
+		public virtual string Lex { get; set; }
 		public int line { get; set; }
 		public TypeInfo Return { get; protected set; }
 		public HolderInfo ReturnValue { get; protected set; }

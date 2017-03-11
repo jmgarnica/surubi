@@ -1,10 +1,14 @@
 ﻿using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expressions
 {
 	public class IntegerConstant : Expression
 	{
+		[NotNull(InvalidValues = new object[] { "" })]
+		public override string Lex { get; set; }
+
 		public IntegerConstant()
 		{
 			Pure = true;
@@ -13,10 +17,10 @@ namespace TigerCs.Generation.AST.Expressions
 
 		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report, TypeInfo expected = null)
 		{
-			if (!int.TryParse(Lex, out value))
+			if (this.AutoCheck(sp, report, expected) && !int.TryParse(Lex, out value))
 			{
 				report.Add(new StaticError(line, column, "Integer parsing error", ErrorLevel.Internal, Lex));
-				return false;
+				//TODO: there is no need ¿for/of? stopping the semantic check, but the checking must fail at the end
 			}
 
 			Return = sp.Int(report);
@@ -32,6 +36,9 @@ namespace TigerCs.Generation.AST.Expressions
 
 	public class StringConstant : Expression
 	{
+		[NotNull]
+		public override string Lex { get; set; }
+
 		public StringConstant()
 		{
 			Pure = true;
@@ -39,12 +46,7 @@ namespace TigerCs.Generation.AST.Expressions
 
 		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report, TypeInfo expected = null)
 		{
-			//TODO: check string format
-			if (Lex == null)
-			{
-				report.Add(new StaticError(line, column, "String constant parsing error, null lex", ErrorLevel.Internal));
-				return false;
-			}
+			this.AutoCheck(sp, report, expected);
 			Return = sp.String(report);
 			ReturnValue = new HolderInfo {Type = Return, ConstValue = Lex};
 			return true;

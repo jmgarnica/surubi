@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using TigerCs.CompilationServices;
+﻿using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Declarations

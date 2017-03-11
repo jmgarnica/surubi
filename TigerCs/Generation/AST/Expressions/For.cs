@@ -1,4 +1,5 @@
 ﻿using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expressions
@@ -9,15 +10,12 @@ namespace TigerCs.Generation.AST.Expressions
 
 		public string VarName { get; set; }
 
-		[Release]
 		[NotNull]
 		public IExpression From { get; set; }
 
-		[Release]
 		[NotNull]
 		public IExpression To { get; set; }
 
-		[Release]
 		[NotNull]
 		public IExpression Body { get; set; }
 

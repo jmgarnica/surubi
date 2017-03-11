@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expressions
@@ -16,7 +17,6 @@ namespace TigerCs.Generation.AST.Expressions
 		HolderInfo args;
 
 		[NotNull]
-		[Release]
 		public IExpression Root { get; }
 
 		public MAIN(IExpression root)

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 using TigerCs.Interpretation;
 
@@ -7,7 +8,6 @@ namespace TigerCs.Generation.AST.Expressions
 {
 	public class MemberAccess : Expression, ILValue
 	{
-		[Release]
 		[NotNull]
 		public IExpression Record { get; set; }
 		public string MemberName { get; set; }

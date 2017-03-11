@@ -40,10 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompilationServices\AutoCheck\ReturnType.cs" />
+    <Compile Include="CompilationServices\AutoCheck\ReturnTypeAttribute.cs" />
+    <Compile Include="CompilationServices\AutoCheck\SemanticCheckedAttribute.cs" />
     <Compile Include="CompilationServices\GuidGenerator.cs" />
     <Compile Include="CompilationServices\Extensions.cs" />
     <Compile Include="CompilationServices\IGenerator.cs" />
-    <Compile Include="CompilationServices\NotNullAttribute.cs" />
+    <Compile Include="CompilationServices\AutoCheck\NotNullAttribute.cs" />
     <Compile Include="Emitters\BCMBase.cs" />
     <Compile Include="Emitters\EmitterExeption.cs" />
     <Compile Include="Emitters\EmitterScope.cs" />
@@ -81,7 +84,7 @@
     <Compile Include="Generation\AST\Expressions\IExpression.cs" />
     <Compile Include="Generation\AST\Expressions\MAIN.cs" />
     <Compile Include="Generation\AST\Expressions\Neg.cs" />
-    <Compile Include="Generation\CheckerExtensions.cs" />
+    <Compile Include="CompilationServices\AutoCheck\CheckerExtensions.cs" />
     <Compile Include="Generation\Descriptors.cs" />
     <Compile Include="CompilationServices\TigerGenerator.cs" />
     <Compile Include="Generation\ISemanticChecker.cs" />
@@ -98,8 +101,6 @@
     <Compile Include="Emitters\TigerScope.cs" />
     <Compile Include="Generation\AST\Expressions\LvalueNode.cs" />
     <Compile Include="Generation\AST\Declarations\ParameterDeclaration.cs" />
-    <Compile Include="Generation\ReleaseAttribute.cs" />
-    <Compile Include="Generation\StaticDataAttribute.cs" />
     <Compile Include="Interpretation\Interpreter.cs" />
     <Compile Include="Interpretation\InterpreterObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

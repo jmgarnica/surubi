@@ -1,4 +1,5 @@
 ﻿using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.AST.Expressions;
 using TigerCs.Generation.ByteCode;
 
@@ -7,7 +8,6 @@ namespace TigerCs.Generation.AST.Declarations
 	public class VarDeclaration : IDeclaration
 	{
 		[NotNull]
-		[Release]
 		public IExpression Init { get; set; }
 
 		public string HolderType { get; set; }

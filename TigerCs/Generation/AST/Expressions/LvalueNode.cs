@@ -1,4 +1,5 @@
 ﻿using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expressions
@@ -64,10 +65,9 @@ namespace TigerCs.Generation.AST.Expressions
 
 	public class ArrayAccess : Expression, ILValue
 	{
-		[Release]
 		[NotNull]
 		public IExpression Array { get; set; }
-		[Release]
+
 		[NotNull]
 		public IExpression Indexer { get; set; }
 

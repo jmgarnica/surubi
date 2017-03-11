@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expressions
 {
 	public abstract class ComparisonOperator : BinaryOperator
 	{
-		[StaticData]
-		public static FunctionInfo StringComparer { get; protected set; }
+		public FunctionInfo StringComparer { get; protected set; }
 
 		TypeInfo _int, _string;
 		HolderInfo _nill;
@@ -83,7 +83,7 @@ namespace TigerCs.Generation.AST.Expressions
 						});
 				return false;
 			}
-			else if(!(Rigth.Return.Equals(_int) || Rigth.Return.Equals(_string)))
+			if(!(Rigth.Return.Equals(_int) || Rigth.Return.Equals(_string)))
             {
 				report.Add(
 					new StaticError

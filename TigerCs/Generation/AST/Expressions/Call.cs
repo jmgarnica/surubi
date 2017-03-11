@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Expressions
@@ -10,7 +11,6 @@ namespace TigerCs.Generation.AST.Expressions
 	{
 		public string FunctionName { get; set; }
 
-		[Release(true)]
 		public List<IExpression> Arguments { get; set; }
 
 		FunctionInfo func;

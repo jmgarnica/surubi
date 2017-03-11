@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TigerCs.CompilationServices;
 using TigerCs.Generation.ByteCode;
 

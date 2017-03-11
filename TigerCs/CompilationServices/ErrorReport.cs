@@ -41,8 +41,8 @@ namespace TigerCs.CompilationServices
 					break;
 				case ErrorLevel.Internal:
 					CriticalError?.Invoke(error);
-					if (Debugger.IsAttached)
-						Debugger.Break();
+					//if (Debugger.IsAttached)
+					//	Debugger.Break();
 					break;
 				default:
 					Info?.Invoke(error);

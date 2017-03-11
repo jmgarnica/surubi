@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.AST.Expressions;
 using TigerCs.Generation.ByteCode;
 
@@ -9,11 +10,9 @@ namespace TigerCs.Generation.AST.Declarations
 {
 	public class FunctionDeclaration : IDeclaration
 	{
-		[Release]
 		[NotNull]
 		public IExpression Body { get; set; }
 
-		[Release(true)]
 		[NotNull]
 		public List<ParameterDeclaration> Parameters { get; set; }
 

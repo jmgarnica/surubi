@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation;
 using TigerCs.Generation.ByteCode;
 
