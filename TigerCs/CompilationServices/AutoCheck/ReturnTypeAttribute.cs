@@ -5,8 +5,8 @@ namespace TigerCs.CompilationServices.AutoCheck
 	[AttributeUsage(AttributeTargets.Property)]
 	public class ReturnTypeAttribute : Attribute
 	{
-		public readonly RetrurnType Return;
-		public ReturnTypeAttribute(RetrurnType Return)
+		public readonly ExpectedType Return;
+		public ReturnTypeAttribute(ExpectedType Return)
 		{
 			this.Return = Return;
 		}

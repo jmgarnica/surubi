@@ -8,9 +8,12 @@ namespace TigerCs.Generation.AST.Expressions
 	public class Assign : Expression
 	{
 		[NotNull]
+		[SemanticChecked(CheckOrder = 1, Expected = ExpectedType.Dependent, Dependency = nameof(Source))]
 		public ILValue Target { get; set; }
 
 		[NotNull]
+		[SemanticChecked]
+        [ReturnType(ExpectedType.Dependent, Dependency = nameof(Target))]//all semantic checks are performed before return checks
 		public IExpression Source { get; set; }
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
@@ -19,7 +22,7 @@ namespace TigerCs.Generation.AST.Expressions
 			TypeInfo _null = sc.Null(report);
 			TypeInfo _string = sc.String(report);
 
-			if (!Source.CheckSemantics(sc, report)) return false;
+			if (!this.AutoCheck(sc, report, expected)) return false;
 
 			if (Source.Return == _void)
 			{
@@ -27,18 +30,9 @@ namespace TigerCs.Generation.AST.Expressions
 				return false;
 			}
 
-			if (!Target.CheckSemantics(sc, report, Source.Return)) return false;
-
 			if (Source.Return == _null && Target.Return.ArrayOf == null && Target.Return.Members == null && Target.Return != _string)
 			{
 				report.Add(new StaticError(line, column, "Only arrays, records and strings can be nil", ErrorLevel.Error));
-				return false;
-			}
-
-			if (Target.Return != Source.Return)
-			{
-				report.Add(new StaticError(line, column, $"Assignation between incompatible types: {Target.Return}, {Source.Return}",
-				                           ErrorLevel.Error));
 				return false;
 			}
 

@@ -39,6 +39,7 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public bool BindName(ISemanticChecker sc, ErrorReport report)
 		{
+			if (!this.AutoCheck(sc, report)) return false;
 			_void = sc.Void(report);
 
 			Func = new FunctionInfo
@@ -77,7 +78,7 @@ namespace TigerCs.Generation.AST.Declarations
 				if (Func.Return.Equals(_void) || Func.Return.Equals(sc.Null(report)))
 				{
 
-					report.Add(new StaticError(line, column, "Functions must return a value", ErrorLevel.Internal));
+					report.Add(new StaticError(line, column, "Functions must return a value", ErrorLevel.Error));
 					return false;
 				}
 			}

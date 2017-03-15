@@ -172,71 +172,133 @@ namespace TigerCs.CompilationServices.AutoCheck
 			{
 				var val = prop.p.GetValue(node) as IExpression;
 				if (val == null) continue;
+				var rettype = val.Return;
+				var type = prop.a.Return;
 
-				var ret = ReturnType(prop.a.Return, sc, report, prop.a.Dependency, node, expected);
-				if(ret == null) continue;
-
-				if (val.Return == null)
+				if (rettype == null)
 				{
-					report?.Add(new StaticError(node.line, node.column, "AutoCheck: Inaccessible dependency property", ErrorLevel.Error));
+					report?.Add(new StaticError(node.line, node.column, "AutoCheck: Unchecked member", ErrorLevel.Error));
 					return false;
 				}
 
-				if(val.Return.Equals(ret)) continue;
+				bool arrayof = true;
+				bool member = false;
+				switch (type)
+				{
+					case ExpectedType.ArrayOfInt:
+						type = ExpectedType.Int;
+						rettype = rettype.ArrayOf;
+						break;
+
+					case ExpectedType.ArrayOfString:
+						type = ExpectedType.String;
+						rettype = rettype.ArrayOf;
+						break;
+
+					case ExpectedType.ArrayOfDependent:
+						type = ExpectedType.Dependent;
+						rettype = rettype.ArrayOf;
+						break;
+
+					case ExpectedType.ArrayOfExpected:
+						type = ExpectedType.Expected;
+						rettype = rettype.ArrayOf;
+						break;
+
+					case ExpectedType.MemberOfDependent:
+						type = ExpectedType.Dependent;
+						member = true;
+						break;
+
+					case ExpectedType.MemberOfExpected:
+						type = ExpectedType.Expected;
+						member = true;
+						break;
+
+					default:
+						arrayof = false;
+						break;
+				}
+				TypeInfo ret = ReturnType(type, sc, report, prop.a.Dependency, node, expected);
+				ret = member? ret?.ArrayOf : ret;
+				if (ret == null) continue;
+
+				if (rettype == null)
+				{
+					report?.Add(new StaticError(node.line, node.column, $"AutoCheck: {val.Return} is not an array type", ErrorLevel.Error));
+					return false;
+				}
+
+				if (rettype.Equals(ret)) continue;
 
 				var _int = sc.Int(report);
-				var _null = sc.Int(report);
-				if (val.Return != _int && ret != _int && (val.Return == _null || ret == _null)) continue;
+				var _null = sc.Null(report);
+				if (rettype != _int && ret != _int && (rettype == _null || ret == _null)) continue;
 
-				report?.Add(new StaticError(node.line, node.column, $"{prop.p.Name}-expression[{val.Return}] must be of type {ret}", ErrorLevel.Error));
+				report?.Add(new StaticError(node.line, node.column,
+				                            $"{prop.p.Name}-expression[{val.Return}] must be of type {(arrayof? "array of " : "")}{ret}",
+				                            ErrorLevel.Error));
 				return false;
 			}
 
 			return true;
 		}
 
-		static TypeInfo ReturnType(RetrurnType type, ISemanticChecker sc, ErrorReport report,
+		static TypeInfo ReturnType(ExpectedType type, ISemanticChecker sc, ErrorReport report,
 			string dependency, IASTNode node, TypeInfo expected)
 		{
 			TypeInfo exp;
 			#region [Expected Value]
 			switch (type)
 			{
-				case RetrurnType.Unknown:
+				case ExpectedType.Unknown:
 					exp = null;
 					break;
 
-				case RetrurnType.Int:
+				case ExpectedType.Int:
 					exp = sc.Int(report);
 					break;
-				case RetrurnType.String:
+				case ExpectedType.String:
 					exp = sc.String(report);
 					break;
-				case RetrurnType.Void:
+				case ExpectedType.Void:
 					exp = sc.Void(report);
 					break;
-				case RetrurnType.Null:
+				case ExpectedType.Null:
 					exp = sc.Null(report);
 					break;
 
-				case RetrurnType.Dependent:
-					if (string.IsNullOrEmpty(dependency)) goto case RetrurnType.Unknown;
+				case ExpectedType.Dependent:
+					if (string.IsNullOrEmpty(dependency)) goto case ExpectedType.Unknown;
 					var depprop = node.GetType().GetProperty(dependency);
 					if (depprop == null)
 					{
 						report?.Add(new StaticError(node.line, node.column, "AutoCheck: Missing dependency property", ErrorLevel.Warning));
-						goto case RetrurnType.Unknown;
+						goto case ExpectedType.Unknown;
 					}
-					var deppropval = depprop.GetValue(node) as IExpression;
-					if (deppropval == null || deppropval.Return == null)
+					var deppropval = depprop.GetValue(node);
+					if (deppropval == null)
 					{
 						report?.Add(new StaticError(node.line, node.column, "AutoCheck: Inaccessible dependency property", ErrorLevel.Warning));
-						goto case RetrurnType.Unknown;
+						goto case ExpectedType.Unknown;
 					}
-					exp = deppropval.Return;
+					IExpression expression = deppropval as IExpression;
+					exp = expression != null? expression.Return : deppropval as TypeInfo;
+					if (exp == null)
+					{
+						if (expression == null)
+							report?.Add(new StaticError(node.line, node.column,
+							                            $"AutoCheck: Dependency property of incorrecte type, allowed types: {typeof(IExpression)}, {typeof(TypeInfo)}",
+							                            ErrorLevel.Warning));
+						else
+							report?.Add(new StaticError(node.line, node.column,
+							                            "AutoCheck: Unassigned dependency property",
+							                            ErrorLevel.Warning));
+						goto case ExpectedType.Unknown;
+					}
 					break;
 
-				case RetrurnType.Expected:
+				case ExpectedType.Expected:
 					exp = expected;
 					break;
 

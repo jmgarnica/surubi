@@ -7,11 +7,15 @@ namespace TigerCs.Generation.AST.Expressions
 	public class ArrayCreation : Expression
 	{
 		[NotNull]
+		[SemanticChecked(Expected = ExpectedType.Int)]
+		[ReturnType(ExpectedType.Int)]
 		public IExpression Length { get; set; }
 
+		[SemanticChecked(CheckOrder = 1)]
+		[ReturnType(ExpectedType.MemberOfDependent, Dependency = nameof(Return))]
 		public IExpression Init { get; set; }
 
-		[NotNull]
+		[NotNull("")]
 		public string ArrayOf { get; set; }
 
 		TypeInfo _int;
@@ -43,15 +47,6 @@ namespace TigerCs.Generation.AST.Expressions
 			_int = sc.Int(report);
 			nil = sc.Nil(report);
 
-			if (!Length.CheckSemantics(sc, report, _int))
-				return false;
-
-			if (!Length.Return.Equals(_int))
-			{
-				report.Add(new StaticError(line, column, $"Array length must be an expression of type {_int}", ErrorLevel.Error));
-				return false;
-			}
-
 			if (Init == null)
 				if(t.ArrayOf.Equals(_int))
 					Init = new IntegerConstant
@@ -68,16 +63,7 @@ namespace TigerCs.Generation.AST.Expressions
 					Lex = "nil"
 				};
 
-			if (!Init.CheckSemantics(sc, report, t.ArrayOf))
-				return false;
-
-			if (!Init.Return.Equals(t.ArrayOf) && (!Init.Return.Equals(sc.Null(report)) || t.ArrayOf.Equals(_int)))
-			{
-				report.Add(new StaticError(Init.line, Init.column,
-										   $"Array of type {t.ArrayOf} can't be initialized with elements of type {Init.Return}",
-										   ErrorLevel.Error));
-				return false;
-			}
+			if(!this.AutoCheck(sc, report, expected)) return false;
 
 			Pure = false;
 			CanBreak = false; // no length neither init expressions can contain a break, so they would'n return

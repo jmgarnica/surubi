@@ -17,6 +17,7 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public override bool BindName(ISemanticChecker sc, ErrorReport report)
 		{
+			if (!this.AutoCheck(sc, report)) return false;//TODO: initialize members in constructor
 			Dependencies = new string[0];
 			Type = new TypeInfo
 			{

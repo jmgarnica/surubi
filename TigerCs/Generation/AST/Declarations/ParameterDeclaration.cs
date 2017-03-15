@@ -8,9 +8,10 @@ namespace TigerCs.Generation.AST.Declarations
 	{
 		public int Position { get; set; }
 
+		[NotNull("")]
 		public string HolderType { get; set; }
 
-		[NotNull]
+		[NotNull("")]
 		public string HolderName { get; set; }
 
 		public HolderInfo Holder { get; protected set; }
@@ -31,11 +32,12 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public virtual bool BindName(ISemanticChecker sc, ErrorReport report)
 		{
-			if (Type == null)
-			{
-				report.Add(new StaticError(line, column, "Semantic checking phase required", ErrorLevel.Internal));
-				return false;
-			}
+			if (!this.AutoCheck(sc, report)) return false;
+			//if (Type == null)
+			//{
+			//	report.Add(new StaticError(line, column, "Semantic checking phase required", ErrorLevel.Internal));
+			//	return false;
+			//}
 
 			Holder = new HolderInfo
 			{

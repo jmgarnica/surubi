@@ -7,12 +7,12 @@ namespace TigerCs.Generation.AST.Declarations
 	public abstract class TypeDeclaration : IDeclaration
 	{
 		public TypeInfo Type { get; protected set; }
+		[NotNull("")]
 		public string TypeName { get; set; }
 
 		/// <summary>
 		/// Set after bind name
 		/// </summary>
-		[NotNull]
 		public string[] Dependencies { get; protected set; }
 
 		public int column { get; set; }

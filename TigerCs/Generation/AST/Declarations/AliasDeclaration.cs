@@ -1,14 +1,17 @@
 ﻿using TigerCs.CompilationServices;
+using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Declarations
 {
 	public class AliasDeclaration : TypeDeclaration
 	{
+		[NotNull("")]
 		public string AliasOf { get; set; }
 
 		public override bool BindName(ISemanticChecker sc, ErrorReport report)
 		{
+			if (!this.AutoCheck(sc, report)) return false;
 			MemberDefinition mem;
 			if (sc.Reachable(TypeInfo.MakeTypeName(AliasOf), out mem))
 			{

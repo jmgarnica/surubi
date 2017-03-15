@@ -7,16 +7,16 @@ namespace TigerCs.Generation.AST.Expressions
 	public class IfThenElse : Expression
 	{
 		[NotNull]
-		[SemanticChecked(Expected = RetrurnType.Int)]
-		[ReturnType(RetrurnType.Int)]
+		[SemanticChecked(Expected = ExpectedType.Int)]
+		[ReturnType(ExpectedType.Int)]
 		public IExpression If { get; set; }
 
 		[NotNull]
-		[SemanticChecked(CheckOrder = 1, NestedScope = true, Expected = RetrurnType.Expected)]
+		[SemanticChecked(CheckOrder = 1, NestedScope = true, Expected = ExpectedType.Expected)]
 		public IExpression Then { get; set; }
 
-		[SemanticChecked(CheckOrder = 2, NestedScope = true, Expected = RetrurnType.Dependent, Dependency = nameof(Then))]
-		[ReturnType(RetrurnType.Dependent, Dependency = nameof(Then))]
+		[SemanticChecked(CheckOrder = 2, NestedScope = true, Expected = ExpectedType.Dependent, Dependency = nameof(Then))]
+		[ReturnType(ExpectedType.Dependent, Dependency = nameof(Then))]
 		public IExpression Else { get; set; }
 
 		bool? alwaystakethen;

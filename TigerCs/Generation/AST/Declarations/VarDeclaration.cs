@@ -33,6 +33,7 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public bool BindName(ISemanticChecker sc, ErrorReport report)
 		{
+			if (!this.AutoCheck(sc, report)) return false;
 			return true;
 		}
 

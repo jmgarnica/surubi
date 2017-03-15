@@ -6,7 +6,7 @@ namespace TigerCs.Generation.AST.Expressions
 {
 	public class IntegerConstant : Expression
 	{
-		[NotNull(InvalidValues = new object[] { "" })]
+		[NotNull("")]
 		public override string Lex { get; set; }
 
 		public IntegerConstant()

@@ -11,7 +11,7 @@ namespace TigerCs.CompilationServices.AutoCheck
 		public string FailMessage { get; set; } = "";
 
 
-		public RetrurnType Expected { get; set; }
+		public ExpectedType Expected { get; set; }
 		public string Dependency { get; set; }
 	}
 }

@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompilationServices\AutoCheck\ReturnType.cs" />
+    <Compile Include="CompilationServices\AutoCheck\ExpectedType.cs" />
     <Compile Include="CompilationServices\AutoCheck\ReturnTypeAttribute.cs" />
     <Compile Include="CompilationServices\AutoCheck\SemanticCheckedAttribute.cs" />
     <Compile Include="CompilationServices\GuidGenerator.cs" />
