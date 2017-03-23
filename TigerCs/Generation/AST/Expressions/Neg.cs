@@ -7,16 +7,16 @@ namespace TigerCs.Generation.AST.Expressions
 	{
 		[NotNull]
 		[Release]
-		IExpression operand { get; set; }
+		public IExpression Operand { get; set; }
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
-			if (!operand.CheckSemantics(sc, report)) return false;
+			if (!Operand.CheckSemantics(sc, report)) return false;
 
 			TypeInfo _int = sc.Int(report);
 			if (_int == null) return false;
 
-			if (!operand.Return.Equals(_int))
+			if (!Operand.Return.Equals(_int))
 			{
 				report.Add(
 				           new StaticError
@@ -24,7 +24,7 @@ namespace TigerCs.Generation.AST.Expressions
 					           Column = column,
 					           Line = line,
 					           Level = ErrorLevel.Error,
-					           ErrorMessage = $"Can not perform (-)({operand.Return})"
+					           ErrorMessage = $"Can not perform (-)({Operand.Return})"
 				           });
 				return false;
 			}
@@ -32,8 +32,8 @@ namespace TigerCs.Generation.AST.Expressions
 			Return = _int;
 			ReturnValue = new HolderInfo { Type = _int };
 
-			if (operand.ReturnValue.ConstValue != null)
-				ReturnValue.ConstValue = -(int)operand.ReturnValue.ConstValue;
+			if (Operand.ReturnValue.ConstValue != null)
+				ReturnValue.ConstValue = -(int)Operand.ReturnValue.ConstValue;
 			return true;
 		}
 
@@ -45,8 +45,8 @@ namespace TigerCs.Generation.AST.Expressions
 				return;
 			}
 
-			operand.GenerateCode(cg, report);
-			ReturnValue.BCMMember = cg.InstrInverse_TempBound((H)operand.ReturnValue.BCMMember);
+			Operand.GenerateCode(cg, report);
+			ReturnValue.BCMMember = cg.InstrInverse_TempBound((H)Operand.ReturnValue.BCMMember);
 		}
 	}
 }

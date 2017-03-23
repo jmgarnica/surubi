@@ -112,6 +112,7 @@
     <Compile Include="Generation\AST\Declarations\RecordDeclaration.cs" />
     <Compile Include="Generation\AST\Declarations\TypeDeclaration.cs" />
     <Compile Include="Generation\AST\Declarations\VarDeclaration.cs" />
+    <Compile Include="Generation\AST\Expressions\RecordCreation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Generation\AST\Declarations\ASTDeclaration.cd" />
@@ -119,6 +120,7 @@
       <CustomToolNamespace>TigerCs.Generation.Semantic.AST</CustomToolNamespace>
     </None>
     <None Include="packages.config" />
+    <None Include="Parser\Tiger\Tigrammar.g" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Emitters\CIL\" />
