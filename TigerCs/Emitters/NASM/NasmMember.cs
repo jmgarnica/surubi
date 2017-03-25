@@ -10,14 +10,14 @@ namespace TigerCs.Emitters.NASM
 		protected NasmMember(NasmEmitter bound, NasmEmitterScope dscope, int sindex)
 		{
 			this.bound = bound;
-			DeclaratingScope = dscope;
+			DeclaringScope = dscope;
 			DeclaringScopeIndex = sindex;
 		}
 
 		public int Levels(NasmEmitterScope accedingscope)
 		{
 			int levels = 0;
-			while (accedingscope != DeclaratingScope)
+			while (accedingscope != DeclaringScope)
 			{
 				levels++;
 				accedingscope = accedingscope.Parent;
@@ -75,7 +75,7 @@ namespace TigerCs.Emitters.NASM
 			else accedingscope.Lock.Release(reg.Value);
 		}
 
-		public NasmEmitterScope DeclaratingScope { get; }
+		public NasmEmitterScope DeclaringScope { get; }
 
 		public int DeclaringScopeIndex { get; }
 	}

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.CodeDom;
 using System.Linq;
 using System.Reflection;
-using System.Security.Permissions;
 using TigerCs.Generation;
 using TigerCs.Generation.AST;
 using TigerCs.Generation.AST.Expressions;

@@ -1,6 +1,8 @@
 ﻿using System;
 using TigerCs.Generation.ByteCode;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 
 namespace TigerCs.Emitters.NASM
 {
@@ -128,10 +130,11 @@ namespace TigerCs.Emitters.NASM
 		/// </param>
 		/// <param name="checkupperbound"></param>
 		public NasmReference(NasmHolder h, int offset, NasmEmitter bound, NasmEmitterScope dscope = null, WordSize size = WordSize.DWord, bool checkupperbound = false)
-			:base(bound, dscope ?? h.DeclaratingScope, 0)
+			:base(bound, dscope ?? h.DeclaringScope, 0)
 		{
 			H = h;
 			this.size = size;
+
 			this.checkupperbound = checkupperbound;
 			this.offset = offset; //+4 see NasmEmitter.InstrSize <remarks>[second mode]</remarks>
 		}
@@ -199,7 +202,7 @@ namespace TigerCs.Emitters.NASM
 			H.PutValueInRegister(reg.Value, fw, accedingscope);
 			Guid passnull = bound.g.GNext();
 
-			fw.WriteLine($"cmp {gpr}, {NasmEmitter.Null}");
+			fw.WriteLine($"cmp {reg}, {NasmEmitter.Null}");
 			fw.WriteLine($"jne _{passnull:N}");
 
 			NasmEmitter.EmitError(fw, accedingscope, bound, 3, "Null Refernce");

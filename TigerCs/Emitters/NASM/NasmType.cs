@@ -92,7 +92,7 @@ namespace TigerCs.Emitters.NASM
 			}
 			set
 			{
-				if (RefType != NasmRefType.Fixed || RefType != NasmRefType.NoSet) throw new InvalidOperationException("Cant override default allocator");
+				if (RefType != NasmRefType.Fixed && RefType != NasmRefType.NoSet) throw new InvalidOperationException("Cant override default allocator");
 				recorallocator = value;
 			}
 		}

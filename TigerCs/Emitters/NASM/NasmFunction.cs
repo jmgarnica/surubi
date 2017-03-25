@@ -41,6 +41,7 @@ namespace TigerCs.Emitters.NASM
 				fw.WriteLine("push " + r);
 				accedingscope.Lock.Release(r);
 			}
+			lockreglist.Reverse();
 
 			fw.WriteLine($";getting {Name}");
 			accedingscope.Lock.Lock(Register.EAX);
@@ -79,7 +80,7 @@ namespace TigerCs.Emitters.NASM
 			}
 			if (result != null && result != Register.EAX)
 				fw.WriteLine($"mov {result.Value}, EAX");
-			if (result != Register.EAX) accedingscope.Lock.Release(Register.EAX);
+			accedingscope.Lock.Release(Register.EAX);
 
 			foreach (var r in lockreglist)
 			{

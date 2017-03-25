@@ -4,8 +4,6 @@ using TigerCs.CompilationServices;
 
 namespace TigerCs.Emitters
 {
-	
-
 	public class SemanticScope
 	{
 		public const string ScopeNameSeparator = "_";

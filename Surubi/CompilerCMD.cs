@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Comand;
+using Command.Args;
 
 namespace Surubi
 {
@@ -8,12 +8,12 @@ namespace Surubi
 	{
 		static int Main(string[] arg)
 		{
-			var c = new ComandParser<TigerGeneratorDescriptor>();
+			var c = new ArgParse<TigerGeneratorDescriptor>();
 
 			TigerGeneratorDescriptor tg = null;
 			if (arg.Length > 1)
-				c.Activate(arg.Skip(1).Aggregate((s, t) => s + " " + t), out tg);
-			if(tg == null)c.PrintHelp(Console.Out, "tg");
+				tg = c.Activate(arg.Skip(1).Aggregate((s, t) => s + " " + t));
+			if(tg == null)c.Help(Console.Out, "tg");
 
 			return 0;
 		}

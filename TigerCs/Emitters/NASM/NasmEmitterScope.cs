@@ -76,7 +76,7 @@ namespace TigerCs.Emitters.NASM
 
 		}
 
-		public void WirteCloseCode(FormatWriter fw, bool releaselocks, bool error, NasmHolder ret = null)
+		public void WirteCloseCode(FormatWriter fw, bool releaselocks, bool error, NasmHolder ret = null, bool releaseargs = false)
 		{
 			int indent = fw.IndentationLevel;
 			var l = Lock.CloneState();
@@ -102,7 +102,15 @@ namespace TigerCs.Emitters.NASM
 				f.WriteLine("pop EBP");
 
 				if (ScopeType == NasmScopeType.TigerFunction || ScopeType == NasmScopeType.CFunction)
+				{
+					if (releaseargs)
+					{
+						f.WriteLine("; cmain args");
+						f.WriteLine($"add {Register.ESP}, 8");
+						f.WriteLine("pop EBP");
+					}
 					f.WriteLine("ret");
+				}
 				Lock = ll;
 
 				return FormatWriter.Indent(f.Flush(), indent);

@@ -21,7 +21,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,9 +36,8 @@
     <StartupObject>Surubi.Test</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Comand, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Comand\Comand\bin\Debug\Comand.dll</HintPath>
+    <Reference Include="Command">
+      <HintPath>..\..\Command\Command\bin\Debug\Command.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

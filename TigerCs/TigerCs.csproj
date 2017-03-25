@@ -51,6 +51,7 @@
     <Compile Include="Emitters\EmitterExeption.cs" />
     <Compile Include="Emitters\EmitterScope.cs" />
     <Compile Include="Emitters\FormatWriter.cs" />
+    <Compile Include="Emitters\NASM\NasmBuild.cs" />
     <Compile Include="Emitters\NASM\NasmEmitterExeption.cs" />
     <Compile Include="Emitters\NASM\NasmInstructionSet.cs" />
     <Compile Include="Emitters\NASM\NasmMember.cs" />

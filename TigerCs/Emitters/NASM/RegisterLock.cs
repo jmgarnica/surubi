@@ -151,7 +151,7 @@ namespace TigerCs.Emitters.NASM
 		public static Register ByteVersion(this Register r)
 		{
 			if (!r.GeneralPurposeRegister()) throw new InvalidOperationException("No General Purpose Register");
-			return r + 512;
+			return (Register)((int)r | 512);
 		}
 	}
 
