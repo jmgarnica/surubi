@@ -74,7 +74,6 @@ namespace TigerCs.Generation.AST.Expressions
 				MemberInfo ps;
 				if (!sc.Reachable(PrintSName, out ps, new MemberDefinition
 				                  {
-					                  Generator = null,
 					                  Member = new FunctionInfo
 					                  {
 						                  Return = _void,

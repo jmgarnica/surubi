@@ -508,6 +508,48 @@ namespace CMPTest.Emission
 
 			Clear(testname);
 		}
+
+		[TestMethod]
+		public void Factorial()
+		{
+			const string testname = "factorial";
+			Init(testname, STDBind.Int | STDBind.Printi );
+			const int fact = 300000;
+
+
+			var f = e.BindVar(_int, e.AddConstant(1));
+			var i = e.BindVar(_int, _0);
+
+			var loop = e.SetLabelToNextInstruction("loop");
+			var cmp = e.InstrSub_TempBound(i, e.AddConstant(fact));
+			var end = e.ReserveInstructionLabel("end");
+			e.GotoIfNotNegative(end, cmp);
+
+			e.InstrMult(f, f, i);
+			e.InstrAdd(i, i, e.AddConstant(1));
+			e.Goto(loop);
+			e.ApplyReservedLabel(end);
+
+			e.Call(printi, new []{f});
+
+			End(_0);
+
+			int _i = 0;
+			int _f = 1;
+
+			while (_i < _f)
+			{
+				_f *= _i;
+				_i++;
+			}
+
+			int dum;
+			string result = WarpRun(null, "", out dum);
+			Assert.AreEqual(0, dum);
+			Assert.AreEqual(_f, int.Parse(result));
+
+			Clear(testname);
+		}
 	}
 }
 //TODO: add atomic and simpler tests

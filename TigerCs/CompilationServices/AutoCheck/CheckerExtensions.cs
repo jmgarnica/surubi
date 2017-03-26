@@ -104,24 +104,66 @@ namespace TigerCs.CompilationServices.AutoCheck
 			                   where r.a != null
 			                   select r;
 
+			bool result = true;
 			foreach (var prop in notnullprops)
 			{
 				object val = prop.p.GetValue(target);
-                if (val == null)
-				{
-					report?.Add(new StaticError(target.line, target.column, $"Member {prop.p.Name} can not be null", ErrorLevel.Internal));
-					return false;
+				StaticError e;
+				if (val == null)
+                {
+	                e = new StaticError(target.line, target.column, $"Member {prop.p.Name} can not be null",
+	                                        ErrorLevel.Internal);
+					switch (prop.a.Action)
+					{
+						case OnError.Stop:
+							report?.Add(e);
+							return false;
+						case OnError.StopAfterTest:
+							report?.Add(e);
+							result = false;
+							continue;
+
+						case OnError.ErrorButNotStop:
+							report?.Add(e);
+							continue;
+
+						case OnError.Ingnore:
+							continue;
+
+						default:
+							throw new ArgumentOutOfRangeException();
+					}
 				}
 
 				if (prop.a.InvalidValues?.Contains(val) != true) continue;
 
-				report?.Add(new StaticError(target.line, target.column,
-				                            $"Member {prop.p.Name} can not have value {(val.Equals("")? "\"\"" : val)}",
-				                            ErrorLevel.Internal));
-				return false;
+				e = new StaticError(target.line, target.column,
+				                        $"Member {prop.p.Name} can not have value {(val.Equals("")? "\"\"" : val)}",
+				                        ErrorLevel.Internal);
+
+				switch (prop.a.Action)
+				{
+					case OnError.Stop:
+						report?.Add(e);
+						return false;
+					case OnError.StopAfterTest:
+						report?.Add(e);
+						result = false;
+						continue;
+
+					case OnError.ErrorButNotStop:
+						report?.Add(e);
+						continue;
+
+					case OnError.Ingnore:
+						continue;
+
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
 			}
 
-			return true;
+			return result;
 		}
 
 		public static bool SemanticCheck(IASTNode node, ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
@@ -134,7 +176,7 @@ namespace TigerCs.CompilationServices.AutoCheck
 			                    r.p.PropertyType.GetInterfaces().Contains(typeof(IASTNode)))
 			                   orderby r.a.CheckOrder
 			                   select r;
-
+			bool result = true;
 			foreach (var prop in checkedprops)
 			{
 				var val = prop.p.GetValue(node) as IASTNode;
@@ -143,17 +185,40 @@ namespace TigerCs.CompilationServices.AutoCheck
 				TypeInfo exp = ReturnType(prop.a.Expected, sc, report, prop.a.Dependency, node, expected);
 
 				if(prop.a.NestedScope)sc.EnterNestedScope();
-				if (!val.CheckSemantics(sc, report, exp) && !prop.a.IgnoreFail)
+
+				var e = new StaticError(val.line, val.column,
+				                        string.IsNullOrWhiteSpace(prop.a.FailMessage)
+					                        ? $"Semantic Check of {prop.p.Name} fail"
+					                        : prop.a.FailMessage, ErrorLevel.Error);
+
+				if (!val.CheckSemantics(sc, report, exp))
 				{
-					if (!string.IsNullOrEmpty(prop.a.FailMessage))
-						report?.Add(new StaticError(val.line, val.column, prop.a.FailMessage, ErrorLevel.Error));
 					if (prop.a.NestedScope) sc.LeaveScope();
-					return false;
+
+					switch (prop.a.Action)
+					{
+						case OnError.Stop:
+							report?.Add(e);
+							return false;
+						case OnError.StopAfterTest:
+							report?.Add(e);
+							result = false;
+							continue;
+
+						case OnError.ErrorButNotStop:
+							report?.Add(e);
+							continue;
+
+						case OnError.Ingnore:
+							continue;
+						default:
+							throw new ArgumentOutOfRangeException();
+					}
 				}
 				if (prop.a.NestedScope) sc.LeaveScope();
 			}
 
-			return true;
+			return result;
 		}
 
 		public static bool ReturnCheck(IASTNode node, ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
@@ -165,7 +230,8 @@ namespace TigerCs.CompilationServices.AutoCheck
 						   (r.p.PropertyType == typeof(IExpression) ||
 							r.p.PropertyType.GetInterfaces().Contains(typeof(IExpression)))
 						   select r;
-
+			bool result = true;
+			StaticError e;
 			foreach (var prop in retprops)
 			{
 				var val = prop.p.GetValue(node) as IExpression;
@@ -175,8 +241,27 @@ namespace TigerCs.CompilationServices.AutoCheck
 
 				if (rettype == null)
 				{
-					report?.Add(new StaticError(node.line, node.column, "AutoCheck: Unchecked member", ErrorLevel.Error));
-					return false;
+					e = new StaticError(node.line, node.column, "AutoCheck: Unchecked member", ErrorLevel.Error);
+                    switch (prop.a.Action)
+					{
+						case OnError.Stop:
+							report?.Add(e);
+							return false;
+
+						case OnError.StopAfterTest:
+							report?.Add(e);
+							result = false;
+							continue;
+
+						case OnError.ErrorButNotStop:
+							report?.Add(e);
+							continue;
+
+						case OnError.Ingnore:
+							continue;
+						default:
+							throw new ArgumentOutOfRangeException();
+					}
 				}
 
 				bool arrayof = true;
@@ -223,8 +308,27 @@ namespace TigerCs.CompilationServices.AutoCheck
 
 				if (rettype == null)
 				{
-					report?.Add(new StaticError(node.line, node.column, $"AutoCheck: {val.Return} is not an array type", ErrorLevel.Error));
-					return false;
+					e = new StaticError(node.line, node.column, $"AutoCheck: {val.Return} is not an array type", ErrorLevel.Error);
+					switch (prop.a.Action)
+					{
+						case OnError.Stop:
+							report?.Add(e);
+							return false;
+
+						case OnError.StopAfterTest:
+							report?.Add(e);
+							result = false;
+							continue;
+
+						case OnError.ErrorButNotStop:
+							report?.Add(e);
+							continue;
+
+						case OnError.Ingnore:
+							continue;
+						default:
+							throw new ArgumentOutOfRangeException();
+					}
 				}
 
 				if (rettype.Equals(ret)) continue;
@@ -233,13 +337,32 @@ namespace TigerCs.CompilationServices.AutoCheck
 				var _null = sc.Null(report);
 				if (rettype != _int && ret != _int && (rettype == _null || ret == _null)) continue;
 
-				report?.Add(new StaticError(node.line, node.column,
+				e = new StaticError(node.line, node.column,
 				                            $"{prop.p.Name}-expression[{val.Return}] must be of type {(arrayof? "array of " : "")}{ret}",
-				                            ErrorLevel.Error));
-				return false;
+				                            ErrorLevel.Error);
+				switch (prop.a.Action)
+				{
+					case OnError.Stop:
+						report?.Add(e);
+						return false;
+
+					case OnError.StopAfterTest:
+						report?.Add(e);
+						result = false;
+						continue;
+
+					case OnError.ErrorButNotStop:
+						report?.Add(e);
+						continue;
+
+					case OnError.Ingnore:
+						continue;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
 			}
 
-			return true;
+			return result;
 		}
 
 		static TypeInfo ReturnType(ExpectedType type, ISemanticChecker sc, ErrorReport report,

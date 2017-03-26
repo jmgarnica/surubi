@@ -12,5 +12,7 @@ namespace TigerCs.CompilationServices.AutoCheck
 		}
 
 		public string Dependency { get; set; }
+
+		public OnError Action { get; set; } = OnError.StopAfterTest;
 	}
 }

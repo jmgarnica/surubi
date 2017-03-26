@@ -9,9 +9,12 @@ namespace TigerCs.Generation.AST.Expressions
 	public abstract class BinaryOperator : Expression
 	{
 		[NotNull]
+		[SemanticChecked(Expected = ExpectedType.Dependent, Dependency = nameof(Left), CheckOrder = 1)]
+		[ReturnType(ExpectedType.Dependent, Dependency = nameof(Left))]
 		public IExpression Rigth { get; set; }
 
 		[NotNull]
+		[SemanticChecked(Expected = ExpectedType.Expected)]
 		public IExpression Left { get; set; }
 	}
 
@@ -29,8 +32,7 @@ namespace TigerCs.Generation.AST.Expressions
 			_void = sc.Void(report);
 			_null = sc.Null(report);
 
-			if (!Left.CheckSemantics(sc, report))
-				return false;
+			this.AutoCheck(sc, report, _int);
 
 			if (Left.Return.Equals(_void))
 			{
@@ -39,34 +41,9 @@ namespace TigerCs.Generation.AST.Expressions
 				return false;
 			}
 
-			if (!Rigth.CheckSemantics(sc, report, Left.Return))
-				return false;
+			var notnil = Left.Return.Equals(_null)? Rigth : Left;
 
-			if (Rigth.Return.Equals(_void))
-			{
-				report.Add(new StaticError(Rigth.line, Rigth.column, "Can't compare an expression that does not return a value",
-										   ErrorLevel.Error));
-				return false;
-			}
-
-			var notnil = Left;
-
-			if (!Left.Return.Equals(Rigth.Return))
-			{
-				if (Left.Return.Equals(_null) && !Rigth.Return.Equals(_int))
-					notnil = Rigth;
-
-				else if (Rigth.Return.Equals(_null) && !Left.Return.Equals(_int))
-					notnil = Left;
-
-				else
-				{
-					report.Add(new StaticError(Rigth.line, Rigth.column, $"Can't compare expressions of types {Left.Return} and {Rigth.Return}",
-										   ErrorLevel.Error));
-					return false;
-				}
-			}
-			else if(notnil.Return.Equals(_null))
+			if(notnil.Return.Equals(_null))
 			{
 				report.Add(new StaticError(line, column, "The type of the comparison operands can't be inferred because both are nil",
 										   ErrorLevel.Error));

@@ -11,5 +11,7 @@ namespace TigerCs.CompilationServices.AutoCheck
 		}
 
 		public readonly object[] InvalidValues;
+
+		public OnError Action { get; set; } = OnError.StopAfterTest;
 	}
 }

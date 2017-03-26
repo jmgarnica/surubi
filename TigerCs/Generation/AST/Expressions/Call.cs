@@ -103,7 +103,6 @@ namespace TigerCs.Generation.AST.Expressions
 				{
 					line = line,
 					column = column,
-					Generator = null,
 					Member = new FunctionInfo
 					{
 						Name = FunctionName,

@@ -13,7 +13,7 @@ namespace TigerCs.Generation.AST.Expressions
 
 		[NotNull]
 		[SemanticChecked]
-        [ReturnType(ExpectedType.Dependent, Dependency = nameof(Target))]//all semantic checks are performed before return checks
+        [ReturnType(ExpectedType.Dependent, Dependency = nameof(Target))]
 		public IExpression Source { get; set; }
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)

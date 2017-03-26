@@ -2,6 +2,7 @@
 using TigerCs.Generation.ByteCode;
 using TigerCs.Generation;
 using TigerCs.Generation.AST.Expressions;
+using System;
 
 namespace TigerCs.CompilationServices
 {
@@ -10,27 +11,20 @@ namespace TigerCs.CompilationServices
 		where F : class, IFunction<T, F>
 		where H : class, IHolder
 	{
-		public ErrorReport Report { get; }
-
 		public ISemanticChecker SemanticChecker { get; set; }
 
 		public IByteCodeMachine<T, F, H> ByteCodeMachine { get; set; }
 
-		public TigerGenerator()
-		{
-			Report = new ErrorReport();
-		}
-
-		public void Compile(IExpression rootprogram)
+		public void Compile(IExpression rootprogram, ErrorReport tofill)
 		{
 			var std = new Dictionary<string, MemberDefinition>();
-			SemanticChecker.InitializeSemanticCheck(Report, std);
+			SemanticChecker.InitializeSemanticCheck(tofill, std);
 
 			var main = new MAIN(rootprogram);
 
-			if (!main.CheckSemantics(SemanticChecker, Report)) return;
+			if (!main.CheckSemantics(SemanticChecker, tofill)) return;
 
-			ByteCodeMachine.InitializeCodeGeneration(Report);
+			ByteCodeMachine.InitializeCodeGeneration(tofill);
 			foreach (var m in std)
 			{
 				if (!m.Value.Member.BCMBackup) continue;
@@ -50,8 +44,8 @@ namespace TigerCs.CompilationServices
 					if (ByteCodeMachine.TryBindSTDFunction(m.Value.Member.Name, out o)) m.Value.Member.BCMMember = o;
 				}
 
-				if (m.Value.Member.Bounded || m.Value.Generator != null) continue;
-				Report.Add(new StaticError
+				if (m.Value.Member.Bounded) continue;
+				tofill.Add(new StaticError
 				           {
 					           Level = ErrorLevel.Internal,
 					           ErrorMessage = $"BCM does not have a definition for {m.Key}",
@@ -61,20 +55,16 @@ namespace TigerCs.CompilationServices
 				return;
 			}
 
-			foreach (var m in std)
-			{
-				if (!m.Value.Member.BCMBackup) continue;
-				if (m.Value?.Generator == null) continue;
-
-				m.Value.Generator.CheckSemantics(SemanticChecker, Report);
-				m.Value.Generator.GenerateCode(ByteCodeMachine, Report);
-			}
 			SemanticChecker.End();
 
-			main.GenerateCode(ByteCodeMachine, Report);
+			main.GenerateCode(ByteCodeMachine, tofill);
 			ByteCodeMachine.End();
 		}
 
+		public void AddStd(MemberDefinition md, string bcm_name)
+		{
+			throw new NotImplementedException();
+		}
 	}
 
 }

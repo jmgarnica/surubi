@@ -460,17 +460,17 @@ namespace Surubi
 
 			#endregion
 
-			tg.Compile(m);
+			////tg.Compile(m);
 
-			int count = tg.Report.Count();
-			Console.WriteLine("Compilation " + (count == 0
-													? "success"
-													: $"fail with {count} error{(count > 1 ? "s" : "")}:"));
+			////int count = tg.Report.Count();
+			////Console.WriteLine("Compilation " + (count == 0
+			////										? "success"
+			////										: $"fail with {count} error{(count > 1 ? "s" : "")}:"));
 
-			Console.WriteLine();
+			////Console.WriteLine();
 
-			foreach (var error in tg.Report)
-				Console.WriteLine(error);
+			////foreach (var error in tg.Report)
+			////	Console.WriteLine(error);
 
 			if (Debugger.IsAttached) Console.ReadKey();
 

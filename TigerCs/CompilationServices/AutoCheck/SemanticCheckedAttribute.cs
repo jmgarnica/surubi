@@ -6,7 +6,7 @@ namespace TigerCs.CompilationServices.AutoCheck
 	public class SemanticCheckedAttribute : Attribute
 	{
 		public int CheckOrder { get; set; } = 0;
-		public bool IgnoreFail { get; set; } = false;
+		public OnError Action { get; set; } = OnError.StopAfterTest;
 		public bool NestedScope { get; set; } = false;
 		public string FailMessage { get; set; } = "";
 

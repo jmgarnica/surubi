@@ -1,5 +1,4 @@
 ﻿using TigerCs.Generation;
-using TigerCs.Generation.AST.Declarations;
 
 namespace TigerCs.CompilationServices
 {
@@ -10,6 +9,6 @@ namespace TigerCs.CompilationServices
 		public int column { get; set; }
 		public int line { get; set; }
 
-		public IDeclaration Generator { get; set; }
+		//public IDeclaration Generator { get; set; } //TODO: rethink this
 	}
 }

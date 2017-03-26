@@ -1,11 +1,13 @@
-﻿using TigerCs.Generation.AST.Expressions;
+﻿using System.IO;
+using TigerCs.Generation.AST;
+using TigerCs.Generation.AST.Expressions;
 
 namespace TigerCs.CompilationServices
 {
 	public interface IGenerator
 	{
-		ErrorReport Report { get; }
+		void AddStd(MemberDefinition md, string bcm_name);
 
-		void Compile(IExpression rootprogram);
+		void Compile(IExpression rootprogram, ErrorReport tofill);
 	}
 }

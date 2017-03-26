@@ -8,11 +8,11 @@ namespace TigerCs.Generation.AST.Expressions
 	{
 		[NotNull]
 		[SemanticChecked(Expected = ExpectedType.Int)]
-		[ReturnType(ExpectedType.Int)]
+		[ReturnType(ExpectedType.Int, Action = OnError.ErrorButNotStop)]
 		public IExpression Length { get; set; }
 
 		[SemanticChecked(CheckOrder = 1)]
-		[ReturnType(ExpectedType.MemberOfDependent, Dependency = nameof(Return))]
+		[ReturnType(ExpectedType.MemberOfDependent, Dependency = nameof(Return), Action = OnError.ErrorButNotStop)]
 		public IExpression Init { get; set; }
 
 		[NotNull("")]
@@ -22,6 +22,12 @@ namespace TigerCs.Generation.AST.Expressions
 		HolderInfo nil;
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
+			if (string.IsNullOrWhiteSpace(ArrayOf))
+			{
+				report.IncompleteMemberInitialization(GetType().Name);
+				return false;
+			}
+
 			MemberInfo mem;
 			if (!sc.Reachable(TypeInfo.MakeTypeName(ArrayOf), out mem))
 			{
@@ -84,7 +90,7 @@ namespace TigerCs.Generation.AST.Expressions
 			else
 				type = (T)Return.BCMMember;
 
-			H array;
+			H array;//TODO: cosnt init
 			ReturnValue.BCMMember = array = cg.BindVar(type);
 
 			Length.GenerateCode(cg, report);
