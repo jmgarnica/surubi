@@ -26,7 +26,7 @@ namespace TigerCs.Generation
 		void EnterNestedScope(Dictionary<string, MemberInfo> autoclosure = null, params object[] descriptors);
 
 		[ScopeChanger(Reason = "Closes the current scope and returns to it's parent")]
-		void LeaveScope();
+		void LeaveScope(int count = 1);
 
 		/// <summary>
 		/// Declare a new member, declaration of a already declared member or

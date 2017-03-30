@@ -6,7 +6,8 @@ namespace TigerCs.Generation.AST.Declarations
 {
 	public abstract class TypeDeclaration : IDeclaration
 	{
-		public TypeInfo Type { get; protected set; }
+		public TypeInfo DeclaredType { get; protected set; }
+
 		[NotNull("")]
 		public string TypeName { get; set; }
 

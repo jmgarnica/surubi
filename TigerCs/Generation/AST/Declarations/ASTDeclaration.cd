@@ -25,14 +25,14 @@
   <Class Name="TigerCs.Generation.AST.Declarations.RecordDeclaration" Collapsed="true">
     <Position X="11.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAJAAAAAAAAAAAAAgAAAAAGAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAJAAAAAAAAAAAAAgQAAAAGAAAAAAA=</HashCode>
       <FileName>Generation\AST\Declarations\RecordDeclaration.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TigerCs.Generation.AST.Declarations.TypeDeclaration" Collapsed="true">
     <Position X="9.75" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQEAAAAAAAAAAICJAAAAAAAAQAAAAhAAAQACAAAAAAA=</HashCode>
+      <HashCode>QQEAAAAAAAAAAICJAAAAAAAAQAAAAhAAAAACAAAAAAA=</HashCode>
       <FileName>Generation\AST\Declarations\TypeDeclaration.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -48,7 +48,7 @@
   <Class Name="TigerCs.Generation.AST.Declarations.FunctionDeclaration" Collapsed="true">
     <Position X="14" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAACAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <HashCode>AQEAAAAAAAAAAIAMAAADAAAAQAQAAgAAAIQDEAAAAAA=</HashCode>
       <FileName>Generation\AST\Declarations\FunctionDeclaration.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -68,18 +68,11 @@
       <FileName>Generation\AST\Declarations\TypeDeclarationList.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TigerCs.Generation.AST.Declarations.DeclarationListList&lt;R&gt;" Collapsed="true">
-    <Position X="21" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAACAAAAAAA=</HashCode>
-      <FileName>Generation\AST\Declarations\DeclarationList.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="TigerCs.Generation.AST.Declarations.FunctionDeclarationList" Collapsed="true">
     <Position X="18.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Generation\AST\Declarations\DeclarationList.cs</FileName>
+      <FileName>Generation\AST\Declarations\FunctionDeclarationList.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="TigerCs.Generation.AST.Declarations.IDeclaration" Collapsed="true">

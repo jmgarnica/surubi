@@ -3,6 +3,7 @@ using TigerCs.Generation.ByteCode;
 using TigerCs.Generation;
 using TigerCs.Generation.AST.Expressions;
 using System;
+using System.IO;
 
 namespace TigerCs.CompilationServices
 {
@@ -59,6 +60,11 @@ namespace TigerCs.CompilationServices
 
 			main.GenerateCode(ByteCodeMachine, tofill);
 			ByteCodeMachine.End();
+		}
+
+		public IExpression Parse(TextReader input, ErrorReport tofill)
+		{
+			throw new NotImplementedException();
 		}
 
 		public void AddStd(MemberDefinition md, string bcm_name)

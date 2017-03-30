@@ -1,4 +1,5 @@
-﻿using TigerCs.CompilationServices;
+﻿using System.Xml;
+using TigerCs.CompilationServices;
 using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
@@ -12,96 +13,44 @@ namespace TigerCs.Generation.AST.Declarations
 		public override bool BindName(ISemanticChecker sc, ErrorReport report)
 		{
 			if (!this.AutoCheck(sc, report)) return false;
+			var t = sc.GetType(ArrayOf, report, line, column, false, true);
 
-			MemberDefinition mem;
-			if (sc.Reachable(TypeInfo.MakeTypeName(ArrayOf), out mem))
-			{
-				var tem = mem.Member as TypeInfo;
-				if (tem != null)
-				{
-					Dependencies = tem.Complete ? new string[0] : new[] { ArrayOf };
-					mem = new MemberDefinition
-					{
-						line = line,
-						column = column,
-						Member = Type = new TypeInfo
-						{
-							ArrayOf = tem,
-							Complete = tem.Complete,
-							Name = TypeName
-						}
-					};
-				}
-				else
-				{
-					report.Add(new StaticError(line, column, $"The non-type member {mem.Member.Name} was declared in a type namespace", ErrorLevel.Internal));
-					return false;
-				}
-			}
+			if (t == null) Dependencies = new[] { ArrayOf };
 			else
 			{
-				mem = new MemberDefinition
-				{
-					line = line,
-					column = column,
-					Member = Type = new TypeInfo
-					{
-						Name = TypeName,
-						Complete = false
-					}
-				};
-				Dependencies = new[] { ArrayOf };
+				DeclaredType = new TypeInfo {ArrayOf = t, Name = TypeName};
+				Dependencies = new string[0];
+				if (!sc.DeclareMember(TypeInfo.MakeTypeName(TypeName),
+									  new MemberDefinition { line = line, column = column, Member = DeclaredType }))
+					report.Add(new StaticError(line, column, $"This scope already contains a definition for {TypeName}",
+											   ErrorLevel.Error));
 			}
 
-			if (sc.DeclareMember(TypeInfo.MakeTypeName(TypeName), mem)) return true;
-
-			report.Add(new StaticError(line, column, "A type with the same name already exist", ErrorLevel.Error));
-			return false;
+			return true;
 		}
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
-			MemberDefinition mem;
-			if (!sc.Reachable(TypeInfo.MakeTypeName(TypeName), out mem))
-			{
-				report.Add(new StaticError(line, column, "Binding phase required", ErrorLevel.Internal));
-				return false;
-			}
+			if (DeclaredType != null) return true;
+			var t = sc.GetType(ArrayOf, report, line, column);
 
-			var tem = mem.Member as TypeInfo;
-			if (tem == null)
-			{
-				report.Add(new StaticError(line, column, "Type declaration have been override", ErrorLevel.Internal));
-				return false;
-			}
-            if (tem.ArrayOf.Complete)
-            {
-	            tem.Complete = true;
-				return true;
-			}
+			DeclaredType = new TypeInfo { ArrayOf = t, Complete = true, Name = TypeName };
 
-			MemberInfo mef;
-			TypeInfo _base;
-			if (!sc.Reachable(TypeInfo.MakeTypeName(ArrayOf), out mef) || (_base = mef as TypeInfo)?.Complete != true)
-			{
-				report.Add(new StaticError(line, column, $"Type {ArrayOf} is unaccessible", ErrorLevel.Error));
-				return false;
-			}
-
-			tem.ArrayOf = _base;
-			tem.Complete = true;
-			Type = tem;
+			if (!sc.DeclareMember(TypeInfo.MakeTypeName(TypeName),
+									  new MemberDefinition { line = line, column = column, Member = DeclaredType }))
+				report.Add(new StaticError(line, column, $"This scope already contains a definition for {TypeName}",
+										   ErrorLevel.Error));
 			return true;
 		}
 
 		public override void DeclareType<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			Type.BCMMember = cg.DeclareType(TypeName);
+			DeclaredType.BCMMember = cg.DeclareType(TypeName);
 		}
 
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			cg.BindArrayType((T)Type.BCMMember, (T)Type.ArrayOf.BCMMember);
+			cg.BindArrayType((T)DeclaredType.BCMMember, (T)DeclaredType.ArrayOf.BCMMember);
 		}
 	}
 }

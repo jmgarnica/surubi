@@ -2,6 +2,7 @@
 using TigerCs.Emitters.NASM;
 using TigerCs.Emitters;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using TigerCs.Generation.AST.Declarations;
 using TigerCs.Generation.AST.Expressions;
@@ -29,7 +30,7 @@ namespace Surubi
 
 			var m = new Let
 			{
-				Declarations = new DeclarationListList<IDeclaration>
+				Declarations = new List<IDeclarationList<IDeclaration>>
 				{
 					new DeclarationList<VarDeclaration>
 					{
@@ -134,7 +135,7 @@ namespace Surubi
 						new FunctionDeclaration
 						{
 							FunctionName = "printboard",
-							Parameters = new DeclarationList<ParameterDeclaration>(),
+							Parameters = new List<ParameterDeclaration>(),
 							Body = new ExpressionList<IExpression>
 							{
 								new Assign
@@ -219,7 +220,7 @@ namespace Surubi
 						new FunctionDeclaration
 						{
 							FunctionName = "try",
-							Parameters = new DeclarationList<ParameterDeclaration>
+							Parameters = new List<ParameterDeclaration>
 							{
 								new ParameterDeclaration
 								{

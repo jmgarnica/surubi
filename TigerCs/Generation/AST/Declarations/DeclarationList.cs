@@ -74,36 +74,4 @@ namespace TigerCs.Generation.AST.Declarations
 				dex.GenerateCode(cg,report);
 		}
 	}
-
-	public class DeclarationListList<R> : DeclarationList<IDeclarationList<R>>
-		where R : IDeclaration
-	{
-		public override bool BindName(ISemanticChecker sc, ErrorReport report)
-		{
-			return true;
-		}
-
-		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
-		{
-			foreach (var dex in this)
-				if (!dex.BindName(sc, report)) return false;
-
-			foreach (var dex in this)
-				if (!dex.CheckSemantics(sc, report)) return false;
-
-			return true;
-		}
-	}
-
-	public class FunctionDeclarationList : DeclarationList<FunctionDeclaration>
-	{
-		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
-		{
-			foreach (var f in this)
-				f.DeclareFunction(cg,report);
-
-			foreach (var f in this)
-				f.GenerateCode(cg, report);
-		}
-	}
 }

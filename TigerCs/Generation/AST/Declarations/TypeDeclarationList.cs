@@ -26,7 +26,7 @@ namespace TigerCs.Generation.AST.Declarations
 				{
 					if (!id.ContainsKey(s))
 					{
-						report.Add(new StaticError(line, column, $"Type {cur.Type} deppends on an unaccessible type {s}", ErrorLevel.Error));
+						report.Add(new StaticError(line, column, $"Type {cur.DeclaredType} deppends on an unaccessible type {s}", ErrorLevel.Error));
 						return false;
 					}
 					indeg[s]++;
@@ -67,7 +67,7 @@ namespace TigerCs.Generation.AST.Declarations
 			foreach (var dex in this)
 			{
 				if (!dex.BindName(sc, report)) return false;
-				if (dex.Type.Complete)
+				if (dex.DeclaredType.Complete)
 				{
 					nonrecursive.Add(dex);
 					continue;

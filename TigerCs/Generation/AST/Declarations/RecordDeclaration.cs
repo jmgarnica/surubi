@@ -12,67 +12,64 @@ namespace TigerCs.Generation.AST.Declarations
 		/// <summary>
 		/// Pairs (member_name, member_type)
 		/// </summary>
-		[NotNull]
+		[NotNull(Action = OnError.ErrorButNotStop)]
 		public List<Tuple<string, string>> Members { get; set; }
+
+		List<Tuple<string, TypeInfo>> members;
 
 		public override bool BindName(ISemanticChecker sc, ErrorReport report)
 		{
-			if (!this.AutoCheck(sc, report)) return false;//TODO: initialize members in constructor
-			Dependencies = new string[0];
-			Type = new TypeInfo
-			{
-				Name = TypeName,
-				Members = new List<Tuple<string, TypeInfo>>(Members.Count),
-				Complete = false
-			};
+			if (!this.AutoCheck(sc, report)) return false;
 
-			if (sc.DeclareMember(TypeInfo.MakeTypeName(TypeName), new MemberDefinition
-			                     {
-				                     line = line,
-				                     column = column,
-				                     Member = Type
-			                     })) return true;
-			report.Add(new StaticError(line, column, "A type with the same name already exist", ErrorLevel.Error));
-			return false;
+			members = new List<Tuple<string, TypeInfo>>(Members.Count);
+			bool complete = true;
+			foreach (var t in Members)
+			{
+				var b = sc.GetType(t.Item1, report, line, column, false, true);
+				members.Add(new Tuple<string, TypeInfo>(t.Item1, b));
+				if (b == null) complete = false;
+			}
+
+			if (!sc.DeclareMember(TypeInfo.MakeTypeName(TypeName),
+			                      new MemberDefinition
+			                      {
+				                      column = column,
+				                      line = line,
+				                      Member = DeclaredType = new TypeInfo
+				                               {
+					                               Members = members,
+					                               Name = TypeName,
+					                               Complete = complete
+				                               }
+			                      }))
+				report.Add(new StaticError(line, column, $"This scope already contains a definition for {TypeName}", ErrorLevel.Error));
+
+			return true;
 		}
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
-			var sorted = new List<string>(from ts in Members select ts.Item1);
-			sorted.Sort();
-			for (int i = 0; i < sorted.Count - 1; i++)
+			if (DeclaredType.Complete) return true;
+
+			for (int i = 0; i < Members.Count; i++)
 			{
-				if (!sorted[i].Equals(sorted[i + 1])) continue;
-				report.Add(new StaticError(line, column, $"Member {sorted[i]} was defined more than one time", ErrorLevel.Error));
-				return false;
+				if(members[i].Item2 != null) continue;
+				TypeInfo t = sc.GetType(Members[i].Item2, report, line, column);
+				members[i] = new Tuple<string, TypeInfo>(members[i].Item1, t);
 			}
-
-			foreach (var member in Members)
-			{
-				MemberInfo mem;
-				TypeInfo tem;
-				if (!sc.Reachable(TypeInfo.MakeTypeName(member.Item2), out mem) || (tem = mem as TypeInfo) == null)
-				{
-					report.Add(new StaticError(line, column, $"Type {member.Item2} is unaccessible", ErrorLevel.Error));
-					return false;
-				}
-
-				Type.Members.Add(new Tuple<string, TypeInfo>(member.Item1, tem));
-			}
-
-			Type.Complete = true;
+			DeclaredType.Complete = true;
 			return true;
 		}
 
 		public override void DeclareType<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			Type.BCMMember = cg.DeclareType(TypeName);
+			DeclaredType.BCMMember = cg.DeclareType(TypeName);
 		}
 
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			cg.BindRecordType((T)Type.BCMMember,
-			                  (from ts in Type.Members
+			cg.BindRecordType((T)DeclaredType.BCMMember,
+			                  (from ts in DeclaredType.Members
 			                   select new Tuple<string, T>(ts.Item1, (T)ts.Item2.BCMMember)).ToArray());
 		}
 	}

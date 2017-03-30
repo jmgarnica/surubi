@@ -1,4 +1,6 @@
-﻿using TigerCs.CompilationServices;
+﻿using System.Net.Security;
+using System.Xml;
+using TigerCs.CompilationServices;
 using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
@@ -12,60 +14,30 @@ namespace TigerCs.Generation.AST.Declarations
 		public override bool BindName(ISemanticChecker sc, ErrorReport report)
 		{
 			if (!this.AutoCheck(sc, report)) return false;
-			MemberDefinition mem;
-			if (sc.Reachable(TypeInfo.MakeTypeName(AliasOf), out mem))
-			{
-				var tem = mem.Member as TypeInfo;
-				if (tem != null)
-				{
-					Dependencies = tem.Complete? new string[0] : new[] { AliasOf };
-				}
-				else
-				{
-					report.Add(new StaticError(line,column, $"The non-type member {mem.Member.Name} was declared in a type namespace", ErrorLevel.Internal));
-					return false;
-				}
-			}
+			DeclaredType = sc.GetType(AliasOf, report, line, column, false, true);
+
+			if (DeclaredType == null) Dependencies = new[] {AliasOf};
 			else
 			{
-				mem = new MemberDefinition
-				{
-					line = line,
-					column = column,
-					Member = new TypeInfo
-					{
-						Name = TypeName,
-						Complete = false
-					}
-				};
-				Dependencies = new[] { AliasOf };
+				Dependencies = new string[0];
+				if (!sc.DeclareMember(TypeInfo.MakeTypeName(TypeName),
+									  new MemberDefinition { line = line, column = column, Member = DeclaredType }))
+					report.Add(new StaticError(line, column, $"This scope already contains a definition for {TypeName}",
+											   ErrorLevel.Error));
 			}
 
-			if (sc.DeclareMember(TypeInfo.MakeTypeName(TypeName), mem)) return true;
-
-			report.Add(new StaticError(line, column, "A type with the same name already exist", ErrorLevel.Error));
-			return false;
+			return true;
 		}
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
-			MemberDefinition mem;
-			if (!sc.Reachable(TypeInfo.MakeTypeName(TypeName), out mem))
-			{
-				report.Add(new StaticError(line, column, "Binding phase required", ErrorLevel.Internal));
-				return false;
-			}
+			if (DeclaredType != null) return true;
+			DeclaredType = sc.GetType(AliasOf, report, line, column);
 
-			if ((Type = mem.Member as TypeInfo)?.Complete == true) return true;
-
-			MemberInfo mef;
-			if (!sc.Reachable(TypeInfo.MakeTypeName(AliasOf), out mef) || (Type = mef as TypeInfo)?.Complete != true)
-			{
-				report.Add(new StaticError(line, column, $"Type {AliasOf} is unaccessible", ErrorLevel.Error));
-				return false;
-			}
-
-			mem.Member = mef;
+			if (!sc.DeclareMember(TypeInfo.MakeTypeName(TypeName),
+									  new MemberDefinition { line = line, column = column, Member = DeclaredType }))
+				report.Add(new StaticError(line, column, $"This scope already contains a definition for {TypeName}",
+										   ErrorLevel.Error));
 			return true;
 		}
 

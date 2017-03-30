@@ -41,21 +41,7 @@ namespace TigerCs.Generation.AST.Declarations
 		{
 			TypeInfo t = null;
 			if (!string.IsNullOrEmpty(HolderType))
-			{
-				MemberInfo mem;
-				if (!sc.Reachable(TypeInfo.MakeTypeName(HolderType), out mem))
-				{
-					report.Add(new StaticError(line, column, $"Type {HolderType} is unaccessible", ErrorLevel.Error));
-					return false;
-				}
-
-				t = mem as TypeInfo;
-				if (t == null)
-				{
-					report.Add(new StaticError(line, column, $"The non-type member {mem.Name} was declared in a type namespace", ErrorLevel.Internal));
-					return false;
-				}
-			}
+				t = sc.GetType(HolderType, report, line, column);
 
 			emptyVar e;
 			inner = new Assign
@@ -99,20 +85,31 @@ namespace TigerCs.Generation.AST.Declarations
 				if (Type == null && (expected == null || expected.Equals(sp.Void(report)) || expected.Equals(sp.Null(report))))
 				{
 					report.Add(new StaticError(line, column, $"The type of variable {Name} can't be inferred", ErrorLevel.Error));
-					return false;
+					Type = sp.Dummy(report);
 				}
+
+				Holder = new HolderInfo
+				{
+					Name = Name,
+					Type = Type ?? expected
+				};
 
 				if (sp.DeclareMember(Name, new MemberDefinition
 				                     {
 					                     column = column,
 					                     line = line,
-					                     Member = Holder = new HolderInfo
-					                              {
-						                              Name = Name,
-						                              Type = Type ?? expected
-					                              }
+					                     Member = Holder
 				                     }))
 					return base.CheckSemantics(sp, report, expected);
+
+				MemberDefinition var;
+				if (sp.Reachable(Name, out var))//TODO: STD?
+				{
+					var.line = line;
+					var.column = column;
+					var.Member = Holder;
+					return base.CheckSemantics(sp, report, expected);
+				}
 
 				report.Add(new StaticError(line, column, "A member with the same name already exist", ErrorLevel.Error));
 				return false;

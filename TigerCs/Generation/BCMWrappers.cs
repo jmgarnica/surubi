@@ -39,6 +39,8 @@ namespace TigerCs.Generation
 
 		public abstract bool FillInconsistencyReport(MemberInfo mem, ErrorReport report, int thisline, int thiscol,
 		                                             int memline, int memcol);
+
+		public static string MakeCompilerName(string name) => $"<cg>{name}<cg>";
 	}
 
 	public class HolderInfo : MemberInfo
@@ -173,12 +175,12 @@ namespace TigerCs.Generation
 
 		public static bool operator ==(TypeInfo a, TypeInfo b)
 		{
-			return (b?.TypeId ?? Guid.Empty) == (a?.TypeId ?? Guid.Empty);
+			return (a?.TypeId == null && b?.TypeId == null) || (a?.TypeId != null && a.Equals(b));
 		}
 
 		public static bool operator !=(TypeInfo a, TypeInfo b)
 		{
-			return (b?.TypeId ?? Guid.Empty) != (a?.TypeId ?? Guid.Empty);
+			return !(a == b);
 		}
 
 		public override int GetHashCode()

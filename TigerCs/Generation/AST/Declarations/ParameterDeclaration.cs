@@ -1,5 +1,7 @@
-﻿using TigerCs.CompilationServices;
+﻿using System;
+using TigerCs.CompilationServices;
 using TigerCs.CompilationServices.AutoCheck;
+using TigerCs.Emitters;
 using TigerCs.Generation.ByteCode;
 
 namespace TigerCs.Generation.AST.Declarations
@@ -32,40 +34,17 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public virtual bool BindName(ISemanticChecker sc, ErrorReport report)
 		{
-			if (!this.AutoCheck(sc, report)) return false;
-			//if (Type == null)
-			//{
-			//	report.Add(new StaticError(line, column, "Semantic checking phase required", ErrorLevel.Internal));
-			//	return false;
-			//}
-
-			Holder = new HolderInfo
-			{
-				Name = HolderName,
-				Type = Type
-			};
-
-			if (sc.DeclareMember(HolderName, new MemberDefinition { line = line, column = column, Member = Holder })) return true;
-
-			report.Add(new StaticError(line, column, "A member with the same name already exist", ErrorLevel.Error));
-			return false;
+			return true;
 		}
 
 		public virtual bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
-			MemberInfo mem;
-			if (!sc.Reachable(TypeInfo.MakeTypeName(HolderType), out mem))
-			{
-				report.Add(new StaticError(line, column, $"Type {HolderType} is unaccessible", ErrorLevel.Error));
-				return false;
-			}
+			if(!this.AutoCheck(sc, report)) return false;
 
-			Type = mem as TypeInfo;
+			Type = sc.GetType(HolderType, report, line, column);
+			if (Type == null) return false;
 
-			if (Type != null) return true;
-
-			report.Add(new StaticError(line, column, $"The non-type member {mem.Name} was declared in a type namespace", ErrorLevel.Internal));
-			return false;
+			throw new NotImplementedException();
 		}
 
 		public void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)

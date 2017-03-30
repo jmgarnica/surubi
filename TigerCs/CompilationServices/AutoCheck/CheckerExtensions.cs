@@ -45,11 +45,11 @@ namespace TigerCs.CompilationServices.AutoCheck
 		public static TypeInfo Void(this ISemanticChecker sc, ErrorReport report = null)
 		{
 			MemberInfo Void;
-			if (sc.Reachable(TypeInfo.MakeTypeName("<cg> void <cg>"), out Void, new MemberDefinition
+			if (sc.Reachable(TypeInfo.MakeTypeName(MemberInfo.MakeCompilerName("void")), out Void, new MemberDefinition
 			                 {
 				                 Member = new TypeInfo
 				                 {
-					                 Name = "void",
+					                 Name = MemberInfo.MakeCompilerName("void"),
 					                 BCMBackup = false
 				                 }
 			                 }))
@@ -62,17 +62,55 @@ namespace TigerCs.CompilationServices.AutoCheck
 		public static TypeInfo Null(this ISemanticChecker sc, ErrorReport report = null)
 		{
 			MemberInfo Null;
-			if (sc.Reachable(TypeInfo.MakeTypeName("<cg> Null <cg>"), out Null, new MemberDefinition
+			if (sc.Reachable(TypeInfo.MakeTypeName(MemberInfo.MakeCompilerName("null")), out Null, new MemberDefinition
 			                 {
 				                 Member = new TypeInfo
 				                 {
-					                 Name = "Null",
+					                 Name = MemberInfo.MakeCompilerName("null"),
 									 BCMBackup = false
 				                 }
 			                 }))
 				return (TypeInfo)Null;
 
 			report?.Add(new StaticError {Level = ErrorLevel.Internal, ErrorMessage = "Null STD type not defined"});
+			return null;
+		}
+
+		/// <summary>
+		/// Dummy is an empty type, use only to let semantic check continue after a type error
+		/// </summary>
+		/// <param name="sc"></param>
+		/// <param name="report"></param>
+		/// <returns></returns>
+		public static TypeInfo Dummy(this ISemanticChecker sc, ErrorReport report = null)
+		{
+			MemberInfo Dummy;
+			if (sc.Reachable(TypeInfo.MakeTypeName(MemberInfo.MakeCompilerName("dummy")), out Dummy, new MemberDefinition
+			                 {
+				                 Member = new DummyType(sc, report)
+			                 }))
+				return (TypeInfo)Dummy;
+
+			report?.Add(new StaticError { Level = ErrorLevel.Internal, ErrorMessage = "Dummy not supported" });
+			return null;
+		}
+
+		public static TypeInfo GetType(this ISemanticChecker sc, string tname, ErrorReport report, int line, int column, bool dummy_on_fault = true, bool hide_errors = false)
+		{
+			TypeInfo t;
+			MemberInfo memb;
+			if (!sc.Reachable(TypeInfo.MakeTypeName(tname), out memb))
+			{
+				if (!hide_errors) report.Add(new StaticError(line, column, $"Unknown type {tname}", ErrorLevel.Error));
+				t = dummy_on_fault? sc.Dummy(report) : null;
+				return t;
+			}
+
+			t = memb as TypeInfo;
+			if (t != null) return t;
+
+			if (!hide_errors)
+				report.Add(new StaticError(line, column, $"Non-Type member {memb} declared in a type namespace", ErrorLevel.Internal));
 			return null;
 		}
 
@@ -86,7 +124,6 @@ namespace TigerCs.CompilationServices.AutoCheck
 			report?.Add(new StaticError { Level = ErrorLevel.Internal, ErrorMessage = "nil STD const not defined" });
 			return null;
 		}
-
 
 	}
 

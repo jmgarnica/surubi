@@ -14,9 +14,9 @@ namespace TigerCs.Emitters
 		#endregion
 
 
-		public bool DeclareMember(string name, MemberDefinition member, bool hide = true)
+		public bool DeclareMember(string name, MemberDefinition member, bool hideoutter = true)
 		{
-			if (!hide)
+			if (!hideoutter)
 			{
 				MemberInfo existent;
 				if (Reachable(name, out existent)) return false;
@@ -51,11 +51,19 @@ namespace TigerCs.Emitters
 			currentscope = rootscope;
 		}
 
-		public void LeaveScope()
+		public void LeaveScope(int count = 1)
 		{
-			currentscope.Closure = null;
-			currentscope = currentscope.Parent;
-			if (currentscope == null) report.Add(new StaticError { Level = ErrorLevel.Internal, ErrorMessage = "attempt to leave root scope" });
+			while (count > 0)
+			{
+				currentscope.Closure = null;
+				currentscope = currentscope.Parent;
+				if (currentscope == null)
+				{
+					//report.Add(new StaticError { Level = ErrorLevel.Internal, ErrorMessage = "attempt to leave root scope" });
+					return;
+				}
+				count--;
+			}
 		}
 
 		public bool Reachable(string name, out MemberInfo member, MemberDefinition desired = null)
