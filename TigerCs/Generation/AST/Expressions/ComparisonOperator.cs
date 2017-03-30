@@ -15,7 +15,7 @@ namespace TigerCs.Generation.AST.Expressions
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
-			if (Rigth == null || Left == null)//TODO: esto esta muy maja
+			if (Right == null || Left == null)
 			{
 				report.Add(
 					new StaticError
@@ -28,7 +28,7 @@ namespace TigerCs.Generation.AST.Expressions
 				return false;
 			}
 
-			if (!Rigth.CheckSemantics(sc, report)) return false;
+			if (!Right.CheckSemantics(sc, report)) return false;
 			if (!Left.CheckSemantics(sc, report)) return false;
 
 			_int = sc.Int(report);
@@ -37,7 +37,7 @@ namespace TigerCs.Generation.AST.Expressions
 			_string = sc.String(report);
 			if (_string == null) return false;
 
-			if (!Rigth.Return.Equals(Left.Return))
+			if (!Right.Return.Equals(Left.Return))
 			{
 				report.Add(
 						new StaticError
@@ -46,11 +46,11 @@ namespace TigerCs.Generation.AST.Expressions
 							Line = line,
 							Level = ErrorLevel.Error,
 							ErrorMessage =
-								$"Comparisons must be between objects of the same type left: {Left.Return}, rigth: {Rigth.Return} "
+								$"Comparisons must be between objects of the same type left: {Left.Return}, rigth: {Right.Return} "
 						});
 				return false;
 			}
-			if(!(Rigth.Return.Equals(_int) || Rigth.Return.Equals(_string)))
+			else if(!(Right.Return.Equals(_int) || Right.Return.Equals(_string)))
             {
 				report.Add(
 					new StaticError
@@ -64,9 +64,9 @@ namespace TigerCs.Generation.AST.Expressions
 			}
 
 			Return = _int;
-			ReturnValue = new HolderInfo { Type = _int, Name = Rigth.ReturnValue.Name + "=>?<=" + Left.ReturnValue.Name + "|> comparison" };
+			ReturnValue = new HolderInfo { Type = _int, Name = Right.ReturnValue.Name + "=>?<=" + Left.ReturnValue.Name + "|> comparison" };
 
-			if (StringComparer == null && Rigth.Return.Equals(_string))
+			if (StringComparer == null && Right.Return.Equals(_string))
 			{
 				_nill = sc.Nil();
 
@@ -88,14 +88,14 @@ namespace TigerCs.Generation.AST.Expressions
 	{
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			Rigth.GenerateCode(cg, report);
-			if (!Rigth.ReturnValue.Bounded) return;
+			Right.GenerateCode(cg, report);
+			if (!Right.ReturnValue.Bounded) return;
 			Left.GenerateCode(cg, report);
 			if (!Left.ReturnValue.Bounded) return;
 
 			if (Left.Return.Equals(Return))
 			{
-				var val = cg.InstrSub_TempBound((H)Left.ReturnValue.BCMMember, (H)Rigth.ReturnValue.BCMMember);
+				var val = cg.InstrSub_TempBound((H)Left.ReturnValue.BCMMember, (H)Right.ReturnValue.BCMMember);
 
 			}
 			else { }

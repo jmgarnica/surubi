@@ -39,16 +39,16 @@ namespace TigerCs.Generation.AST.Expressions
 
 			sc.LeaveScope(Declarations.Count + 1);
 
-			foreach (var dex in Declarations)
-			{
-				var dexlist = dex as IDeclarationList<TypeDeclaration>;
-				if (dexlist == null) continue;
-				foreach (var tdex in dexlist)
+				foreach (var dex in Declarations)
 				{
-					if(tdex is AliasDeclaration) continue;
+					var dexlist = dex as IDeclarationList<TypeDeclaration>;
+					if (dexlist == null) continue;
+					foreach (var tdex in dexlist)
+					{
+						if(tdex is AliasDeclaration) continue;
 					declaredhere.Add(tdex.DeclaredType);
+					}
 				}
-			}
 
 			var _void = sc.Void(report);
 
