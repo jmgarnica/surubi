@@ -26,7 +26,7 @@ namespace TigerCs.Generation.AST.Expressions
 			for (int i = 0; i < Declarations.Count; i++)
 			{
 				sc.EnterNestedScope();
-				if (Declarations[i].CheckSemantics(sc, report)) continue;
+				if (Declarations[i].BindName(sc, report) && Declarations[i].CheckSemantics(sc, report)) continue;
 				sc.LeaveScope(i+2);
 				return false;
 			}

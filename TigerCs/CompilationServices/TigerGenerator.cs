@@ -4,6 +4,7 @@ using TigerCs.Generation;
 using TigerCs.Generation.AST.Expressions;
 using System;
 using System.IO;
+using TigerCs.Parser;
 
 namespace TigerCs.CompilationServices
 {
@@ -13,6 +14,8 @@ namespace TigerCs.CompilationServices
 		where H : class, IHolder
 	{
 		public ISemanticChecker SemanticChecker { get; set; }
+
+		public IParser Parser { get; set; }
 
 		public IByteCodeMachine<T, F, H> ByteCodeMachine { get; set; }
 
@@ -64,7 +67,7 @@ namespace TigerCs.CompilationServices
 
 		public IExpression Parse(TextReader input, ErrorReport tofill)
 		{
-			throw new NotImplementedException();
+			return Parser.Parse(input, tofill);
 		}
 
 		public void AddStd(MemberDefinition md, string bcm_name)

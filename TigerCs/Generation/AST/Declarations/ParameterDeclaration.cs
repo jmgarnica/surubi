@@ -44,7 +44,17 @@ namespace TigerCs.Generation.AST.Declarations
 			Type = sc.GetType(HolderType, report, line, column);
 			if (Type == null) return false;
 
-			throw new NotImplementedException();
+			Holder = new HolderInfo
+			{
+				Name = HolderName,
+				Type = Type
+			};
+
+			if (sc.DeclareMember(HolderName, new MemberDefinition {line = line, column = column, Member = Holder})) return true;
+
+			report.Add(new StaticError {Line = line, Column = column, ErrorMessage = $"Duplicated argument name {HolderName}", Level = ErrorLevel.Error});
+
+			return false;
 		}
 
 		public void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)

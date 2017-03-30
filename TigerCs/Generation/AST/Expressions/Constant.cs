@@ -47,6 +47,7 @@ namespace TigerCs.Generation.AST.Expressions
 		public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report, TypeInfo expected = null)
 		{
 			this.AutoCheck(sp, report, expected);
+			Lex = Lex.Trim('"');
 			Return = sp.String(report);
 			ReturnValue = new HolderInfo {Type = Return, ConstValue = Lex};
 			return true;

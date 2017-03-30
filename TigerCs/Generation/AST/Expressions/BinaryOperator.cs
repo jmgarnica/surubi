@@ -37,37 +37,13 @@ namespace TigerCs.Generation.AST.Expressions
 			if (Left.Return.Equals(_void))
 			{
 				report.Add(new StaticError(Left.line, Left.column, "Can't compare an expression that does not return a value",
-				                           ErrorLevel.Error));
-				return false;
-			}
-
-			var notnil = Left.Return.Equals(_null)? Rigth : Left;
-
-			if (Right.Return.Equals(_void))
-			{
-				report.Add(new StaticError(Right.line, Right.column, "Can't compare an expression that does not return a value",
 										   ErrorLevel.Error));
 				return false;
 			}
 
-			var notnil = Left;
+			var notnil = Left.Return.Equals(_null) ? Right : Left;
 
-			if (!Left.Return.Equals(Right.Return))
-			{
-				if (Left.Return.Equals(_null) && !Right.Return.Equals(_int))
-					notnil = Right;
-
-				else if (Right.Return.Equals(_null) && !Left.Return.Equals(_int))
-					notnil = Left;
-
-				else
-				{
-					report.Add(new StaticError(Right.line, Right.column, $"Can't compare expressions of types {Left.Return} and {Right.Return}",
-										   ErrorLevel.Error));
-					return false;
-				}
-			}
-			else if(notnil.Return.Equals(_null))
+			if (notnil.Return.Equals(_null))
 			{
 				report.Add(new StaticError(line, column, "The type of the comparison operands can't be inferred because both are nil",
 										   ErrorLevel.Error));
@@ -79,21 +55,21 @@ namespace TigerCs.Generation.AST.Expressions
 				comparisontype = true;
 				MemberInfo f;
 				if (!sc.Reachable("<cg> str_comparer <cg>", out f, new MemberDefinition
-				                  {
-					                  line = line,
-					                  column = column,
-					                  Member = new FunctionInfo
-					                  {
-						                  Name = "strcomparer",
-						                  Parameters =
-							                  new List<Tuple<string, TypeInfo>>
-							                  {
-								                  new Tuple<string, TypeInfo>("a", _string),
-								                  new Tuple<string, TypeInfo>("b", _string)
-							                  },
-						                  Return = _int
-					                  }
-				                  }))
+				{
+					line = line,
+					column = column,
+					Member = new FunctionInfo
+					{
+						Name = "strcomparer",
+						Parameters =
+											  new List<Tuple<string, TypeInfo>>
+											  {
+												  new Tuple<string, TypeInfo>("a", _string),
+												  new Tuple<string, TypeInfo>("b", _string)
+											  },
+						Return = _int
+					}
+				}))
 				{
 					report.Add(new StaticError(Right.line, Right.column, "String comparison function missing",
 										   ErrorLevel.Internal));
@@ -106,7 +82,7 @@ namespace TigerCs.Generation.AST.Expressions
 			else comparisontype = null;
 
 			Return = _int;
-			ReturnValue = new HolderInfo {Type = Return};
+			ReturnValue = new HolderInfo { Type = Return };
 			CanBreak = false;
 			Pure = Left.Pure && Right.Pure;
 

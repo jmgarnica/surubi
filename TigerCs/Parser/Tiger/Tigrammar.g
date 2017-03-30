@@ -238,7 +238,7 @@ expression_sequence returns[ExpressionList<IExpression> r]
 {
 	r = new ExpressionList<IExpression>();
 }
-: e1=expression{r.Add(e1);} ( SEMICOLON e2=expression{r.Add(e1);})*
+: e1=expression{r.Add(e1);} ( SEMICOLON e2=expression{r.Add(e2);})*
 ;
 
 declaration_list_list returns [List<IDeclarationList<IDeclaration>> r]
@@ -286,7 +286,7 @@ declaration [List<IDeclarationList<IDeclaration>> r, DclType prec] returns [DclT
 
 function_declaration returns [FunctionDeclaration r]
 @init{string type = null;}
-: FUNCTION i=ID L_PARENT p=type_fields R_PARENT (COLON t=ID {type = $t.text;})? ASSIGN e=expression{ r = new FunctionDeclaration{line = $FUNCTION.Line, column = $FUNCTION.CharPositionInLine, Parameters = p, Return = type, FunctionName = $i.text, Body = e};}
+: FUNCTION i=ID L_PARENT p=type_fields R_PARENT (COLON t=ID {type = $t.text;})? EQUAL e=expression{ r = new FunctionDeclaration{line = $FUNCTION.Line, column = $FUNCTION.CharPositionInLine, Parameters = p, Return = type, FunctionName = $i.text, Body = e};}
 ;
 
 var_declaration returns [VarDeclaration r]

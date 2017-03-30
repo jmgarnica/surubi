@@ -2835,7 +2835,7 @@ namespace TigerCs.Parser.Tiger
 										PopFollow();
 
 										DebugLocation(241, 54);
-										r.Add(e1);
+										r.Add(e2);
 
 									}
 										break;

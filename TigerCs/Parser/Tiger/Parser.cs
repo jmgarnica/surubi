@@ -6,14 +6,14 @@ using TigerCs.Generation.AST.Expressions;
 
 namespace TigerCs.Parser.Tiger
 {
-	class Parser : IParser
+	public class Parser : IParser
 	{
 		public IExpression Parse(TextReader tr, ErrorReport tofill)
 		{
 			try
 			{
 				TigrammarLexer lexer = new TigrammarLexer(new ANTLRReaderStream(tr));
-				TigrammarParser parser = new TigrammarParser(new CommonTokenStream(lexer));
+				TigrammarParser parser = new TigrammarParser(new CommonTokenStream(lexer)) {TraceDestination = Console.Out};
 				var exp = parser.program();
 				return exp;
 			}

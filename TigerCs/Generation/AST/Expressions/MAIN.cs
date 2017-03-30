@@ -10,11 +10,12 @@ namespace TigerCs.Generation.AST.Expressions
 	{
 		public const string EntryPointName = "Main";
 		public const string ArgumentName = "args";
+		public const string ArgumentCount = "argc";
 		public const string PrintSName = "prints";
 
 		TypeInfo _string, _int, _void, _null, arrayof_string;
 		FunctionInfo prints, Main;
-		HolderInfo args;
+		HolderInfo args, argc;
 
 		[NotNull]
 		public IExpression Root { get; }
@@ -59,10 +60,18 @@ namespace TigerCs.Generation.AST.Expressions
 			args = new HolderInfo
 			{
 				Name = ArgumentName,
-				Type = arrayof_string,
+				Type = arrayof_string
 			};
 
 			sc.DeclareMember(args.Name, new MemberDefinition {Member = args, line = line, column = column});
+
+			argc = new HolderInfo
+			{
+				Name = ArgumentCount,
+				Type = _int
+			};
+
+			sc.DeclareMember(argc.Name, new MemberDefinition { Member = argc, line = line, column = column });
 
 			Return = _void;
 
@@ -104,7 +113,8 @@ namespace TigerCs.Generation.AST.Expressions
 			if (!arrayof_string.Bounded) arrayof_string.BCMMember = cg.BindArrayType(arrayof_string.Name, (T)_string.BCMMember);
 
 			Main.BCMMember = cg.EntryPoint(true, true);
-			args.BCMMember = cg.GetParam(0);
+			args.BCMMember = cg.GetParam(1);
+			argc.BCMMember = cg.GetParam(0);
 
 			Root.GenerateCode(cg, report);
 
