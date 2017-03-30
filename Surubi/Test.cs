@@ -260,10 +260,10 @@ namespace Surubi
 								Length = new IntegerOperator
 								{
 									Left = new Var {Name = "N"},
-									Rigth = new IntegerOperator
+									Right = new IntegerOperator
 									{
 										Left = new Var {Name = "N"},
-										Rigth = new IntegerConstant {Lex = "1"},
+										Right = new IntegerConstant {Lex = "1"},
 										Optype = IntegerOp.Subtraction
 									},
 									Optype = IntegerOp.Addition
@@ -281,10 +281,10 @@ namespace Surubi
 								Length = new IntegerOperator
 								{
 									Left = new Var {Name = "N"},
-									Rigth = new IntegerOperator
+									Right = new IntegerOperator
 									{
 										Left = new Var {Name = "N"},
-										Rigth = new IntegerConstant {Lex = "1"},
+										Right = new IntegerConstant {Lex = "1"},
 										Optype = IntegerOp.Subtraction
 									},
 									Optype = IntegerOp.Addition
@@ -311,7 +311,7 @@ namespace Surubi
 									Source = new IntegerOperator
 									{
 										Left = new Var {Name = "C"},
-										Rigth = new IntegerConstant {Lex = "1"},
+										Right = new IntegerConstant {Lex = "1"},
 										Optype = IntegerOp.Addition
 									},
 									Target = new Var {Name = "C"}
@@ -323,7 +323,7 @@ namespace Surubi
 									To = new IntegerOperator
 									{
 										Left = new Var {Name = "N"},
-										Rigth = new IntegerConstant {Lex = "1"},
+										Right = new IntegerConstant {Lex = "1"},
 										Optype = IntegerOp.Subtraction
 									},
 									Body = new ExpressionList<IExpression>
@@ -335,7 +335,7 @@ namespace Surubi
 											To = new IntegerOperator
 											{
 												Left = new Var {Name = "N"},
-												Rigth = new IntegerConstant {Lex = "1"},
+												Right = new IntegerConstant {Lex = "1"},
 												Optype = IntegerOp.Subtraction
 											},
 											Body = new Call
@@ -352,7 +352,7 @@ namespace Surubi
 																Array = new Var {Name = "col"},
 																Indexer = new Var {Name = "i"}
 															},
-															Rigth = new Var {Name = "j"}
+															Right = new Var {Name = "j"}
 														},
 														Then = new StringConstant {Lex = " 0"},
 														Else = new StringConstant {Lex = " ."}
@@ -402,7 +402,7 @@ namespace Surubi
 								If = new EqualityOperator
 								{
 									Left = new Var {Name = "c"},
-									Rigth = new Var {Name = "N"}
+									Right = new Var {Name = "N"}
 								},
 								Then = new Call
 								{
@@ -416,7 +416,7 @@ namespace Surubi
 									To = new IntegerOperator
 									{
 										Left = new Var {Name = "N"},
-										Rigth = new IntegerConstant {Lex = "1"},
+										Right = new IntegerConstant {Lex = "1"},
 										Optype = IntegerOp.Subtraction
 									},
 									Body = new IfThenElse
@@ -431,9 +431,9 @@ namespace Surubi
 													Array = new Var {Name = "row"},
 													Indexer = new Var {Name = "r"}
 												},
-												Rigth = new IntegerConstant {Lex = "0"}
+												Right = new IntegerConstant {Lex = "0"}
 											},
-											Rigth = new IntegerOperator
+											Right = new IntegerOperator
 											{
 												Left = new EqualityOperator
 												{
@@ -443,13 +443,13 @@ namespace Surubi
 														Indexer = new IntegerOperator
 														{
 															Left = new Var {Name = "r"},
-															Rigth = new Var {Name = "c"},
+															Right = new Var {Name = "c"},
 															Optype = IntegerOp.Addition
 														}
 													},
-													Rigth = new IntegerConstant {Lex = "0"}
+													Right = new IntegerConstant {Lex = "0"}
 												},
-												Rigth = new EqualityOperator
+												Right = new EqualityOperator
 												{
 													Left = new ArrayAccess
 													{
@@ -457,16 +457,16 @@ namespace Surubi
 														Indexer = new IntegerOperator
 														{
 															Left = new Var {Name = "r"},
-															Rigth = new IntegerOperator
+															Right = new IntegerOperator
 															{
 																Left = new IntegerConstant {Lex = "7"},
-																Rigth = new Var {Name = "c"},
+																Right = new Var {Name = "c"},
 																Optype = IntegerOp.Subtraction
 															},
 															Optype = IntegerOp.Addition
 														}
 													},
-													Rigth = new IntegerConstant {Lex = "0"}
+													Right = new IntegerConstant {Lex = "0"}
 												},
 												Optype = IntegerOp.And
 											},
@@ -497,7 +497,7 @@ namespace Surubi
 													Indexer = new IntegerOperator
 													{
 														Left = new Var {Name = "r"},
-														Rigth = new Var {Name = "c"},
+														Right = new Var {Name = "c"},
 														Optype = IntegerOp.Addition
 													}
 												}
@@ -511,10 +511,10 @@ namespace Surubi
 													Indexer = new IntegerOperator
 													{
 														Left = new Var {Name = "r"},
-														Rigth = new IntegerOperator
+														Right = new IntegerOperator
 														{
 															Left = new IntegerConstant {Lex = "7"},
-															Rigth = new Var {Name = "c"},
+															Right = new Var {Name = "c"},
 															Optype = IntegerOp.Subtraction
 														},
 														Optype = IntegerOp.Addition
@@ -538,7 +538,7 @@ namespace Surubi
 													new IntegerOperator
 													{
 														Left = new Var {Name = "c"},
-														Rigth = new IntegerConstant {Lex = "1"},
+														Right = new IntegerConstant {Lex = "1"},
 														Optype = IntegerOp.Addition
 													}
 												}
@@ -561,7 +561,7 @@ namespace Surubi
 													Indexer = new IntegerOperator
 													{
 														Left = new Var {Name = "r"},
-														Rigth = new Var {Name = "c"},
+														Right = new Var {Name = "c"},
 														Optype = IntegerOp.Addition
 													}
 												}
@@ -575,10 +575,10 @@ namespace Surubi
 													Indexer = new IntegerOperator
 													{
 														Left = new Var {Name = "r"},
-														Rigth = new IntegerOperator
+														Right = new IntegerOperator
 														{
 															Left = new IntegerConstant {Lex = "7"},
-															Rigth = new Var {Name = "c"},
+															Right = new Var {Name = "c"},
 															Optype = IntegerOp.Subtraction
 														},
 														Optype = IntegerOp.Addition

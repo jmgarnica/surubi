@@ -212,3 +212,6 @@ _Pvt_Extensions/
 ModelManifest.xml
 *.asm
 *.exe
+/TigerCs/Parser/Tiger/output/TigrammarLexer.cs
+/TigerCs/Parser/Tiger/output/TigrammarParser.cs
+/TigerCs/Parser/Tiger/output/Tigrammar.tokens

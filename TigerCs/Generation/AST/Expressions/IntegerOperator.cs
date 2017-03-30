@@ -13,12 +13,12 @@ namespace TigerCs.Generation.AST.Expressions
 		{
 			_int = sc.Int(report);
 
-			if (!Left.CheckSemantics(sc, report, _int) || !Rigth.CheckSemantics(sc, report, _int)) return false;
+			if (!Left.CheckSemantics(sc, report, _int) || !Right.CheckSemantics(sc, report, _int)) return false;
 
-			if (Left.Return != _int || Rigth.Return != _int)
+			if (Left.Return != _int || Right.Return != _int)
 			{
 				report.Add(new StaticError(line, column,
-					$"Can not perform ({Optype})({Left.Return}, {Rigth.Return})",ErrorLevel.Error));
+					$"Can not perform ({Optype})({Left.Return}, {Right.Return})",ErrorLevel.Error));
 				return false;
 			}
 
@@ -35,11 +35,11 @@ namespace TigerCs.Generation.AST.Expressions
 
 			Return = _int;
 			ReturnValue = new HolderInfo {Type = _int};
-			Pure = Left.Pure && Rigth.Pure;
+			Pure = Left.Pure && Right.Pure;
 
-			if (Left.ReturnValue.ConstValue == null || Rigth.ReturnValue.ConstValue == null) return true;
+			if (Left.ReturnValue.ConstValue == null || Right.ReturnValue.ConstValue == null) return true;
 
-			int rigth = (int)Rigth.ReturnValue.ConstValue;
+			int rigth = (int)Right.ReturnValue.ConstValue;
 
 			if (Optype == IntegerOp.Addition)
 				ReturnValue.ConstValue = (int)Left.ReturnValue.ConstValue + rigth;
@@ -54,7 +54,7 @@ namespace TigerCs.Generation.AST.Expressions
 			{
 				if (rigth == 0)
 				{
-					report.Add(new StaticError(Rigth.line, Rigth.column, "Division by zero", ErrorLevel.Error));
+					report.Add(new StaticError(Right.line, Right.column, "Division by zero", ErrorLevel.Error));
 					return false;
 				}
 				ReturnValue.ConstValue = (int)Left.ReturnValue.ConstValue / rigth;
@@ -80,7 +80,7 @@ namespace TigerCs.Generation.AST.Expressions
 			if (ReturnValue.ConstValue != null)
 			{
 				if (!Left.Pure) Left.GenerateCode(cg, report);
-				if (!Rigth.Pure) Rigth.GenerateCode(cg, report);
+				if (!Right.Pure) Right.GenerateCode(cg, report);
 
 				ReturnValue.BCMMember = cg.AddConstant((int)ReturnValue.ConstValue);
 				return;
@@ -89,32 +89,32 @@ namespace TigerCs.Generation.AST.Expressions
 			if (Optype == IntegerOp.Addition)
 			{
 				Left.GenerateCode(cg, report);
-				Rigth.GenerateCode(cg, report);
-				H rigth = (H)Rigth.ReturnValue.BCMMember;
+				Right.GenerateCode(cg, report);
+				H rigth = (H)Right.ReturnValue.BCMMember;
 				ReturnValue.BCMMember = cg.InstrAdd_TempBound((H)Left.ReturnValue.BCMMember, rigth);
 			}
 
 			if (Optype == IntegerOp.Subtraction)
 			{
 				Left.GenerateCode(cg, report);
-				Rigth.GenerateCode(cg, report);
-				H rigth = (H)Rigth.ReturnValue.BCMMember;
+				Right.GenerateCode(cg, report);
+				H rigth = (H)Right.ReturnValue.BCMMember;
 				ReturnValue.BCMMember = cg.InstrSub_TempBound((H)Left.ReturnValue.BCMMember, rigth);
 			}
 
 			if (Optype == IntegerOp.Multiplication)
 			{
 				Left.GenerateCode(cg, report);
-				Rigth.GenerateCode(cg, report);
-				H rigth = (H)Rigth.ReturnValue.BCMMember;
+				Right.GenerateCode(cg, report);
+				H rigth = (H)Right.ReturnValue.BCMMember;
 				ReturnValue.BCMMember = cg.InstrMult_TempBound((H)Left.ReturnValue.BCMMember, rigth);
 			}
 
 			if (Optype == IntegerOp.Division)
 			{
 				Left.GenerateCode(cg, report);
-				Rigth.GenerateCode(cg, report);
-				H rigth = (H)Rigth.ReturnValue.BCMMember;
+				Right.GenerateCode(cg, report);
+				H rigth = (H)Right.ReturnValue.BCMMember;
 
 				var zero = cg.ReserveInstructionLabel("by zero division check fail");
 				var pass = cg.ReserveInstructionLabel("by zero division check success");
@@ -141,8 +141,8 @@ namespace TigerCs.Generation.AST.Expressions
 				Left.GenerateCode(cg, report);
 				cg.GotoIfZero(zero, (H)Left.ReturnValue.BCMMember);
 
-				Rigth.GenerateCode(cg, report);
-				cg.GotoIfZero(zero, (H)Rigth.ReturnValue.BCMMember);
+				Right.GenerateCode(cg, report);
+				cg.GotoIfZero(zero, (H)Right.ReturnValue.BCMMember);
 
                 cg.InstrAssing(r, cg.AddConstant(1));
 				cg.Goto(pass);
@@ -164,8 +164,8 @@ namespace TigerCs.Generation.AST.Expressions
 				Left.GenerateCode(cg, report);
 				cg.GotoIfNotZero(one, (H)Left.ReturnValue.BCMMember);
 
-				Rigth.GenerateCode(cg, report);
-				cg.GotoIfNotZero(one, (H)Rigth.ReturnValue.BCMMember);
+				Right.GenerateCode(cg, report);
+				cg.GotoIfNotZero(one, (H)Right.ReturnValue.BCMMember);
 
 				cg.InstrAssing(r, cg.AddConstant(0));
 				cg.Goto(pass);

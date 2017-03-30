@@ -9,7 +9,7 @@ namespace TigerCs.Generation.AST.Expressions
 	{
 		[NotNull]
 		[Release]
-		public IExpression Rigth { get; set; }
+		public IExpression Right { get; set; }
 
 		[NotNull]
 		[Release]
@@ -40,29 +40,29 @@ namespace TigerCs.Generation.AST.Expressions
 				return false;
 			}
 
-			if (!Rigth.CheckSemantics(sc, report, Left.Return))
+			if (!Right.CheckSemantics(sc, report, Left.Return))
 				return false;
 
-			if (Rigth.Return.Equals(_void))
+			if (Right.Return.Equals(_void))
 			{
-				report.Add(new StaticError(Rigth.line, Rigth.column, "Can't compare an expression that does not return a value",
+				report.Add(new StaticError(Right.line, Right.column, "Can't compare an expression that does not return a value",
 										   ErrorLevel.Error));
 				return false;
 			}
 
 			var notnil = Left;
 
-			if (!Left.Return.Equals(Rigth.Return))
+			if (!Left.Return.Equals(Right.Return))
 			{
-				if (Left.Return.Equals(_null) && !Rigth.Return.Equals(_int))
-					notnil = Rigth;
+				if (Left.Return.Equals(_null) && !Right.Return.Equals(_int))
+					notnil = Right;
 
-				else if (Rigth.Return.Equals(_null) && !Left.Return.Equals(_int))
+				else if (Right.Return.Equals(_null) && !Left.Return.Equals(_int))
 					notnil = Left;
 
 				else
 				{
-					report.Add(new StaticError(Rigth.line, Rigth.column, $"Can't compare expressions of types {Left.Return} and {Rigth.Return}",
+					report.Add(new StaticError(Right.line, Right.column, $"Can't compare expressions of types {Left.Return} and {Right.Return}",
 										   ErrorLevel.Error));
 					return false;
 				}
@@ -95,7 +95,7 @@ namespace TigerCs.Generation.AST.Expressions
 					                  }
 				                  }))
 				{
-					report.Add(new StaticError(Rigth.line, Rigth.column, "String comparison function missing",
+					report.Add(new StaticError(Right.line, Right.column, "String comparison function missing",
 										   ErrorLevel.Internal));
 					return false;
 				}
@@ -108,7 +108,7 @@ namespace TigerCs.Generation.AST.Expressions
 			Return = _int;
 			ReturnValue = new HolderInfo {Type = Return};
 			CanBreak = false;
-			Pure = Left.Pure && Rigth.Pure;
+			Pure = Left.Pure && Right.Pure;
 
 			return true;
 		}
@@ -120,8 +120,8 @@ namespace TigerCs.Generation.AST.Expressions
 
 			Left.GenerateCode(cg, report);
 			H l = (H)Left.ReturnValue.BCMMember;
-			Rigth.GenerateCode(cg,report);
-			H r = (H)Rigth.ReturnValue.BCMMember;
+			Right.GenerateCode(cg,report);
+			H r = (H)Right.ReturnValue.BCMMember;
 
 			switch (comparisontype)
 			{

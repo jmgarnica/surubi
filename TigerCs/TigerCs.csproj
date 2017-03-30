@@ -107,7 +107,9 @@
     <Compile Include="Interpretation\Interpreter.cs" />
     <Compile Include="Interpretation\InterpreterObject.cs" />
     <Compile Include="Parser\IParser.cs" />
-    <Compile Include="Parser\Parser.cs" />
+    <Compile Include="Parser\Tiger\Parser.cs" />
+    <Compile Include="Parser\Tiger\TigrammarLexer.cs" />
+    <Compile Include="Parser\Tiger\TigrammarParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Generation\AST\Declarations\RecordDeclaration.cs" />
     <Compile Include="Generation\AST\Declarations\TypeDeclaration.cs" />
@@ -121,6 +123,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="Parser\Tiger\Tigrammar.g" />
+    <None Include="Parser\Tiger\Tigrammar.tokens" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Emitters\CIL\" />

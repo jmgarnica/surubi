@@ -10,7 +10,7 @@ namespace TigerCs.Generation.AST.Expressions
 	public class Let : Expression
 	{
 		[Release(true)]
-		public DeclarationListList<IDeclaration> Declarations { get; set; }
+		public List<IDeclarationList<IDeclaration>> Declarations { get; set; }
 
 		[Release]
 		public IExpression Body { get; set; }
@@ -24,8 +24,8 @@ namespace TigerCs.Generation.AST.Expressions
 
 			if (Declarations != null)
 			{
-				if(!Declarations.CheckSemantics(sc, report))
-					return false;
+				//if(!Declarations.CheckSemantics(sc, report))
+				//	return false;
 
 				foreach (var dex in Declarations)
 				{
@@ -74,7 +74,7 @@ namespace TigerCs.Generation.AST.Expressions
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
 			cg.EnterNestedScope(declaredhere.Count > 0, "LET");
-			Declarations?.GenerateCode(cg,report);
+			//Declarations?.GenerateCode(cg,report);
 			Body?.GenerateCode(cg, report);
 			cg.LeaveScope();
 		}
