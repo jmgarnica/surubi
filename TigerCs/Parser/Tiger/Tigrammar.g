@@ -275,8 +275,6 @@ declaration [List<IDeclarationList<IDeclaration>> r, DclType prec] returns [DclT
 			if(rt == prec) ((DeclarationList<VarDeclaration>)r[r.Count-1]).Add(v);
 			else r.Add(new DeclarationList<VarDeclaration> {v});
 			break;
-		default:
-			throw new InvalidOperationException();
 	} 
 }
 : e1=function_declaration {f = e1;}
@@ -286,7 +284,7 @@ declaration [List<IDeclarationList<IDeclaration>> r, DclType prec] returns [DclT
 
 function_declaration returns [FunctionDeclaration r]
 @init{string type = null;}
-: FUNCTION i=ID L_PARENT p=type_fields R_PARENT (COLON t=ID {type = $t.text;})? EQUAL e=expression{ r = new FunctionDeclaration{line = $FUNCTION.Line, column = $FUNCTION.CharPositionInLine, Parameters = p, Return = type, FunctionName = $i.text, Body = e};}
+: FUNCTION i=ID L_PARENT p=type_fields? R_PARENT (COLON t=ID {type = $t.text;})? EQUAL e=expression{ r = new FunctionDeclaration{line = $FUNCTION.Line, column = $FUNCTION.CharPositionInLine, Parameters = p ?? new List<ParameterDeclaration>(), Return = type, FunctionName = $i.text, Body = e};}
 ;
 
 var_declaration returns [VarDeclaration r]
@@ -301,7 +299,7 @@ type_declaration returns [TypeDeclaration r]
 type returns [TypeDeclaration r]
 : ARRAY OF i=ID {r = new ArrayDeclaration{ArrayOf = $i.text};}
 | i=ID {r = new AliasDeclaration{AliasOf = $i.text};}
-| l=L_KEY t=type_creation_fields? R_KEY {r = new RecordDeclaration{Members = t};}	
+| l=L_KEY t=type_creation_fields? R_KEY {r = new RecordDeclaration{Members = t ?? new List<Tuple<string, string>>()};}	
 ;
 
 type_creation_fields returns[List<Tuple<string, string>> r]
@@ -318,7 +316,7 @@ type_fields returns[List<ParameterDeclaration> r]
 	r = new List<ParameterDeclaration>();
 	int c = 0;
 }
-: (t=type_field{t.Position = c; r.Add(t); c++;})*
+: t=type_field{if (t != null)t.Position = c; r.Add(t); c++;} (COMMA t=type_field{if (t != null)t.Position = c; r.Add(t); c++;})*
 ;
 
 type_field returns[ParameterDeclaration r]

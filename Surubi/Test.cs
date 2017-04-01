@@ -21,7 +21,7 @@ namespace Surubi
 
 			#region AST
 
-			TigerGenerator<NasmType, NasmFunction, NasmHolder> tg = new TigerGenerator<NasmType, NasmFunction, NasmHolder>
+			Generator<NasmType, NasmFunction, NasmHolder> tg = new Generator<NasmType, NasmFunction, NasmHolder>
 			{
 				SemanticChecker = dsc,
 				ByteCodeMachine = e,

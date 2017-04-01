@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// $ANTLR 3.4 G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g 2017-03-29 23:12:14
+// $ANTLR 3.4 E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g 2017-04-01 01:37:22
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 219
@@ -30,58 +30,58 @@ namespace TigerCs.Parser.Tiger
 	[System.CLSCompliant(false)]
 	public partial class TigrammarLexer : Antlr.Runtime.Lexer
 	{
-		public const int EOF = -1;
-		public const int AND = 4;
-		public const int ARRAY = 5;
-		public const int ASSIGN = 6;
-		public const int BREAK = 7;
-		public const int COLON = 8;
-		public const int COMMA = 9;
-		public const int COMMENT = 10;
-		public const int CONTROL_CHARS = 11;
-		public const int DECIMAL_ESC = 12;
-		public const int DIGIT = 13;
-		public const int DIV = 14;
-		public const int DO = 15;
-		public const int DOT = 16;
-		public const int DQUOTE = 17;
-		public const int ELSE = 18;
-		public const int END = 19;
-		public const int EQUAL = 20;
-		public const int ESC_SEQ = 21;
-		public const int FOR = 22;
-		public const int FUNCTION = 23;
-		public const int GTHAN = 24;
-		public const int GTHAN_EQUAL = 25;
-		public const int ID = 26;
-		public const int IF = 27;
-		public const int IN = 28;
-		public const int INT = 29;
-		public const int LET = 30;
-		public const int LETTER = 31;
-		public const int LTHAN = 32;
-		public const int LTHAN_EQUAL = 33;
-		public const int L_BRACKETS = 34;
-		public const int L_KEY = 35;
-		public const int L_PARENT = 36;
-		public const int MINUS = 37;
-		public const int MULT = 38;
-		public const int NIL = 39;
-		public const int NOT_EQUAL = 40;
-		public const int OF = 41;
-		public const int OR = 42;
-		public const int PLUS = 43;
-		public const int R_BRACKETS = 44;
-		public const int R_KEY = 45;
-		public const int R_PARENT = 46;
-		public const int SEMICOLON = 47;
-		public const int STRING = 48;
-		public const int THEN = 49;
-		public const int TO = 50;
-		public const int TYPE = 51;
-		public const int VAR = 52;
-		public const int WHILE = 53;
-		public const int WS = 54;
+		public const int EOF=-1;
+		public const int AND=4;
+		public const int ARRAY=5;
+		public const int ASSIGN=6;
+		public const int BREAK=7;
+		public const int COLON=8;
+		public const int COMMA=9;
+		public const int COMMENT=10;
+		public const int CONTROL_CHARS=11;
+		public const int DECIMAL_ESC=12;
+		public const int DIGIT=13;
+		public const int DIV=14;
+		public const int DO=15;
+		public const int DOT=16;
+		public const int DQUOTE=17;
+		public const int ELSE=18;
+		public const int END=19;
+		public const int EQUAL=20;
+		public const int ESC_SEQ=21;
+		public const int FOR=22;
+		public const int FUNCTION=23;
+		public const int GTHAN=24;
+		public const int GTHAN_EQUAL=25;
+		public const int ID=26;
+		public const int IF=27;
+		public const int IN=28;
+		public const int INT=29;
+		public const int LET=30;
+		public const int LETTER=31;
+		public const int LTHAN=32;
+		public const int LTHAN_EQUAL=33;
+		public const int L_BRACKETS=34;
+		public const int L_KEY=35;
+		public const int L_PARENT=36;
+		public const int MINUS=37;
+		public const int MULT=38;
+		public const int NIL=39;
+		public const int NOT_EQUAL=40;
+		public const int OF=41;
+		public const int OR=42;
+		public const int PLUS=43;
+		public const int R_BRACKETS=44;
+		public const int R_KEY=45;
+		public const int R_PARENT=46;
+		public const int SEMICOLON=47;
+		public const int STRING=48;
+		public const int THEN=49;
+		public const int TO=50;
+		public const int TYPE=51;
+		public const int VAR=52;
+		public const int WHILE=53;
+		public const int WS=54;
 
 		// delegates
 		// delegators
@@ -91,9 +91,10 @@ namespace TigerCs.Parser.Tiger
 			OnCreated();
 		}
 
-		public TigrammarLexer(ICharStream input)
+		public TigrammarLexer(ICharStream input )
 			: this(input, new RecognizerSharedState())
-		{}
+		{
+		}
 
 		public TigrammarLexer(ICharStream input, RecognizerSharedState state)
 			: base(input, state)
@@ -101,11 +102,7 @@ namespace TigerCs.Parser.Tiger
 
 			OnCreated();
 		}
-
-		public override string GrammarFileName
-		{
-			get { return "G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g"; }
-		}
+		public override string GrammarFileName { get { return "E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g"; } }
 
 
 		partial void OnCreated();
@@ -126,12 +123,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = AND;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:7:5: ( '&' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:7:5: ( '&' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:7:7: '&'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:7:7: '&'
 				{
 					DebugLocation(7, 7);
-					Match('&');
+					Match('&'); 
 
 				}
 
@@ -145,7 +142,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_AND();
 			}
 		}
-
 		// $ANTLR end "AND"
 
 		partial void EnterRule_ARRAY();
@@ -162,12 +158,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = ARRAY;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:8:7: ( 'array' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:8:7: ( 'array' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:8:9: 'array'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:8:9: 'array'
 				{
 					DebugLocation(8, 9);
-					Match("array");
+					Match("array"); 
 
 
 				}
@@ -182,7 +178,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_ARRAY();
 			}
 		}
-
 		// $ANTLR end "ARRAY"
 
 		partial void EnterRule_ASSIGN();
@@ -199,12 +194,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = ASSIGN;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:9:8: ( ':=' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:9:8: ( ':=' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:9:10: ':='
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:9:10: ':='
 				{
 					DebugLocation(9, 10);
-					Match(":=");
+					Match(":="); 
 
 
 				}
@@ -219,7 +214,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_ASSIGN();
 			}
 		}
-
 		// $ANTLR end "ASSIGN"
 
 		partial void EnterRule_BREAK();
@@ -236,12 +230,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = BREAK;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:10:7: ( 'break' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:10:7: ( 'break' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:10:9: 'break'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:10:9: 'break'
 				{
 					DebugLocation(10, 9);
-					Match("break");
+					Match("break"); 
 
 
 				}
@@ -256,7 +250,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_BREAK();
 			}
 		}
-
 		// $ANTLR end "BREAK"
 
 		partial void EnterRule_COLON();
@@ -273,12 +266,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = COLON;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:11:7: ( ':' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:11:7: ( ':' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:11:9: ':'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:11:9: ':'
 				{
 					DebugLocation(11, 9);
-					Match(':');
+					Match(':'); 
 
 				}
 
@@ -292,7 +285,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_COLON();
 			}
 		}
-
 		// $ANTLR end "COLON"
 
 		partial void EnterRule_COMMA();
@@ -309,12 +301,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = COMMA;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:12:7: ( ',' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:12:7: ( ',' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:12:9: ','
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:12:9: ','
 				{
 					DebugLocation(12, 9);
-					Match(',');
+					Match(','); 
 
 				}
 
@@ -328,7 +320,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_COMMA();
 			}
 		}
-
 		// $ANTLR end "COMMA"
 
 		partial void EnterRule_DIV();
@@ -345,12 +336,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = DIV;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:13:5: ( '/' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:13:5: ( '/' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:13:7: '/'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:13:7: '/'
 				{
 					DebugLocation(13, 7);
-					Match('/');
+					Match('/'); 
 
 				}
 
@@ -364,7 +355,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_DIV();
 			}
 		}
-
 		// $ANTLR end "DIV"
 
 		partial void EnterRule_DO();
@@ -381,12 +371,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = DO;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:14:4: ( 'do' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:14:4: ( 'do' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:14:6: 'do'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:14:6: 'do'
 				{
 					DebugLocation(14, 6);
-					Match("do");
+					Match("do"); 
 
 
 				}
@@ -401,7 +391,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_DO();
 			}
 		}
-
 		// $ANTLR end "DO"
 
 		partial void EnterRule_DOT();
@@ -418,12 +407,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = DOT;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:15:5: ( '.' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:15:5: ( '.' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:15:7: '.'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:15:7: '.'
 				{
 					DebugLocation(15, 7);
-					Match('.');
+					Match('.'); 
 
 				}
 
@@ -437,7 +426,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_DOT();
 			}
 		}
-
 		// $ANTLR end "DOT"
 
 		partial void EnterRule_DQUOTE();
@@ -454,12 +442,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = DQUOTE;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:16:8: ( '\"' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:16:8: ( '\"' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:16:10: '\"'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:16:10: '\"'
 				{
 					DebugLocation(16, 10);
-					Match('\"');
+					Match('\"'); 
 
 				}
 
@@ -473,7 +461,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_DQUOTE();
 			}
 		}
-
 		// $ANTLR end "DQUOTE"
 
 		partial void EnterRule_ELSE();
@@ -490,12 +477,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = ELSE;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:17:6: ( 'else' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:17:6: ( 'else' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:17:8: 'else'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:17:8: 'else'
 				{
 					DebugLocation(17, 8);
-					Match("else");
+					Match("else"); 
 
 
 				}
@@ -510,7 +497,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_ELSE();
 			}
 		}
-
 		// $ANTLR end "ELSE"
 
 		partial void EnterRule_END();
@@ -527,12 +513,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = END;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:18:5: ( 'end' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:18:5: ( 'end' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:18:7: 'end'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:18:7: 'end'
 				{
 					DebugLocation(18, 7);
-					Match("end");
+					Match("end"); 
 
 
 				}
@@ -547,7 +533,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_END();
 			}
 		}
-
 		// $ANTLR end "END"
 
 		partial void EnterRule_EQUAL();
@@ -564,12 +549,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = EQUAL;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:19:7: ( '=' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:19:7: ( '=' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:19:9: '='
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:19:9: '='
 				{
 					DebugLocation(19, 9);
-					Match('=');
+					Match('='); 
 
 				}
 
@@ -583,7 +568,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_EQUAL();
 			}
 		}
-
 		// $ANTLR end "EQUAL"
 
 		partial void EnterRule_FOR();
@@ -600,12 +584,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = FOR;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:20:5: ( 'for' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:20:5: ( 'for' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:20:7: 'for'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:20:7: 'for'
 				{
 					DebugLocation(20, 7);
-					Match("for");
+					Match("for"); 
 
 
 				}
@@ -620,7 +604,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_FOR();
 			}
 		}
-
 		// $ANTLR end "FOR"
 
 		partial void EnterRule_FUNCTION();
@@ -637,12 +620,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = FUNCTION;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:21:10: ( 'function' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:21:10: ( 'function' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:21:12: 'function'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:21:12: 'function'
 				{
 					DebugLocation(21, 12);
-					Match("function");
+					Match("function"); 
 
 
 				}
@@ -657,7 +640,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_FUNCTION();
 			}
 		}
-
 		// $ANTLR end "FUNCTION"
 
 		partial void EnterRule_GTHAN();
@@ -674,12 +656,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = GTHAN;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:22:7: ( '>' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:22:7: ( '>' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:22:9: '>'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:22:9: '>'
 				{
 					DebugLocation(22, 9);
-					Match('>');
+					Match('>'); 
 
 				}
 
@@ -693,7 +675,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_GTHAN();
 			}
 		}
-
 		// $ANTLR end "GTHAN"
 
 		partial void EnterRule_GTHAN_EQUAL();
@@ -710,12 +691,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = GTHAN_EQUAL;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:23:13: ( '>=' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:23:13: ( '>=' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:23:15: '>='
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:23:15: '>='
 				{
 					DebugLocation(23, 15);
-					Match(">=");
+					Match(">="); 
 
 
 				}
@@ -730,7 +711,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_GTHAN_EQUAL();
 			}
 		}
-
 		// $ANTLR end "GTHAN_EQUAL"
 
 		partial void EnterRule_IF();
@@ -747,12 +727,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = IF;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:24:4: ( 'if' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:24:4: ( 'if' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:24:6: 'if'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:24:6: 'if'
 				{
 					DebugLocation(24, 6);
-					Match("if");
+					Match("if"); 
 
 
 				}
@@ -767,7 +747,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_IF();
 			}
 		}
-
 		// $ANTLR end "IF"
 
 		partial void EnterRule_IN();
@@ -784,12 +763,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = IN;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:25:4: ( 'in' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:25:4: ( 'in' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:25:6: 'in'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:25:6: 'in'
 				{
 					DebugLocation(25, 6);
-					Match("in");
+					Match("in"); 
 
 
 				}
@@ -804,7 +783,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_IN();
 			}
 		}
-
 		// $ANTLR end "IN"
 
 		partial void EnterRule_LET();
@@ -821,12 +799,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = LET;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:26:5: ( 'let' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:26:5: ( 'let' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:26:7: 'let'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:26:7: 'let'
 				{
 					DebugLocation(26, 7);
-					Match("let");
+					Match("let"); 
 
 
 				}
@@ -841,7 +819,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_LET();
 			}
 		}
-
 		// $ANTLR end "LET"
 
 		partial void EnterRule_LTHAN();
@@ -858,12 +835,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = LTHAN;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:27:7: ( '<' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:27:7: ( '<' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:27:9: '<'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:27:9: '<'
 				{
 					DebugLocation(27, 9);
-					Match('<');
+					Match('<'); 
 
 				}
 
@@ -877,7 +854,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_LTHAN();
 			}
 		}
-
 		// $ANTLR end "LTHAN"
 
 		partial void EnterRule_LTHAN_EQUAL();
@@ -894,12 +870,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = LTHAN_EQUAL;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:28:13: ( '<=' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:28:13: ( '<=' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:28:15: '<='
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:28:15: '<='
 				{
 					DebugLocation(28, 15);
-					Match("<=");
+					Match("<="); 
 
 
 				}
@@ -914,7 +890,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_LTHAN_EQUAL();
 			}
 		}
-
 		// $ANTLR end "LTHAN_EQUAL"
 
 		partial void EnterRule_L_BRACKETS();
@@ -931,12 +906,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = L_BRACKETS;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:29:12: ( '[' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:29:12: ( '[' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:29:14: '['
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:29:14: '['
 				{
 					DebugLocation(29, 14);
-					Match('[');
+					Match('['); 
 
 				}
 
@@ -950,7 +925,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_L_BRACKETS();
 			}
 		}
-
 		// $ANTLR end "L_BRACKETS"
 
 		partial void EnterRule_L_KEY();
@@ -967,12 +941,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = L_KEY;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:30:7: ( '{' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:30:7: ( '{' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:30:9: '{'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:30:9: '{'
 				{
 					DebugLocation(30, 9);
-					Match('{');
+					Match('{'); 
 
 				}
 
@@ -986,7 +960,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_L_KEY();
 			}
 		}
-
 		// $ANTLR end "L_KEY"
 
 		partial void EnterRule_L_PARENT();
@@ -1003,12 +976,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = L_PARENT;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:31:10: ( '(' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:31:10: ( '(' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:31:12: '('
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:31:12: '('
 				{
 					DebugLocation(31, 12);
-					Match('(');
+					Match('('); 
 
 				}
 
@@ -1022,7 +995,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_L_PARENT();
 			}
 		}
-
 		// $ANTLR end "L_PARENT"
 
 		partial void EnterRule_MINUS();
@@ -1039,12 +1011,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = MINUS;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:32:7: ( '-' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:32:7: ( '-' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:32:9: '-'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:32:9: '-'
 				{
 					DebugLocation(32, 9);
-					Match('-');
+					Match('-'); 
 
 				}
 
@@ -1058,7 +1030,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_MINUS();
 			}
 		}
-
 		// $ANTLR end "MINUS"
 
 		partial void EnterRule_MULT();
@@ -1075,12 +1046,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = MULT;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:33:6: ( '*' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:33:6: ( '*' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:33:8: '*'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:33:8: '*'
 				{
 					DebugLocation(33, 8);
-					Match('*');
+					Match('*'); 
 
 				}
 
@@ -1094,7 +1065,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_MULT();
 			}
 		}
-
 		// $ANTLR end "MULT"
 
 		partial void EnterRule_NIL();
@@ -1111,12 +1081,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = NIL;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:34:5: ( 'nil' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:34:5: ( 'nil' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:34:7: 'nil'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:34:7: 'nil'
 				{
 					DebugLocation(34, 7);
-					Match("nil");
+					Match("nil"); 
 
 
 				}
@@ -1131,7 +1101,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_NIL();
 			}
 		}
-
 		// $ANTLR end "NIL"
 
 		partial void EnterRule_NOT_EQUAL();
@@ -1148,12 +1117,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = NOT_EQUAL;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:35:11: ( '<>' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:35:11: ( '<>' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:35:13: '<>'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:35:13: '<>'
 				{
 					DebugLocation(35, 13);
-					Match("<>");
+					Match("<>"); 
 
 
 				}
@@ -1168,7 +1137,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_NOT_EQUAL();
 			}
 		}
-
 		// $ANTLR end "NOT_EQUAL"
 
 		partial void EnterRule_OF();
@@ -1185,12 +1153,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = OF;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:36:4: ( 'of' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:36:4: ( 'of' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:36:6: 'of'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:36:6: 'of'
 				{
 					DebugLocation(36, 6);
-					Match("of");
+					Match("of"); 
 
 
 				}
@@ -1205,7 +1173,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_OF();
 			}
 		}
-
 		// $ANTLR end "OF"
 
 		partial void EnterRule_OR();
@@ -1222,12 +1189,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = OR;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:37:4: ( '|' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:37:4: ( '|' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:37:6: '|'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:37:6: '|'
 				{
 					DebugLocation(37, 6);
-					Match('|');
+					Match('|'); 
 
 				}
 
@@ -1241,7 +1208,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_OR();
 			}
 		}
-
 		// $ANTLR end "OR"
 
 		partial void EnterRule_PLUS();
@@ -1258,12 +1224,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = PLUS;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:38:6: ( '+' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:38:6: ( '+' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:38:8: '+'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:38:8: '+'
 				{
 					DebugLocation(38, 8);
-					Match('+');
+					Match('+'); 
 
 				}
 
@@ -1277,7 +1243,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_PLUS();
 			}
 		}
-
 		// $ANTLR end "PLUS"
 
 		partial void EnterRule_R_BRACKETS();
@@ -1294,12 +1259,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = R_BRACKETS;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:39:12: ( ']' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:39:12: ( ']' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:39:14: ']'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:39:14: ']'
 				{
 					DebugLocation(39, 14);
-					Match(']');
+					Match(']'); 
 
 				}
 
@@ -1313,7 +1278,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_R_BRACKETS();
 			}
 		}
-
 		// $ANTLR end "R_BRACKETS"
 
 		partial void EnterRule_R_KEY();
@@ -1330,12 +1294,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = R_KEY;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:40:7: ( '}' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:40:7: ( '}' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:40:9: '}'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:40:9: '}'
 				{
 					DebugLocation(40, 9);
-					Match('}');
+					Match('}'); 
 
 				}
 
@@ -1349,7 +1313,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_R_KEY();
 			}
 		}
-
 		// $ANTLR end "R_KEY"
 
 		partial void EnterRule_R_PARENT();
@@ -1366,12 +1329,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = R_PARENT;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:41:10: ( ')' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:41:10: ( ')' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:41:12: ')'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:41:12: ')'
 				{
 					DebugLocation(41, 12);
-					Match(')');
+					Match(')'); 
 
 				}
 
@@ -1385,7 +1348,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_R_PARENT();
 			}
 		}
-
 		// $ANTLR end "R_PARENT"
 
 		partial void EnterRule_SEMICOLON();
@@ -1402,12 +1364,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = SEMICOLON;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:42:11: ( ';' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:42:11: ( ';' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:42:13: ';'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:42:13: ';'
 				{
 					DebugLocation(42, 13);
-					Match(';');
+					Match(';'); 
 
 				}
 
@@ -1421,7 +1383,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_SEMICOLON();
 			}
 		}
-
 		// $ANTLR end "SEMICOLON"
 
 		partial void EnterRule_THEN();
@@ -1438,12 +1399,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = THEN;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:43:6: ( 'then' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:43:6: ( 'then' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:43:8: 'then'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:43:8: 'then'
 				{
 					DebugLocation(43, 8);
-					Match("then");
+					Match("then"); 
 
 
 				}
@@ -1458,7 +1419,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_THEN();
 			}
 		}
-
 		// $ANTLR end "THEN"
 
 		partial void EnterRule_TO();
@@ -1475,12 +1435,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = TO;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:44:4: ( 'to' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:44:4: ( 'to' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:44:6: 'to'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:44:6: 'to'
 				{
 					DebugLocation(44, 6);
-					Match("to");
+					Match("to"); 
 
 
 				}
@@ -1495,7 +1455,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_TO();
 			}
 		}
-
 		// $ANTLR end "TO"
 
 		partial void EnterRule_TYPE();
@@ -1512,12 +1471,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = TYPE;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:45:6: ( 'type' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:45:6: ( 'type' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:45:8: 'type'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:45:8: 'type'
 				{
 					DebugLocation(45, 8);
-					Match("type");
+					Match("type"); 
 
 
 				}
@@ -1532,7 +1491,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_TYPE();
 			}
 		}
-
 		// $ANTLR end "TYPE"
 
 		partial void EnterRule_VAR();
@@ -1549,12 +1507,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = VAR;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:46:5: ( 'var' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:46:5: ( 'var' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:46:7: 'var'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:46:7: 'var'
 				{
 					DebugLocation(46, 7);
-					Match("var");
+					Match("var"); 
 
 
 				}
@@ -1569,7 +1527,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_VAR();
 			}
 		}
-
 		// $ANTLR end "VAR"
 
 		partial void EnterRule_WHILE();
@@ -1586,12 +1543,12 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = WHILE;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:47:7: ( 'while' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:47:7: ( 'while' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:47:9: 'while'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:47:9: 'while'
 				{
 					DebugLocation(47, 9);
-					Match("while");
+					Match("while"); 
 
 
 				}
@@ -1606,7 +1563,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_WHILE();
 			}
 		}
-
 		// $ANTLR end "WHILE"
 
 		partial void EnterRule_ID();
@@ -1623,42 +1579,33 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = ID;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:78:5: ( LETTER ( LETTER | DIGIT | '_' )* )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:78:5: ( LETTER ( LETTER | DIGIT | '_' )* )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:78:7: LETTER ( LETTER | DIGIT | '_' )*
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:78:7: LETTER ( LETTER | DIGIT | '_' )*
 				{
 					DebugLocation(78, 7);
-					mLETTER();
+					mLETTER(); 
 					DebugLocation(78, 14);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:78:14: ( LETTER | DIGIT | '_' )*
-					try
-					{
-						DebugEnterSubRule(1);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:78:14: ( LETTER | DIGIT | '_' )*
+					try { DebugEnterSubRule(1);
 						while (true)
 						{
-							int alt1 = 2;
-							try
-							{
-								DebugEnterDecision(1, false);
+							int alt1=2;
+							try { DebugEnterDecision(1, false);
 								int LA1_0 = input.LA(1);
 
-								if (((LA1_0 >= '0' && LA1_0 <= '9') || (LA1_0 >= 'A' && LA1_0 <= 'Z') || LA1_0 == '_' ||
-								     (LA1_0 >= 'a' && LA1_0 <= 'z')))
+								if (((LA1_0>='0' && LA1_0<='9')||(LA1_0>='A' && LA1_0<='Z')||LA1_0=='_'||(LA1_0>='a' && LA1_0<='z')))
 								{
 									alt1 = 1;
 								}
 
 
-							}
-							finally
-							{
-								DebugExitDecision(1);
-							}
-							switch (alt1)
+							} finally { DebugExitDecision(1); }
+							switch ( alt1 )
 							{
 								case 1:
 									DebugEnterAlt(1);
-									// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
 								{
 									DebugLocation(78, 14);
 									input.Consume();
@@ -1675,11 +1622,7 @@ namespace TigerCs.Parser.Tiger
 						loop1:
 						;
 
-					}
-					finally
-					{
-						DebugExitSubRule(1);
-					}
+					} finally { DebugExitSubRule(1); }
 
 
 				}
@@ -1694,7 +1637,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_ID();
 			}
 		}
-
 		// $ANTLR end "ID"
 
 		partial void EnterRule_LETTER();
@@ -1709,18 +1651,18 @@ namespace TigerCs.Parser.Tiger
 			TraceIn("LETTER", 43);
 			try
 			{
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:82:8: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:82:8: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
 				{
 					DebugLocation(82, 8);
-					if ((input.LA(1) >= 'A' && input.LA(1) <= 'Z') || (input.LA(1) >= 'a' && input.LA(1) <= 'z'))
+					if ((input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z'))
 					{
 						input.Consume();
 					}
 					else
 					{
-						MismatchedSetException mse = new MismatchedSetException(null, input);
+						MismatchedSetException mse = new MismatchedSetException(null,input);
 						DebugRecognitionException(mse);
 						Recover(mse);
 						throw mse;
@@ -1737,7 +1679,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_LETTER();
 			}
 		}
-
 		// $ANTLR end "LETTER"
 
 		partial void EnterRule_DIGIT();
@@ -1752,18 +1693,18 @@ namespace TigerCs.Parser.Tiger
 			TraceIn("DIGIT", 44);
 			try
 			{
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:85:7: ( ( '0' .. '9' ) )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:85:7: ( ( '0' .. '9' ) )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
 				{
 					DebugLocation(85, 7);
-					if ((input.LA(1) >= '0' && input.LA(1) <= '9'))
+					if ((input.LA(1)>='0' && input.LA(1)<='9'))
 					{
 						input.Consume();
 					}
 					else
 					{
-						MismatchedSetException mse = new MismatchedSetException(null, input);
+						MismatchedSetException mse = new MismatchedSetException(null,input);
 						DebugRecognitionException(mse);
 						Recover(mse);
 						throw mse;
@@ -1780,7 +1721,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_DIGIT();
 			}
 		}
-
 		// $ANTLR end "DIGIT"
 
 		partial void EnterRule_INT();
@@ -1797,18 +1737,16 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = INT;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:88:5: ( ( '1' .. '9' ) ( DIGIT )* | '0' )
-				int alt3 = 2;
-				try
-				{
-					DebugEnterDecision(3, false);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:88:5: ( ( '1' .. '9' ) ( DIGIT )* | '0' )
+				int alt3=2;
+				try { DebugEnterDecision(3, false);
 					int LA3_0 = input.LA(1);
 
-					if (((LA3_0 >= '1' && LA3_0 <= '9')))
+					if (((LA3_0>='1' && LA3_0<='9')))
 					{
 						alt3 = 1;
 					}
-					else if ((LA3_0 == '0'))
+					else if ((LA3_0=='0'))
 					{
 						alt3 = 2;
 					}
@@ -1818,49 +1756,37 @@ namespace TigerCs.Parser.Tiger
 						DebugRecognitionException(nvae);
 						throw nvae;
 					}
-				}
-				finally
-				{
-					DebugExitDecision(3);
-				}
+				} finally { DebugExitDecision(3); }
 				switch (alt3)
 				{
 					case 1:
 						DebugEnterAlt(1);
-						// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:88:7: ( '1' .. '9' ) ( DIGIT )*
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:88:7: ( '1' .. '9' ) ( DIGIT )*
 					{
 						DebugLocation(88, 7);
 						input.Consume();
 
 						DebugLocation(88, 18);
-						// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:88:18: ( DIGIT )*
-						try
-						{
-							DebugEnterSubRule(2);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:88:18: ( DIGIT )*
+						try { DebugEnterSubRule(2);
 							while (true)
 							{
-								int alt2 = 2;
-								try
-								{
-									DebugEnterDecision(2, false);
+								int alt2=2;
+								try { DebugEnterDecision(2, false);
 									int LA2_0 = input.LA(1);
 
-									if (((LA2_0 >= '0' && LA2_0 <= '9')))
+									if (((LA2_0>='0' && LA2_0<='9')))
 									{
 										alt2 = 1;
 									}
 
 
-								}
-								finally
-								{
-									DebugExitDecision(2);
-								}
-								switch (alt2)
+								} finally { DebugExitDecision(2); }
+								switch ( alt2 )
 								{
 									case 1:
 										DebugEnterAlt(1);
-										// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
 									{
 										DebugLocation(88, 18);
 										input.Consume();
@@ -1877,21 +1803,17 @@ namespace TigerCs.Parser.Tiger
 							loop2:
 							;
 
-						}
-						finally
-						{
-							DebugExitSubRule(2);
-						}
+						} finally { DebugExitSubRule(2); }
 
 
 					}
 						break;
 					case 2:
 						DebugEnterAlt(2);
-						// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:88:25: '0'
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:88:25: '0'
 					{
 						DebugLocation(88, 25);
-						Match('0');
+						Match('0'); 
 
 					}
 						break;
@@ -1907,7 +1829,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_INT();
 			}
 		}
-
 		// $ANTLR end "INT"
 
 		partial void EnterRule_COMMENT();
@@ -1924,68 +1845,59 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = COMMENT;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:9: ( '/*' ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* ( '*/' | ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/' ) )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:9: ( '/*' ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* ( '*/' | ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/' ) )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:11: '/*' ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* ( '*/' | ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:11: '/*' ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* ( '*/' | ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/' )
 				{
 					DebugLocation(90, 11);
-					Match("/*");
+					Match("/*"); 
 
 					DebugLocation(90, 16);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:16: ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )*
-					try
-					{
-						DebugEnterSubRule(4);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:16: ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )*
+					try { DebugEnterSubRule(4);
 						while (true)
 						{
-							int alt4 = 4;
-							try
-							{
-								DebugEnterDecision(4, false);
+							int alt4=4;
+							try { DebugEnterDecision(4, false);
 								int LA4_0 = input.LA(1);
 
-								if ((LA4_0 == '*'))
+								if ((LA4_0=='*'))
 								{
 									int LA4_1 = input.LA(2);
 
-									if (((LA4_1 >= '\u0000' && LA4_1 <= '.') || (LA4_1 >= '0' && LA4_1 <= '\uFFFF')))
+									if (((LA4_1>='\u0000' && LA4_1<='.')||(LA4_1>='0' && LA4_1<='\uFFFF')))
 									{
 										alt4 = 1;
 									}
 
 
 								}
-								else if ((LA4_0 == '/'))
+								else if ((LA4_0=='/'))
 								{
 									int LA4_2 = input.LA(2);
 
-									if (((LA4_2 >= '\u0000' && LA4_2 <= ')') || (LA4_2 >= '+' && LA4_2 <= '\uFFFF')))
+									if (((LA4_2>='\u0000' && LA4_2<=')')||(LA4_2>='+' && LA4_2<='\uFFFF')))
 									{
 										alt4 = 2;
 									}
 
 
 								}
-								else if (((LA4_0 >= '\u0000' && LA4_0 <= ')') || (LA4_0 >= '+' && LA4_0 <= '.') ||
-								          (LA4_0 >= '0' && LA4_0 <= '\uFFFF')))
+								else if (((LA4_0>='\u0000' && LA4_0<=')')||(LA4_0>='+' && LA4_0<='.')||(LA4_0>='0' && LA4_0<='\uFFFF')))
 								{
 									alt4 = 3;
 								}
 
 
-							}
-							finally
-							{
-								DebugExitDecision(4);
-							}
-							switch (alt4)
+							} finally { DebugExitDecision(4); }
+							switch ( alt4 )
 							{
 								case 1:
 									DebugEnterAlt(1);
-									// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:17: '*' ~ ( '/' )
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:17: '*' ~ ( '/' )
 								{
 									DebugLocation(90, 17);
-									Match('*');
+									Match('*'); 
 									DebugLocation(90, 21);
 									input.Consume();
 
@@ -1994,10 +1906,10 @@ namespace TigerCs.Parser.Tiger
 									break;
 								case 2:
 									DebugEnterAlt(2);
-									// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:30: '/' ~ ( '*' )
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:30: '/' ~ ( '*' )
 								{
 									DebugLocation(90, 30);
-									Match('/');
+									Match('/'); 
 									DebugLocation(90, 34);
 									input.Consume();
 
@@ -2006,7 +1918,7 @@ namespace TigerCs.Parser.Tiger
 									break;
 								case 3:
 									DebugEnterAlt(3);
-									// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:43: ~ ( '*' | '/' )
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:43: ~ ( '*' | '/' )
 								{
 									DebugLocation(90, 43);
 									input.Consume();
@@ -2023,28 +1935,20 @@ namespace TigerCs.Parser.Tiger
 						loop4:
 						;
 
-					}
-					finally
-					{
-						DebugExitSubRule(4);
-					}
+					} finally { DebugExitSubRule(4); }
 
 					DebugLocation(90, 56);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:56: ( '*/' | ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/' )
-					int alt7 = 2;
-					try
-					{
-						DebugEnterSubRule(7);
-						try
-						{
-							DebugEnterDecision(7, false);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:56: ( '*/' | ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/' )
+					int alt7=2;
+					try { DebugEnterSubRule(7);
+						try { DebugEnterDecision(7, false);
 							int LA7_0 = input.LA(1);
 
-							if ((LA7_0 == '*'))
+							if ((LA7_0=='*'))
 							{
 								alt7 = 1;
 							}
-							else if ((LA7_0 == '/'))
+							else if ((LA7_0=='/'))
 							{
 								alt7 = 2;
 							}
@@ -2054,115 +1958,94 @@ namespace TigerCs.Parser.Tiger
 								DebugRecognitionException(nvae);
 								throw nvae;
 							}
-						}
-						finally
-						{
-							DebugExitDecision(7);
-						}
+						} finally { DebugExitDecision(7); }
 						switch (alt7)
 						{
 							case 1:
 								DebugEnterAlt(1);
-								// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:57: '*/'
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:57: '*/'
 							{
 								DebugLocation(90, 57);
-								Match("*/");
+								Match("*/"); 
 
 
 							}
 								break;
 							case 2:
 								DebugEnterAlt(2);
-								// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:62: ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/'
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:62: ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/'
 							{
 								DebugLocation(90, 62);
-								// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:62: ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+
-								int cnt6 = 0;
-								try
-								{
-									DebugEnterSubRule(6);
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:62: ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+
+								int cnt6=0;
+								try { DebugEnterSubRule(6);
 									while (true)
 									{
-										int alt6 = 2;
-										try
-										{
-											DebugEnterDecision(6, false);
+										int alt6=2;
+										try { DebugEnterDecision(6, false);
 											int LA6_0 = input.LA(1);
 
-											if ((LA6_0 == '/'))
+											if ((LA6_0=='/'))
 											{
 												alt6 = 1;
 											}
 
 
-										}
-										finally
-										{
-											DebugExitDecision(6);
-										}
+										} finally { DebugExitDecision(6); }
 										switch (alt6)
 										{
 											case 1:
 												DebugEnterAlt(1);
-												// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:64: COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )*
+												// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:64: COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )*
 											{
 												DebugLocation(90, 64);
-												mCOMMENT();
+												mCOMMENT(); 
 												DebugLocation(90, 72);
-												// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:72: ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )*
-												try
-												{
-													DebugEnterSubRule(5);
+												// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:72: ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )*
+												try { DebugEnterSubRule(5);
 													while (true)
 													{
-														int alt5 = 4;
-														try
-														{
-															DebugEnterDecision(5, false);
+														int alt5=4;
+														try { DebugEnterDecision(5, false);
 															int LA5_0 = input.LA(1);
 
-															if ((LA5_0 == '*'))
+															if ((LA5_0=='*'))
 															{
 																int LA5_1 = input.LA(2);
 
-																if (((LA5_1 >= '\u0000' && LA5_1 <= '.') || (LA5_1 >= '0' && LA5_1 <= '\uFFFF')))
+																if (((LA5_1>='\u0000' && LA5_1<='.')||(LA5_1>='0' && LA5_1<='\uFFFF')))
 																{
 																	alt5 = 1;
 																}
 
 
 															}
-															else if ((LA5_0 == '/'))
+															else if ((LA5_0=='/'))
 															{
 																int LA5_2 = input.LA(2);
 
-																if (((LA5_2 >= '\u0000' && LA5_2 <= ')') || (LA5_2 >= '+' && LA5_2 <= '\uFFFF')))
+																if (((LA5_2>='\u0000' && LA5_2<=')')||(LA5_2>='+' && LA5_2<='\uFFFF')))
 																{
 																	alt5 = 2;
 																}
 
 
 															}
-															else if (((LA5_0 >= '\u0000' && LA5_0 <= ')') || (LA5_0 >= '+' && LA5_0 <= '.') ||
-															          (LA5_0 >= '0' && LA5_0 <= '\uFFFF')))
+															else if (((LA5_0>='\u0000' && LA5_0<=')')||(LA5_0>='+' && LA5_0<='.')||(LA5_0>='0' && LA5_0<='\uFFFF')))
 															{
 																alt5 = 3;
 															}
 
 
-														}
-														finally
-														{
-															DebugExitDecision(5);
-														}
-														switch (alt5)
+														} finally { DebugExitDecision(5); }
+														switch ( alt5 )
 														{
 															case 1:
 																DebugEnterAlt(1);
-																// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:73: '*' ~ ( '/' )
+																// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:73: '*' ~ ( '/' )
 															{
 																DebugLocation(90, 73);
-																Match('*');
+																Match('*'); 
 																DebugLocation(90, 77);
 																input.Consume();
 
@@ -2171,10 +2054,10 @@ namespace TigerCs.Parser.Tiger
 																break;
 															case 2:
 																DebugEnterAlt(2);
-																// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:86: '/' ~ ( '*' )
+																// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:86: '/' ~ ( '*' )
 															{
 																DebugLocation(90, 86);
-																Match('/');
+																Match('/'); 
 																DebugLocation(90, 90);
 																input.Consume();
 
@@ -2183,7 +2066,7 @@ namespace TigerCs.Parser.Tiger
 																break;
 															case 3:
 																DebugEnterAlt(3);
-																// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:98: ~ ( '*' | '/' )
+																// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:98: ~ ( '*' | '/' )
 															{
 																DebugLocation(90, 98);
 																input.Consume();
@@ -2200,11 +2083,7 @@ namespace TigerCs.Parser.Tiger
 													loop5:
 													;
 
-												}
-												finally
-												{
-													DebugExitSubRule(5);
-												}
+												} finally { DebugExitSubRule(5); }
 
 
 											}
@@ -2214,7 +2093,7 @@ namespace TigerCs.Parser.Tiger
 												if (cnt6 >= 1)
 													goto loop6;
 
-												EarlyExitException eee6 = new EarlyExitException(6, input);
+												EarlyExitException eee6 = new EarlyExitException( 6, input );
 												DebugRecognitionException(eee6);
 												throw eee6;
 										}
@@ -2223,28 +2102,20 @@ namespace TigerCs.Parser.Tiger
 									loop6:
 									;
 
-								}
-								finally
-								{
-									DebugExitSubRule(6);
-								}
+								} finally { DebugExitSubRule(6); }
 
 								DebugLocation(90, 114);
-								Match("*/");
+								Match("*/"); 
 
 
 							}
 								break;
 
 						}
-					}
-					finally
-					{
-						DebugExitSubRule(7);
-					}
+					} finally { DebugExitSubRule(7); }
 
 					DebugLocation(90, 121);
-					_channel = Hidden;
+					_channel=Hidden;
 
 				}
 
@@ -2258,7 +2129,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_COMMENT();
 			}
 		}
-
 		// $ANTLR end "COMMENT"
 
 		partial void EnterRule_WS();
@@ -2275,26 +2145,25 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = WS;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:94:5: ( ( ' ' | '\\t' | '\\r' | '\\n' | '\\f' ) )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:94:5: ( ( ' ' | '\\t' | '\\r' | '\\n' | '\\f' ) )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:94:9: ( ' ' | '\\t' | '\\r' | '\\n' | '\\f' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:94:9: ( ' ' | '\\t' | '\\r' | '\\n' | '\\f' )
 				{
 					DebugLocation(94, 9);
-					if ((input.LA(1) >= '\t' && input.LA(1) <= '\n') || (input.LA(1) >= '\f' && input.LA(1) <= '\r') ||
-					    input.LA(1) == ' ')
+					if ((input.LA(1)>='\t' && input.LA(1)<='\n')||(input.LA(1)>='\f' && input.LA(1)<='\r')||input.LA(1)==' ')
 					{
 						input.Consume();
 					}
 					else
 					{
-						MismatchedSetException mse = new MismatchedSetException(null, input);
+						MismatchedSetException mse = new MismatchedSetException(null,input);
 						DebugRecognitionException(mse);
 						Recover(mse);
 						throw mse;
 					}
 
 					DebugLocation(99, 11);
-					_channel = Hidden;
+					_channel=Hidden;
 
 				}
 
@@ -2308,7 +2177,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_WS();
 			}
 		}
-
 		// $ANTLR end "WS"
 
 		partial void EnterRule_STRING();
@@ -2325,55 +2193,46 @@ namespace TigerCs.Parser.Tiger
 			{
 				int _type = STRING;
 				int _channel = DefaultTokenChannel;
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:103:5: ( '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:103:5: ( '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:103:8: '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"'
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:103:8: '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"'
 				{
 					DebugLocation(103, 8);
-					Match('\"');
+					Match('\"'); 
 					DebugLocation(103, 12);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:103:12: ( ESC_SEQ |~ ( '\\\\' | '\"' ) )*
-					try
-					{
-						DebugEnterSubRule(8);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:103:12: ( ESC_SEQ |~ ( '\\\\' | '\"' ) )*
+					try { DebugEnterSubRule(8);
 						while (true)
 						{
-							int alt8 = 3;
-							try
-							{
-								DebugEnterDecision(8, false);
+							int alt8=3;
+							try { DebugEnterDecision(8, false);
 								int LA8_0 = input.LA(1);
 
-								if ((LA8_0 == '\\'))
+								if ((LA8_0=='\\'))
 								{
 									alt8 = 1;
 								}
-								else if (((LA8_0 >= '\u0000' && LA8_0 <= '!') || (LA8_0 >= '#' && LA8_0 <= '[') ||
-								          (LA8_0 >= ']' && LA8_0 <= '\uFFFF')))
+								else if (((LA8_0>='\u0000' && LA8_0<='!')||(LA8_0>='#' && LA8_0<='[')||(LA8_0>=']' && LA8_0<='\uFFFF')))
 								{
 									alt8 = 2;
 								}
 
 
-							}
-							finally
-							{
-								DebugExitDecision(8);
-							}
-							switch (alt8)
+							} finally { DebugExitDecision(8); }
+							switch ( alt8 )
 							{
 								case 1:
 									DebugEnterAlt(1);
-									// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:103:14: ESC_SEQ
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:103:14: ESC_SEQ
 								{
 									DebugLocation(103, 14);
-									mESC_SEQ();
+									mESC_SEQ(); 
 
 								}
 									break;
 								case 2:
 									DebugEnterAlt(2);
-									// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:103:23: ~ ( '\\\\' | '\"' )
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:103:23: ~ ( '\\\\' | '\"' )
 								{
 									DebugLocation(103, 23);
 									input.Consume();
@@ -2390,14 +2249,10 @@ namespace TigerCs.Parser.Tiger
 						loop8:
 						;
 
-					}
-					finally
-					{
-						DebugExitSubRule(8);
-					}
+					} finally { DebugExitSubRule(8); }
 
 					DebugLocation(103, 38);
-					Match('\"');
+					Match('\"'); 
 
 				}
 
@@ -2411,7 +2266,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_STRING();
 			}
 		}
-
 		// $ANTLR end "STRING"
 
 		partial void EnterRule_ESC_SEQ();
@@ -2426,21 +2280,17 @@ namespace TigerCs.Parser.Tiger
 			TraceIn("ESC_SEQ", 49);
 			try
 			{
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:5: ( '\\\\' ( 't' | 'n' | '\"' | '\\\\' | '^' CONTROL_CHARS | DECIMAL_ESC | ( WS )+ '\\\\' ) )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:5: ( '\\\\' ( 't' | 'n' | '\"' | '\\\\' | '^' CONTROL_CHARS | DECIMAL_ESC | ( WS )+ '\\\\' ) )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:9: '\\\\' ( 't' | 'n' | '\"' | '\\\\' | '^' CONTROL_CHARS | DECIMAL_ESC | ( WS )+ '\\\\' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:9: '\\\\' ( 't' | 'n' | '\"' | '\\\\' | '^' CONTROL_CHARS | DECIMAL_ESC | ( WS )+ '\\\\' )
 				{
 					DebugLocation(110, 9);
-					Match('\\');
+					Match('\\'); 
 					DebugLocation(110, 14);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:14: ( 't' | 'n' | '\"' | '\\\\' | '^' CONTROL_CHARS | DECIMAL_ESC | ( WS )+ '\\\\' )
-					int alt10 = 7;
-					try
-					{
-						DebugEnterSubRule(10);
-						try
-						{
-							DebugEnterDecision(10, false);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:14: ( 't' | 'n' | '\"' | '\\\\' | '^' CONTROL_CHARS | DECIMAL_ESC | ( WS )+ '\\\\' )
+					int alt10=7;
+					try { DebugEnterSubRule(10);
+						try { DebugEnterDecision(10, false);
 							switch (input.LA(1))
 							{
 								case 't':
@@ -2499,106 +2349,94 @@ namespace TigerCs.Parser.Tiger
 								}
 							}
 
-						}
-						finally
-						{
-							DebugExitDecision(10);
-						}
+						} finally { DebugExitDecision(10); }
 						switch (alt10)
 						{
 							case 1:
 								DebugEnterAlt(1);
-								// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:15: 't'
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:15: 't'
 							{
 								DebugLocation(110, 15);
-								Match('t');
+								Match('t'); 
 
 							}
 								break;
 							case 2:
 								DebugEnterAlt(2);
-								// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:19: 'n'
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:19: 'n'
 							{
 								DebugLocation(110, 19);
-								Match('n');
+								Match('n'); 
 
 							}
 								break;
 							case 3:
 								DebugEnterAlt(3);
-								// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:23: '\"'
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:23: '\"'
 							{
 								DebugLocation(110, 23);
-								Match('\"');
+								Match('\"'); 
 
 							}
 								break;
 							case 4:
 								DebugEnterAlt(4);
-								// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:27: '\\\\'
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:27: '\\\\'
 							{
 								DebugLocation(110, 27);
-								Match('\\');
+								Match('\\'); 
 
 							}
 								break;
 							case 5:
 								DebugEnterAlt(5);
-								// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:32: '^' CONTROL_CHARS
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:32: '^' CONTROL_CHARS
 							{
 								DebugLocation(110, 32);
-								Match('^');
+								Match('^'); 
 								DebugLocation(110, 35);
-								mCONTROL_CHARS();
+								mCONTROL_CHARS(); 
 
 							}
 								break;
 							case 6:
 								DebugEnterAlt(6);
-								// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:49: DECIMAL_ESC
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:49: DECIMAL_ESC
 							{
 								DebugLocation(110, 49);
-								mDECIMAL_ESC();
+								mDECIMAL_ESC(); 
 
 							}
 								break;
 							case 7:
 								DebugEnterAlt(7);
-								// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:61: ( WS )+ '\\\\'
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:61: ( WS )+ '\\\\'
 							{
 								DebugLocation(110, 61);
-								// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:61: ( WS )+
-								int cnt9 = 0;
-								try
-								{
-									DebugEnterSubRule(9);
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:61: ( WS )+
+								int cnt9=0;
+								try { DebugEnterSubRule(9);
 									while (true)
 									{
-										int alt9 = 2;
-										try
-										{
-											DebugEnterDecision(9, false);
+										int alt9=2;
+										try { DebugEnterDecision(9, false);
 											int LA9_0 = input.LA(1);
 
-											if (((LA9_0 >= '\t' && LA9_0 <= '\n') || (LA9_0 >= '\f' && LA9_0 <= '\r') || LA9_0 == ' '))
+											if (((LA9_0>='\t' && LA9_0<='\n')||(LA9_0>='\f' && LA9_0<='\r')||LA9_0==' '))
 											{
 												alt9 = 1;
 											}
 
 
-										}
-										finally
-										{
-											DebugExitDecision(9);
-										}
+										} finally { DebugExitDecision(9); }
 										switch (alt9)
 										{
 											case 1:
 												DebugEnterAlt(1);
-												// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:62: WS
+												// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:62: WS
 											{
 												DebugLocation(110, 62);
-												mWS();
+												mWS(); 
 
 											}
 												break;
@@ -2607,7 +2445,7 @@ namespace TigerCs.Parser.Tiger
 												if (cnt9 >= 1)
 													goto loop9;
 
-												EarlyExitException eee9 = new EarlyExitException(9, input);
+												EarlyExitException eee9 = new EarlyExitException( 9, input );
 												DebugRecognitionException(eee9);
 												throw eee9;
 										}
@@ -2616,24 +2454,16 @@ namespace TigerCs.Parser.Tiger
 									loop9:
 									;
 
-								}
-								finally
-								{
-									DebugExitSubRule(9);
-								}
+								} finally { DebugExitSubRule(9); }
 
 								DebugLocation(110, 66);
-								Match('\\');
+								Match('\\'); 
 
 							}
 								break;
 
 						}
-					}
-					finally
-					{
-						DebugExitSubRule(10);
-					}
+					} finally { DebugExitSubRule(10); }
 
 
 				}
@@ -2646,7 +2476,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_ESC_SEQ();
 			}
 		}
-
 		// $ANTLR end "ESC_SEQ"
 
 		partial void EnterRule_DECIMAL_ESC();
@@ -2661,22 +2490,20 @@ namespace TigerCs.Parser.Tiger
 			TraceIn("DECIMAL_ESC", 50);
 			try
 			{
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:115:5: ( ( '0' .. '9' ) ( '0' .. '9' ) ( '0' .. '9' ) | ( '0' .. '9' ) ( '0' .. '9' ) | ( '0' .. '9' ) )
-				int alt11 = 3;
-				try
-				{
-					DebugEnterDecision(11, false);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:115:5: ( ( '0' .. '9' ) ( '0' .. '9' ) ( '0' .. '9' ) | ( '0' .. '9' ) ( '0' .. '9' ) | ( '0' .. '9' ) )
+				int alt11=3;
+				try { DebugEnterDecision(11, false);
 					int LA11_0 = input.LA(1);
 
-					if (((LA11_0 >= '0' && LA11_0 <= '9')))
+					if (((LA11_0>='0' && LA11_0<='9')))
 					{
 						int LA11_1 = input.LA(2);
 
-						if (((LA11_1 >= '0' && LA11_1 <= '9')))
+						if (((LA11_1>='0' && LA11_1<='9')))
 						{
 							int LA11_2 = input.LA(3);
 
-							if (((LA11_2 >= '0' && LA11_2 <= '9')))
+							if (((LA11_2>='0' && LA11_2<='9')))
 							{
 								alt11 = 1;
 							}
@@ -2696,16 +2523,12 @@ namespace TigerCs.Parser.Tiger
 						DebugRecognitionException(nvae);
 						throw nvae;
 					}
-				}
-				finally
-				{
-					DebugExitDecision(11);
-				}
+				} finally { DebugExitDecision(11); }
 				switch (alt11)
 				{
 					case 1:
 						DebugEnterAlt(1);
-						// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:115:10: ( '0' .. '9' ) ( '0' .. '9' ) ( '0' .. '9' )
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:115:10: ( '0' .. '9' ) ( '0' .. '9' ) ( '0' .. '9' )
 					{
 						DebugLocation(115, 10);
 						input.Consume();
@@ -2721,7 +2544,7 @@ namespace TigerCs.Parser.Tiger
 						break;
 					case 2:
 						DebugEnterAlt(2);
-						// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:116:10: ( '0' .. '9' ) ( '0' .. '9' )
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:116:10: ( '0' .. '9' ) ( '0' .. '9' )
 					{
 						DebugLocation(116, 10);
 						input.Consume();
@@ -2734,7 +2557,7 @@ namespace TigerCs.Parser.Tiger
 						break;
 					case 3:
 						DebugEnterAlt(3);
-						// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:117:10: ( '0' .. '9' )
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:117:10: ( '0' .. '9' )
 					{
 						DebugLocation(117, 10);
 						input.Consume();
@@ -2752,7 +2575,6 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_DECIMAL_ESC();
 			}
 		}
-
 		// $ANTLR end "DECIMAL_ESC"
 
 		partial void EnterRule_CONTROL_CHARS();
@@ -2767,18 +2589,18 @@ namespace TigerCs.Parser.Tiger
 			TraceIn("CONTROL_CHARS", 51);
 			try
 			{
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:122:2: ( '@' .. '_' )
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:122:2: ( '@' .. '_' )
 				DebugEnterAlt(1);
-				// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
 				{
 					DebugLocation(122, 2);
-					if ((input.LA(1) >= '@' && input.LA(1) <= '_'))
+					if ((input.LA(1)>='@' && input.LA(1)<='_'))
 					{
 						input.Consume();
 					}
 					else
 					{
-						MismatchedSetException mse = new MismatchedSetException(null, input);
+						MismatchedSetException mse = new MismatchedSetException(null,input);
 						DebugRecognitionException(mse);
 						Recover(mse);
 						throw mse;
@@ -2795,16 +2617,13 @@ namespace TigerCs.Parser.Tiger
 				LeaveRule_CONTROL_CHARS();
 			}
 		}
-
 		// $ANTLR end "CONTROL_CHARS"
 
 		public override void mTokens()
 		{
-			// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:8: ( AND | ARRAY | ASSIGN | BREAK | COLON | COMMA | DIV | DO | DOT | DQUOTE | ELSE | END | EQUAL | FOR | FUNCTION | GTHAN | GTHAN_EQUAL | IF | IN | LET | LTHAN | LTHAN_EQUAL | L_BRACKETS | L_KEY | L_PARENT | MINUS | MULT | NIL | NOT_EQUAL | OF | OR | PLUS | R_BRACKETS | R_KEY | R_PARENT | SEMICOLON | THEN | TO | TYPE | VAR | WHILE | ID | INT | COMMENT | WS | STRING )
-			int alt12 = 46;
-			try
-			{
-				DebugEnterDecision(12, false);
+			// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:8: ( AND | ARRAY | ASSIGN | BREAK | COLON | COMMA | DIV | DO | DOT | DQUOTE | ELSE | END | EQUAL | FOR | FUNCTION | GTHAN | GTHAN_EQUAL | IF | IN | LET | LTHAN | LTHAN_EQUAL | L_BRACKETS | L_KEY | L_PARENT | MINUS | MULT | NIL | NOT_EQUAL | OF | OR | PLUS | R_BRACKETS | R_KEY | R_PARENT | SEMICOLON | THEN | TO | TYPE | VAR | WHILE | ID | INT | COMMENT | WS | STRING )
+			int alt12=46;
+			try { DebugEnterDecision(12, false);
 				try
 				{
 					alt12 = dfa12.Predict(input);
@@ -2814,424 +2633,420 @@ namespace TigerCs.Parser.Tiger
 					DebugRecognitionException(nvae);
 					throw;
 				}
-			}
-			finally
-			{
-				DebugExitDecision(12);
-			}
+			} finally { DebugExitDecision(12); }
 			switch (alt12)
 			{
 				case 1:
 					DebugEnterAlt(1);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:10: AND
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:10: AND
 				{
 					DebugLocation(1, 10);
-					mAND();
+					mAND(); 
 
 				}
 					break;
 				case 2:
 					DebugEnterAlt(2);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:14: ARRAY
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:14: ARRAY
 				{
 					DebugLocation(1, 14);
-					mARRAY();
+					mARRAY(); 
 
 				}
 					break;
 				case 3:
 					DebugEnterAlt(3);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:20: ASSIGN
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:20: ASSIGN
 				{
 					DebugLocation(1, 20);
-					mASSIGN();
+					mASSIGN(); 
 
 				}
 					break;
 				case 4:
 					DebugEnterAlt(4);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:27: BREAK
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:27: BREAK
 				{
 					DebugLocation(1, 27);
-					mBREAK();
+					mBREAK(); 
 
 				}
 					break;
 				case 5:
 					DebugEnterAlt(5);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:33: COLON
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:33: COLON
 				{
 					DebugLocation(1, 33);
-					mCOLON();
+					mCOLON(); 
 
 				}
 					break;
 				case 6:
 					DebugEnterAlt(6);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:39: COMMA
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:39: COMMA
 				{
 					DebugLocation(1, 39);
-					mCOMMA();
+					mCOMMA(); 
 
 				}
 					break;
 				case 7:
 					DebugEnterAlt(7);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:45: DIV
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:45: DIV
 				{
 					DebugLocation(1, 45);
-					mDIV();
+					mDIV(); 
 
 				}
 					break;
 				case 8:
 					DebugEnterAlt(8);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:49: DO
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:49: DO
 				{
 					DebugLocation(1, 49);
-					mDO();
+					mDO(); 
 
 				}
 					break;
 				case 9:
 					DebugEnterAlt(9);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:52: DOT
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:52: DOT
 				{
 					DebugLocation(1, 52);
-					mDOT();
+					mDOT(); 
 
 				}
 					break;
 				case 10:
 					DebugEnterAlt(10);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:56: DQUOTE
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:56: DQUOTE
 				{
 					DebugLocation(1, 56);
-					mDQUOTE();
+					mDQUOTE(); 
 
 				}
 					break;
 				case 11:
 					DebugEnterAlt(11);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:63: ELSE
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:63: ELSE
 				{
 					DebugLocation(1, 63);
-					mELSE();
+					mELSE(); 
 
 				}
 					break;
 				case 12:
 					DebugEnterAlt(12);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:68: END
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:68: END
 				{
 					DebugLocation(1, 68);
-					mEND();
+					mEND(); 
 
 				}
 					break;
 				case 13:
 					DebugEnterAlt(13);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:72: EQUAL
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:72: EQUAL
 				{
 					DebugLocation(1, 72);
-					mEQUAL();
+					mEQUAL(); 
 
 				}
 					break;
 				case 14:
 					DebugEnterAlt(14);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:78: FOR
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:78: FOR
 				{
 					DebugLocation(1, 78);
-					mFOR();
+					mFOR(); 
 
 				}
 					break;
 				case 15:
 					DebugEnterAlt(15);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:82: FUNCTION
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:82: FUNCTION
 				{
 					DebugLocation(1, 82);
-					mFUNCTION();
+					mFUNCTION(); 
 
 				}
 					break;
 				case 16:
 					DebugEnterAlt(16);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:91: GTHAN
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:91: GTHAN
 				{
 					DebugLocation(1, 91);
-					mGTHAN();
+					mGTHAN(); 
 
 				}
 					break;
 				case 17:
 					DebugEnterAlt(17);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:97: GTHAN_EQUAL
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:97: GTHAN_EQUAL
 				{
 					DebugLocation(1, 97);
-					mGTHAN_EQUAL();
+					mGTHAN_EQUAL(); 
 
 				}
 					break;
 				case 18:
 					DebugEnterAlt(18);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:109: IF
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:109: IF
 				{
 					DebugLocation(1, 109);
-					mIF();
+					mIF(); 
 
 				}
 					break;
 				case 19:
 					DebugEnterAlt(19);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:112: IN
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:112: IN
 				{
 					DebugLocation(1, 112);
-					mIN();
+					mIN(); 
 
 				}
 					break;
 				case 20:
 					DebugEnterAlt(20);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:115: LET
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:115: LET
 				{
 					DebugLocation(1, 115);
-					mLET();
+					mLET(); 
 
 				}
 					break;
 				case 21:
 					DebugEnterAlt(21);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:119: LTHAN
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:119: LTHAN
 				{
 					DebugLocation(1, 119);
-					mLTHAN();
+					mLTHAN(); 
 
 				}
 					break;
 				case 22:
 					DebugEnterAlt(22);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:125: LTHAN_EQUAL
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:125: LTHAN_EQUAL
 				{
 					DebugLocation(1, 125);
-					mLTHAN_EQUAL();
+					mLTHAN_EQUAL(); 
 
 				}
 					break;
 				case 23:
 					DebugEnterAlt(23);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:137: L_BRACKETS
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:137: L_BRACKETS
 				{
 					DebugLocation(1, 137);
-					mL_BRACKETS();
+					mL_BRACKETS(); 
 
 				}
 					break;
 				case 24:
 					DebugEnterAlt(24);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:148: L_KEY
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:148: L_KEY
 				{
 					DebugLocation(1, 148);
-					mL_KEY();
+					mL_KEY(); 
 
 				}
 					break;
 				case 25:
 					DebugEnterAlt(25);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:154: L_PARENT
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:154: L_PARENT
 				{
 					DebugLocation(1, 154);
-					mL_PARENT();
+					mL_PARENT(); 
 
 				}
 					break;
 				case 26:
 					DebugEnterAlt(26);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:163: MINUS
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:163: MINUS
 				{
 					DebugLocation(1, 163);
-					mMINUS();
+					mMINUS(); 
 
 				}
 					break;
 				case 27:
 					DebugEnterAlt(27);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:169: MULT
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:169: MULT
 				{
 					DebugLocation(1, 169);
-					mMULT();
+					mMULT(); 
 
 				}
 					break;
 				case 28:
 					DebugEnterAlt(28);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:174: NIL
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:174: NIL
 				{
 					DebugLocation(1, 174);
-					mNIL();
+					mNIL(); 
 
 				}
 					break;
 				case 29:
 					DebugEnterAlt(29);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:178: NOT_EQUAL
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:178: NOT_EQUAL
 				{
 					DebugLocation(1, 178);
-					mNOT_EQUAL();
+					mNOT_EQUAL(); 
 
 				}
 					break;
 				case 30:
 					DebugEnterAlt(30);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:188: OF
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:188: OF
 				{
 					DebugLocation(1, 188);
-					mOF();
+					mOF(); 
 
 				}
 					break;
 				case 31:
 					DebugEnterAlt(31);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:191: OR
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:191: OR
 				{
 					DebugLocation(1, 191);
-					mOR();
+					mOR(); 
 
 				}
 					break;
 				case 32:
 					DebugEnterAlt(32);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:194: PLUS
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:194: PLUS
 				{
 					DebugLocation(1, 194);
-					mPLUS();
+					mPLUS(); 
 
 				}
 					break;
 				case 33:
 					DebugEnterAlt(33);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:199: R_BRACKETS
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:199: R_BRACKETS
 				{
 					DebugLocation(1, 199);
-					mR_BRACKETS();
+					mR_BRACKETS(); 
 
 				}
 					break;
 				case 34:
 					DebugEnterAlt(34);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:210: R_KEY
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:210: R_KEY
 				{
 					DebugLocation(1, 210);
-					mR_KEY();
+					mR_KEY(); 
 
 				}
 					break;
 				case 35:
 					DebugEnterAlt(35);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:216: R_PARENT
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:216: R_PARENT
 				{
 					DebugLocation(1, 216);
-					mR_PARENT();
+					mR_PARENT(); 
 
 				}
 					break;
 				case 36:
 					DebugEnterAlt(36);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:225: SEMICOLON
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:225: SEMICOLON
 				{
 					DebugLocation(1, 225);
-					mSEMICOLON();
+					mSEMICOLON(); 
 
 				}
 					break;
 				case 37:
 					DebugEnterAlt(37);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:235: THEN
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:235: THEN
 				{
 					DebugLocation(1, 235);
-					mTHEN();
+					mTHEN(); 
 
 				}
 					break;
 				case 38:
 					DebugEnterAlt(38);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:240: TO
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:240: TO
 				{
 					DebugLocation(1, 240);
-					mTO();
+					mTO(); 
 
 				}
 					break;
 				case 39:
 					DebugEnterAlt(39);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:243: TYPE
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:243: TYPE
 				{
 					DebugLocation(1, 243);
-					mTYPE();
+					mTYPE(); 
 
 				}
 					break;
 				case 40:
 					DebugEnterAlt(40);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:248: VAR
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:248: VAR
 				{
 					DebugLocation(1, 248);
-					mVAR();
+					mVAR(); 
 
 				}
 					break;
 				case 41:
 					DebugEnterAlt(41);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:252: WHILE
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:252: WHILE
 				{
 					DebugLocation(1, 252);
-					mWHILE();
+					mWHILE(); 
 
 				}
 					break;
 				case 42:
 					DebugEnterAlt(42);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:258: ID
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:258: ID
 				{
 					DebugLocation(1, 258);
-					mID();
+					mID(); 
 
 				}
 					break;
 				case 43:
 					DebugEnterAlt(43);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:261: INT
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:261: INT
 				{
 					DebugLocation(1, 261);
-					mINT();
+					mINT(); 
 
 				}
 					break;
 				case 44:
 					DebugEnterAlt(44);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:265: COMMENT
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:265: COMMENT
 				{
 					DebugLocation(1, 265);
-					mCOMMENT();
+					mCOMMENT(); 
 
 				}
 					break;
 				case 45:
 					DebugEnterAlt(45);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:273: WS
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:273: WS
 				{
 					DebugLocation(1, 273);
-					mWS();
+					mWS(); 
 
 				}
 					break;
 				case 46:
 					DebugEnterAlt(46);
-					// G:\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:276: STRING
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:276: STRING
 				{
 					DebugLocation(1, 276);
-					mSTRING();
+					mSTRING(); 
 
 				}
 					break;
@@ -3242,7 +3057,6 @@ namespace TigerCs.Parser.Tiger
 
 
 		#region DFA
-
 		DFA12 dfa12;
 
 		protected override void InitDFAs()
@@ -3254,60 +3068,54 @@ namespace TigerCs.Parser.Tiger
 		private class DFA12 : DFA
 		{
 			private const string DFA12_eotS =
-				"\x2\xFFFF\x1\x21\x1\x26\x1\x21\x1\xFFFF\x1\x29\x1\x21\x1\xFFFF\x1\x2B" +
-				"\x1\x21\x1\xFFFF\x1\x21\x1\x32\x2\x21\x1\x38\x5\xFFFF\x2\x21\x6\xFFFF" +
-				"\x3\x21\x3\xFFFF\x1\x21\x2\xFFFF\x1\x21\x2\xFFFF\x1\x42\x2\xFFFF\x4\x21" +
-				"\x2\xFFFF\x1\x47\x1\x48\x1\x21\x3\xFFFF\x1\x21\x1\x4B\x1\x21\x1\x4D\x5" +
-				"\x21\x1\xFFFF\x1\x21\x1\x54\x1\x55\x1\x21\x2\xFFFF\x1\x57\x1\x58\x1\xFFFF" +
-				"\x1\x21\x1\xFFFF\x1\x21\x1\x5B\x3\x21\x1\x5F\x2\xFFFF\x1\x21\x2\xFFFF" +
-				"\x1\x61\x1\x62\x1\xFFFF\x1\x21\x1\x64\x1\x65\x1\xFFFF\x1\x21\x2\xFFFF" +
+				"\x2\xFFFF\x1\x21\x1\x26\x1\x21\x1\xFFFF\x1\x29\x1\x21\x1\xFFFF\x1\x2B"+
+				"\x1\x21\x1\xFFFF\x1\x21\x1\x32\x2\x21\x1\x38\x5\xFFFF\x2\x21\x6\xFFFF"+
+				"\x3\x21\x3\xFFFF\x1\x21\x2\xFFFF\x1\x21\x2\xFFFF\x1\x42\x2\xFFFF\x4\x21"+
+				"\x2\xFFFF\x1\x47\x1\x48\x1\x21\x3\xFFFF\x1\x21\x1\x4B\x1\x21\x1\x4D\x5"+
+				"\x21\x1\xFFFF\x1\x21\x1\x54\x1\x55\x1\x21\x2\xFFFF\x1\x57\x1\x58\x1\xFFFF"+
+				"\x1\x21\x1\xFFFF\x1\x21\x1\x5B\x3\x21\x1\x5F\x2\xFFFF\x1\x21\x2\xFFFF"+
+				"\x1\x61\x1\x62\x1\xFFFF\x1\x21\x1\x64\x1\x65\x1\xFFFF\x1\x21\x2\xFFFF"+
 				"\x1\x67\x2\xFFFF\x1\x21\x1\xFFFF\x1\x21\x1\x6A\x1\xFFFF";
-
 			private const string DFA12_eofS =
 				"\x6B\xFFFF";
-
 			private const string DFA12_minS =
-				"\x1\x9\x1\xFFFF\x1\x72\x1\x3D\x1\x72\x1\xFFFF\x1\x2A\x1\x6F\x1\xFFFF" +
-				"\x1\x0\x1\x6C\x1\xFFFF\x1\x6F\x1\x3D\x1\x66\x1\x65\x1\x3D\x5\xFFFF\x1" +
-				"\x69\x1\x66\x6\xFFFF\x1\x68\x1\x61\x1\x68\x3\xFFFF\x1\x72\x2\xFFFF\x1" +
-				"\x65\x2\xFFFF\x1\x30\x2\xFFFF\x1\x73\x1\x64\x1\x72\x1\x6E\x2\xFFFF\x2" +
-				"\x30\x1\x74\x3\xFFFF\x1\x6C\x1\x30\x1\x65\x1\x30\x1\x70\x1\x72\x1\x69" +
-				"\x2\x61\x1\xFFFF\x1\x65\x2\x30\x1\x63\x2\xFFFF\x2\x30\x1\xFFFF\x1\x6E" +
-				"\x1\xFFFF\x1\x65\x1\x30\x1\x6C\x1\x79\x1\x6B\x1\x30\x2\xFFFF\x1\x74\x2" +
-				"\xFFFF\x2\x30\x1\xFFFF\x1\x65\x2\x30\x1\xFFFF\x1\x69\x2\xFFFF\x1\x30" +
+				"\x1\x9\x1\xFFFF\x1\x72\x1\x3D\x1\x72\x1\xFFFF\x1\x2A\x1\x6F\x1\xFFFF"+
+				"\x1\x0\x1\x6C\x1\xFFFF\x1\x6F\x1\x3D\x1\x66\x1\x65\x1\x3D\x5\xFFFF\x1"+
+				"\x69\x1\x66\x6\xFFFF\x1\x68\x1\x61\x1\x68\x3\xFFFF\x1\x72\x2\xFFFF\x1"+
+				"\x65\x2\xFFFF\x1\x30\x2\xFFFF\x1\x73\x1\x64\x1\x72\x1\x6E\x2\xFFFF\x2"+
+				"\x30\x1\x74\x3\xFFFF\x1\x6C\x1\x30\x1\x65\x1\x30\x1\x70\x1\x72\x1\x69"+
+				"\x2\x61\x1\xFFFF\x1\x65\x2\x30\x1\x63\x2\xFFFF\x2\x30\x1\xFFFF\x1\x6E"+
+				"\x1\xFFFF\x1\x65\x1\x30\x1\x6C\x1\x79\x1\x6B\x1\x30\x2\xFFFF\x1\x74\x2"+
+				"\xFFFF\x2\x30\x1\xFFFF\x1\x65\x2\x30\x1\xFFFF\x1\x69\x2\xFFFF\x1\x30"+
 				"\x2\xFFFF\x1\x6F\x1\xFFFF\x1\x6E\x1\x30\x1\xFFFF";
-
 			private const string DFA12_maxS =
-				"\x1\x7D\x1\xFFFF\x1\x72\x1\x3D\x1\x72\x1\xFFFF\x1\x2A\x1\x6F\x1\xFFFF" +
-				"\x1\xFFFF\x1\x6E\x1\xFFFF\x1\x75\x1\x3D\x1\x6E\x1\x65\x1\x3E\x5\xFFFF" +
-				"\x1\x69\x1\x66\x6\xFFFF\x1\x79\x1\x61\x1\x68\x3\xFFFF\x1\x72\x2\xFFFF" +
-				"\x1\x65\x2\xFFFF\x1\x7A\x2\xFFFF\x1\x73\x1\x64\x1\x72\x1\x6E\x2\xFFFF" +
-				"\x2\x7A\x1\x74\x3\xFFFF\x1\x6C\x1\x7A\x1\x65\x1\x7A\x1\x70\x1\x72\x1" +
-				"\x69\x2\x61\x1\xFFFF\x1\x65\x2\x7A\x1\x63\x2\xFFFF\x2\x7A\x1\xFFFF\x1" +
-				"\x6E\x1\xFFFF\x1\x65\x1\x7A\x1\x6C\x1\x79\x1\x6B\x1\x7A\x2\xFFFF\x1\x74" +
-				"\x2\xFFFF\x2\x7A\x1\xFFFF\x1\x65\x2\x7A\x1\xFFFF\x1\x69\x2\xFFFF\x1\x7A" +
+				"\x1\x7D\x1\xFFFF\x1\x72\x1\x3D\x1\x72\x1\xFFFF\x1\x2A\x1\x6F\x1\xFFFF"+
+				"\x1\xFFFF\x1\x6E\x1\xFFFF\x1\x75\x1\x3D\x1\x6E\x1\x65\x1\x3E\x5\xFFFF"+
+				"\x1\x69\x1\x66\x6\xFFFF\x1\x79\x1\x61\x1\x68\x3\xFFFF\x1\x72\x2\xFFFF"+
+				"\x1\x65\x2\xFFFF\x1\x7A\x2\xFFFF\x1\x73\x1\x64\x1\x72\x1\x6E\x2\xFFFF"+
+				"\x2\x7A\x1\x74\x3\xFFFF\x1\x6C\x1\x7A\x1\x65\x1\x7A\x1\x70\x1\x72\x1"+
+				"\x69\x2\x61\x1\xFFFF\x1\x65\x2\x7A\x1\x63\x2\xFFFF\x2\x7A\x1\xFFFF\x1"+
+				"\x6E\x1\xFFFF\x1\x65\x1\x7A\x1\x6C\x1\x79\x1\x6B\x1\x7A\x2\xFFFF\x1\x74"+
+				"\x2\xFFFF\x2\x7A\x1\xFFFF\x1\x65\x2\x7A\x1\xFFFF\x1\x69\x2\xFFFF\x1\x7A"+
 				"\x2\xFFFF\x1\x6F\x1\xFFFF\x1\x6E\x1\x7A\x1\xFFFF";
-
 			private const string DFA12_acceptS =
-				"\x1\xFFFF\x1\x1\x3\xFFFF\x1\x6\x2\xFFFF\x1\x9\x2\xFFFF\x1\xD\x5\xFFFF" +
-				"\x1\x17\x1\x18\x1\x19\x1\x1A\x1\x1B\x2\xFFFF\x1\x1F\x1\x20\x1\x21\x1" +
-				"\x22\x1\x23\x1\x24\x3\xFFFF\x1\x2A\x1\x2B\x1\x2D\x1\xFFFF\x1\x3\x1\x5" +
-				"\x1\xFFFF\x1\x2C\x1\x7\x1\xFFFF\x1\xA\x1\x2E\x4\xFFFF\x1\x11\x1\x10\x3" +
-				"\xFFFF\x1\x16\x1\x1D\x1\x15\x9\xFFFF\x1\x8\x4\xFFFF\x1\x12\x1\x13\x2" +
-				"\xFFFF\x1\x1E\x1\xFFFF\x1\x26\x6\xFFFF\x1\xC\x1\xE\x1\xFFFF\x1\x14\x1" +
-				"\x1C\x2\xFFFF\x1\x28\x3\xFFFF\x1\xB\x1\xFFFF\x1\x25\x1\x27\x1\xFFFF\x1" +
+				"\x1\xFFFF\x1\x1\x3\xFFFF\x1\x6\x2\xFFFF\x1\x9\x2\xFFFF\x1\xD\x5\xFFFF"+
+				"\x1\x17\x1\x18\x1\x19\x1\x1A\x1\x1B\x2\xFFFF\x1\x1F\x1\x20\x1\x21\x1"+
+				"\x22\x1\x23\x1\x24\x3\xFFFF\x1\x2A\x1\x2B\x1\x2D\x1\xFFFF\x1\x3\x1\x5"+
+				"\x1\xFFFF\x1\x2C\x1\x7\x1\xFFFF\x1\xA\x1\x2E\x4\xFFFF\x1\x11\x1\x10\x3"+
+				"\xFFFF\x1\x16\x1\x1D\x1\x15\x9\xFFFF\x1\x8\x4\xFFFF\x1\x12\x1\x13\x2"+
+				"\xFFFF\x1\x1E\x1\xFFFF\x1\x26\x6\xFFFF\x1\xC\x1\xE\x1\xFFFF\x1\x14\x1"+
+				"\x1C\x2\xFFFF\x1\x28\x3\xFFFF\x1\xB\x1\xFFFF\x1\x25\x1\x27\x1\xFFFF\x1"+
 				"\x2\x1\x4\x1\xFFFF\x1\x29\x2\xFFFF\x1\xF";
-
 			private const string DFA12_specialS =
 				"\x9\xFFFF\x1\x0\x61\xFFFF}>";
-
 			private static readonly string[] DFA12_transitionS =
 			{
-				"\x2\x23\x1\xFFFF\x2\x23\x12\xFFFF\x1\x23\x1\xFFFF\x1\x9\x3\xFFFF\x1" +
-				"\x1\x1\xFFFF\x1\x13\x1\x1C\x1\x15\x1\x19\x1\x5\x1\x14\x1\x8\x1\x6\xA" +
-				"\x22\x1\x3\x1\x1D\x1\x10\x1\xB\x1\xD\x2\xFFFF\x1A\x21\x1\x11\x1\xFFFF" +
-				"\x1\x1A\x3\xFFFF\x1\x2\x1\x4\x1\x21\x1\x7\x1\xA\x1\xC\x2\x21\x1\xE\x2" +
-				"\x21\x1\xF\x1\x21\x1\x16\x1\x17\x4\x21\x1\x1E\x1\x21\x1\x1F\x1\x20\x3" +
+				"\x2\x23\x1\xFFFF\x2\x23\x12\xFFFF\x1\x23\x1\xFFFF\x1\x9\x3\xFFFF\x1"+
+				"\x1\x1\xFFFF\x1\x13\x1\x1C\x1\x15\x1\x19\x1\x5\x1\x14\x1\x8\x1\x6\xA"+
+				"\x22\x1\x3\x1\x1D\x1\x10\x1\xB\x1\xD\x2\xFFFF\x1A\x21\x1\x11\x1\xFFFF"+
+				"\x1\x1A\x3\xFFFF\x1\x2\x1\x4\x1\x21\x1\x7\x1\xA\x1\xC\x2\x21\x1\xE\x2"+
+				"\x21\x1\xF\x1\x21\x1\x16\x1\x17\x4\x21\x1\x1E\x1\x21\x1\x1F\x1\x20\x3"+
 				"\x21\x1\x12\x1\x18\x1\x1B",
 				"",
 				"\x1\x24",
@@ -3429,13 +3237,13 @@ namespace TigerCs.Parser.Tiger
 			{
 				int numStates = DFA12_transitionS.Length;
 				DFA12_transition = new short[numStates][];
-				for (int i = 0; i < numStates; i++)
+				for ( int i=0; i < numStates; i++ )
 				{
 					DFA12_transition[i] = DFA.UnpackEncodedString(DFA12_transitionS[i]);
 				}
 			}
 
-			public DFA12(BaseRecognizer recognizer, SpecialStateTransitionHandler specialStateTransition)
+			public DFA12( BaseRecognizer recognizer, SpecialStateTransitionHandler specialStateTransition )
 				: base(specialStateTransition)
 			{
 				this.recognizer = recognizer;
@@ -3449,14 +3257,7 @@ namespace TigerCs.Parser.Tiger
 				this.transition = DFA12_transition;
 			}
 
-			public override string Description
-			{
-				get
-				{
-					return
-						"1:1: Tokens : ( AND | ARRAY | ASSIGN | BREAK | COLON | COMMA | DIV | DO | DOT | DQUOTE | ELSE | END | EQUAL | FOR | FUNCTION | GTHAN | GTHAN_EQUAL | IF | IN | LET | LTHAN | LTHAN_EQUAL | L_BRACKETS | L_KEY | L_PARENT | MINUS | MULT | NIL | NOT_EQUAL | OF | OR | PLUS | R_BRACKETS | R_KEY | R_PARENT | SEMICOLON | THEN | TO | TYPE | VAR | WHILE | ID | INT | COMMENT | WS | STRING );";
-				}
-			}
+			public override string Description { get { return "1:1: Tokens : ( AND | ARRAY | ASSIGN | BREAK | COLON | COMMA | DIV | DO | DOT | DQUOTE | ELSE | END | EQUAL | FOR | FUNCTION | GTHAN | GTHAN_EQUAL | IF | IN | LET | LTHAN | LTHAN_EQUAL | L_BRACKETS | L_KEY | L_PARENT | MINUS | MULT | NIL | NOT_EQUAL | OF | OR | PLUS | R_BRACKETS | R_KEY | R_PARENT | SEMICOLON | THEN | TO | TYPE | VAR | WHILE | ID | INT | COMMENT | WS | STRING );"; } }
 
 			public override void Error(NoViableAltException nvae)
 			{
@@ -3474,10 +3275,7 @@ namespace TigerCs.Parser.Tiger
 					int LA12_9 = input.LA(1);
 
 					s = -1;
-					if (((LA12_9 >= '\u0000' && LA12_9 <= '\uFFFF')))
-					{
-						s = 44;
-					}
+					if (((LA12_9>='\u0000' && LA12_9<='\uFFFF'))) {s = 44;}
 
 					else s = 43;
 
@@ -3488,7 +3286,7 @@ namespace TigerCs.Parser.Tiger
 			dfa.Error(nvae);
 			throw nvae;
 		}
-
+ 
 		#endregion
 
 	}

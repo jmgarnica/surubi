@@ -7,11 +7,13 @@ using TigerCs.Emitters;
 using TigerCs.Emitters.NASM;
 using TigerCs.Generation;
 using TigerCs.Generation.ByteCode;
+using TigerCs.Parser;
+using TigerCs.Parser.Tiger;
 
 namespace Surubi
 {
 
-	[ArgumentCandidate(Candidates = new []{typeof(SemanticCheckerDescriptor), typeof(NasmDescriptor)}, AfterInitializationActionMethod = nameof(initialize))]
+	[ArgumentCandidate(Candidates = new []{typeof(SemanticCheckerDescriptor), typeof(NasmDescriptor), typeof(TigerParserDescriptor)}, AfterInitializationActionMethod = nameof(initialize))]
 	public class TigerGeneratorDescriptor
 	{
 		[Argument(OptionName = "chk", Help = "Semantic checking protocol", DefaultValue = "dft")]
@@ -19,6 +21,9 @@ namespace Surubi
 
 		[Argument(OptionName = "bcm", Help = "a target engine for code generation", DefaultValue = "nasm")]
 		public BCMDescriptor BCM { get; set; }
+
+		[Argument(OptionName = "p", Help = "syntactic processing module", DefaultValue = "tiger")]
+		public ParserDescriptor Parser { get; set; }
 
 		[Argument(positionalargument = 0, Help = "the path of the imput file")]
 		public string Source { get; set; }
@@ -32,7 +37,7 @@ namespace Surubi
 					where i.GetGenericTypeDefinition() == typeof(IByteCodeMachine<,,>)
 					select i.GetGenericArguments();
 
-			var t_gen = typeof(TigerGenerator<,,>).MakeGenericType(t.First());
+			var t_gen = typeof(Generator<,,>).MakeGenericType(t.First());
 
 			var constructor_info = t_gen.GetConstructor(Type.EmptyTypes);
 			if (constructor_info == null) throw new InvalidOperationException();
@@ -40,6 +45,7 @@ namespace Surubi
 			object gen = constructor_info.Invoke(new object[0]);
 			t_gen.GetProperty("ByteCodeMachine").SetValue(gen, bcm);
 			t_gen.GetProperty("SemanticChecker").SetValue(gen, Checker.InitializeChecker());
+			t_gen.GetProperty("Parser").SetValue(gen, Parser.GetParser());
 
 			Generator = (IGenerator)gen;
 		}
@@ -58,6 +64,8 @@ namespace Surubi
 	public abstract class BCMDescriptor
 	{
 		public abstract object GetBCM();
+
+		public abstract string Run(string[] args, string testdata, ErrorReport r, bool detachoutput, out int exitcode);
 	}
 
 	[ArgumentCandidate(OptionName = "nasm", Help = "generate nasm assambler code")]
@@ -72,7 +80,7 @@ namespace Surubi
 
 		[Argument(OptionName = "ap", DefaultValue = @".\NASM\NASM\nasm.exe",
 			Help = "the path to the directory containing nasm assember," +
-			       " this defines [asm_dir_paath] as the directory containing the assembler")]
+			       " this defines [asm_dir_path] as the directory containing the assembler")]
 		public string AssemblerPath { get; set; }
 
 		[Argument(OptionName = "lp", DefaultValue = @".\NASM\MinGW\bin\gcc.exe",
@@ -83,24 +91,24 @@ namespace Surubi
 			Help = "command line arguments for the assembler")]
 		public string AssemblerOptions { get; set; }
 
-		[Argument(OptionName = "lo", DefaultValue = @"{out}.o {asm_dir_paath}\macro.o -g -o {out}.exe -m32",
+		[Argument(OptionName = "lo", DefaultValue = @"{out}.o {asm_dir_path}\macro.o -g -o {out}.exe -m32",
 			Help = "command line arguments for the linker")]
 		public string LinkerOptions { get; set; }
 
 		public override object GetBCM()
 		{
+			AssemblerPath = Path.GetFullPath(AssemblerPath).Replace(" ", @"\ ");
+			LinkerPath = Path.GetFullPath(LinkerPath).Replace(" ", @"\ ");
+
 			var assdir = new FileInfo(AssemblerPath).Directory?.FullName;
 			AssemblerOptions = AssemblerOptions.Replace("{out}", OutputFile)
-			                                   .Replace("{asm_dir_paath}", assdir
+			                                   .Replace("{asm_dir_path}", assdir
 			                                                               ??
 			                                                               Environment.CurrentDirectory);
 			LinkerOptions = LinkerOptions.Replace("{out}", OutputFile)
-			                             .Replace("{asm_dir_paath}", assdir
+			                             .Replace("{asm_dir_path}", assdir
 			                                                         ??
 			                                                         Environment.CurrentDirectory);
-
-			AssemblerPath = AssemblerPath.Replace(" ", @"\ ");
-			LinkerPath = LinkerPath.Replace(" ", @"\ ");
 
 			return new NasmEmitter(OutputFile)
 			{
@@ -112,6 +120,29 @@ namespace Surubi
 					LinkerPath = LinkerPath
 				}
 			};
+		}
+
+		public override string Run(string[] args, string testdata, ErrorReport r, bool detachoutput, out int exitcode)
+		{
+			if (Binary) return Extensions.Run(OutputFile + ".exe", args, testdata, r, detachoutput, out exitcode);
+
+			r.Add(new StaticError(0,0, "No binary file to run", ErrorLevel.Internal));
+			exitcode = -1;
+			return "";
+		}
+	}
+
+	public abstract class ParserDescriptor
+	{
+		public abstract IParser GetParser();
+	}
+
+	[ArgumentCandidate(OptionName = "tiger", Help = "parser for Tiger language")]
+	public class TigerParserDescriptor : ParserDescriptor
+	{
+		public override IParser GetParser()
+		{
+			return new Parser();
 		}
 	}
 }

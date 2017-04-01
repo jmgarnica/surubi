@@ -94,7 +94,7 @@
     <Compile Include="Generation\AST\Expressions\Neg.cs" />
     <Compile Include="CompilationServices\AutoCheck\CheckerExtensions.cs" />
     <Compile Include="Generation\Descriptors.cs" />
-    <Compile Include="CompilationServices\TigerGenerator.cs" />
+    <Compile Include="CompilationServices\Generator.cs" />
     <Compile Include="Generation\ISemanticChecker.cs" />
     <Compile Include="Generation\AST\Expressions\RecordAcces.cs" />
     <Compile Include="Generation\AST\Expressions\IfThenElse.cs" />

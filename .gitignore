@@ -215,3 +215,4 @@ ModelManifest.xml
 /TigerCs/Parser/Tiger/output/TigrammarLexer.cs
 /TigerCs/Parser/Tiger/output/TigrammarParser.cs
 /TigerCs/Parser/Tiger/output/Tigrammar.tokens
+*.o

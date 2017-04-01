@@ -60,6 +60,9 @@ namespace CMPTest.Emission
 		{
 			r = new ErrorReport();
 			e = InitBCM(testname);
+
+			e.InitializeCodeGeneration(r);
+
 			T dum = null;
 
 			if ((s & STDBind.Int) != 0)
@@ -91,7 +94,6 @@ namespace CMPTest.Emission
 
 			nil = hdum;
 
-			e.InitializeCodeGeneration(r);
 			e.EntryPoint(true, true);
 
 			_0 = e.AddConstant(0);

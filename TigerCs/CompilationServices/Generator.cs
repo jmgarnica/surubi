@@ -8,7 +8,7 @@ using TigerCs.Parser;
 
 namespace TigerCs.CompilationServices
 {
-	public sealed class TigerGenerator<T, F, H> : IGenerator
+	public sealed class Generator<T, F, H> : IGenerator
 		where T : class, IType<T, F>
 		where F : class, IFunction<T, F>
 		where H : class, IHolder

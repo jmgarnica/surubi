@@ -32,7 +32,7 @@ namespace TigerCs.Generation.AST.Expressions
 			_void = sc.Void(report);
 			_null = sc.Null(report);
 
-			this.AutoCheck(sc, report, _int);
+			if(!this.AutoCheck(sc, report, _int))return false;
 
 			if (Left.Return.Equals(_void))
 			{

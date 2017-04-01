@@ -10,17 +10,17 @@ namespace TigerCs.Parser.Tiger
 	{
 		public IExpression Parse(TextReader tr, ErrorReport tofill)
 		{
-			try
+			//try
 			{
 				TigrammarLexer lexer = new TigrammarLexer(new ANTLRReaderStream(tr));
 				TigrammarParser parser = new TigrammarParser(new CommonTokenStream(lexer)) {TraceDestination = Console.Out};
 				var exp = parser.program();
 				return exp;
 			}
-			catch (Exception e)
+			//catch (Exception e)
 			{
-				tofill.Add(new StaticError(0, 0, $"Parser Error {(string.IsNullOrWhiteSpace(e.Message)? "" : ": " + e.Message)}",
-				                           ErrorLevel.Internal));
+				//tofill.Add(new StaticError(0, 0, $"Parser Error {(string.IsNullOrWhiteSpace(e.Message)? "" : ": " + e.Message)}",
+				 //                          ErrorLevel.Internal));
 				return null;
 			}
         }

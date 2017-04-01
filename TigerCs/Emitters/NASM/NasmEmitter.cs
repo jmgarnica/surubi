@@ -28,13 +28,13 @@ namespace TigerCs.Emitters.NASM
 		public string OutputFile { get; }
 		public NasmBuild OnEndBuild { get; set; }
 
-		readonly FormatWriter fw;
+		FormatWriter fw;
 
 		TextWriter t;
 		FileStream toclose;
 
-		readonly Dictionary<string, NasmFunction> std;
-		readonly HashSet<string> Externs;
+		Dictionary<string, NasmFunction> std;
+		HashSet<string> Externs;
 		Dictionary<string, NasmStringConst> StringConst;
 		int StringConstEnd;
 		//readonly NasmFunction PrintS;
@@ -46,9 +46,6 @@ namespace TigerCs.Emitters.NASM
 		public NasmEmitter(string output)
 		{
 			OutputFile = output;
-			fw = new FormatWriter();
-			Externs = new HashSet<string>();
-			std = new Dictionary<string, NasmFunction>();
 
 #if DEBUG_Malloc
 			PrintI = new NasmCFunction(PrintIFunctionLabel, false, this, false, "PrintI");
@@ -69,6 +66,10 @@ namespace TigerCs.Emitters.NASM
 		public override void InitializeCodeGeneration(ErrorReport report)
 		{
 			base.InitializeCodeGeneration(report);
+
+			fw = new FormatWriter();
+			Externs = new HashSet<string>();
+			std = new Dictionary<string, NasmFunction>();
 
 			if (string.IsNullOrWhiteSpace(OutputFile))
 				t = Console.Out;

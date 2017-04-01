@@ -56,7 +56,7 @@ namespace TigerCs.Emitters.NASM
 
 			fw.WriteLine($";{Name}.Params");
 			accedingscope.Lock.Lock(Register.EDX);
-			foreach (var arg in args)
+			foreach (var arg in args.Reverse())
 			{
 				arg.PutValueInRegister(Register.EDX, fw, accedingscope);
 				fw.WriteLine("push " + Register.EDX);

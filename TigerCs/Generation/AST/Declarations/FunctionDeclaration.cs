@@ -51,7 +51,7 @@ namespace TigerCs.Generation.AST.Declarations
 
 			foreach (var p in Parameters)
 			{
-				if(!p.CheckSemantics(sc, report))
+				if(p?.CheckSemantics(sc, report) != true)//TODO: Null check for collections
 					return false;
 
 				Func.Parameters.Add(new Tuple<string, TypeInfo>(p.HolderName, p.Type));

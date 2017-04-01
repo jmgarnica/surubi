@@ -12,6 +12,7 @@ namespace TigerCs.Generation.AST.Expressions
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
+			if (!this.AutoCheck(sc, report, expected)) return false;
 			_int = sc.Int(report);
 
 			if (!Left.CheckSemantics(sc, report, _int) || !Right.CheckSemantics(sc, report, _int)) return false;

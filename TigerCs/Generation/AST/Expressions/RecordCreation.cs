@@ -10,7 +10,7 @@ namespace TigerCs.Generation.AST.Expressions
 {
     public class RecordCreation:Expression
     {
-
+		[NotNull]
         public List<Tuple<string, IExpression>> Members { get; set; }
 
         [NotNull]
