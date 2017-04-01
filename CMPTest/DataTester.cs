@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Surubi;
@@ -79,6 +80,61 @@ namespace CMPTest
 
 		[TestMethod]
 		public void Fail()
-		{ }
+		{
+			ErrorReport r = new ErrorReport();
+			for (int index = 0; index < tests.fail.Length; index++)
+			{
+				var test = tests.fail[index];
+
+				var exp = g.Generator.Parse(new StringReader(test.code), r);
+				if (test.failOn == Phase.Parse)
+				{
+					Assert.IsTrue(OneOf(r,test.errors));
+					Console.WriteLine($"Test {test.name}({index + 1}/{tests.fail.Length}) passed");
+					continue;
+				}
+
+				Assert.AreNotEqual(exp, null);
+				Assert.AreEqual(r.Count(), 0);
+
+				g.Generator.Compile(exp, r);
+				if (test.failOn == Phase.SemanticCheck || test.failOn == Phase.CodeGeneration) //TODO: split this
+				{
+					Assert.IsTrue(OneOf(r, test.errors));
+					Console.WriteLine($"Test {test.name}({index + 1}/{tests.fail.Length}) passed");
+					continue;
+				}
+
+				Assert.AreEqual(r.Count(), 0);
+
+				//TODO: add execution errors
+				//int exp_code;
+				//string actual = g.BCM.Run(test.args, test.input, r, test.correctOutput == null, out exp_code);
+
+				//Assert.AreEqual(0, exp_code);
+				//if (test.correctOutput != null)
+				//	Assert.AreEqual(test.correctOutput, actual);
+				//Console.WriteLine(actual);
+			}
+		}
+
+		static bool OneOf(ErrorReport ss, JsonError[] possible)
+		{
+			foreach (var s in ss)
+			{
+				foreach (var error in possible)
+				{
+					if ((error.line != -1 || error.column != -1) && (error.line != s.Line || error.column != s.Column)) continue;
+					if (string.IsNullOrEmpty(error.error)) continue;
+
+					Regex r = new Regex(error.error, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+					if (!r.Match(s.ErrorMessage).Success) continue;
+					Console.WriteLine(s);
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 }
