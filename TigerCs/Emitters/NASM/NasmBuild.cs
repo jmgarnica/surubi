@@ -27,7 +27,6 @@ namespace TigerCs.Emitters.NASM
 					UseShellExecute = false,
 					RedirectStandardError = true,
 					RedirectStandardOutput = true
-					
 				}
 			};
 

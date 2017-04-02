@@ -9,7 +9,7 @@ namespace TigerCs.Emitters.NASM
 
 	public class NasmFunction : NasmMember, IFunction<NasmType, NasmFunction>
 	{
-		public static NasmFunction Malloc, Free, _Malloc;
+		public static NasmFunction Malloc, Free;
 
 		public NasmFunction(NasmEmitterScope dscope, int sindex, NasmEmitter bound, string name = "")
 			: base(bound, dscope, sindex)

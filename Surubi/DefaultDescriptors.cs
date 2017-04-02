@@ -91,7 +91,7 @@ namespace Surubi
 			Help = "command line arguments for the assembler")]
 		public string AssemblerOptions { get; set; }
 
-		[Argument(OptionName = "lo", DefaultValue = @"{out}.o {asm_dir_path}\macro.o -g -o {out}.exe -m32",
+		[Argument(OptionName = "lo", DefaultValue = @"{asm_dir_path}\macro.o {asm_dir_path}\std.o {out}.o -g -o {out}.exe -m32",
 			Help = "command line arguments for the linker")]
 		public string LinkerOptions { get; set; }
 

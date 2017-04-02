@@ -122,6 +122,7 @@
     <Compile Include="Generation\AST\Expressions\RecordCreation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Emitters\NASM\std.asm" />
     <None Include="Generation\AST\Declarations\ASTDeclaration.cd" />
     <None Include="Generation\AST\Expressions\ASTExpressions.cd">
       <CustomToolNamespace>TigerCs.Generation.Semantic.AST</CustomToolNamespace>

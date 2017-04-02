@@ -1,41 +1,45 @@
-﻿namespace TigerCs.Emitters.NASM
+﻿using System;
+
+namespace TigerCs.Emitters.NASM
 {
 	public static class NasmTigerStandard
 	{
+		public static string PrintSFunctionLabel = "_cprintS";
+		public static string PrintIFunctionLabel = "_cprintI";
+		public static string GetCharFunctionLabel = "_cgetchar";
+		public static string OrdFunctionLabel = "_cord";
+		public static string ChrFunctionLabel = "_cchr";
+		public static string SubstringFunctionLabel = "_csubstring";
+		public static string ConcatFunctionLabel = "_cconcat";
+		public static string EmitErrorFunctionLabel = "_emit_error";
+		public static string StrCmp = "_strcmp";
+
 
 		public static NasmFunction AddPrintS(NasmEmitter bound)
-			=> new NasmCFunction(NasmEmitter.PrintSFunctionLabel, false, bound, true, "PrintS");
-
-		public static void WritePrintS(FormatWriter fw, NasmEmitter bound)
-		{
-			fw.WriteLine(NasmEmitter.PrintSFunctionLabel + ":");
-			fw.IncrementIndentation();
-			fw.WriteLine("mov EAX, [ESP + 4]");
-			fw.WriteLine("cmp EAX, 0");
-			fw.WriteLine("je .null_error_exit");
-			fw.WriteLine("add EAX, 4");//size space
-			fw.WriteLine("push EAX");
-			fw.WriteLine($"push dword {NasmEmitter.PrintSFormatName}");
-			fw.WriteLine("call _printf");
-			fw.WriteLine("add ESP, 8");
-			fw.WriteLine("xor EAX, EAX");
-			fw.WriteLine("xor ECX, ECX");
-			fw.WriteLine("ret");
-			fw.WriteLine("");
-			fw.WriteLine(".null_error_exit:");
-
-			var m = bound.AddConstant("Null Reference");
-			m.PutValueInRegister(Register.EAX, fw, null);
-			fw.WriteLine("push EAX");
-			fw.WriteLine($"call {NasmEmitter.PrintSFunctionLabel}");
-			fw.WriteLine("add ESP, 4");
-			fw.WriteLine("mov EAX, 3");
-			fw.WriteLine($"mov ECX, {NasmEmitter.ErrorCode}");
-			fw.WriteLine("ret");
-			fw.DecrementIndentation();
-		}
+			=> new NasmCFunction(PrintSFunctionLabel, true, bound, true, "PrintS");
 
 		public static NasmFunction AddPrintI(NasmEmitter bound)
-			=> new NasmCFunction(NasmEmitter.PrintIFunctionLabel, false, bound, name: "PrintI");
+			=> new NasmCFunction(PrintIFunctionLabel, true, bound, name: "PrintI");
+
+		public static NasmFunction AddGetChar(NasmEmitter bound)
+			=> new NasmCFunction(GetCharFunctionLabel, true, bound, name: "GetChar");
+
+		public static NasmFunction AddOrd(NasmEmitter bound)
+			=> new NasmCFunction(OrdFunctionLabel, true, bound, true, "Ordinal");
+
+		public static NasmFunction AddChr(NasmEmitter bound)
+			=> new NasmCFunction(ChrFunctionLabel, true, bound, true, "Char");
+
+		public static NasmFunction AddSubstring(NasmEmitter bound)
+			=> new NasmCFunction(SubstringFunctionLabel, true, bound, true, "Substring");
+
+		public static NasmFunction AddConcat(NasmEmitter bound)
+			=> new NasmCFunction(ConcatFunctionLabel, true, bound, true, "Concat");
+
+		public static NasmFunction AddEmitError(NasmEmitter bound)
+			=> new NasmCFunction(EmitErrorFunctionLabel, true, bound, true, "EmitError");
+
+		public static NasmFunction AddStringCompare(NasmEmitter bound)
+			=> new NasmCFunction(StrCmp, true, bound, true, "strcmp");
 	}
 }

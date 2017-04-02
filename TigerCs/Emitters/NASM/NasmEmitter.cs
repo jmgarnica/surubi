@@ -11,19 +11,19 @@ namespace TigerCs.Emitters.NASM
 {
 	public class NasmEmitter : BCMBase<NasmType, NasmFunction, NasmHolder, NasmEmitterScope>
 	{
-		public const string PrintSFormatName = "prints";
-		public const string PrintIFormatName = "printi";
 		public const string StringConstName = "stringconst";
-		public const string PrintSFunctionLabel = "_cprintS";
-		public const string PrintIFunctionLabel = "_cprintI";
-		public const string MallocLabel = "_malloc";
-		public const string FreeLabel = "_free";
+
+		public readonly string MallocLabel;
+		public readonly string FreeLabel;
+		public readonly string MainLabel;
+
 		public const int Null = 0;
 
 		public const int ErrorCode = 0xe7707;
 
 		public readonly NasmFunction SizeOfXTermByteArray;
 		public readonly NasmFunction SizeOfXTermDwordArray;
+		public NasmFunction EmitErrorFunct { get; private set; }
 
 		public string OutputFile { get; }
 		public NasmBuild OnEndBuild { get; set; }
@@ -40,15 +40,31 @@ namespace TigerCs.Emitters.NASM
 
 		public NasmEmitter(string output)
 		{
+			if (Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX)
+			{
+				MallocLabel = "malloc";
+				FreeLabel = "free";
+				MainLabel = "main";
+			}
+			else
+			{
+				MallocLabel = "_malloc";
+				FreeLabel = "_free";
+				MainLabel = "_main";
+			}
+
+
 			OutputFile = output;
 
 			NasmType.Int = new NasmType(NasmRefType.None);
 			NasmType.String = new NasmType(NasmRefType.Dynamic, -1);
+
 			NasmType.DWordRMemberAccess = new NasmMacroFunction(MemberReadAccess, this, "MemberReadAccess");
 			NasmType.DWordWMemberAccess = new NasmMacroFunction(MemberWriteAccess, this,"MemberWriteAccess");
 			NasmType.ByteRMemberAccess = new NasmMacroFunction(MemberReadAccessByteString, this, "MemberReadAccess(Bytes)");
 			NasmType.ArrayAllocator = new NasmMacroFunction(ArrayAllocator, this, "ArrayAllocator") { Requested = new[] { Register.ECX, Register.EAX } };
 			NasmType.ByteZeroEndArrayAllocator = new NasmMacroFunction(ArrayAllocatorBytesZeroEnd, this, "ArrayAllocator") { Requested = new[] { Register.ECX, Register.EAX } };
+
 			SizeOfXTermByteArray = new NasmMacroFunction((fw, b, cp, rg) => SizeOfXTermArray(fw,b,cp,rg,true), this, "SizeOfXTermByteArray") {Requested = new []{ Register.EBX, Register.EAX }};
 			SizeOfXTermDwordArray = new NasmMacroFunction((fw, b, cp, rg) => SizeOfXTermArray(fw, b, cp, rg, false), this, "SizeOfXTermDwordArray") { Requested = new[] { Register.EBX, Register.EAX } };
 		}
@@ -76,8 +92,6 @@ namespace TigerCs.Emitters.NASM
 
 			fw.WriteLine("%include \"NASM\\NASM\\io.inc\"");
 			fw.WriteLine("section .data");
-			fw.WriteLine($"{PrintSFormatName} db '%', 's', 0");
-			fw.WriteLine($"{PrintIFormatName} db '%', 'i', 0");
 			fw.WriteLine(string.Format("{1}{0}{2}", fw.IndexOfFormat, '{', '}'), (Func<string>)(() =>
 			{
 				if (StringConst.Count == 0) return ";no string const\n";
@@ -111,7 +125,6 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine(";externs");
 			fw.WriteLine(string.Format("{1}{0}{2}", fw.IndexOfFormat, '{', '}'), (Func<string>)(() =>
 			{
-				AddExterns();
 				StringBuilder sb = new StringBuilder();
 				foreach (var ex in Externs)
 					sb.Append($"extern {ex}\n");
@@ -120,10 +133,10 @@ namespace TigerCs.Emitters.NASM
 
 			NasmFunction.Malloc = new NasmCFunction(MallocLabel, true, this, name: "Malloc");
 			NasmFunction.Free = new NasmCFunction(FreeLabel, true, this, name: "Free");
+			EmitErrorFunct = NasmTigerStandard.AddEmitError(this);
 
-			fw.WriteLine("global CMAIN");
+			fw.WriteLine($"global {MainLabel}");
 			BlankLine();
-			fw.WriteLine(string.Format("{1}{0}{2}", fw.IndexOfFormat, '{', '}'), (Func<string>)(STD));
 		}
 		public override void End()
 		{
@@ -258,7 +271,7 @@ namespace TigerCs.Emitters.NASM
 			CurrentScope = new NasmEmitterScope(null, g.GNext(), g.GNext(), g.GNext(), g.GNext(), NasmScopeType.CFunction, 2);
 
 			fw.WriteLine(";Main");
-			fw.WriteLine("CMAIN:");
+			fw.WriteLine($"{MainLabel}:");
 
 			TranslateNativeArgs(fw, this);
 
@@ -479,11 +492,35 @@ namespace TigerCs.Emitters.NASM
 			switch (name.ToLower())
 			{
 				case "print":
-					function = std["prints"] = NasmTigerStandard.AddPrintS(this);
+					function = std["print"] = NasmTigerStandard.AddPrintS(this);
 					return true;
 
 				case "printi":
 					function = std["printi"] = NasmTigerStandard.AddPrintI(this);
+					return true;
+
+				case "ord":
+					function = std["ord"] = NasmTigerStandard.AddOrd(this);
+					return true;
+
+				case "chr":
+					function = std["chr"] = NasmTigerStandard.AddChr(this);
+					return true;
+
+				case "substring":
+					function = std["substring"] = NasmTigerStandard.AddSubstring(this);
+					return true;
+
+				case "concat":
+					function = std["concat"] = NasmTigerStandard.AddConcat(this);
+					return true;
+
+				case "getchar":
+					function = std["getchar"] = NasmTigerStandard.AddGetChar(this);
+					return true;
+
+				case "stringcompare":
+					function = std["stringcompare"] = NasmTigerStandard.AddStringCompare(this);
 					return true;
 
 				default:
@@ -1157,29 +1194,11 @@ namespace TigerCs.Emitters.NASM
 
 		public static void EmitError(FormatWriter fw, NasmEmitterScope acceding, NasmEmitter bound, int code, string message = null)
 		{
+			fw.WriteLine($";emitting error {code}{(message != null ? ": " + message : "")}");
 			var l = acceding.Lock;
 			acceding.Lock = new RegisterLock();
-
-			fw.WriteLine($";emitting error {code}{(message != null? ": " + message : "")}");
 			fw.IncrementIndentation();
-			var ret = bound.AddConstant(code);
-			if (message != null)
-			{
-				var ms = bound.AddConstant(message);
-
-				NasmFunction prints;
-				if(bound.TryBindSTDFunction("prints", out prints))
-					prints.Call(fw, null, acceding, ms);
-			}
-
-			var curr = acceding;
-			while (curr != null && curr.ScopeType == NasmScopeType.Nested)
-			{
-				curr.WirteCloseCode(fw, false, true);
-				curr = curr.Parent;
-			}
-
-			curr?.WirteCloseCode(fw, false, true, ret, releaseargs: curr.Parent == null);
+			bound.EmitErrorFunct.Call(fw, null, acceding, bound.AddConstant(message), bound.AddConstant(code));
 			fw.DecrementIndentation();
 			acceding.Lock = l;
 		}
@@ -1225,46 +1244,6 @@ namespace TigerCs.Emitters.NASM
 		public void AddExtern(string exf)
 		{
 			Externs.Add(exf);
-		}
-
-		string STD()
-		{
-			FormatWriter f = new FormatWriter();
-
-			foreach (var item in std)
-			{
-				switch (item.Key.ToLower())
-				{
-					case "prints":
-						NasmTigerStandard.WritePrintS(f, this);
-						break;
-
-					case "printi":
-						AddPrintI(f);
-						break;
-
-					default:
-						throw new ArgumentException("No definition for " + item.Key);
-				}
-			}
-
-			return f.Flush();
-		}
-
-		static void AddPrintI(FormatWriter fw)
-		{
-			fw.WriteLine(PrintIFunctionLabel + ":");
-			fw.IncrementIndentation();
-			fw.WriteLine("mov EAX, [ESP + 4]");
-			fw.WriteLine("push EAX");
-			fw.WriteLine($"push dword {PrintIFormatName}");
-			fw.WriteLine("call _printf");
-			fw.WriteLine("add ESP, 8");
-			fw.WriteLine("xor EAX, EAX");
-			fw.WriteLine("xor ECX, ECX");
-			fw.WriteLine("ret");
-			fw.WriteLine("");
-			fw.DecrementIndentation();
 		}
 
 		/// <summary>
@@ -1576,27 +1555,6 @@ namespace TigerCs.Emitters.NASM
 			if (edi) fw.WriteLine($"pop {Register.EDI}");
 			if (ecx) fw.WriteLine($"pop {Register.ECX}");
 		}
-
-		void AddExterns()
-		{
-			foreach (var item in std)
-			{
-				switch (item.Key)
-				{
-					case "prints":
-					case "printi":
-						Externs.Add("_printf");
-						break;
-
-					case "getchar":
-						Externs.Add("_scanf");
-						break;
-					//default:
-						//break;
-				}
-			}
-		}
-
 #endregion
 
 	}
