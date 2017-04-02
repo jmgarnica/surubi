@@ -210,9 +210,14 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-*.asm
+
 *.exe
 /TigerCs/Parser/Tiger/output/TigrammarLexer.cs
 /TigerCs/Parser/Tiger/output/TigrammarParser.cs
 /TigerCs/Parser/Tiger/output/Tigrammar.tokens
 *.o
+/cmp test nasm/string.asm
+/cmp test nasm/record.asm
+/cmp test nasm/p.asm
+/cmp test nasm/ex.asm
+/cmp test nasm/div.asm
