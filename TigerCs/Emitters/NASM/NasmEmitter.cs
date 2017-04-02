@@ -37,20 +37,10 @@ namespace TigerCs.Emitters.NASM
 		HashSet<string> Externs;
 		Dictionary<string, NasmStringConst> StringConst;
 		int StringConstEnd;
-		//readonly NasmFunction PrintS;
-
-#if DEBUG_Malloc
-		readonly NasmFunction PrintI;
-#endif
 
 		public NasmEmitter(string output)
 		{
 			OutputFile = output;
-
-#if DEBUG_Malloc
-			PrintI = new NasmCFunction(PrintIFunctionLabel, false, this, false, "PrintI");
-			std["printi"] = PrintI;
-#endif
 
 			NasmType.Int = new NasmType(NasmRefType.None);
 			NasmType.String = new NasmType(NasmRefType.Dynamic, -1);
@@ -128,13 +118,7 @@ namespace TigerCs.Emitters.NASM
 				return sb.ToString();
 			}));
 
-#if DEBUG_Malloc
-			NasmFunction.Malloc = new NasmMacroFunction(Malloc, this, "__Malloc__");
-			NasmFunction._Malloc = new NasmCFunction(MallocLabel, true, this, name: "Malloc");
-#else
 			NasmFunction.Malloc = new NasmCFunction(MallocLabel, true, this, name: "Malloc");
-#endif
-
 			NasmFunction.Free = new NasmCFunction(FreeLabel, true, this, name: "Free");
 
 			fw.WriteLine("global CMAIN");
@@ -344,6 +328,7 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine($"mov [{Register.EBX}], {Register.EDI}");
 			fw.WriteLine($"add {Register.EDI}, 4");
 			fw.WriteLine($"pop {Register.ECX}"); //pop
+			fw.WriteLine($"inc {Register.ECX}");// copy \0
 			fw.WriteLine($"pop {Register.ESI}");
 			fw.WriteLine("rep movsb");
 
@@ -493,7 +478,7 @@ namespace TigerCs.Emitters.NASM
 			if (std.TryGetValue(name.ToLower(), out function)) return true;
 			switch (name.ToLower())
 			{
-				case "prints":
+				case "print":
 					function = std["prints"] = NasmTigerStandard.AddPrintS(this);
 					return true;
 
@@ -1282,45 +1267,6 @@ namespace TigerCs.Emitters.NASM
 			fw.DecrementIndentation();
 		}
 
-#if DEBUG_Malloc
-		static void Malloc(FormatWriter fw, NasmEmitter bound, NasmEmitterScope acceding, Register[] args)
-		{
-			var malloc_fail = bound.ReserveInstructionLabel("malloc_fail");
-			var succeed = bound.ReserveInstructionLabel("succeed");
-			var reg = new NasmRegisterHolder(bound, args[0]);
-
-            NasmFunction._Malloc.Call(fw, args[0], acceding, reg);
-			fw.WriteLine($"cmp {args[0]}, 0");
-			fw.WriteLine($"jz _{malloc_fail:N}");
-			fw.WriteLine($"jmp _{succeed:N}");
-
-			fw.WriteLine($"_{malloc_fail:N}:");
-
-			var eax = new NasmRegisterHolder(bound, Register.EAX);
-			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("EAX: "));
-			bound.PrintI.Call(fw, null, acceding, eax);
-			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("\n"));
-
-			var ebx = new NasmRegisterHolder(bound, Register.EBX);
-			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("EBX: "));
-			bound.PrintI.Call(fw, null, acceding, ebx);
-			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("\n"));
-
-			var ecx = new NasmRegisterHolder(bound, Register.ECX);
-			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("ECX: "));
-			bound.PrintI.Call(fw, null, acceding, ecx);
-			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("\n"));
-
-			var edx = new NasmRegisterHolder(bound, Register.EDX);
-			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("EDX: "));
-			bound.PrintI.Call(fw, null, acceding, edx);
-			bound.PrintS.Call(fw, null, acceding, bound.AddConstant("\n"));
-
-			EmitError(fw, acceding, bound, 10, "malloc fail");
-			fw.WriteLine($"_{succeed:N}:");
-		}
-#endif
-
 		/// <summary>
 		/// Gets the bounded function that will allocate a new object of this type
 		/// Array Case
@@ -1591,6 +1537,7 @@ namespace TigerCs.Emitters.NASM
 		/// <param name="bound"></param>
 		/// <param name="acceding"></param>
 		/// <param name="args"></param>
+		/// <param name="vbyte"></param>
 		static void SizeOfXTermArray(FormatWriter fw, NasmEmitter bound, NasmEmitterScope acceding, Register[] args, bool vbyte)
 		{
 			if (vbyte) args[1] = Register.AL;

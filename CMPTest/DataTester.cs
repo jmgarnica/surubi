@@ -58,6 +58,8 @@ namespace CMPTest
 			for (int index = 0; index < tests.correct.Length; index++)
 			{
 				var test = tests.correct[index];
+				r.Clear();
+
 				//TODO: line end
 				var exp = g.Generator.Parse(new StringReader(test.code), r);
 				Assert.AreNotEqual(exp, null);
@@ -85,11 +87,13 @@ namespace CMPTest
 			for (int index = 0; index < tests.fail.Length; index++)
 			{
 				var test = tests.fail[index];
+				r.Clear();
 
 				var exp = g.Generator.Parse(new StringReader(test.code), r);
 				if (test.failOn == Phase.Parse)
 				{
-					Assert.IsTrue(OneOf(r,test.errors));
+					if(test.errors != null && test.errors.Length > 0)
+						Assert.IsTrue(OneOf(r,test.errors));
 					Console.WriteLine($"Test {test.name}({index + 1}/{tests.fail.Length}) passed");
 					continue;
 				}
@@ -100,7 +104,8 @@ namespace CMPTest
 				g.Generator.Compile(exp, r);
 				if (test.failOn == Phase.SemanticCheck || test.failOn == Phase.CodeGeneration) //TODO: split this
 				{
-					Assert.IsTrue(OneOf(r, test.errors));
+					if (test.errors != null && test.errors.Length > 0)
+						Assert.IsTrue(OneOf(r, test.errors));
 					Console.WriteLine($"Test {test.name}({index + 1}/{tests.fail.Length}) passed");
 					continue;
 				}
@@ -124,7 +129,7 @@ namespace CMPTest
 			{
 				foreach (var error in possible)
 				{
-					if ((error.line != -1 || error.column != -1) && (error.line != s.Line || error.column != s.Column)) continue;
+					if ((error.line != -1 && error.line != s.Line) || (error.column != -1 && error.column != s.Column)) continue;
 					if (string.IsNullOrEmpty(error.error)) continue;
 
 					Regex r = new Regex(error.error, RegexOptions.Compiled | RegexOptions.IgnoreCase);

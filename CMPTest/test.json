@@ -1,0 +1,86 @@
+{
+	"lineEnd": "\n",
+	"correct": 
+	[
+		{
+			"name": "fact",
+			"code": "let 
+						function fact(n: int, ac: int) : int = 
+							if n = 0 then ac else fact(n-1, n*ac) 
+					in 
+						printi(fact(argc - 1, 1)) 
+					end",
+			"args": ["1", "1", "1", "1", "1"],
+			"correctOutput": "120"
+		},
+		{
+      		"name": "eightqueens",
+      		"code":	"let /* The eight queens solver from Appel */
+						var N := 8 
+						type intArray = array of int 
+						var row := intArray [ N ] of 0
+						var col := intArray [ N ] of 0
+						var diag1 := intArray [ N+N-1 ] of 0
+						var diag2 := intArray [ N+N-1 ] of 0
+
+						function printboard() =
+							(for i := 0 to N-1
+								do (for j := 0 to N-1
+										do print(if col[i]=j then \" O\" else \" .\");
+									print(\"\n\"));
+							print(\"\n\"))
+
+						function try(c:int) =
+							if c=N then printboard()
+							else for r := 0 to N-1
+									do if row[r]=0 &
+										diag1[r+c]=0 & diag2[r+7-c]=0
+										then (row[r] := 1; diag1[r+c] := 1;
+											diag2[r+7-c] := 1; col[c] := r;
+											try(c+1);
+											row[r] := 0; diag1[r+c] := 0;
+											diag2[r+7-c] := 0)
+					in
+						try(0)
+					end"
+		}
+	],
+	"fail":
+	[
+		{
+			"name": "not var",
+			"code": "3*4+printi(a)",
+			"errors":
+			[
+				{
+					"error": "Unknown symbol a",
+					"line": 1,
+					"column": 11
+				}
+			],
+			"failOn": "SemanticCheck"			
+		},
+		{
+			"name": "funct",
+			"code": "if argc = 2 
+						then 
+							print(\"la\") 
+						else 
+							let 
+								var a : int := 0
+							in 
+								a + print(\"el\")
+							end",
+			"errors":
+			[
+				{
+					"error": "^[\\w\\W]*void[\\w\\W]*must[\\w\\W]*be[\\w\\W]*type[\\w\\W]*int[\\w\\W]*$",
+					"line": 8
+				}
+			],
+			"failOn": "SemanticCheck"
+		}
+
+	]
+}
+

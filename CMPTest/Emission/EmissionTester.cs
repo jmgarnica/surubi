@@ -78,7 +78,7 @@ namespace CMPTest.Emission
 			F fdum = null;
 
 			if ((s & STDBind.Prints) != 0)
-				Assert.IsFalse(!e.TryBindSTDFunction("prints", out fdum));
+				Assert.IsFalse(!e.TryBindSTDFunction("print", out fdum));
 
 			print = fdum;
 
@@ -328,7 +328,7 @@ namespace CMPTest.Emission
 			Assert.AreEqual(0, dum);
 			Assert.AreEqual(expected, result);
 
-			//Clear(testname);
+			Clear(testname);
 		}
 
 		[TestMethod]

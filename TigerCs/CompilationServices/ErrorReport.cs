@@ -49,6 +49,11 @@ namespace TigerCs.CompilationServices
 			}
 		}
 
+		public void Clear()
+		{
+			report.Clear();
+		}
+
 		public IEnumerator<StaticError> GetEnumerator()
 		{
 			return report.GetEnumerator();
