@@ -1,5 +1,6 @@
 ﻿#define ENFORCE_RETURN_TYPE_CHECK
 using System.Collections.Generic;
+using System.Diagnostics;
 using TigerCs.CompilationServices;
 using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.AST.Declarations;
@@ -15,6 +16,7 @@ namespace TigerCs.Generation.AST.Expressions
 		public IExpression Body { get; set; }
 
 		List<TypeInfo> declaredhere;
+		TypeInfo _void;
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
@@ -50,7 +52,7 @@ namespace TigerCs.Generation.AST.Expressions
 					}
 				}
 
-			var _void = sc.Void(report);
+			_void = sc.Void(report);
 
 			if (Body == null)
 			{
@@ -79,10 +81,19 @@ namespace TigerCs.Generation.AST.Expressions
 
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
+			if (ReturnValue != null)
+				ReturnValue.BCMMember = cg.BindVar((T)Return.BCMMember);
+
 			cg.EnterNestedScope(declaredhere.Count > 0, "LET");
 			foreach (var declaration in Declarations)
 				declaration.GenerateCode(cg,report);
 			Body?.GenerateCode(cg, report);
+
+			if (ReturnValue != null)
+			{
+				Debug.Assert(Body != null, "Body != null");
+				cg.InstrAssing((H)ReturnValue.BCMMember, (H)Body.ReturnValue.BCMMember);
+			}
 			cg.LeaveScope();
 		}
 	}

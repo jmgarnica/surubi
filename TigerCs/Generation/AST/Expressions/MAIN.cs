@@ -11,7 +11,7 @@ namespace TigerCs.Generation.AST.Expressions
 		public const string EntryPointName = "Main";
 		public const string ArgumentName = "args";
 		public const string ArgumentCount = "argc";
-		public const string PrintSName = "prints";
+		public const string PrintSName = "print";
 
 		TypeInfo _string, _int, _void, _null, arrayof_string;
 		FunctionInfo prints, Main;

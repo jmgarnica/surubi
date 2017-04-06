@@ -515,7 +515,7 @@ namespace CMPTest.Emission
 		public void StrCmp()
 		{
 			const string testname = "strcmp";
-			const string funcname = "stringcompare";
+			const string funcname = "strcomparer";
             Init(testname, STDBind.Int | STDBind.Printi | STDBind.Prints | STDBind.Nil);
 			string expected = "";
 

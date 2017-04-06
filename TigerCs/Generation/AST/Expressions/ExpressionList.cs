@@ -62,7 +62,8 @@ namespace TigerCs.Generation.AST.Expressions
 					cg.Release((H)item.ReturnValue.BCMMember);
 			}
 
-			this[Count - 1].GenerateCode(cg, report);
+			if (Count > 0)
+				this[Count - 1].GenerateCode(cg, report);
 		}
 	}
 }

@@ -54,7 +54,7 @@ namespace TigerCs.Generation.AST.Expressions
 			{
 				comparisontype = true;
 				MemberInfo f;
-				if (!sc.Reachable("<cg> str_comparer <cg>", out f, new MemberDefinition
+				if (!sc.Reachable(MemberInfo.MakeCompilerName("str_comparer"), out f, new MemberDefinition
 				{
 					line = line,
 					column = column,

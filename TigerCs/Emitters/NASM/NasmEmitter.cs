@@ -519,8 +519,8 @@ namespace TigerCs.Emitters.NASM
 					function = std["getchar"] = NasmTigerStandard.AddGetChar(this);
 					return true;
 
-				case "stringcompare":
-					function = std["stringcompare"] = NasmTigerStandard.AddStringCompare(this);
+				case "strcomparer":
+					function = std["strcomparer"] = NasmTigerStandard.AddStringCompare(this);
 					return true;
 
 				default:

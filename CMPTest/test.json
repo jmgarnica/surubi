@@ -45,6 +45,53 @@
 					end"
 		},
 		{
+			"name": "strcmp",
+			"code": "if \"aa\" = args[1] then (print(args[1]); 0) else -1",
+			"args": ["aa"],
+			"correctOutput": "aa"
+		},
+		{
+			"name": "mutually recursive functions",
+			"code": "let
+						function do_nothing1(a: int, b: string):int=
+								(do_nothing2(a+1);0)
+
+						function do_nothing2(d: int):string =
+							if d <> 10 then
+								(printi(d); do_nothing1(d, \"str\");\" \")
+							else \"loop avoided\"
+
+					in
+						do_nothing1(0, \"str2\")
+					end",
+			"correctOutput" : "123456789"
+		},
+		{
+			"comments" : "fix grammar assign",
+			"name" : "!let{for}",
+			"code" : "let
+						var a:= 0
+					in 
+						for i:=0 to 100 do (a:=a+1;())
+					end"
+		},
+		{
+			"name" : "local hides gloval (var)",
+			"code" : "let
+						var a:=0
+						function f() = printi(a)
+						var a:= 5
+						function h() = printi(a)
+						function g(a:int):int = a 
+					in
+						(h();
+						f(); 
+						printi(g(2));
+						0)
+					end",
+			"correctOutput": "502"
+		},
+		{
 			"name": "blablabla",
 			"code": "let
 						type  rectype = {name:string, age:int}
