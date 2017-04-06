@@ -185,7 +185,7 @@ factor returns [IExpression r]
 | WHILE e1=expression DO e2=expression {r = new While{line = $WHILE.Line, column = $WHILE.CharPositionInLine, Condition = e1, Body = e2};}
 | FOR i=ID ASSIGN e1=expression TO e2=expression DO e3=expression {r = new BoundedFor{line = $FOR.Line, column = $FOR.CharPositionInLine, VarName = $i.text, From = e1, To = e2, Body = e3};}
 | BREAK {r = new Break{line = $BREAK.Line, column = $BREAK.CharPositionInLine};}
-| LET d=declaration_list_list IN e=expression END {r = new Let{line = $LET.Line, column = $LET.CharPositionInLine, Declarations = d, Body = e};}
+| LET d=declaration_list_list IN e=expression_sequence? END {r = new Let{line = $LET.Line, column = $LET.CharPositionInLine, Declarations = d, Body = e};}
 | h=lvalue_head {r = h;}
 ;
 
@@ -230,15 +230,16 @@ field_list returns[List<Tuple<string, IExpression>> r]
 {
 	r = new List<Tuple<string, IExpression>>();
 }
-: i=ID ASSIGN e=expression{r.Add(new Tuple<string, IExpression>($i.text, e));} (COMMA i=ID ASSIGN e=expression {r.Add(new Tuple<string, IExpression>($i.text, e));})*
+: i=ID EQUAL e=expression{r.Add(new Tuple<string, IExpression>($i.text, e));} (COMMA i=ID EQUAL e=expression {r.Add(new Tuple<string, IExpression>($i.text, e));})*
 ;
 
-expression_sequence returns[ExpressionList<IExpression> r]
+expression_sequence returns[IExpression r]
 @init
 {
-	r = new ExpressionList<IExpression>();
+	ExpressionList<IExpression> s = new ExpressionList<IExpression>();
 }
-: e1=expression{r.Add(e1);} ( SEMICOLON e2=expression{r.Add(e2);})*
+@after{r = s;}
+: e1=expression{s.Add(e1);} ( SEMICOLON e2=expression{s.Add(e2);})*
 ;
 
 declaration_list_list returns [List<IDeclarationList<IDeclaration>> r]
@@ -307,7 +308,7 @@ type_creation_fields returns[List<Tuple<string, string>> r]
 {
 	r = new List<Tuple<string, string>>();
 }
-: i=ID COLON ti=ID {r.Add(new Tuple<string, string>($i.text,$ti.text));} (i=ID COLON ti=ID {r.Add(new Tuple<string, string>($i.text,$ti.text));})*
+: i=ID COLON ti=ID {r.Add(new Tuple<string, string>($i.text,$ti.text));} (COMMA i=ID COLON ti=ID {r.Add(new Tuple<string, string>($i.text,$ti.text));})*
 ;
 
 type_fields returns[List<ParameterDeclaration> r]

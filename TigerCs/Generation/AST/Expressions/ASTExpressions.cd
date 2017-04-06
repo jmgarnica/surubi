@@ -14,10 +14,10 @@
       <FileName>Generation\AST\Expressions\Assign.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TigerCs.Generation.AST.Expressions.BinaryOperator" Collapsed="true">
+  <Class Name="TigerCs.Generation.AST.Expressions.BinaryOperator">
     <Position X="32.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAA=</HashCode>
       <FileName>Generation\AST\Expressions\BinaryOperator.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -80,18 +80,18 @@
   <Class Name="TigerCs.Generation.AST.Expressions.IntegerConstant">
     <Position X="50.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAiAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAIAIAAAAAAAAAAAAAiAAAAAAAAAAAAA=</HashCode>
       <FileName>Generation\AST\Expressions\Constant.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TigerCs.Generation.AST.Expressions.StringConstant">
     <Position X="13.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAIAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
       <FileName>Generation\AST\Expressions\Constant.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TigerCs.Generation.AST.Expressions.NilConstant" Collapsed="true">
+  <Class Name="TigerCs.Generation.AST.Expressions.NilConstant">
     <Position X="19.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
@@ -137,7 +137,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="TigerCs.Generation.AST.Expressions.IntegerOperator">
-    <Position X="33.25" Y="3" Width="1.5" />
+    <Position X="33.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAEAAIAAAAAAAAAAAAAgAAAAQAAAAAAAA=</HashCode>
       <FileName>Generation\AST\Expressions\IntegerOperator.cs</FileName>
@@ -173,10 +173,10 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TigerCs.Generation.AST.Expressions.MAIN" Collapsed="true">
+  <Class Name="TigerCs.Generation.AST.Expressions.MAIN">
     <Position X="22" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAEAACAAAACAMAAAAAAAAAACAAggAABQABAAAAAA=</HashCode>
+      <HashCode>AAwAAEAACAAAACAMAAAAAAAAAACAAggAABQABAAAAAQ=</HashCode>
       <FileName>Generation\AST\Expressions\MAIN.cs</FileName>
     </TypeIdentifier>
   </Class>
