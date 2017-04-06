@@ -57,7 +57,14 @@ namespace CMPTest
 			ErrorReport r = new ErrorReport();
 			for (int index = 0; index < tests.correct.Length; index++)
 			{
+				Console.WriteLine();
 				var test = tests.correct[index];
+				if(test.name.StartsWith("!"))
+				{
+					Console.WriteLine($"Test {test.name.Substring(1)}({index + 1}/{tests.correct.Length}) skipped\n");
+					continue;
+				}
+				Console.WriteLine($"Test {test.name}({index + 1}/{tests.correct.Length})\n");
 				r.Clear();
 
 				//TODO: line end
@@ -86,7 +93,14 @@ namespace CMPTest
 			ErrorReport r = new ErrorReport();
 			for (int index = 0; index < tests.fail.Length; index++)
 			{
+				Console.WriteLine();
 				var test = tests.fail[index];
+				if (test.name.StartsWith("!"))
+				{
+					Console.WriteLine($"Test {test.name.Substring(1)}({index + 1}/{tests.fail.Length}) skipped\n");
+					continue;
+				}
+				Console.WriteLine($"Test {test.name}({index + 1}/{tests.fail.Length})\n");
 				r.Clear();
 
 				var exp = g.Generator.Parse(new StringReader(test.code), r);

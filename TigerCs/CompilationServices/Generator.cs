@@ -54,7 +54,7 @@ namespace TigerCs.CompilationServices
 					           Level = ErrorLevel.Internal,
 					           ErrorMessage = $"BCM does not have a definition for {m.Key}",
 					           Column = m.Value.column,
-					           Line = m.Value.column
+					           Line = m.Value.line
 				           });
 				return;
 			}

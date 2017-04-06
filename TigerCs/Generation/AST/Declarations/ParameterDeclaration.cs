@@ -34,7 +34,11 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public virtual bool BindName(ISemanticChecker sc, ErrorReport report)
 		{
-			return true;
+			if (sc.DeclareMember(HolderName, new MemberDefinition { line = line, column = column, Member = Holder })) return true;
+
+			report.Add(new StaticError { Line = line, Column = column, ErrorMessage = $"Duplicated argument name {HolderName}", Level = ErrorLevel.Error });
+
+			return false;
 		}
 
 		public virtual bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
@@ -50,11 +54,7 @@ namespace TigerCs.Generation.AST.Declarations
 				Type = Type
 			};
 
-			if (sc.DeclareMember(HolderName, new MemberDefinition {line = line, column = column, Member = Holder})) return true;
-
-			report.Add(new StaticError {Line = line, Column = column, ErrorMessage = $"Duplicated argument name {HolderName}", Level = ErrorLevel.Error});
-
-			return false;
+			return true;
 		}
 
 		public void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
