@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// $ANTLR 3.4 E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g 2017-04-01 01:37:22
+// $ANTLR 3.4 E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g 2017-04-06 21:38:23
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 219
@@ -23,6 +23,7 @@
 	using System;
 	using TigerCs.Generation.AST.Expressions;
 	using TigerCs.Generation.AST.Declarations;
+	using TigerCs.CompilationServices;
 
 
 using System.Collections.Generic;
@@ -107,6 +108,8 @@ namespace TigerCs.Parser.Tiger
 
 		enum DclType {None, Type, Var, Function}
 
+		public ErrorReport report;
+
 
 		partial void OnCreated();
 		partial void EnterRule(string ruleName, int ruleIndex);
@@ -117,7 +120,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_program();
 
 		// $ANTLR start "program"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:125:8: public program returns [IExpression r] : e= expression EOF ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:137:8: public program returns [IExpression r] : e= expression EOF ;
 		[GrammarRule("program")]
 		public IExpression program()
 		{
@@ -130,38 +133,40 @@ namespace TigerCs.Parser.Tiger
 			IExpression e = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "program");
-				DebugLocation(125, 0);
+				DebugLocation(137, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:126:3: (e= expression EOF )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:138:3: (e= expression EOF )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:126:3: e= expression EOF
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:138:3: e= expression EOF
 					{
-						DebugLocation(126, 4);
-						PushFollow(Follow._expression_in_program826);
+						DebugLocation(138, 4);
+						PushFollow(Follow._expression_in_program832);
 						e=expression();
 						PopFollow();
 
-						DebugLocation(126, 16);
+						DebugLocation(138, 16);
 						r = e;
-						DebugLocation(126, 25);
-						Match(input,EOF,Follow._EOF_in_program830); 
+						DebugLocation(138, 25);
+						Match(input,EOF,Follow._EOF_in_program836); 
 
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("program", 1);
 					LeaveRule("program", 1);
 					LeaveRule_program();
 				}
-				DebugLocation(127, 0);
+				DebugLocation(139, 0);
 			} finally { DebugExitRule(GrammarFileName, "program"); }
 			return r;
 
@@ -172,7 +177,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_expression();
 
 		// $ANTLR start "expression"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:129:1: expression returns [IExpression r] : o= or_expression (e= or_expression_rest[r] )? ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:141:1: expression returns [IExpression r] : o= or_expression (e= or_expression_rest[r] )? ;
 		[GrammarRule("expression")]
 		private IExpression expression()
 		{
@@ -186,22 +191,22 @@ namespace TigerCs.Parser.Tiger
 			IExpression e = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "expression");
-				DebugLocation(129, 0);
+				DebugLocation(141, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:130:3: (o= or_expression (e= or_expression_rest[r] )? )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:142:3: (o= or_expression (e= or_expression_rest[r] )? )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:130:3: o= or_expression (e= or_expression_rest[r] )?
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:142:3: o= or_expression (e= or_expression_rest[r] )?
 					{
-						DebugLocation(130, 4);
-						PushFollow(Follow._or_expression_in_expression845);
+						DebugLocation(142, 4);
+						PushFollow(Follow._or_expression_in_expression851);
 						o=or_expression();
 						PopFollow();
 
-						DebugLocation(130, 19);
+						DebugLocation(142, 19);
 						r = o;
-						DebugLocation(130, 28);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:130:28: (e= or_expression_rest[r] )?
+						DebugLocation(142, 28);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:142:28: (e= or_expression_rest[r] )?
 						int alt1=2;
 						try { DebugEnterSubRule(1);
 							try { DebugEnterDecision(1, false);
@@ -216,14 +221,14 @@ namespace TigerCs.Parser.Tiger
 							{
 								case 1:
 									DebugEnterAlt(1);
-									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:130:29: e= or_expression_rest[r]
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:142:29: e= or_expression_rest[r]
 								{
-									DebugLocation(130, 30);
-									PushFollow(Follow._or_expression_rest_in_expression852);
+									DebugLocation(142, 30);
+									PushFollow(Follow._or_expression_rest_in_expression858);
 									e=or_expression_rest(r);
 									PopFollow();
 
-									DebugLocation(130, 53);
+									DebugLocation(142, 53);
 									r = e;
 
 								}
@@ -236,18 +241,20 @@ namespace TigerCs.Parser.Tiger
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("expression", 2);
 					LeaveRule("expression", 2);
 					LeaveRule_expression();
 				}
-				DebugLocation(131, 0);
+				DebugLocation(143, 0);
 			} finally { DebugExitRule(GrammarFileName, "expression"); }
 			return r;
 
@@ -258,7 +265,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_or_expression();
 
 		// $ANTLR start "or_expression"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:133:1: or_expression returns [IExpression r] : a= and_expression (e= and_expression_rest[r] )? ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:145:1: or_expression returns [IExpression r] : a= and_expression (e= and_expression_rest[r] )? ;
 		[GrammarRule("or_expression")]
 		private IExpression or_expression()
 		{
@@ -272,22 +279,22 @@ namespace TigerCs.Parser.Tiger
 			IExpression e = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "or_expression");
-				DebugLocation(133, 0);
+				DebugLocation(145, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:134:3: (a= and_expression (e= and_expression_rest[r] )? )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:146:3: (a= and_expression (e= and_expression_rest[r] )? )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:134:3: a= and_expression (e= and_expression_rest[r] )?
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:146:3: a= and_expression (e= and_expression_rest[r] )?
 					{
-						DebugLocation(134, 4);
-						PushFollow(Follow._and_expression_in_or_expression872);
+						DebugLocation(146, 4);
+						PushFollow(Follow._and_expression_in_or_expression878);
 						a=and_expression();
 						PopFollow();
 
-						DebugLocation(134, 20);
+						DebugLocation(146, 20);
 						r = a;
-						DebugLocation(134, 29);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:134:29: (e= and_expression_rest[r] )?
+						DebugLocation(146, 29);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:146:29: (e= and_expression_rest[r] )?
 						int alt2=2;
 						try { DebugEnterSubRule(2);
 							try { DebugEnterDecision(2, false);
@@ -302,14 +309,14 @@ namespace TigerCs.Parser.Tiger
 							{
 								case 1:
 									DebugEnterAlt(1);
-									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:134:30: e= and_expression_rest[r]
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:146:30: e= and_expression_rest[r]
 								{
-									DebugLocation(134, 31);
-									PushFollow(Follow._and_expression_rest_in_or_expression879);
+									DebugLocation(146, 31);
+									PushFollow(Follow._and_expression_rest_in_or_expression885);
 									e=and_expression_rest(r);
 									PopFollow();
 
-									DebugLocation(134, 55);
+									DebugLocation(146, 55);
 									r = e;
 
 								}
@@ -322,18 +329,20 @@ namespace TigerCs.Parser.Tiger
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("or_expression", 3);
 					LeaveRule("or_expression", 3);
 					LeaveRule_or_expression();
 				}
-				DebugLocation(135, 0);
+				DebugLocation(147, 0);
 			} finally { DebugExitRule(GrammarFileName, "or_expression"); }
 			return r;
 
@@ -344,7 +353,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_or_expression_rest();
 
 		// $ANTLR start "or_expression_rest"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:137:1: or_expression_rest[IExpression l] returns [IExpression r] : OR e= expression ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:149:1: or_expression_rest[IExpression l] returns [IExpression r] : OR e= expression ;
 		[GrammarRule("or_expression_rest")]
 		private IExpression or_expression_rest(IExpression l)
 		{
@@ -358,38 +367,40 @@ namespace TigerCs.Parser.Tiger
 			IExpression e = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "or_expression_rest");
-				DebugLocation(137, 0);
+				DebugLocation(149, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:138:3: ( OR e= expression )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:150:3: ( OR e= expression )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:138:3: OR e= expression
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:150:3: OR e= expression
 					{
-						DebugLocation(138, 3);
-						OR1=(IToken)Match(input,OR,Follow._OR_in_or_expression_rest899); 
-						DebugLocation(138, 7);
-						PushFollow(Follow._expression_in_or_expression_rest903);
+						DebugLocation(150, 3);
+						OR1=(IToken)Match(input,OR,Follow._OR_in_or_expression_rest905); 
+						DebugLocation(150, 7);
+						PushFollow(Follow._expression_in_or_expression_rest909);
 						e=expression();
 						PopFollow();
 
-						DebugLocation(138, 19);
+						DebugLocation(150, 19);
 						r = new IntegerOperator {line = OR1.Line, column = OR1.CharPositionInLine, Left = l, Right = e, Optype = IntegerOp.Or};
 
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("or_expression_rest", 4);
 					LeaveRule("or_expression_rest", 4);
 					LeaveRule_or_expression_rest();
 				}
-				DebugLocation(139, 0);
+				DebugLocation(151, 0);
 			} finally { DebugExitRule(GrammarFileName, "or_expression_rest"); }
 			return r;
 
@@ -400,7 +411,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_and_expression();
 
 		// $ANTLR start "and_expression"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:141:1: and_expression returns [IExpression r] : a= aritmetic_expression (l= relational_expression[r] )? ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:153:1: and_expression returns [IExpression r] : a= aritmetic_expression (l= relational_expression[r] )? ;
 		[GrammarRule("and_expression")]
 		private IExpression and_expression()
 		{
@@ -414,22 +425,22 @@ namespace TigerCs.Parser.Tiger
 			IExpression l = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "and_expression");
-				DebugLocation(141, 0);
+				DebugLocation(153, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:142:3: (a= aritmetic_expression (l= relational_expression[r] )? )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:154:3: (a= aritmetic_expression (l= relational_expression[r] )? )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:142:3: a= aritmetic_expression (l= relational_expression[r] )?
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:154:3: a= aritmetic_expression (l= relational_expression[r] )?
 					{
-						DebugLocation(142, 4);
-						PushFollow(Follow._aritmetic_expression_in_and_expression920);
+						DebugLocation(154, 4);
+						PushFollow(Follow._aritmetic_expression_in_and_expression926);
 						a=aritmetic_expression();
 						PopFollow();
 
-						DebugLocation(142, 26);
+						DebugLocation(154, 26);
 						r = a;
-						DebugLocation(142, 35);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:142:35: (l= relational_expression[r] )?
+						DebugLocation(154, 35);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:154:35: (l= relational_expression[r] )?
 						int alt3=2;
 						try { DebugEnterSubRule(3);
 							try { DebugEnterDecision(3, false);
@@ -472,14 +483,14 @@ namespace TigerCs.Parser.Tiger
 							{
 								case 1:
 									DebugEnterAlt(1);
-									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:142:36: l= relational_expression[r]
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:154:36: l= relational_expression[r]
 								{
-									DebugLocation(142, 37);
-									PushFollow(Follow._relational_expression_in_and_expression927);
+									DebugLocation(154, 37);
+									PushFollow(Follow._relational_expression_in_and_expression933);
 									l=relational_expression(r);
 									PopFollow();
 
-									DebugLocation(142, 63);
+									DebugLocation(154, 63);
 									r = l;
 
 								}
@@ -492,18 +503,20 @@ namespace TigerCs.Parser.Tiger
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("and_expression", 5);
 					LeaveRule("and_expression", 5);
 					LeaveRule_and_expression();
 				}
-				DebugLocation(143, 0);
+				DebugLocation(155, 0);
 			} finally { DebugExitRule(GrammarFileName, "and_expression"); }
 			return r;
 
@@ -514,7 +527,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_and_expression_rest();
 
 		// $ANTLR start "and_expression_rest"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:145:1: and_expression_rest[IExpression l] returns [IExpression r] : AND e= or_expression ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:157:1: and_expression_rest[IExpression l] returns [IExpression r] : AND e= or_expression ;
 		[GrammarRule("and_expression_rest")]
 		private IExpression and_expression_rest(IExpression l)
 		{
@@ -528,38 +541,40 @@ namespace TigerCs.Parser.Tiger
 			IExpression e = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "and_expression_rest");
-				DebugLocation(145, 0);
+				DebugLocation(157, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:146:3: ( AND e= or_expression )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:158:3: ( AND e= or_expression )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:146:3: AND e= or_expression
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:158:3: AND e= or_expression
 					{
-						DebugLocation(146, 3);
-						AND2=(IToken)Match(input,AND,Follow._AND_in_and_expression_rest947); 
-						DebugLocation(146, 8);
-						PushFollow(Follow._or_expression_in_and_expression_rest951);
+						DebugLocation(158, 3);
+						AND2=(IToken)Match(input,AND,Follow._AND_in_and_expression_rest953); 
+						DebugLocation(158, 8);
+						PushFollow(Follow._or_expression_in_and_expression_rest957);
 						e=or_expression();
 						PopFollow();
 
-						DebugLocation(146, 23);
+						DebugLocation(158, 23);
 						r = new IntegerOperator {line = AND2.Line, column = AND2.CharPositionInLine, Left = l, Right = e, Optype = IntegerOp.And};
 
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("and_expression_rest", 6);
 					LeaveRule("and_expression_rest", 6);
 					LeaveRule_and_expression_rest();
 				}
-				DebugLocation(147, 0);
+				DebugLocation(159, 0);
 			} finally { DebugExitRule(GrammarFileName, "and_expression_rest"); }
 			return r;
 
@@ -570,7 +585,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_relational_expression();
 
 		// $ANTLR start "relational_expression"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:149:1: relational_expression[IExpression a] returns [IExpression r] : ( EQUAL b= aritmetic_expression | NOT_EQUAL b= aritmetic_expression | GTHAN b= aritmetic_expression | LTHAN b= aritmetic_expression | GTHAN_EQUAL b= aritmetic_expression | LTHAN_EQUAL b= aritmetic_expression );
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:161:1: relational_expression[IExpression a] returns [IExpression r] : ( EQUAL b= aritmetic_expression | NOT_EQUAL b= aritmetic_expression | GTHAN b= aritmetic_expression | LTHAN b= aritmetic_expression | GTHAN_EQUAL b= aritmetic_expression | LTHAN_EQUAL b= aritmetic_expression );
 		[GrammarRule("relational_expression")]
 		private IExpression relational_expression(IExpression a)
 		{
@@ -589,10 +604,10 @@ namespace TigerCs.Parser.Tiger
 			IExpression b = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "relational_expression");
-				DebugLocation(149, 0);
+				DebugLocation(161, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:150:3: ( EQUAL b= aritmetic_expression | NOT_EQUAL b= aritmetic_expression | GTHAN b= aritmetic_expression | LTHAN b= aritmetic_expression | GTHAN_EQUAL b= aritmetic_expression | LTHAN_EQUAL b= aritmetic_expression )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:162:3: ( EQUAL b= aritmetic_expression | NOT_EQUAL b= aritmetic_expression | GTHAN b= aritmetic_expression | LTHAN b= aritmetic_expression | GTHAN_EQUAL b= aritmetic_expression | LTHAN_EQUAL b= aritmetic_expression )
 					int alt4=6;
 					try { DebugEnterDecision(4, false);
 						switch (input.LA(1))
@@ -640,96 +655,96 @@ namespace TigerCs.Parser.Tiger
 					{
 						case 1:
 							DebugEnterAlt(1);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:150:3: EQUAL b= aritmetic_expression
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:162:3: EQUAL b= aritmetic_expression
 						{
-							DebugLocation(150, 3);
-							EQUAL3=(IToken)Match(input,EQUAL,Follow._EQUAL_in_relational_expression968); 
-							DebugLocation(150, 10);
-							PushFollow(Follow._aritmetic_expression_in_relational_expression972);
+							DebugLocation(162, 3);
+							EQUAL3=(IToken)Match(input,EQUAL,Follow._EQUAL_in_relational_expression974); 
+							DebugLocation(162, 10);
+							PushFollow(Follow._aritmetic_expression_in_relational_expression978);
 							b=aritmetic_expression();
 							PopFollow();
 
-							DebugLocation(150, 32);
+							DebugLocation(162, 32);
 							r = new EqualityOperator {line = EQUAL3.Line, column = EQUAL3.CharPositionInLine, Left = a, Right = b};
 
 						}
 							break;
 						case 2:
 							DebugEnterAlt(2);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:151:3: NOT_EQUAL b= aritmetic_expression
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:163:3: NOT_EQUAL b= aritmetic_expression
 						{
-							DebugLocation(151, 3);
-							NOT_EQUAL4=(IToken)Match(input,NOT_EQUAL,Follow._NOT_EQUAL_in_relational_expression978); 
-							DebugLocation(151, 14);
-							PushFollow(Follow._aritmetic_expression_in_relational_expression982);
+							DebugLocation(163, 3);
+							NOT_EQUAL4=(IToken)Match(input,NOT_EQUAL,Follow._NOT_EQUAL_in_relational_expression984); 
+							DebugLocation(163, 14);
+							PushFollow(Follow._aritmetic_expression_in_relational_expression988);
 							b=aritmetic_expression();
 							PopFollow();
 
-							DebugLocation(151, 36);
+							DebugLocation(163, 36);
 							r = new EqualityOperator {line = NOT_EQUAL4.Line, column = NOT_EQUAL4.CharPositionInLine, Left = a, Right = b, Equal = false };
 
 						}
 							break;
 						case 3:
 							DebugEnterAlt(3);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:152:3: GTHAN b= aritmetic_expression
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:164:3: GTHAN b= aritmetic_expression
 						{
-							DebugLocation(152, 3);
-							GTHAN5=(IToken)Match(input,GTHAN,Follow._GTHAN_in_relational_expression988); 
-							DebugLocation(152, 10);
-							PushFollow(Follow._aritmetic_expression_in_relational_expression992);
+							DebugLocation(164, 3);
+							GTHAN5=(IToken)Match(input,GTHAN,Follow._GTHAN_in_relational_expression994); 
+							DebugLocation(164, 10);
+							PushFollow(Follow._aritmetic_expression_in_relational_expression998);
 							b=aritmetic_expression();
 							PopFollow();
 
-							DebugLocation(152, 32);
+							DebugLocation(164, 32);
 							r = new GreaterThan {line = GTHAN5.Line, column = GTHAN5.CharPositionInLine, Left = a, Right = b};
 
 						}
 							break;
 						case 4:
 							DebugEnterAlt(4);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:153:3: LTHAN b= aritmetic_expression
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:165:3: LTHAN b= aritmetic_expression
 						{
-							DebugLocation(153, 3);
-							LTHAN6=(IToken)Match(input,LTHAN,Follow._LTHAN_in_relational_expression998); 
-							DebugLocation(153, 10);
-							PushFollow(Follow._aritmetic_expression_in_relational_expression1002);
+							DebugLocation(165, 3);
+							LTHAN6=(IToken)Match(input,LTHAN,Follow._LTHAN_in_relational_expression1004); 
+							DebugLocation(165, 10);
+							PushFollow(Follow._aritmetic_expression_in_relational_expression1008);
 							b=aritmetic_expression();
 							PopFollow();
 
-							DebugLocation(153, 32);
+							DebugLocation(165, 32);
 							r = new LessThan {line = LTHAN6.Line, column = LTHAN6.CharPositionInLine, Left = a, Right = b};
 
 						}
 							break;
 						case 5:
 							DebugEnterAlt(5);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:154:3: GTHAN_EQUAL b= aritmetic_expression
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:166:3: GTHAN_EQUAL b= aritmetic_expression
 						{
-							DebugLocation(154, 3);
-							GTHAN_EQUAL7=(IToken)Match(input,GTHAN_EQUAL,Follow._GTHAN_EQUAL_in_relational_expression1008); 
-							DebugLocation(154, 16);
-							PushFollow(Follow._aritmetic_expression_in_relational_expression1012);
+							DebugLocation(166, 3);
+							GTHAN_EQUAL7=(IToken)Match(input,GTHAN_EQUAL,Follow._GTHAN_EQUAL_in_relational_expression1014); 
+							DebugLocation(166, 16);
+							PushFollow(Follow._aritmetic_expression_in_relational_expression1018);
 							b=aritmetic_expression();
 							PopFollow();
 
-							DebugLocation(154, 38);
+							DebugLocation(166, 38);
 							r = new GreaterEqualThan {line = GTHAN_EQUAL7.Line, column = GTHAN_EQUAL7.CharPositionInLine, Left = a, Right = b};
 
 						}
 							break;
 						case 6:
 							DebugEnterAlt(6);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:155:3: LTHAN_EQUAL b= aritmetic_expression
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:167:3: LTHAN_EQUAL b= aritmetic_expression
 						{
-							DebugLocation(155, 3);
-							LTHAN_EQUAL8=(IToken)Match(input,LTHAN_EQUAL,Follow._LTHAN_EQUAL_in_relational_expression1018); 
-							DebugLocation(155, 16);
-							PushFollow(Follow._aritmetic_expression_in_relational_expression1022);
+							DebugLocation(167, 3);
+							LTHAN_EQUAL8=(IToken)Match(input,LTHAN_EQUAL,Follow._LTHAN_EQUAL_in_relational_expression1024); 
+							DebugLocation(167, 16);
+							PushFollow(Follow._aritmetic_expression_in_relational_expression1028);
 							b=aritmetic_expression();
 							PopFollow();
 
-							DebugLocation(155, 38);
+							DebugLocation(167, 38);
 							r = new LessEqualThan {line = LTHAN_EQUAL8.Line, column = LTHAN_EQUAL8.CharPositionInLine, Left = a, Right = b};
 
 						}
@@ -737,18 +752,20 @@ namespace TigerCs.Parser.Tiger
 
 					}
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("relational_expression", 7);
 					LeaveRule("relational_expression", 7);
 					LeaveRule_relational_expression();
 				}
-				DebugLocation(156, 0);
+				DebugLocation(168, 0);
 			} finally { DebugExitRule(GrammarFileName, "relational_expression"); }
 			return r;
 
@@ -759,7 +776,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_aritmetic_expression();
 
 		// $ANTLR start "aritmetic_expression"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:158:1: aritmetic_expression returns [IExpression r] : t= term (a= aritmetic_expression_rest[r] )? ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:170:1: aritmetic_expression returns [IExpression r] : t= term (a= aritmetic_expression_rest[r] )? ;
 		[GrammarRule("aritmetic_expression")]
 		private IExpression aritmetic_expression()
 		{
@@ -773,22 +790,22 @@ namespace TigerCs.Parser.Tiger
 			IExpression a = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "aritmetic_expression");
-				DebugLocation(158, 0);
+				DebugLocation(170, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:159:3: (t= term (a= aritmetic_expression_rest[r] )? )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:171:3: (t= term (a= aritmetic_expression_rest[r] )? )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:159:3: t= term (a= aritmetic_expression_rest[r] )?
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:171:3: t= term (a= aritmetic_expression_rest[r] )?
 					{
-						DebugLocation(159, 4);
-						PushFollow(Follow._term_in_aritmetic_expression1038);
+						DebugLocation(171, 4);
+						PushFollow(Follow._term_in_aritmetic_expression1044);
 						t=term();
 						PopFollow();
 
-						DebugLocation(159, 10);
+						DebugLocation(171, 10);
 						r = t;
-						DebugLocation(159, 19);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:159:19: (a= aritmetic_expression_rest[r] )?
+						DebugLocation(171, 19);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:171:19: (a= aritmetic_expression_rest[r] )?
 						int alt5=2;
 						try { DebugEnterSubRule(5);
 							try { DebugEnterDecision(5, false);
@@ -803,14 +820,14 @@ namespace TigerCs.Parser.Tiger
 							{
 								case 1:
 									DebugEnterAlt(1);
-									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:159:20: a= aritmetic_expression_rest[r]
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:171:20: a= aritmetic_expression_rest[r]
 								{
-									DebugLocation(159, 21);
-									PushFollow(Follow._aritmetic_expression_rest_in_aritmetic_expression1045);
+									DebugLocation(171, 21);
+									PushFollow(Follow._aritmetic_expression_rest_in_aritmetic_expression1051);
 									a=aritmetic_expression_rest(r);
 									PopFollow();
 
-									DebugLocation(159, 51);
+									DebugLocation(171, 51);
 									r = a;
 
 								}
@@ -823,18 +840,20 @@ namespace TigerCs.Parser.Tiger
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("aritmetic_expression", 8);
 					LeaveRule("aritmetic_expression", 8);
 					LeaveRule_aritmetic_expression();
 				}
-				DebugLocation(160, 0);
+				DebugLocation(172, 0);
 			} finally { DebugExitRule(GrammarFileName, "aritmetic_expression"); }
 			return r;
 
@@ -845,7 +864,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_aritmetic_expression_rest();
 
 		// $ANTLR start "aritmetic_expression_rest"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:162:1: aritmetic_expression_rest[IExpression a] returns [IExpression r] : op= ( MINUS | PLUS ) t= term (e= aritmetic_expression_rest[r] )? ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:174:1: aritmetic_expression_rest[IExpression a] returns [IExpression r] : op= ( MINUS | PLUS ) t= term (e= aritmetic_expression_rest[r] )? ;
 		[GrammarRule("aritmetic_expression_rest")]
 		private IExpression aritmetic_expression_rest(IExpression a)
 		{
@@ -860,14 +879,14 @@ namespace TigerCs.Parser.Tiger
 			IExpression e = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "aritmetic_expression_rest");
-				DebugLocation(162, 0);
+				DebugLocation(174, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:163:3: (op= ( MINUS | PLUS ) t= term (e= aritmetic_expression_rest[r] )? )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:175:3: (op= ( MINUS | PLUS ) t= term (e= aritmetic_expression_rest[r] )? )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:163:3: op= ( MINUS | PLUS ) t= term (e= aritmetic_expression_rest[r] )?
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:175:3: op= ( MINUS | PLUS ) t= term (e= aritmetic_expression_rest[r] )?
 					{
-						DebugLocation(163, 5);
+						DebugLocation(175, 5);
 
 						op=(IToken)input.LT(1);
 						if (input.LA(1)==MINUS||input.LA(1)==PLUS)
@@ -882,15 +901,15 @@ namespace TigerCs.Parser.Tiger
 							throw mse;
 						}
 
-						DebugLocation(164, 3);
-						PushFollow(Follow._term_in_aritmetic_expression_rest1079);
+						DebugLocation(176, 3);
+						PushFollow(Follow._term_in_aritmetic_expression_rest1085);
 						t=term();
 						PopFollow();
 
-						DebugLocation(164, 9);
+						DebugLocation(176, 9);
 						r = new IntegerOperator {line = op.Line, column = op.CharPositionInLine, Left = a, Right = t, Optype = new IntegerOp((op!=null?op.Text:null)[0])};
-						DebugLocation(165, 2);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:165:2: (e= aritmetic_expression_rest[r] )?
+						DebugLocation(177, 2);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:177:2: (e= aritmetic_expression_rest[r] )?
 						int alt6=2;
 						try { DebugEnterSubRule(6);
 							try { DebugEnterDecision(6, false);
@@ -905,14 +924,14 @@ namespace TigerCs.Parser.Tiger
 							{
 								case 1:
 									DebugEnterAlt(1);
-									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:165:3: e= aritmetic_expression_rest[r]
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:177:3: e= aritmetic_expression_rest[r]
 								{
-									DebugLocation(165, 4);
-									PushFollow(Follow._aritmetic_expression_rest_in_aritmetic_expression_rest1088);
+									DebugLocation(177, 4);
+									PushFollow(Follow._aritmetic_expression_rest_in_aritmetic_expression_rest1094);
 									e=aritmetic_expression_rest(r);
 									PopFollow();
 
-									DebugLocation(165, 34);
+									DebugLocation(177, 34);
 									r = e;
 
 								}
@@ -925,18 +944,20 @@ namespace TigerCs.Parser.Tiger
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("aritmetic_expression_rest", 9);
 					LeaveRule("aritmetic_expression_rest", 9);
 					LeaveRule_aritmetic_expression_rest();
 				}
-				DebugLocation(166, 0);
+				DebugLocation(178, 0);
 			} finally { DebugExitRule(GrammarFileName, "aritmetic_expression_rest"); }
 			return r;
 
@@ -947,7 +968,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_term();
 
 		// $ANTLR start "term"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:168:1: term returns [IExpression r] : f= factor (a= term_rest[f] )? ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:180:1: term returns [IExpression r] : f= factor (a= term_rest[f] )? ;
 		[GrammarRule("term")]
 		private IExpression term()
 		{
@@ -961,22 +982,22 @@ namespace TigerCs.Parser.Tiger
 			IExpression a = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "term");
-				DebugLocation(168, 0);
+				DebugLocation(180, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:169:2: (f= factor (a= term_rest[f] )? )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:181:2: (f= factor (a= term_rest[f] )? )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:169:2: f= factor (a= term_rest[f] )?
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:181:2: f= factor (a= term_rest[f] )?
 					{
-						DebugLocation(169, 3);
-						PushFollow(Follow._factor_in_term1107);
+						DebugLocation(181, 3);
+						PushFollow(Follow._factor_in_term1113);
 						f=factor();
 						PopFollow();
 
-						DebugLocation(169, 11);
+						DebugLocation(181, 11);
 						r=f;
-						DebugLocation(169, 18);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:169:18: (a= term_rest[f] )?
+						DebugLocation(181, 18);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:181:18: (a= term_rest[f] )?
 						int alt7=2;
 						try { DebugEnterSubRule(7);
 							try { DebugEnterDecision(7, false);
@@ -991,14 +1012,14 @@ namespace TigerCs.Parser.Tiger
 							{
 								case 1:
 									DebugEnterAlt(1);
-									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:169:19: a= term_rest[f]
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:181:19: a= term_rest[f]
 								{
-									DebugLocation(169, 20);
-									PushFollow(Follow._term_rest_in_term1114);
+									DebugLocation(181, 20);
+									PushFollow(Follow._term_rest_in_term1120);
 									a=term_rest(f);
 									PopFollow();
 
-									DebugLocation(169, 34);
+									DebugLocation(181, 34);
 									r=a;
 
 								}
@@ -1011,18 +1032,20 @@ namespace TigerCs.Parser.Tiger
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("term", 10);
 					LeaveRule("term", 10);
 					LeaveRule_term();
 				}
-				DebugLocation(170, 0);
+				DebugLocation(182, 0);
 			} finally { DebugExitRule(GrammarFileName, "term"); }
 			return r;
 
@@ -1033,7 +1056,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_term_rest();
 
 		// $ANTLR start "term_rest"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:172:1: term_rest[IExpression a] returns [IExpression r] : op= ( MULT | DIV ) f= factor (t= term_rest[r] )? ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:184:1: term_rest[IExpression a] returns [IExpression r] : op= ( MULT | DIV ) f= factor (t= term_rest[r] )? ;
 		[GrammarRule("term_rest")]
 		private IExpression term_rest(IExpression a)
 		{
@@ -1048,14 +1071,14 @@ namespace TigerCs.Parser.Tiger
 			IExpression t = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "term_rest");
-				DebugLocation(172, 0);
+				DebugLocation(184, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:173:3: (op= ( MULT | DIV ) f= factor (t= term_rest[r] )? )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:185:3: (op= ( MULT | DIV ) f= factor (t= term_rest[r] )? )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:173:3: op= ( MULT | DIV ) f= factor (t= term_rest[r] )?
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:185:3: op= ( MULT | DIV ) f= factor (t= term_rest[r] )?
 					{
-						DebugLocation(173, 5);
+						DebugLocation(185, 5);
 
 						op=(IToken)input.LT(1);
 						if (input.LA(1)==DIV||input.LA(1)==MULT)
@@ -1070,15 +1093,15 @@ namespace TigerCs.Parser.Tiger
 							throw mse;
 						}
 
-						DebugLocation(174, 3);
-						PushFollow(Follow._factor_in_term_rest1146);
+						DebugLocation(186, 3);
+						PushFollow(Follow._factor_in_term_rest1152);
 						f=factor();
 						PopFollow();
 
-						DebugLocation(174, 11);
+						DebugLocation(186, 11);
 						r = new IntegerOperator {line = op.Line, column = op.CharPositionInLine, Left = a, Right = f, Optype = new IntegerOp((op!=null?op.Text:null)[0])};
-						DebugLocation(175, 2);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:175:2: (t= term_rest[r] )?
+						DebugLocation(187, 2);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:187:2: (t= term_rest[r] )?
 						int alt8=2;
 						try { DebugEnterSubRule(8);
 							try { DebugEnterDecision(8, false);
@@ -1093,14 +1116,14 @@ namespace TigerCs.Parser.Tiger
 							{
 								case 1:
 									DebugEnterAlt(1);
-									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:175:3: t= term_rest[r]
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:187:3: t= term_rest[r]
 								{
-									DebugLocation(175, 4);
-									PushFollow(Follow._term_rest_in_term_rest1154);
+									DebugLocation(187, 4);
+									PushFollow(Follow._term_rest_in_term_rest1160);
 									t=term_rest(r);
 									PopFollow();
 
-									DebugLocation(175, 18);
+									DebugLocation(187, 18);
 									r = t;
 
 								}
@@ -1113,18 +1136,20 @@ namespace TigerCs.Parser.Tiger
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("term_rest", 11);
 					LeaveRule("term_rest", 11);
 					LeaveRule_term_rest();
 				}
-				DebugLocation(176, 0);
+				DebugLocation(188, 0);
 			} finally { DebugExitRule(GrammarFileName, "term_rest"); }
 			return r;
 
@@ -1135,7 +1160,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_factor();
 
 		// $ANTLR start "factor"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:178:1: factor returns [IExpression r] : (s= STRING |i= INT |n= NIL | MINUS e= expression | L_PARENT (e= expression_sequence )? R_PARENT | IF c= expression THEN t= expression ( ELSE e= expression )? | WHILE e1= expression DO e2= expression | FOR i= ID ASSIGN e1= expression TO e2= expression DO e3= expression | BREAK | LET d= declaration_list_list IN e= expression END |h= lvalue_head );
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:190:1: factor returns [IExpression r] : (s= STRING |i= INT |n= NIL | MINUS e= expression | L_PARENT (e= expression_sequence )? R_PARENT | IF c= expression THEN t= expression ( ELSE e= expression )? | WHILE e1= expression DO e2= expression | FOR i= ID ASSIGN e1= expression TO e2= expression DO e3= expression | BREAK | LET d= declaration_list_list IN (e= expression_sequence )? END |h= lvalue_head );
 		[GrammarRule("factor")]
 		private IExpression factor()
 		{
@@ -1164,137 +1189,137 @@ namespace TigerCs.Parser.Tiger
 			IExpression h = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "factor");
-				DebugLocation(178, 0);
+				DebugLocation(190, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:179:3: (s= STRING |i= INT |n= NIL | MINUS e= expression | L_PARENT (e= expression_sequence )? R_PARENT | IF c= expression THEN t= expression ( ELSE e= expression )? | WHILE e1= expression DO e2= expression | FOR i= ID ASSIGN e1= expression TO e2= expression DO e3= expression | BREAK | LET d= declaration_list_list IN e= expression END |h= lvalue_head )
-					int alt11=11;
-					try { DebugEnterDecision(11, false);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:191:3: (s= STRING |i= INT |n= NIL | MINUS e= expression | L_PARENT (e= expression_sequence )? R_PARENT | IF c= expression THEN t= expression ( ELSE e= expression )? | WHILE e1= expression DO e2= expression | FOR i= ID ASSIGN e1= expression TO e2= expression DO e3= expression | BREAK | LET d= declaration_list_list IN (e= expression_sequence )? END |h= lvalue_head )
+					int alt12=11;
+					try { DebugEnterDecision(12, false);
 						switch (input.LA(1))
 						{
 							case STRING:
 							{
-								alt11 = 1;
+								alt12 = 1;
 							}
 								break;
 							case INT:
 							{
-								alt11 = 2;
+								alt12 = 2;
 							}
 								break;
 							case NIL:
 							{
-								alt11 = 3;
+								alt12 = 3;
 							}
 								break;
 							case MINUS:
 							{
-								alt11 = 4;
+								alt12 = 4;
 							}
 								break;
 							case L_PARENT:
 							{
-								alt11 = 5;
+								alt12 = 5;
 							}
 								break;
 							case IF:
 							{
-								alt11 = 6;
+								alt12 = 6;
 							}
 								break;
 							case WHILE:
 							{
-								alt11 = 7;
+								alt12 = 7;
 							}
 								break;
 							case FOR:
 							{
-								alt11 = 8;
+								alt12 = 8;
 							}
 								break;
 							case BREAK:
 							{
-								alt11 = 9;
+								alt12 = 9;
 							}
 								break;
 							case LET:
 							{
-								alt11 = 10;
+								alt12 = 10;
 							}
 								break;
 							case ID:
 							{
-								alt11 = 11;
+								alt12 = 11;
 							}
 								break;
 							default:
 							{
-								NoViableAltException nvae = new NoViableAltException("", 11, 0, input);
+								NoViableAltException nvae = new NoViableAltException("", 12, 0, input);
 								DebugRecognitionException(nvae);
 								throw nvae;
 							}
 						}
 
-					} finally { DebugExitDecision(11); }
-					switch (alt11)
+					} finally { DebugExitDecision(12); }
+					switch (alt12)
 					{
 						case 1:
 							DebugEnterAlt(1);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:179:3: s= STRING
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:191:3: s= STRING
 						{
-							DebugLocation(179, 4);
-							s=(IToken)Match(input,STRING,Follow._STRING_in_factor1174); 
-							DebugLocation(179, 12);
+							DebugLocation(191, 4);
+							s=(IToken)Match(input,STRING,Follow._STRING_in_factor1180); 
+							DebugLocation(191, 12);
 							r = new StringConstant{Lex = (s!=null?s.Text:null), line = s.Line, column = s.CharPositionInLine};
 
 						}
 							break;
 						case 2:
 							DebugEnterAlt(2);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:180:3: i= INT
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:192:3: i= INT
 						{
-							DebugLocation(180, 4);
-							i=(IToken)Match(input,INT,Follow._INT_in_factor1183); 
-							DebugLocation(180, 9);
+							DebugLocation(192, 4);
+							i=(IToken)Match(input,INT,Follow._INT_in_factor1189); 
+							DebugLocation(192, 9);
 							r = new IntegerConstant{Lex = (i!=null?i.Text:null), line = i.Line, column = i.CharPositionInLine};
 
 						}
 							break;
 						case 3:
 							DebugEnterAlt(3);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:181:3: n= NIL
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:193:3: n= NIL
 						{
-							DebugLocation(181, 4);
-							n=(IToken)Match(input,NIL,Follow._NIL_in_factor1191); 
-							DebugLocation(181, 9);
+							DebugLocation(193, 4);
+							n=(IToken)Match(input,NIL,Follow._NIL_in_factor1197); 
+							DebugLocation(193, 9);
 							r = new NilConstant{line = n.Line, column = n.CharPositionInLine};
 
 						}
 							break;
 						case 4:
 							DebugEnterAlt(4);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:182:3: MINUS e= expression
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:194:3: MINUS e= expression
 						{
-							DebugLocation(182, 3);
-							MINUS9=(IToken)Match(input,MINUS,Follow._MINUS_in_factor1197); 
-							DebugLocation(182, 10);
-							PushFollow(Follow._expression_in_factor1201);
+							DebugLocation(194, 3);
+							MINUS9=(IToken)Match(input,MINUS,Follow._MINUS_in_factor1203); 
+							DebugLocation(194, 10);
+							PushFollow(Follow._expression_in_factor1207);
 							e=expression();
 							PopFollow();
 
-							DebugLocation(182, 22);
+							DebugLocation(194, 22);
 							r = new Neg{line = MINUS9.Line, column = MINUS9.CharPositionInLine, Operand = e};
 
 						}
 							break;
 						case 5:
 							DebugEnterAlt(5);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:183:3: L_PARENT (e= expression_sequence )? R_PARENT
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:195:3: L_PARENT (e= expression_sequence )? R_PARENT
 						{
-							DebugLocation(183, 3);
-							Match(input,L_PARENT,Follow._L_PARENT_in_factor1207); 
-							DebugLocation(183, 12);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:183:12: (e= expression_sequence )?
+							DebugLocation(195, 3);
+							Match(input,L_PARENT,Follow._L_PARENT_in_factor1213); 
+							DebugLocation(195, 12);
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:195:12: (e= expression_sequence )?
 							int alt9=2;
 							try { DebugEnterSubRule(9);
 								try { DebugEnterDecision(9, false);
@@ -1309,14 +1334,14 @@ namespace TigerCs.Parser.Tiger
 								{
 									case 1:
 										DebugEnterAlt(1);
-										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:183:13: e= expression_sequence
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:195:13: e= expression_sequence
 									{
-										DebugLocation(183, 14);
-										PushFollow(Follow._expression_sequence_in_factor1212);
+										DebugLocation(195, 14);
+										PushFollow(Follow._expression_sequence_in_factor1218);
 										e=expression_sequence();
 										PopFollow();
 
-										DebugLocation(183, 35);
+										DebugLocation(195, 35);
 										r = e;
 
 									}
@@ -1325,33 +1350,35 @@ namespace TigerCs.Parser.Tiger
 								}
 							} finally { DebugExitSubRule(9); }
 
-							DebugLocation(183, 46);
-							Match(input,R_PARENT,Follow._R_PARENT_in_factor1218); 
+							DebugLocation(195, 46);
+							Match(input,R_PARENT,Follow._R_PARENT_in_factor1224); 
+							DebugLocation(195, 55);
+							r = r ?? new ExpressionList<IExpression>();
 
 						}
 							break;
 						case 6:
 							DebugEnterAlt(6);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:184:3: IF c= expression THEN t= expression ( ELSE e= expression )?
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:196:3: IF c= expression THEN t= expression ( ELSE e= expression )?
 						{
-							DebugLocation(184, 3);
-							IF10=(IToken)Match(input,IF,Follow._IF_in_factor1222); 
-							DebugLocation(184, 7);
-							PushFollow(Follow._expression_in_factor1226);
+							DebugLocation(196, 3);
+							IF10=(IToken)Match(input,IF,Follow._IF_in_factor1230); 
+							DebugLocation(196, 7);
+							PushFollow(Follow._expression_in_factor1234);
 							c=expression();
 							PopFollow();
 
-							DebugLocation(184, 19);
-							Match(input,THEN,Follow._THEN_in_factor1228); 
-							DebugLocation(184, 25);
-							PushFollow(Follow._expression_in_factor1232);
+							DebugLocation(196, 19);
+							Match(input,THEN,Follow._THEN_in_factor1236); 
+							DebugLocation(196, 25);
+							PushFollow(Follow._expression_in_factor1240);
 							t=expression();
 							PopFollow();
 
-							DebugLocation(184, 37);
+							DebugLocation(196, 37);
 							r = new IfThenElse {line = IF10.Line, column = IF10.CharPositionInLine, If = c, Then = t};
-							DebugLocation(184, 128);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:184:128: ( ELSE e= expression )?
+							DebugLocation(196, 128);
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:196:128: ( ELSE e= expression )?
 							int alt10=2;
 							try { DebugEnterSubRule(10);
 								try { DebugEnterDecision(10, false);
@@ -1366,16 +1393,16 @@ namespace TigerCs.Parser.Tiger
 								{
 									case 1:
 										DebugEnterAlt(1);
-										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:184:129: ELSE e= expression
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:196:129: ELSE e= expression
 									{
-										DebugLocation(184, 129);
-										Match(input,ELSE,Follow._ELSE_in_factor1237); 
-										DebugLocation(184, 135);
-										PushFollow(Follow._expression_in_factor1241);
+										DebugLocation(196, 129);
+										Match(input,ELSE,Follow._ELSE_in_factor1245); 
+										DebugLocation(196, 135);
+										PushFollow(Follow._expression_in_factor1249);
 										e=expression();
 										PopFollow();
 
-										DebugLocation(184, 147);
+										DebugLocation(196, 147);
 										((IfThenElse)r).Else = e;
 
 									}
@@ -1389,107 +1416,132 @@ namespace TigerCs.Parser.Tiger
 							break;
 						case 7:
 							DebugEnterAlt(7);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:185:3: WHILE e1= expression DO e2= expression
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:197:3: WHILE e1= expression DO e2= expression
 						{
-							DebugLocation(185, 3);
-							WHILE11=(IToken)Match(input,WHILE,Follow._WHILE_in_factor1249); 
-							DebugLocation(185, 11);
-							PushFollow(Follow._expression_in_factor1253);
+							DebugLocation(197, 3);
+							WHILE11=(IToken)Match(input,WHILE,Follow._WHILE_in_factor1257); 
+							DebugLocation(197, 11);
+							PushFollow(Follow._expression_in_factor1261);
 							e1=expression();
 							PopFollow();
 
-							DebugLocation(185, 23);
-							Match(input,DO,Follow._DO_in_factor1255); 
-							DebugLocation(185, 28);
-							PushFollow(Follow._expression_in_factor1259);
+							DebugLocation(197, 23);
+							Match(input,DO,Follow._DO_in_factor1263); 
+							DebugLocation(197, 28);
+							PushFollow(Follow._expression_in_factor1267);
 							e2=expression();
 							PopFollow();
 
-							DebugLocation(185, 40);
+							DebugLocation(197, 40);
 							r = new While{line = WHILE11.Line, column = WHILE11.CharPositionInLine, Condition = e1, Body = e2};
 
 						}
 							break;
 						case 8:
 							DebugEnterAlt(8);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:186:3: FOR i= ID ASSIGN e1= expression TO e2= expression DO e3= expression
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:198:3: FOR i= ID ASSIGN e1= expression TO e2= expression DO e3= expression
 						{
-							DebugLocation(186, 3);
-							FOR12=(IToken)Match(input,FOR,Follow._FOR_in_factor1265); 
-							DebugLocation(186, 8);
-							i=(IToken)Match(input,ID,Follow._ID_in_factor1269); 
-							DebugLocation(186, 12);
-							Match(input,ASSIGN,Follow._ASSIGN_in_factor1271); 
-							DebugLocation(186, 21);
-							PushFollow(Follow._expression_in_factor1275);
+							DebugLocation(198, 3);
+							FOR12=(IToken)Match(input,FOR,Follow._FOR_in_factor1273); 
+							DebugLocation(198, 8);
+							i=(IToken)Match(input,ID,Follow._ID_in_factor1277); 
+							DebugLocation(198, 12);
+							Match(input,ASSIGN,Follow._ASSIGN_in_factor1279); 
+							DebugLocation(198, 21);
+							PushFollow(Follow._expression_in_factor1283);
 							e1=expression();
 							PopFollow();
 
-							DebugLocation(186, 33);
-							Match(input,TO,Follow._TO_in_factor1277); 
-							DebugLocation(186, 38);
-							PushFollow(Follow._expression_in_factor1281);
+							DebugLocation(198, 33);
+							Match(input,TO,Follow._TO_in_factor1285); 
+							DebugLocation(198, 38);
+							PushFollow(Follow._expression_in_factor1289);
 							e2=expression();
 							PopFollow();
 
-							DebugLocation(186, 50);
-							Match(input,DO,Follow._DO_in_factor1283); 
-							DebugLocation(186, 55);
-							PushFollow(Follow._expression_in_factor1287);
+							DebugLocation(198, 50);
+							Match(input,DO,Follow._DO_in_factor1291); 
+							DebugLocation(198, 55);
+							PushFollow(Follow._expression_in_factor1295);
 							e3=expression();
 							PopFollow();
 
-							DebugLocation(186, 67);
+							DebugLocation(198, 67);
 							r = new BoundedFor{line = FOR12.Line, column = FOR12.CharPositionInLine, VarName = (i!=null?i.Text:null), From = e1, To = e2, Body = e3};
 
 						}
 							break;
 						case 9:
 							DebugEnterAlt(9);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:187:3: BREAK
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:199:3: BREAK
 						{
-							DebugLocation(187, 3);
-							BREAK13=(IToken)Match(input,BREAK,Follow._BREAK_in_factor1293); 
-							DebugLocation(187, 9);
+							DebugLocation(199, 3);
+							BREAK13=(IToken)Match(input,BREAK,Follow._BREAK_in_factor1301); 
+							DebugLocation(199, 9);
 							r = new Break{line = BREAK13.Line, column = BREAK13.CharPositionInLine};
 
 						}
 							break;
 						case 10:
 							DebugEnterAlt(10);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:188:3: LET d= declaration_list_list IN e= expression END
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:200:3: LET d= declaration_list_list IN (e= expression_sequence )? END
 						{
-							DebugLocation(188, 3);
-							LET14=(IToken)Match(input,LET,Follow._LET_in_factor1299); 
-							DebugLocation(188, 8);
-							PushFollow(Follow._declaration_list_list_in_factor1303);
+							DebugLocation(200, 3);
+							LET14=(IToken)Match(input,LET,Follow._LET_in_factor1307); 
+							DebugLocation(200, 8);
+							PushFollow(Follow._declaration_list_list_in_factor1311);
 							d=declaration_list_list();
 							PopFollow();
 
-							DebugLocation(188, 31);
-							Match(input,IN,Follow._IN_in_factor1305); 
-							DebugLocation(188, 35);
-							PushFollow(Follow._expression_in_factor1309);
-							e=expression();
-							PopFollow();
+							DebugLocation(200, 31);
+							Match(input,IN,Follow._IN_in_factor1313); 
+							DebugLocation(200, 35);
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:200:35: (e= expression_sequence )?
+							int alt11=2;
+							try { DebugEnterSubRule(11);
+								try { DebugEnterDecision(11, false);
+									int LA11_0 = input.LA(1);
 
-							DebugLocation(188, 47);
-							Match(input,END,Follow._END_in_factor1311); 
-							DebugLocation(188, 51);
+									if ((LA11_0==BREAK||LA11_0==FOR||(LA11_0>=ID && LA11_0<=IF)||(LA11_0>=INT && LA11_0<=LET)||(LA11_0>=L_PARENT && LA11_0<=MINUS)||LA11_0==NIL||LA11_0==STRING||LA11_0==WHILE))
+									{
+										alt11 = 1;
+									}
+								} finally { DebugExitDecision(11); }
+								switch (alt11)
+								{
+									case 1:
+										DebugEnterAlt(1);
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:200:35: e= expression_sequence
+									{
+										DebugLocation(200, 35);
+										PushFollow(Follow._expression_sequence_in_factor1317);
+										e=expression_sequence();
+										PopFollow();
+
+
+									}
+										break;
+
+								}
+							} finally { DebugExitSubRule(11); }
+
+							DebugLocation(200, 57);
+							Match(input,END,Follow._END_in_factor1320); 
+							DebugLocation(200, 61);
 							r = new Let{line = LET14.Line, column = LET14.CharPositionInLine, Declarations = d, Body = e};
 
 						}
 							break;
 						case 11:
 							DebugEnterAlt(11);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:189:3: h= lvalue_head
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:201:3: h= lvalue_head
 						{
-							DebugLocation(189, 4);
-							PushFollow(Follow._lvalue_head_in_factor1319);
+							DebugLocation(201, 4);
+							PushFollow(Follow._lvalue_head_in_factor1328);
 							h=lvalue_head();
 							PopFollow();
 
-							DebugLocation(189, 17);
+							DebugLocation(201, 17);
 							r = h;
 
 						}
@@ -1497,18 +1549,20 @@ namespace TigerCs.Parser.Tiger
 
 					}
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("factor", 12);
 					LeaveRule("factor", 12);
 					LeaveRule_factor();
 				}
-				DebugLocation(190, 0);
+				DebugLocation(202, 0);
 			} finally { DebugExitRule(GrammarFileName, "factor"); }
 			return r;
 
@@ -1519,7 +1573,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_lvalue_head();
 
 		// $ANTLR start "lvalue_head"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:192:1: lvalue_head returns [IExpression r] : i= ID (ins= invoke[$i.text, $i.Line, $i.CharPositionInLine] | L_BRACKETS e1= expression R_BRACKETS a= array[$i.text, e1, $i.Line, $i.CharPositionInLine, $L_BRACKETS.Line, $L_BRACKETS.CharPositionInLine] | DOT i2= ID l= dot[$i.text, $i2.text, $i.Line, $i.CharPositionInLine, $i2.Line, $i2.CharPositionInLine] )? ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:204:1: lvalue_head returns [IExpression r] : i= ID (ins= invoke[$i.text, $i.Line, $i.CharPositionInLine] | L_BRACKETS e1= expression R_BRACKETS a= array[$i.text, e1, $i.Line, $i.CharPositionInLine, $L_BRACKETS.Line, $L_BRACKETS.CharPositionInLine] | DOT i2= ID l= dot[$i.text, $i2.text, $i.Line, $i.CharPositionInLine, $i2.Line, $i2.CharPositionInLine] | ASSIGN e= expression )? ;
 		[GrammarRule("lvalue_head")]
 		private IExpression lvalue_head()
 		{
@@ -1532,125 +1586,150 @@ namespace TigerCs.Parser.Tiger
 			IToken i = default(IToken);
 			IToken i2 = default(IToken);
 			IToken L_BRACKETS15 = default(IToken);
+			IToken ASSIGN16 = default(IToken);
 			IExpression ins = default(IExpression);
 			IExpression e1 = default(IExpression);
 			IExpression a = default(IExpression);
 			IExpression l = default(IExpression);
+			IExpression e = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "lvalue_head");
-				DebugLocation(192, 0);
+				DebugLocation(204, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:194:3: (i= ID (ins= invoke[$i.text, $i.Line, $i.CharPositionInLine] | L_BRACKETS e1= expression R_BRACKETS a= array[$i.text, e1, $i.Line, $i.CharPositionInLine, $L_BRACKETS.Line, $L_BRACKETS.CharPositionInLine] | DOT i2= ID l= dot[$i.text, $i2.text, $i.Line, $i.CharPositionInLine, $i2.Line, $i2.CharPositionInLine] )? )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:206:3: (i= ID (ins= invoke[$i.text, $i.Line, $i.CharPositionInLine] | L_BRACKETS e1= expression R_BRACKETS a= array[$i.text, e1, $i.Line, $i.CharPositionInLine, $L_BRACKETS.Line, $L_BRACKETS.CharPositionInLine] | DOT i2= ID l= dot[$i.text, $i2.text, $i.Line, $i.CharPositionInLine, $i2.Line, $i2.CharPositionInLine] | ASSIGN e= expression )? )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:194:3: i= ID (ins= invoke[$i.text, $i.Line, $i.CharPositionInLine] | L_BRACKETS e1= expression R_BRACKETS a= array[$i.text, e1, $i.Line, $i.CharPositionInLine, $L_BRACKETS.Line, $L_BRACKETS.CharPositionInLine] | DOT i2= ID l= dot[$i.text, $i2.text, $i.Line, $i.CharPositionInLine, $i2.Line, $i2.CharPositionInLine] )?
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:206:3: i= ID (ins= invoke[$i.text, $i.Line, $i.CharPositionInLine] | L_BRACKETS e1= expression R_BRACKETS a= array[$i.text, e1, $i.Line, $i.CharPositionInLine, $L_BRACKETS.Line, $L_BRACKETS.CharPositionInLine] | DOT i2= ID l= dot[$i.text, $i2.text, $i.Line, $i.CharPositionInLine, $i2.Line, $i2.CharPositionInLine] | ASSIGN e= expression )?
 					{
-						DebugLocation(194, 4);
-						i=(IToken)Match(input,ID,Follow._ID_in_lvalue_head1340); 
-						DebugLocation(194, 8);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:194:8: (ins= invoke[$i.text, $i.Line, $i.CharPositionInLine] | L_BRACKETS e1= expression R_BRACKETS a= array[$i.text, e1, $i.Line, $i.CharPositionInLine, $L_BRACKETS.Line, $L_BRACKETS.CharPositionInLine] | DOT i2= ID l= dot[$i.text, $i2.text, $i.Line, $i.CharPositionInLine, $i2.Line, $i2.CharPositionInLine] )?
-						int alt12=4;
-						try { DebugEnterSubRule(12);
-							try { DebugEnterDecision(12, false);
+						DebugLocation(206, 4);
+						i=(IToken)Match(input,ID,Follow._ID_in_lvalue_head1349); 
+						DebugLocation(206, 8);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:206:8: (ins= invoke[$i.text, $i.Line, $i.CharPositionInLine] | L_BRACKETS e1= expression R_BRACKETS a= array[$i.text, e1, $i.Line, $i.CharPositionInLine, $L_BRACKETS.Line, $L_BRACKETS.CharPositionInLine] | DOT i2= ID l= dot[$i.text, $i2.text, $i.Line, $i.CharPositionInLine, $i2.Line, $i2.CharPositionInLine] | ASSIGN e= expression )?
+						int alt13=5;
+						try { DebugEnterSubRule(13);
+							try { DebugEnterDecision(13, false);
 								switch (input.LA(1))
 								{
 									case L_KEY:
 									case L_PARENT:
 									{
-										alt12 = 1;
+										alt13 = 1;
 									}
 										break;
 									case L_BRACKETS:
 									{
-										alt12 = 2;
+										alt13 = 2;
 									}
 										break;
 									case DOT:
 									{
-										alt12 = 3;
+										alt13 = 3;
+									}
+										break;
+									case ASSIGN:
+									{
+										alt13 = 4;
 									}
 										break;
 								}
 
-							} finally { DebugExitDecision(12); }
-							switch (alt12)
+							} finally { DebugExitDecision(13); }
+							switch (alt13)
 							{
 								case 1:
 									DebugEnterAlt(1);
-									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:194:9: ins= invoke[$i.text, $i.Line, $i.CharPositionInLine]
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:206:9: ins= invoke[$i.text, $i.Line, $i.CharPositionInLine]
 								{
-									DebugLocation(194, 12);
-									PushFollow(Follow._invoke_in_lvalue_head1345);
+									DebugLocation(206, 12);
+									PushFollow(Follow._invoke_in_lvalue_head1354);
 									ins=invoke((i!=null?i.Text:null), i.Line, i.CharPositionInLine);
 									PopFollow();
 
-									DebugLocation(194, 61);
+									DebugLocation(206, 61);
 									r = ins;
 
 								}
 									break;
 								case 2:
 									DebugEnterAlt(2);
-									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:195:5: L_BRACKETS e1= expression R_BRACKETS a= array[$i.text, e1, $i.Line, $i.CharPositionInLine, $L_BRACKETS.Line, $L_BRACKETS.CharPositionInLine]
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:207:5: L_BRACKETS e1= expression R_BRACKETS a= array[$i.text, e1, $i.Line, $i.CharPositionInLine, $L_BRACKETS.Line, $L_BRACKETS.CharPositionInLine]
 								{
-									DebugLocation(195, 5);
-									L_BRACKETS15=(IToken)Match(input,L_BRACKETS,Follow._L_BRACKETS_in_lvalue_head1355); 
-									DebugLocation(195, 18);
-									PushFollow(Follow._expression_in_lvalue_head1359);
+									DebugLocation(207, 5);
+									L_BRACKETS15=(IToken)Match(input,L_BRACKETS,Follow._L_BRACKETS_in_lvalue_head1364); 
+									DebugLocation(207, 18);
+									PushFollow(Follow._expression_in_lvalue_head1368);
 									e1=expression();
 									PopFollow();
 
-									DebugLocation(195, 30);
-									Match(input,R_BRACKETS,Follow._R_BRACKETS_in_lvalue_head1361); 
-									DebugLocation(195, 42);
-									PushFollow(Follow._array_in_lvalue_head1365);
+									DebugLocation(207, 30);
+									Match(input,R_BRACKETS,Follow._R_BRACKETS_in_lvalue_head1370); 
+									DebugLocation(207, 42);
+									PushFollow(Follow._array_in_lvalue_head1374);
 									a=array((i!=null?i.Text:null), e1, i.Line, i.CharPositionInLine, L_BRACKETS15.Line, L_BRACKETS15.CharPositionInLine);
 									PopFollow();
 
-									DebugLocation(195, 144);
+									DebugLocation(207, 144);
 									r=a;
 
 								}
 									break;
 								case 3:
 									DebugEnterAlt(3);
-									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:196:5: DOT i2= ID l= dot[$i.text, $i2.text, $i.Line, $i.CharPositionInLine, $i2.Line, $i2.CharPositionInLine]
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:208:5: DOT i2= ID l= dot[$i.text, $i2.text, $i.Line, $i.CharPositionInLine, $i2.Line, $i2.CharPositionInLine]
 								{
-									DebugLocation(196, 5);
-									Match(input,DOT,Follow._DOT_in_lvalue_head1374); 
-									DebugLocation(196, 11);
-									i2=(IToken)Match(input,ID,Follow._ID_in_lvalue_head1378); 
-									DebugLocation(196, 16);
-									PushFollow(Follow._dot_in_lvalue_head1382);
+									DebugLocation(208, 5);
+									Match(input,DOT,Follow._DOT_in_lvalue_head1383); 
+									DebugLocation(208, 11);
+									i2=(IToken)Match(input,ID,Follow._ID_in_lvalue_head1387); 
+									DebugLocation(208, 16);
+									PushFollow(Follow._dot_in_lvalue_head1391);
 									l=dot((i!=null?i.Text:null), (i2!=null?i2.Text:null), i.Line, i.CharPositionInLine, i2.Line, i2.CharPositionInLine);
 									PopFollow();
 
-									DebugLocation(196, 106);
+									DebugLocation(208, 106);
 									r = l;
+
+								}
+									break;
+								case 4:
+									DebugEnterAlt(4);
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:209:5: ASSIGN e= expression
+								{
+									DebugLocation(209, 5);
+									ASSIGN16=(IToken)Match(input,ASSIGN,Follow._ASSIGN_in_lvalue_head1401); 
+									DebugLocation(209, 13);
+									PushFollow(Follow._expression_in_lvalue_head1405);
+									e=expression();
+									PopFollow();
+
+									DebugLocation(209, 25);
+									r = new Assign {Target = new Var {Name = (i!=null?i.Text:null), line = i.Line, column = i.CharPositionInLine}, Source = e, line = ASSIGN16.Line, column = ASSIGN16.CharPositionInLine};
 
 								}
 									break;
 
 							}
-						} finally { DebugExitSubRule(12); }
+						} finally { DebugExitSubRule(13); }
 
 
 					}
 
 					r = r ??  new Var {Name = (i!=null?i.Text:null), line = i.Line, column = i.CharPositionInLine};
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("lvalue_head", 13);
 					LeaveRule("lvalue_head", 13);
 					LeaveRule_lvalue_head();
 				}
-				DebugLocation(197, 0);
+				DebugLocation(210, 0);
 			} finally { DebugExitRule(GrammarFileName, "lvalue_head"); }
 			return r;
 
@@ -1661,7 +1740,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_invoke();
 
 		// $ANTLR start "invoke"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:199:1: invoke[string id, int l, int c] returns [IExpression r] : ( L_PARENT (a= arg_list )? R_PARENT | L_KEY (f= field_list )? R_KEY );
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:212:1: invoke[string id, int l, int c] returns [IExpression r] : ( L_PARENT (a= arg_list )? R_PARENT | L_KEY (f= field_list )? R_KEY );
 		[GrammarRule("invoke")]
 		private IExpression invoke(string id, int l, int c)
 		{
@@ -1675,168 +1754,19 @@ namespace TigerCs.Parser.Tiger
 			List<Tuple<string, IExpression>> f = default(List<Tuple<string, IExpression>>);
 
 			try { DebugEnterRule(GrammarFileName, "invoke");
-				DebugLocation(199, 0);
+				DebugLocation(212, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:200:3: ( L_PARENT (a= arg_list )? R_PARENT | L_KEY (f= field_list )? R_KEY )
-					int alt15=2;
-					try { DebugEnterDecision(15, false);
-						int LA15_0 = input.LA(1);
-
-						if ((LA15_0==L_PARENT))
-						{
-							alt15 = 1;
-						}
-						else if ((LA15_0==L_KEY))
-						{
-							alt15 = 2;
-						}
-						else
-						{
-							NoViableAltException nvae = new NoViableAltException("", 15, 0, input);
-							DebugRecognitionException(nvae);
-							throw nvae;
-						}
-					} finally { DebugExitDecision(15); }
-					switch (alt15)
-					{
-						case 1:
-							DebugEnterAlt(1);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:200:3: L_PARENT (a= arg_list )? R_PARENT
-						{
-							DebugLocation(200, 3);
-							Match(input,L_PARENT,Follow._L_PARENT_in_invoke1403); 
-							DebugLocation(200, 13);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:200:13: (a= arg_list )?
-							int alt13=2;
-							try { DebugEnterSubRule(13);
-								try { DebugEnterDecision(13, false);
-									int LA13_0 = input.LA(1);
-
-									if ((LA13_0==BREAK||LA13_0==FOR||(LA13_0>=ID && LA13_0<=IF)||(LA13_0>=INT && LA13_0<=LET)||(LA13_0>=L_PARENT && LA13_0<=MINUS)||LA13_0==NIL||LA13_0==STRING||LA13_0==WHILE))
-									{
-										alt13 = 1;
-									}
-								} finally { DebugExitDecision(13); }
-								switch (alt13)
-								{
-									case 1:
-										DebugEnterAlt(1);
-										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:200:13: a= arg_list
-									{
-										DebugLocation(200, 13);
-										PushFollow(Follow._arg_list_in_invoke1407);
-										a=arg_list();
-										PopFollow();
-
-
-									}
-										break;
-
-								}
-							} finally { DebugExitSubRule(13); }
-
-							DebugLocation(200, 24);
-							Match(input,R_PARENT,Follow._R_PARENT_in_invoke1410); 
-							DebugLocation(200, 33);
-							r = new Call{line = l, column = c, Arguments = a ?? new List<IExpression>() , FunctionName = id};
-
-						}
-							break;
-						case 2:
-							DebugEnterAlt(2);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:201:3: L_KEY (f= field_list )? R_KEY
-						{
-							DebugLocation(201, 3);
-							Match(input,L_KEY,Follow._L_KEY_in_invoke1416); 
-							DebugLocation(201, 10);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:201:10: (f= field_list )?
-							int alt14=2;
-							try { DebugEnterSubRule(14);
-								try { DebugEnterDecision(14, false);
-									int LA14_0 = input.LA(1);
-
-									if ((LA14_0==ID))
-									{
-										alt14 = 1;
-									}
-								} finally { DebugExitDecision(14); }
-								switch (alt14)
-								{
-									case 1:
-										DebugEnterAlt(1);
-										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:201:10: f= field_list
-									{
-										DebugLocation(201, 10);
-										PushFollow(Follow._field_list_in_invoke1420);
-										f=field_list();
-										PopFollow();
-
-
-									}
-										break;
-
-								}
-							} finally { DebugExitSubRule(14); }
-
-							DebugLocation(201, 23);
-							Match(input,R_KEY,Follow._R_KEY_in_invoke1423); 
-							DebugLocation(201, 29);
-							r = new RecordCreation{line = l, column = c, Members = f ?? new List<Tuple<string, IExpression>>(), Name = id};
-
-						}
-							break;
-
-					}
-				}
-				catch (RecognitionException re)
-				{
-					ReportError(re);
-					Recover(input,re);
-				}
-				finally
-				{
-					TraceOut("invoke", 14);
-					LeaveRule("invoke", 14);
-					LeaveRule_invoke();
-				}
-				DebugLocation(202, 0);
-			} finally { DebugExitRule(GrammarFileName, "invoke"); }
-			return r;
-
-		}
-		// $ANTLR end "invoke"
-
-		partial void EnterRule_array();
-		partial void LeaveRule_array();
-
-		// $ANTLR start "array"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:204:1: array[string id, IExpression e1, int l, int c, int bl, int bc] returns [IExpression r] : ( OF e2= expression |e2= lvalue[new ArrayAccess {Array = new Var {Name = id, line = l, column = c}, Indexer = e1, line = bl, column = bc}] );
-		[GrammarRule("array")]
-		private IExpression array(string id, IExpression e1, int l, int c, int bl, int bc)
-		{
-			EnterRule_array();
-			EnterRule("array", 15);
-			TraceIn("array", 15);
-			IExpression r = default(IExpression);
-
-
-			IExpression e2 = default(IExpression);
-
-			try { DebugEnterRule(GrammarFileName, "array");
-				DebugLocation(204, 0);
-				try
-				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:205:3: ( OF e2= expression |e2= lvalue[new ArrayAccess {Array = new Var {Name = id, line = l, column = c}, Indexer = e1, line = bl, column = bc}] )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:213:3: ( L_PARENT (a= arg_list )? R_PARENT | L_KEY (f= field_list )? R_KEY )
 					int alt16=2;
 					try { DebugEnterDecision(16, false);
 						int LA16_0 = input.LA(1);
 
-						if ((LA16_0==OF))
+						if ((LA16_0==L_PARENT))
 						{
 							alt16 = 1;
 						}
-						else if ((LA16_0==EOF||LA16_0==AND||LA16_0==ASSIGN||LA16_0==COMMA||(LA16_0>=DIV && LA16_0<=DOT)||(LA16_0>=ELSE && LA16_0<=EQUAL)||(LA16_0>=FUNCTION && LA16_0<=GTHAN_EQUAL)||LA16_0==IN||(LA16_0>=LTHAN && LA16_0<=L_BRACKETS)||(LA16_0>=MINUS && LA16_0<=MULT)||LA16_0==NOT_EQUAL||(LA16_0>=OR && LA16_0<=SEMICOLON)||(LA16_0>=THEN && LA16_0<=VAR)))
+						else if ((LA16_0==L_KEY))
 						{
 							alt16 = 2;
 						}
@@ -1851,30 +1781,181 @@ namespace TigerCs.Parser.Tiger
 					{
 						case 1:
 							DebugEnterAlt(1);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:205:3: OF e2= expression
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:213:3: L_PARENT (a= arg_list )? R_PARENT
 						{
-							DebugLocation(205, 3);
-							Match(input,OF,Follow._OF_in_array1440); 
-							DebugLocation(205, 8);
-							PushFollow(Follow._expression_in_array1444);
+							DebugLocation(213, 3);
+							Match(input,L_PARENT,Follow._L_PARENT_in_invoke1424); 
+							DebugLocation(213, 13);
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:213:13: (a= arg_list )?
+							int alt14=2;
+							try { DebugEnterSubRule(14);
+								try { DebugEnterDecision(14, false);
+									int LA14_0 = input.LA(1);
+
+									if ((LA14_0==BREAK||LA14_0==FOR||(LA14_0>=ID && LA14_0<=IF)||(LA14_0>=INT && LA14_0<=LET)||(LA14_0>=L_PARENT && LA14_0<=MINUS)||LA14_0==NIL||LA14_0==STRING||LA14_0==WHILE))
+									{
+										alt14 = 1;
+									}
+								} finally { DebugExitDecision(14); }
+								switch (alt14)
+								{
+									case 1:
+										DebugEnterAlt(1);
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:213:13: a= arg_list
+									{
+										DebugLocation(213, 13);
+										PushFollow(Follow._arg_list_in_invoke1428);
+										a=arg_list();
+										PopFollow();
+
+
+									}
+										break;
+
+								}
+							} finally { DebugExitSubRule(14); }
+
+							DebugLocation(213, 24);
+							Match(input,R_PARENT,Follow._R_PARENT_in_invoke1431); 
+							DebugLocation(213, 33);
+							r = new Call{line = l, column = c, Arguments = a ?? new List<IExpression>() , FunctionName = id};
+
+						}
+							break;
+						case 2:
+							DebugEnterAlt(2);
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:214:3: L_KEY (f= field_list )? R_KEY
+						{
+							DebugLocation(214, 3);
+							Match(input,L_KEY,Follow._L_KEY_in_invoke1437); 
+							DebugLocation(214, 10);
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:214:10: (f= field_list )?
+							int alt15=2;
+							try { DebugEnterSubRule(15);
+								try { DebugEnterDecision(15, false);
+									int LA15_0 = input.LA(1);
+
+									if ((LA15_0==ID))
+									{
+										alt15 = 1;
+									}
+								} finally { DebugExitDecision(15); }
+								switch (alt15)
+								{
+									case 1:
+										DebugEnterAlt(1);
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:214:10: f= field_list
+									{
+										DebugLocation(214, 10);
+										PushFollow(Follow._field_list_in_invoke1441);
+										f=field_list();
+										PopFollow();
+
+
+									}
+										break;
+
+								}
+							} finally { DebugExitSubRule(15); }
+
+							DebugLocation(214, 23);
+							Match(input,R_KEY,Follow._R_KEY_in_invoke1444); 
+							DebugLocation(214, 29);
+							r = new RecordCreation{line = l, column = c, Members = f ?? new List<Tuple<string, IExpression>>(), Name = id};
+
+						}
+							break;
+
+					}
+				}
+
+				catch (RecognitionException error) 
+				{
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
+				}
+
+				finally
+				{
+					TraceOut("invoke", 14);
+					LeaveRule("invoke", 14);
+					LeaveRule_invoke();
+				}
+				DebugLocation(215, 0);
+			} finally { DebugExitRule(GrammarFileName, "invoke"); }
+			return r;
+
+		}
+		// $ANTLR end "invoke"
+
+		partial void EnterRule_array();
+		partial void LeaveRule_array();
+
+		// $ANTLR start "array"
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:217:1: array[string id, IExpression e1, int l, int c, int bl, int bc] returns [IExpression r] : ( OF e2= expression |e2= lvalue[new ArrayAccess {Array = new Var {Name = id, line = l, column = c}, Indexer = e1, line = bl, column = bc}] );
+		[GrammarRule("array")]
+		private IExpression array(string id, IExpression e1, int l, int c, int bl, int bc)
+		{
+			EnterRule_array();
+			EnterRule("array", 15);
+			TraceIn("array", 15);
+			IExpression r = default(IExpression);
+
+
+			IExpression e2 = default(IExpression);
+
+			try { DebugEnterRule(GrammarFileName, "array");
+				DebugLocation(217, 0);
+				try
+				{
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:218:3: ( OF e2= expression |e2= lvalue[new ArrayAccess {Array = new Var {Name = id, line = l, column = c}, Indexer = e1, line = bl, column = bc}] )
+					int alt17=2;
+					try { DebugEnterDecision(17, false);
+						int LA17_0 = input.LA(1);
+
+						if ((LA17_0==OF))
+						{
+							alt17 = 1;
+						}
+						else if ((LA17_0==EOF||LA17_0==AND||LA17_0==ASSIGN||LA17_0==COMMA||(LA17_0>=DIV && LA17_0<=DOT)||(LA17_0>=ELSE && LA17_0<=EQUAL)||(LA17_0>=FUNCTION && LA17_0<=GTHAN_EQUAL)||LA17_0==IN||(LA17_0>=LTHAN && LA17_0<=L_BRACKETS)||(LA17_0>=MINUS && LA17_0<=MULT)||LA17_0==NOT_EQUAL||(LA17_0>=OR && LA17_0<=SEMICOLON)||(LA17_0>=THEN && LA17_0<=VAR)))
+						{
+							alt17 = 2;
+						}
+						else
+						{
+							NoViableAltException nvae = new NoViableAltException("", 17, 0, input);
+							DebugRecognitionException(nvae);
+							throw nvae;
+						}
+					} finally { DebugExitDecision(17); }
+					switch (alt17)
+					{
+						case 1:
+							DebugEnterAlt(1);
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:218:3: OF e2= expression
+						{
+							DebugLocation(218, 3);
+							Match(input,OF,Follow._OF_in_array1461); 
+							DebugLocation(218, 8);
+							PushFollow(Follow._expression_in_array1465);
 							e2=expression();
 							PopFollow();
 
-							DebugLocation(205, 20);
+							DebugLocation(218, 20);
 							r = new ArrayCreation{line = l, column = c, Length = e1, Init = e2, ArrayOf = id};
 
 						}
 							break;
 						case 2:
 							DebugEnterAlt(2);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:206:3: e2= lvalue[new ArrayAccess {Array = new Var {Name = id, line = l, column = c}, Indexer = e1, line = bl, column = bc}]
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:219:3: e2= lvalue[new ArrayAccess {Array = new Var {Name = id, line = l, column = c}, Indexer = e1, line = bl, column = bc}]
 						{
-							DebugLocation(206, 5);
-							PushFollow(Follow._lvalue_in_array1452);
+							DebugLocation(219, 5);
+							PushFollow(Follow._lvalue_in_array1473);
 							e2=lvalue(new ArrayAccess {Array = new Var {Name = id, line = l, column = c}, Indexer = e1, line = bl, column = bc});
 							PopFollow();
 
-							DebugLocation(206, 120);
+							DebugLocation(219, 120);
 							r = e2;
 
 						}
@@ -1882,18 +1963,20 @@ namespace TigerCs.Parser.Tiger
 
 					}
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("array", 15);
 					LeaveRule("array", 15);
 					LeaveRule_array();
 				}
-				DebugLocation(207, 0);
+				DebugLocation(220, 0);
 			} finally { DebugExitRule(GrammarFileName, "array"); }
 			return r;
 
@@ -1904,7 +1987,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_dot();
 
 		// $ANTLR start "dot"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:209:1: dot[string idr, string idm, int l, int c, int dl, int dc] returns [IExpression r] : e2= lvalue[new MemberAccess {MemberName = idm, Record = new Var {Name = idr, line = l, column = c}, line = dl, column = dc}] ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:222:1: dot[string idr, string idm, int l, int c, int dl, int dc] returns [IExpression r] : e2= lvalue[new MemberAccess {MemberName = idm, Record = new Var {Name = idr, line = l, column = c}, line = dl, column = dc}] ;
 		[GrammarRule("dot")]
 		private IExpression dot(string idr, string idm, int l, int c, int dl, int dc)
 		{
@@ -1917,36 +2000,38 @@ namespace TigerCs.Parser.Tiger
 			IExpression e2 = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "dot");
-				DebugLocation(209, 0);
+				DebugLocation(222, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:210:3: (e2= lvalue[new MemberAccess {MemberName = idm, Record = new Var {Name = idr, line = l, column = c}, line = dl, column = dc}] )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:223:3: (e2= lvalue[new MemberAccess {MemberName = idm, Record = new Var {Name = idr, line = l, column = c}, line = dl, column = dc}] )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:210:3: e2= lvalue[new MemberAccess {MemberName = idm, Record = new Var {Name = idr, line = l, column = c}, line = dl, column = dc}]
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:223:3: e2= lvalue[new MemberAccess {MemberName = idm, Record = new Var {Name = idr, line = l, column = c}, line = dl, column = dc}]
 					{
-						DebugLocation(210, 5);
-						PushFollow(Follow._lvalue_in_dot1472);
+						DebugLocation(223, 5);
+						PushFollow(Follow._lvalue_in_dot1493);
 						e2=lvalue(new MemberAccess {MemberName = idm, Record = new Var {Name = idr, line = l, column = c}, line = dl, column = dc});
 						PopFollow();
 
-						DebugLocation(210, 128);
+						DebugLocation(223, 128);
 						r = e2;
 
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("dot", 16);
 					LeaveRule("dot", 16);
 					LeaveRule_dot();
 				}
-				DebugLocation(211, 0);
+				DebugLocation(224, 0);
 			} finally { DebugExitRule(GrammarFileName, "dot"); }
 			return r;
 
@@ -1957,7 +2042,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_lvalue();
 
 		// $ANTLR start "lvalue"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:213:1: lvalue[ILValue var] returns [IExpression r] : ( DOT id= ID | L_BRACKETS indx= expression R_BRACKETS )* ( ASSIGN e= expression )? ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:226:1: lvalue[ILValue var] returns [IExpression r] : ( DOT id= ID | L_BRACKETS indx= expression R_BRACKETS )* ( ASSIGN e= expression )? ;
 		[GrammarRule("lvalue")]
 		private IExpression lvalue(ILValue var)
 		{
@@ -1968,135 +2053,137 @@ namespace TigerCs.Parser.Tiger
 
 
 			IToken id = default(IToken);
-			IToken DOT16 = default(IToken);
-			IToken L_BRACKETS17 = default(IToken);
-			IToken ASSIGN18 = default(IToken);
+			IToken DOT17 = default(IToken);
+			IToken L_BRACKETS18 = default(IToken);
+			IToken ASSIGN19 = default(IToken);
 			IExpression indx = default(IExpression);
 			IExpression e = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "lvalue");
-				DebugLocation(213, 0);
+				DebugLocation(226, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:215:3: ( ( DOT id= ID | L_BRACKETS indx= expression R_BRACKETS )* ( ASSIGN e= expression )? )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:228:3: ( ( DOT id= ID | L_BRACKETS indx= expression R_BRACKETS )* ( ASSIGN e= expression )? )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:215:3: ( DOT id= ID | L_BRACKETS indx= expression R_BRACKETS )* ( ASSIGN e= expression )?
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:228:3: ( DOT id= ID | L_BRACKETS indx= expression R_BRACKETS )* ( ASSIGN e= expression )?
 					{
-						DebugLocation(215, 3);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:215:3: ( DOT id= ID | L_BRACKETS indx= expression R_BRACKETS )*
-						try { DebugEnterSubRule(17);
+						DebugLocation(228, 3);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:228:3: ( DOT id= ID | L_BRACKETS indx= expression R_BRACKETS )*
+						try { DebugEnterSubRule(18);
 							while (true)
 							{
-								int alt17=3;
-								try { DebugEnterDecision(17, false);
-									int LA17_0 = input.LA(1);
+								int alt18=3;
+								try { DebugEnterDecision(18, false);
+									int LA18_0 = input.LA(1);
 
-									if ((LA17_0==DOT))
+									if ((LA18_0==DOT))
 									{
-										alt17 = 1;
+										alt18 = 1;
 									}
-									else if ((LA17_0==L_BRACKETS))
+									else if ((LA18_0==L_BRACKETS))
 									{
-										alt17 = 2;
+										alt18 = 2;
 									}
 
 
-								} finally { DebugExitDecision(17); }
-								switch ( alt17 )
+								} finally { DebugExitDecision(18); }
+								switch ( alt18 )
 								{
 									case 1:
 										DebugEnterAlt(1);
-										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:215:4: DOT id= ID
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:228:4: DOT id= ID
 									{
-										DebugLocation(215, 4);
-										DOT16=(IToken)Match(input,DOT,Follow._DOT_in_lvalue1496); 
-										DebugLocation(215, 10);
-										id=(IToken)Match(input,ID,Follow._ID_in_lvalue1500); 
-										DebugLocation(215, 14);
-										var = new MemberAccess {MemberName = (id!=null?id.Text:null), Record = var, line = DOT16.Line, column = DOT16.CharPositionInLine};
+										DebugLocation(228, 4);
+										DOT17=(IToken)Match(input,DOT,Follow._DOT_in_lvalue1517); 
+										DebugLocation(228, 10);
+										id=(IToken)Match(input,ID,Follow._ID_in_lvalue1521); 
+										DebugLocation(228, 14);
+										var = new MemberAccess {MemberName = (id!=null?id.Text:null), Record = var, line = DOT17.Line, column = DOT17.CharPositionInLine};
 
 									}
 										break;
 									case 2:
 										DebugEnterAlt(2);
-										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:216:4: L_BRACKETS indx= expression R_BRACKETS
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:229:4: L_BRACKETS indx= expression R_BRACKETS
 									{
-										DebugLocation(216, 4);
-										L_BRACKETS17=(IToken)Match(input,L_BRACKETS,Follow._L_BRACKETS_in_lvalue1508); 
-										DebugLocation(216, 19);
-										PushFollow(Follow._expression_in_lvalue1512);
+										DebugLocation(229, 4);
+										L_BRACKETS18=(IToken)Match(input,L_BRACKETS,Follow._L_BRACKETS_in_lvalue1529); 
+										DebugLocation(229, 19);
+										PushFollow(Follow._expression_in_lvalue1533);
 										indx=expression();
 										PopFollow();
 
-										DebugLocation(216, 31);
-										Match(input,R_BRACKETS,Follow._R_BRACKETS_in_lvalue1514); 
-										DebugLocation(216, 42);
-										var = new ArrayAccess {Array = var, Indexer = indx, line = L_BRACKETS17.Line, column = L_BRACKETS17.CharPositionInLine};
+										DebugLocation(229, 31);
+										Match(input,R_BRACKETS,Follow._R_BRACKETS_in_lvalue1535); 
+										DebugLocation(229, 42);
+										var = new ArrayAccess {Array = var, Indexer = indx, line = L_BRACKETS18.Line, column = L_BRACKETS18.CharPositionInLine};
 
 									}
 										break;
 
 									default:
-										goto loop17;
+										goto loop18;
 								}
 							}
 
-							loop17:
+							loop18:
 							;
 
-						} finally { DebugExitSubRule(17); }
+						} finally { DebugExitSubRule(18); }
 
-						DebugLocation(217, 2);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:217:2: ( ASSIGN e= expression )?
-						int alt18=2;
-						try { DebugEnterSubRule(18);
-							try { DebugEnterDecision(18, false);
-								int LA18_0 = input.LA(1);
+						DebugLocation(230, 2);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:230:2: ( ASSIGN e= expression )?
+						int alt19=2;
+						try { DebugEnterSubRule(19);
+							try { DebugEnterDecision(19, false);
+								int LA19_0 = input.LA(1);
 
-								if ((LA18_0==ASSIGN))
+								if ((LA19_0==ASSIGN))
 								{
-									alt18 = 1;
+									alt19 = 1;
 								}
-							} finally { DebugExitDecision(18); }
-							switch (alt18)
+							} finally { DebugExitDecision(19); }
+							switch (alt19)
 							{
 								case 1:
 									DebugEnterAlt(1);
-									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:217:3: ASSIGN e= expression
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:230:3: ASSIGN e= expression
 								{
-									DebugLocation(217, 3);
-									ASSIGN18=(IToken)Match(input,ASSIGN,Follow._ASSIGN_in_lvalue1524); 
-									DebugLocation(217, 11);
-									PushFollow(Follow._expression_in_lvalue1528);
+									DebugLocation(230, 3);
+									ASSIGN19=(IToken)Match(input,ASSIGN,Follow._ASSIGN_in_lvalue1545); 
+									DebugLocation(230, 11);
+									PushFollow(Follow._expression_in_lvalue1549);
 									e=expression();
 									PopFollow();
 
-									DebugLocation(217, 23);
-									r = new Assign {Target = var, Source = e, line = ASSIGN18.Line, column = ASSIGN18.CharPositionInLine};
+									DebugLocation(230, 23);
+									r = new Assign {Target = var, Source = e, line = ASSIGN19.Line, column = ASSIGN19.CharPositionInLine};
 
 								}
 									break;
 
 							}
-						} finally { DebugExitSubRule(18); }
+						} finally { DebugExitSubRule(19); }
 
 
 					}
 
 					r = r ?? var; 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("lvalue", 17);
 					LeaveRule("lvalue", 17);
 					LeaveRule_lvalue();
 				}
-				DebugLocation(218, 0);
+				DebugLocation(231, 0);
 			} finally { DebugExitRule(GrammarFileName, "lvalue"); }
 			return r;
 
@@ -2107,7 +2194,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_arg_list();
 
 		// $ANTLR start "arg_list"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:220:1: arg_list returns [List<IExpression> r] : e= expression ( COMMA e1= expression )* ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:233:1: arg_list returns [List<IExpression> r] : e= expression ( COMMA e1= expression )* ;
 		[GrammarRule("arg_list")]
 		private List<IExpression> arg_list()
 		{
@@ -2124,128 +2211,22 @@ namespace TigerCs.Parser.Tiger
 			r =  new List<IExpression>();
 
 			try { DebugEnterRule(GrammarFileName, "arg_list");
-				DebugLocation(220, 0);
+				DebugLocation(233, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:225:3: (e= expression ( COMMA e1= expression )* )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:238:3: (e= expression ( COMMA e1= expression )* )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:225:3: e= expression ( COMMA e1= expression )*
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:238:3: e= expression ( COMMA e1= expression )*
 					{
-						DebugLocation(225, 4);
-						PushFollow(Follow._expression_in_arg_list1552);
+						DebugLocation(238, 4);
+						PushFollow(Follow._expression_in_arg_list1573);
 						e=expression();
 						PopFollow();
 
-						DebugLocation(225, 16);
+						DebugLocation(238, 16);
 						r.Add(e);
-						DebugLocation(225, 28);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:225:28: ( COMMA e1= expression )*
-						try { DebugEnterSubRule(19);
-							while (true)
-							{
-								int alt19=2;
-								try { DebugEnterDecision(19, false);
-									int LA19_0 = input.LA(1);
-
-									if ((LA19_0==COMMA))
-									{
-										alt19 = 1;
-									}
-
-
-								} finally { DebugExitDecision(19); }
-								switch ( alt19 )
-								{
-									case 1:
-										DebugEnterAlt(1);
-										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:225:29: COMMA e1= expression
-									{
-										DebugLocation(225, 29);
-										Match(input,COMMA,Follow._COMMA_in_arg_list1557); 
-										DebugLocation(225, 37);
-										PushFollow(Follow._expression_in_arg_list1562);
-										e1=expression();
-										PopFollow();
-
-										DebugLocation(225, 50);
-										r.Add(e1);
-
-									}
-										break;
-
-									default:
-										goto loop19;
-								}
-							}
-
-							loop19:
-							;
-
-						} finally { DebugExitSubRule(19); }
-
-
-					}
-
-				}
-				catch (RecognitionException re)
-				{
-					ReportError(re);
-					Recover(input,re);
-				}
-				finally
-				{
-					TraceOut("arg_list", 18);
-					LeaveRule("arg_list", 18);
-					LeaveRule_arg_list();
-				}
-				DebugLocation(226, 0);
-			} finally { DebugExitRule(GrammarFileName, "arg_list"); }
-			return r;
-
-		}
-		// $ANTLR end "arg_list"
-
-		partial void EnterRule_field_list();
-		partial void LeaveRule_field_list();
-
-		// $ANTLR start "field_list"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:228:1: field_list returns [List<Tuple<string, IExpression>> r] : i= ID ASSIGN e= expression ( COMMA i= ID ASSIGN e= expression )* ;
-		[GrammarRule("field_list")]
-		private List<Tuple<string, IExpression>> field_list()
-		{
-			EnterRule_field_list();
-			EnterRule("field_list", 19);
-			TraceIn("field_list", 19);
-			List<Tuple<string, IExpression>> r = default(List<Tuple<string, IExpression>>);
-
-
-			IToken i = default(IToken);
-			IExpression e = default(IExpression);
-
-
-			r = new List<Tuple<string, IExpression>>();
-
-			try { DebugEnterRule(GrammarFileName, "field_list");
-				DebugLocation(228, 0);
-				try
-				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:233:3: (i= ID ASSIGN e= expression ( COMMA i= ID ASSIGN e= expression )* )
-					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:233:3: i= ID ASSIGN e= expression ( COMMA i= ID ASSIGN e= expression )*
-					{
-						DebugLocation(233, 4);
-						i=(IToken)Match(input,ID,Follow._ID_in_field_list1585); 
-						DebugLocation(233, 8);
-						Match(input,ASSIGN,Follow._ASSIGN_in_field_list1587); 
-						DebugLocation(233, 16);
-						PushFollow(Follow._expression_in_field_list1591);
-						e=expression();
-						PopFollow();
-
-						DebugLocation(233, 27);
-						r.Add(new Tuple<string, IExpression>((i!=null?i.Text:null), e));
-						DebugLocation(233, 80);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:233:80: ( COMMA i= ID ASSIGN e= expression )*
+						DebugLocation(238, 28);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:238:28: ( COMMA e1= expression )*
 						try { DebugEnterSubRule(20);
 							while (true)
 							{
@@ -2264,21 +2245,17 @@ namespace TigerCs.Parser.Tiger
 								{
 									case 1:
 										DebugEnterAlt(1);
-										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:233:81: COMMA i= ID ASSIGN e= expression
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:238:29: COMMA e1= expression
 									{
-										DebugLocation(233, 81);
-										Match(input,COMMA,Follow._COMMA_in_field_list1595); 
-										DebugLocation(233, 88);
-										i=(IToken)Match(input,ID,Follow._ID_in_field_list1599); 
-										DebugLocation(233, 92);
-										Match(input,ASSIGN,Follow._ASSIGN_in_field_list1601); 
-										DebugLocation(233, 100);
-										PushFollow(Follow._expression_in_field_list1605);
-										e=expression();
+										DebugLocation(238, 29);
+										Match(input,COMMA,Follow._COMMA_in_arg_list1578); 
+										DebugLocation(238, 37);
+										PushFollow(Follow._expression_in_arg_list1583);
+										e1=expression();
 										PopFollow();
 
-										DebugLocation(233, 112);
-										r.Add(new Tuple<string, IExpression>((i!=null?i.Text:null), e));
+										DebugLocation(238, 50);
+										r.Add(e1);
 
 									}
 										break;
@@ -2297,61 +2274,67 @@ namespace TigerCs.Parser.Tiger
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
-					TraceOut("field_list", 19);
-					LeaveRule("field_list", 19);
-					LeaveRule_field_list();
+					TraceOut("arg_list", 18);
+					LeaveRule("arg_list", 18);
+					LeaveRule_arg_list();
 				}
-				DebugLocation(234, 0);
-			} finally { DebugExitRule(GrammarFileName, "field_list"); }
+				DebugLocation(239, 0);
+			} finally { DebugExitRule(GrammarFileName, "arg_list"); }
 			return r;
 
 		}
-		// $ANTLR end "field_list"
+		// $ANTLR end "arg_list"
 
-		partial void EnterRule_expression_sequence();
-		partial void LeaveRule_expression_sequence();
+		partial void EnterRule_field_list();
+		partial void LeaveRule_field_list();
 
-		// $ANTLR start "expression_sequence"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:236:1: expression_sequence returns [ExpressionList<IExpression> r] : e1= expression ( SEMICOLON e2= expression )* ;
-		[GrammarRule("expression_sequence")]
-		private ExpressionList<IExpression> expression_sequence()
+		// $ANTLR start "field_list"
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:241:1: field_list returns [List<Tuple<string, IExpression>> r] : i= ID EQUAL e= expression ( COMMA i= ID EQUAL e= expression )* ;
+		[GrammarRule("field_list")]
+		private List<Tuple<string, IExpression>> field_list()
 		{
-			EnterRule_expression_sequence();
-			EnterRule("expression_sequence", 20);
-			TraceIn("expression_sequence", 20);
-			ExpressionList<IExpression> r = default(ExpressionList<IExpression>);
+			EnterRule_field_list();
+			EnterRule("field_list", 19);
+			TraceIn("field_list", 19);
+			List<Tuple<string, IExpression>> r = default(List<Tuple<string, IExpression>>);
 
 
-			IExpression e1 = default(IExpression);
-			IExpression e2 = default(IExpression);
+			IToken i = default(IToken);
+			IExpression e = default(IExpression);
 
 
-			r = new ExpressionList<IExpression>();
+			r = new List<Tuple<string, IExpression>>();
 
-			try { DebugEnterRule(GrammarFileName, "expression_sequence");
-				DebugLocation(236, 0);
+			try { DebugEnterRule(GrammarFileName, "field_list");
+				DebugLocation(241, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:241:3: (e1= expression ( SEMICOLON e2= expression )* )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:246:3: (i= ID EQUAL e= expression ( COMMA i= ID EQUAL e= expression )* )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:241:3: e1= expression ( SEMICOLON e2= expression )*
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:246:3: i= ID EQUAL e= expression ( COMMA i= ID EQUAL e= expression )*
 					{
-						DebugLocation(241, 5);
-						PushFollow(Follow._expression_in_expression_sequence1628);
-						e1=expression();
+						DebugLocation(246, 4);
+						i=(IToken)Match(input,ID,Follow._ID_in_field_list1606); 
+						DebugLocation(246, 8);
+						Match(input,EQUAL,Follow._EQUAL_in_field_list1608); 
+						DebugLocation(246, 15);
+						PushFollow(Follow._expression_in_field_list1612);
+						e=expression();
 						PopFollow();
 
-						DebugLocation(241, 16);
-						r.Add(e1);
-						DebugLocation(241, 29);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:241:29: ( SEMICOLON e2= expression )*
+						DebugLocation(246, 26);
+						r.Add(new Tuple<string, IExpression>((i!=null?i.Text:null), e));
+						DebugLocation(246, 79);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:246:79: ( COMMA i= ID EQUAL e= expression )*
 						try { DebugEnterSubRule(21);
 							while (true)
 							{
@@ -2359,7 +2342,7 @@ namespace TigerCs.Parser.Tiger
 								try { DebugEnterDecision(21, false);
 									int LA21_0 = input.LA(1);
 
-									if ((LA21_0==SEMICOLON))
+									if ((LA21_0==COMMA))
 									{
 										alt21 = 1;
 									}
@@ -2370,17 +2353,21 @@ namespace TigerCs.Parser.Tiger
 								{
 									case 1:
 										DebugEnterAlt(1);
-										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:241:31: SEMICOLON e2= expression
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:246:80: COMMA i= ID EQUAL e= expression
 									{
-										DebugLocation(241, 31);
-										Match(input,SEMICOLON,Follow._SEMICOLON_in_expression_sequence1633); 
-										DebugLocation(241, 43);
-										PushFollow(Follow._expression_in_expression_sequence1637);
-										e2=expression();
+										DebugLocation(246, 80);
+										Match(input,COMMA,Follow._COMMA_in_field_list1616); 
+										DebugLocation(246, 87);
+										i=(IToken)Match(input,ID,Follow._ID_in_field_list1620); 
+										DebugLocation(246, 91);
+										Match(input,EQUAL,Follow._EQUAL_in_field_list1622); 
+										DebugLocation(246, 98);
+										PushFollow(Follow._expression_in_field_list1626);
+										e=expression();
 										PopFollow();
 
-										DebugLocation(241, 54);
-										r.Add(e2);
+										DebugLocation(246, 110);
+										r.Add(new Tuple<string, IExpression>((i!=null?i.Text:null), e));
 
 									}
 										break;
@@ -2399,18 +2386,125 @@ namespace TigerCs.Parser.Tiger
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
+				finally
+				{
+					TraceOut("field_list", 19);
+					LeaveRule("field_list", 19);
+					LeaveRule_field_list();
+				}
+				DebugLocation(247, 0);
+			} finally { DebugExitRule(GrammarFileName, "field_list"); }
+			return r;
+
+		}
+		// $ANTLR end "field_list"
+
+		partial void EnterRule_expression_sequence();
+		partial void LeaveRule_expression_sequence();
+
+		// $ANTLR start "expression_sequence"
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:249:1: expression_sequence returns [IExpression r] : e1= expression ( SEMICOLON e2= expression )* ;
+		[GrammarRule("expression_sequence")]
+		private IExpression expression_sequence()
+		{
+			EnterRule_expression_sequence();
+			EnterRule("expression_sequence", 20);
+			TraceIn("expression_sequence", 20);
+			IExpression r = default(IExpression);
+
+
+			IExpression e1 = default(IExpression);
+			IExpression e2 = default(IExpression);
+
+
+			var s = new ExpressionList<IExpression>();
+
+			try { DebugEnterRule(GrammarFileName, "expression_sequence");
+				DebugLocation(249, 0);
+				try
+				{
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:255:3: (e1= expression ( SEMICOLON e2= expression )* )
+					DebugEnterAlt(1);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:255:3: e1= expression ( SEMICOLON e2= expression )*
+					{
+						DebugLocation(255, 5);
+						PushFollow(Follow._expression_in_expression_sequence1653);
+						e1=expression();
+						PopFollow();
+
+						DebugLocation(255, 16);
+						s.Add(e1);
+						DebugLocation(255, 29);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:255:29: ( SEMICOLON e2= expression )*
+						try { DebugEnterSubRule(22);
+							while (true)
+							{
+								int alt22=2;
+								try { DebugEnterDecision(22, false);
+									int LA22_0 = input.LA(1);
+
+									if ((LA22_0==SEMICOLON))
+									{
+										alt22 = 1;
+									}
+
+
+								} finally { DebugExitDecision(22); }
+								switch ( alt22 )
+								{
+									case 1:
+										DebugEnterAlt(1);
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:255:31: SEMICOLON e2= expression
+									{
+										DebugLocation(255, 31);
+										Match(input,SEMICOLON,Follow._SEMICOLON_in_expression_sequence1658); 
+										DebugLocation(255, 43);
+										PushFollow(Follow._expression_in_expression_sequence1662);
+										e2=expression();
+										PopFollow();
+
+										DebugLocation(255, 54);
+										s.Add(e2);
+
+									}
+										break;
+
+									default:
+										goto loop22;
+								}
+							}
+
+							loop22:
+							;
+
+						} finally { DebugExitSubRule(22); }
+
+
+					}
+
+					r = s;
+				}
+
+				catch (RecognitionException error) 
+				{
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
+				}
+
 				finally
 				{
 					TraceOut("expression_sequence", 20);
 					LeaveRule("expression_sequence", 20);
 					LeaveRule_expression_sequence();
 				}
-				DebugLocation(242, 0);
+				DebugLocation(256, 0);
 			} finally { DebugExitRule(GrammarFileName, "expression_sequence"); }
 			return r;
 
@@ -2421,7 +2515,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_declaration_list_list();
 
 		// $ANTLR start "declaration_list_list"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:244:1: declaration_list_list returns [List<IDeclarationList<IDeclaration>> r] : (e= declaration[r, t] )+ ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:258:1: declaration_list_list returns [List<IDeclarationList<IDeclaration>> r] : (e= declaration[r, t] )+ ;
 		[GrammarRule("declaration_list_list")]
 		private List<IDeclarationList<IDeclaration>> declaration_list_list()
 		{
@@ -2438,78 +2532,80 @@ namespace TigerCs.Parser.Tiger
 			r = new List<IDeclarationList<IDeclaration>>();
 
 			try { DebugEnterRule(GrammarFileName, "declaration_list_list");
-				DebugLocation(244, 0);
+				DebugLocation(258, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:250:2: ( (e= declaration[r, t] )+ )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:264:2: ( (e= declaration[r, t] )+ )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:250:2: (e= declaration[r, t] )+
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:264:2: (e= declaration[r, t] )+
 					{
-						DebugLocation(250, 2);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:250:2: (e= declaration[r, t] )+
-						int cnt22=0;
-						try { DebugEnterSubRule(22);
+						DebugLocation(264, 2);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:264:2: (e= declaration[r, t] )+
+						int cnt23=0;
+						try { DebugEnterSubRule(23);
 							while (true)
 							{
-								int alt22=2;
-								try { DebugEnterDecision(22, false);
-									int LA22_0 = input.LA(1);
+								int alt23=2;
+								try { DebugEnterDecision(23, false);
+									int LA23_0 = input.LA(1);
 
-									if ((LA22_0==FUNCTION||(LA22_0>=TYPE && LA22_0<=VAR)))
+									if ((LA23_0==FUNCTION||(LA23_0>=TYPE && LA23_0<=VAR)))
 									{
-										alt22 = 1;
+										alt23 = 1;
 									}
 
 
-								} finally { DebugExitDecision(22); }
-								switch (alt22)
+								} finally { DebugExitDecision(23); }
+								switch (alt23)
 								{
 									case 1:
 										DebugEnterAlt(1);
-										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:250:3: e= declaration[r, t]
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:264:3: e= declaration[r, t]
 									{
-										DebugLocation(250, 4);
-										PushFollow(Follow._declaration_in_declaration_list_list1660);
+										DebugLocation(264, 4);
+										PushFollow(Follow._declaration_in_declaration_list_list1685);
 										e=declaration(r, t);
 										PopFollow();
 
-										DebugLocation(250, 23);
+										DebugLocation(264, 23);
 										t = e;
 
 									}
 										break;
 
 									default:
-										if (cnt22 >= 1)
-											goto loop22;
+										if (cnt23 >= 1)
+											goto loop23;
 
-										EarlyExitException eee22 = new EarlyExitException( 22, input );
-										DebugRecognitionException(eee22);
-										throw eee22;
+										EarlyExitException eee23 = new EarlyExitException( 23, input );
+										DebugRecognitionException(eee23);
+										throw eee23;
 								}
-								cnt22++;
+								cnt23++;
 							}
-							loop22:
+							loop23:
 							;
 
-						} finally { DebugExitSubRule(22); }
+						} finally { DebugExitSubRule(23); }
 
 
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("declaration_list_list", 21);
 					LeaveRule("declaration_list_list", 21);
 					LeaveRule_declaration_list_list();
 				}
-				DebugLocation(251, 0);
+				DebugLocation(265, 0);
 			} finally { DebugExitRule(GrammarFileName, "declaration_list_list"); }
 			return r;
 
@@ -2520,7 +2616,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_declaration();
 
 		// $ANTLR start "declaration"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:253:1: declaration[List<IDeclarationList<IDeclaration>> r, DclType prec] returns [DclType rt] : (e1= function_declaration |e2= type_declaration |e3= var_declaration );
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:267:1: declaration[List<IDeclarationList<IDeclaration>> r, DclType prec] returns [DclType rt] : (e1= function_declaration |e2= type_declaration |e3= var_declaration );
 		[GrammarRule("declaration")]
 		private DclType declaration(List<IDeclarationList<IDeclaration>> r, DclType prec)
 		{
@@ -2540,78 +2636,78 @@ namespace TigerCs.Parser.Tiger
 			VarDeclaration v = null;
 
 			try { DebugEnterRule(GrammarFileName, "declaration");
-				DebugLocation(253, 0);
+				DebugLocation(267, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:280:3: (e1= function_declaration |e2= type_declaration |e3= var_declaration )
-					int alt23=3;
-					try { DebugEnterDecision(23, false);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:294:3: (e1= function_declaration |e2= type_declaration |e3= var_declaration )
+					int alt24=3;
+					try { DebugEnterDecision(24, false);
 						switch (input.LA(1))
 						{
 							case FUNCTION:
 							{
-								alt23 = 1;
+								alt24 = 1;
 							}
 								break;
 							case TYPE:
 							{
-								alt23 = 2;
+								alt24 = 2;
 							}
 								break;
 							case VAR:
 							{
-								alt23 = 3;
+								alt24 = 3;
 							}
 								break;
 							default:
 							{
-								NoViableAltException nvae = new NoViableAltException("", 23, 0, input);
+								NoViableAltException nvae = new NoViableAltException("", 24, 0, input);
 								DebugRecognitionException(nvae);
 								throw nvae;
 							}
 						}
 
-					} finally { DebugExitDecision(23); }
-					switch (alt23)
+					} finally { DebugExitDecision(24); }
+					switch (alt24)
 					{
 						case 1:
 							DebugEnterAlt(1);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:280:3: e1= function_declaration
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:294:3: e1= function_declaration
 						{
-							DebugLocation(280, 5);
-							PushFollow(Follow._function_declaration_in_declaration1692);
+							DebugLocation(294, 5);
+							PushFollow(Follow._function_declaration_in_declaration1717);
 							e1=function_declaration();
 							PopFollow();
 
-							DebugLocation(280, 27);
+							DebugLocation(294, 27);
 							f = e1;
 
 						}
 							break;
 						case 2:
 							DebugEnterAlt(2);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:281:3: e2= type_declaration
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:295:3: e2= type_declaration
 						{
-							DebugLocation(281, 5);
-							PushFollow(Follow._type_declaration_in_declaration1700);
+							DebugLocation(295, 5);
+							PushFollow(Follow._type_declaration_in_declaration1725);
 							e2=type_declaration();
 							PopFollow();
 
-							DebugLocation(281, 23);
+							DebugLocation(295, 23);
 							t = e2;
 
 						}
 							break;
 						case 3:
 							DebugEnterAlt(3);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:282:3: e3= var_declaration
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:296:3: e3= var_declaration
 						{
-							DebugLocation(282, 5);
-							PushFollow(Follow._var_declaration_in_declaration1708);
+							DebugLocation(296, 5);
+							PushFollow(Follow._var_declaration_in_declaration1733);
 							e3=var_declaration();
 							PopFollow();
 
-							DebugLocation(282, 22);
+							DebugLocation(296, 22);
 							v = e3;
 
 						}
@@ -2638,18 +2734,20 @@ namespace TigerCs.Parser.Tiger
 					} 
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("declaration", 22);
 					LeaveRule("declaration", 22);
 					LeaveRule_declaration();
 				}
-				DebugLocation(283, 0);
+				DebugLocation(297, 0);
 			} finally { DebugExitRule(GrammarFileName, "declaration"); }
 			return rt;
 
@@ -2660,7 +2758,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_function_declaration();
 
 		// $ANTLR start "function_declaration"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:285:1: function_declaration returns [FunctionDeclaration r] : FUNCTION i= ID L_PARENT (p= type_fields )? R_PARENT ( COLON t= ID )? EQUAL e= expression ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:299:1: function_declaration returns [FunctionDeclaration r] : FUNCTION i= ID L_PARENT (p= type_fields )? R_PARENT ( COLON t= ID )? EQUAL e= expression ;
 		[GrammarRule("function_declaration")]
 		private FunctionDeclaration function_declaration()
 		{
@@ -2672,65 +2770,33 @@ namespace TigerCs.Parser.Tiger
 
 			IToken i = default(IToken);
 			IToken t = default(IToken);
-			IToken FUNCTION19 = default(IToken);
+			IToken FUNCTION20 = default(IToken);
 			List<ParameterDeclaration> p = default(List<ParameterDeclaration>);
 			IExpression e = default(IExpression);
 
 			string type = null;
 			try { DebugEnterRule(GrammarFileName, "function_declaration");
-				DebugLocation(285, 0);
+				DebugLocation(299, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:287:3: ( FUNCTION i= ID L_PARENT (p= type_fields )? R_PARENT ( COLON t= ID )? EQUAL e= expression )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:301:3: ( FUNCTION i= ID L_PARENT (p= type_fields )? R_PARENT ( COLON t= ID )? EQUAL e= expression )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:287:3: FUNCTION i= ID L_PARENT (p= type_fields )? R_PARENT ( COLON t= ID )? EQUAL e= expression
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:301:3: FUNCTION i= ID L_PARENT (p= type_fields )? R_PARENT ( COLON t= ID )? EQUAL e= expression
 					{
-						DebugLocation(287, 3);
-						FUNCTION19=(IToken)Match(input,FUNCTION,Follow._FUNCTION_in_function_declaration1730); 
-						DebugLocation(287, 13);
-						i=(IToken)Match(input,ID,Follow._ID_in_function_declaration1734); 
-						DebugLocation(287, 17);
-						Match(input,L_PARENT,Follow._L_PARENT_in_function_declaration1736); 
-						DebugLocation(287, 27);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:287:27: (p= type_fields )?
-						int alt24=2;
-						try { DebugEnterSubRule(24);
-							try { DebugEnterDecision(24, false);
-								int LA24_0 = input.LA(1);
-
-								if ((LA24_0==ID))
-								{
-									alt24 = 1;
-								}
-							} finally { DebugExitDecision(24); }
-							switch (alt24)
-							{
-								case 1:
-									DebugEnterAlt(1);
-									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:287:27: p= type_fields
-								{
-									DebugLocation(287, 27);
-									PushFollow(Follow._type_fields_in_function_declaration1740);
-									p=type_fields();
-									PopFollow();
-
-
-								}
-									break;
-
-							}
-						} finally { DebugExitSubRule(24); }
-
-						DebugLocation(287, 41);
-						Match(input,R_PARENT,Follow._R_PARENT_in_function_declaration1743); 
-						DebugLocation(287, 50);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:287:50: ( COLON t= ID )?
+						DebugLocation(301, 3);
+						FUNCTION20=(IToken)Match(input,FUNCTION,Follow._FUNCTION_in_function_declaration1755); 
+						DebugLocation(301, 13);
+						i=(IToken)Match(input,ID,Follow._ID_in_function_declaration1759); 
+						DebugLocation(301, 17);
+						Match(input,L_PARENT,Follow._L_PARENT_in_function_declaration1761); 
+						DebugLocation(301, 27);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:301:27: (p= type_fields )?
 						int alt25=2;
 						try { DebugEnterSubRule(25);
 							try { DebugEnterDecision(25, false);
 								int LA25_0 = input.LA(1);
 
-								if ((LA25_0==COLON))
+								if ((LA25_0==ID))
 								{
 									alt25 = 1;
 								}
@@ -2739,14 +2805,13 @@ namespace TigerCs.Parser.Tiger
 							{
 								case 1:
 									DebugEnterAlt(1);
-									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:287:51: COLON t= ID
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:301:27: p= type_fields
 								{
-									DebugLocation(287, 51);
-									Match(input,COLON,Follow._COLON_in_function_declaration1746); 
-									DebugLocation(287, 58);
-									t=(IToken)Match(input,ID,Follow._ID_in_function_declaration1750); 
-									DebugLocation(287, 62);
-									type = (t!=null?t.Text:null);
+									DebugLocation(301, 27);
+									PushFollow(Follow._type_fields_in_function_declaration1765);
+									p=type_fields();
+									PopFollow();
+
 
 								}
 									break;
@@ -2754,31 +2819,66 @@ namespace TigerCs.Parser.Tiger
 							}
 						} finally { DebugExitSubRule(25); }
 
-						DebugLocation(287, 82);
-						Match(input,EQUAL,Follow._EQUAL_in_function_declaration1756); 
-						DebugLocation(287, 89);
-						PushFollow(Follow._expression_in_function_declaration1760);
+						DebugLocation(301, 41);
+						Match(input,R_PARENT,Follow._R_PARENT_in_function_declaration1768); 
+						DebugLocation(301, 50);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:301:50: ( COLON t= ID )?
+						int alt26=2;
+						try { DebugEnterSubRule(26);
+							try { DebugEnterDecision(26, false);
+								int LA26_0 = input.LA(1);
+
+								if ((LA26_0==COLON))
+								{
+									alt26 = 1;
+								}
+							} finally { DebugExitDecision(26); }
+							switch (alt26)
+							{
+								case 1:
+									DebugEnterAlt(1);
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:301:51: COLON t= ID
+								{
+									DebugLocation(301, 51);
+									Match(input,COLON,Follow._COLON_in_function_declaration1771); 
+									DebugLocation(301, 58);
+									t=(IToken)Match(input,ID,Follow._ID_in_function_declaration1775); 
+									DebugLocation(301, 62);
+									type = (t!=null?t.Text:null);
+
+								}
+									break;
+
+							}
+						} finally { DebugExitSubRule(26); }
+
+						DebugLocation(301, 82);
+						Match(input,EQUAL,Follow._EQUAL_in_function_declaration1781); 
+						DebugLocation(301, 89);
+						PushFollow(Follow._expression_in_function_declaration1785);
 						e=expression();
 						PopFollow();
 
-						DebugLocation(287, 100);
-						r = new FunctionDeclaration{line = FUNCTION19.Line, column = FUNCTION19.CharPositionInLine, Parameters = p ?? new List<ParameterDeclaration>(), Return = type, FunctionName = (i!=null?i.Text:null), Body = e};
+						DebugLocation(301, 100);
+						r = new FunctionDeclaration{line = FUNCTION20.Line, column = FUNCTION20.CharPositionInLine, Parameters = p ?? new List<ParameterDeclaration>(), Return = type, FunctionName = (i!=null?i.Text:null), Body = e};
 
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("function_declaration", 23);
 					LeaveRule("function_declaration", 23);
 					LeaveRule_function_declaration();
 				}
-				DebugLocation(288, 0);
+				DebugLocation(302, 0);
 			} finally { DebugExitRule(GrammarFileName, "function_declaration"); }
 			return r;
 
@@ -2789,7 +2889,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_var_declaration();
 
 		// $ANTLR start "var_declaration"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:290:1: var_declaration returns [VarDeclaration r] : VAR i= ID ( ASSIGN e= expression | COLON ti= ID ASSIGN e= expression ) ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:304:1: var_declaration returns [VarDeclaration r] : VAR i= ID ( ASSIGN e= expression | COLON ti= ID ASSIGN e= expression ) ;
 		[GrammarRule("var_declaration")]
 		private VarDeclaration var_declaration()
 		{
@@ -2801,101 +2901,103 @@ namespace TigerCs.Parser.Tiger
 
 			IToken i = default(IToken);
 			IToken ti = default(IToken);
-			IToken VAR20 = default(IToken);
+			IToken VAR21 = default(IToken);
 			IExpression e = default(IExpression);
 
 			try { DebugEnterRule(GrammarFileName, "var_declaration");
-				DebugLocation(290, 0);
+				DebugLocation(304, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:291:3: ( VAR i= ID ( ASSIGN e= expression | COLON ti= ID ASSIGN e= expression ) )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:305:3: ( VAR i= ID ( ASSIGN e= expression | COLON ti= ID ASSIGN e= expression ) )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:291:3: VAR i= ID ( ASSIGN e= expression | COLON ti= ID ASSIGN e= expression )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:305:3: VAR i= ID ( ASSIGN e= expression | COLON ti= ID ASSIGN e= expression )
 					{
-						DebugLocation(291, 3);
-						VAR20=(IToken)Match(input,VAR,Follow._VAR_in_var_declaration1774); 
-						DebugLocation(291, 8);
-						i=(IToken)Match(input,ID,Follow._ID_in_var_declaration1778); 
-						DebugLocation(291, 12);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:291:12: ( ASSIGN e= expression | COLON ti= ID ASSIGN e= expression )
-						int alt26=2;
-						try { DebugEnterSubRule(26);
-							try { DebugEnterDecision(26, false);
-								int LA26_0 = input.LA(1);
+						DebugLocation(305, 3);
+						VAR21=(IToken)Match(input,VAR,Follow._VAR_in_var_declaration1799); 
+						DebugLocation(305, 8);
+						i=(IToken)Match(input,ID,Follow._ID_in_var_declaration1803); 
+						DebugLocation(305, 12);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:305:12: ( ASSIGN e= expression | COLON ti= ID ASSIGN e= expression )
+						int alt27=2;
+						try { DebugEnterSubRule(27);
+							try { DebugEnterDecision(27, false);
+								int LA27_0 = input.LA(1);
 
-								if ((LA26_0==ASSIGN))
+								if ((LA27_0==ASSIGN))
 								{
-									alt26 = 1;
+									alt27 = 1;
 								}
-								else if ((LA26_0==COLON))
+								else if ((LA27_0==COLON))
 								{
-									alt26 = 2;
+									alt27 = 2;
 								}
 								else
 								{
-									NoViableAltException nvae = new NoViableAltException("", 26, 0, input);
+									NoViableAltException nvae = new NoViableAltException("", 27, 0, input);
 									DebugRecognitionException(nvae);
 									throw nvae;
 								}
-							} finally { DebugExitDecision(26); }
-							switch (alt26)
+							} finally { DebugExitDecision(27); }
+							switch (alt27)
 							{
 								case 1:
 									DebugEnterAlt(1);
-									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:291:13: ASSIGN e= expression
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:305:13: ASSIGN e= expression
 								{
-									DebugLocation(291, 13);
-									Match(input,ASSIGN,Follow._ASSIGN_in_var_declaration1781); 
-									DebugLocation(291, 21);
-									PushFollow(Follow._expression_in_var_declaration1785);
+									DebugLocation(305, 13);
+									Match(input,ASSIGN,Follow._ASSIGN_in_var_declaration1806); 
+									DebugLocation(305, 21);
+									PushFollow(Follow._expression_in_var_declaration1810);
 									e=expression();
 									PopFollow();
 
-									DebugLocation(291, 33);
-									r = new VarDeclaration {line = VAR20.Line, column = VAR20.CharPositionInLine, HolderName = (i!=null?i.Text:null), Init = e};
+									DebugLocation(305, 33);
+									r = new VarDeclaration {line = VAR21.Line, column = VAR21.CharPositionInLine, HolderName = (i!=null?i.Text:null), Init = e};
 
 								}
 									break;
 								case 2:
 									DebugEnterAlt(2);
-									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:292:4: COLON ti= ID ASSIGN e= expression
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:306:4: COLON ti= ID ASSIGN e= expression
 								{
-									DebugLocation(292, 4);
-									Match(input,COLON,Follow._COLON_in_var_declaration1792); 
-									DebugLocation(292, 12);
-									ti=(IToken)Match(input,ID,Follow._ID_in_var_declaration1796); 
-									DebugLocation(292, 16);
-									Match(input,ASSIGN,Follow._ASSIGN_in_var_declaration1798); 
-									DebugLocation(292, 24);
-									PushFollow(Follow._expression_in_var_declaration1802);
+									DebugLocation(306, 4);
+									Match(input,COLON,Follow._COLON_in_var_declaration1817); 
+									DebugLocation(306, 12);
+									ti=(IToken)Match(input,ID,Follow._ID_in_var_declaration1821); 
+									DebugLocation(306, 16);
+									Match(input,ASSIGN,Follow._ASSIGN_in_var_declaration1823); 
+									DebugLocation(306, 24);
+									PushFollow(Follow._expression_in_var_declaration1827);
 									e=expression();
 									PopFollow();
 
-									DebugLocation(292, 36);
-									r = new VarDeclaration {line = VAR20.Line, column = VAR20.CharPositionInLine, HolderName = (i!=null?i.Text:null), HolderType = (ti!=null?ti.Text:null), Init = e};
+									DebugLocation(306, 36);
+									r = new VarDeclaration {line = VAR21.Line, column = VAR21.CharPositionInLine, HolderName = (i!=null?i.Text:null), HolderType = (ti!=null?ti.Text:null), Init = e};
 
 								}
 									break;
 
 							}
-						} finally { DebugExitSubRule(26); }
+						} finally { DebugExitSubRule(27); }
 
 
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("var_declaration", 24);
 					LeaveRule("var_declaration", 24);
 					LeaveRule_var_declaration();
 				}
-				DebugLocation(293, 0);
+				DebugLocation(307, 0);
 			} finally { DebugExitRule(GrammarFileName, "var_declaration"); }
 			return r;
 
@@ -2906,7 +3008,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_type_declaration();
 
 		// $ANTLR start "type_declaration"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:295:1: type_declaration returns [TypeDeclaration r] : TYPE i= ID EQUAL t1= type ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:309:1: type_declaration returns [TypeDeclaration r] : TYPE i= ID EQUAL t1= type ;
 		[GrammarRule("type_declaration")]
 		private TypeDeclaration type_declaration()
 		{
@@ -2917,46 +3019,48 @@ namespace TigerCs.Parser.Tiger
 
 
 			IToken i = default(IToken);
-			IToken TYPE21 = default(IToken);
+			IToken TYPE22 = default(IToken);
 			TypeDeclaration t1 = default(TypeDeclaration);
 
 			try { DebugEnterRule(GrammarFileName, "type_declaration");
-				DebugLocation(295, 0);
+				DebugLocation(309, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:296:3: ( TYPE i= ID EQUAL t1= type )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:310:3: ( TYPE i= ID EQUAL t1= type )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:296:3: TYPE i= ID EQUAL t1= type
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:310:3: TYPE i= ID EQUAL t1= type
 					{
-						DebugLocation(296, 3);
-						TYPE21=(IToken)Match(input,TYPE,Follow._TYPE_in_type_declaration1820); 
-						DebugLocation(296, 9);
-						i=(IToken)Match(input,ID,Follow._ID_in_type_declaration1824); 
-						DebugLocation(296, 13);
-						Match(input,EQUAL,Follow._EQUAL_in_type_declaration1826); 
-						DebugLocation(296, 21);
-						PushFollow(Follow._type_in_type_declaration1831);
+						DebugLocation(310, 3);
+						TYPE22=(IToken)Match(input,TYPE,Follow._TYPE_in_type_declaration1845); 
+						DebugLocation(310, 9);
+						i=(IToken)Match(input,ID,Follow._ID_in_type_declaration1849); 
+						DebugLocation(310, 13);
+						Match(input,EQUAL,Follow._EQUAL_in_type_declaration1851); 
+						DebugLocation(310, 21);
+						PushFollow(Follow._type_in_type_declaration1856);
 						t1=type();
 						PopFollow();
 
-						DebugLocation(296, 28);
-						t1.TypeName = (i!=null?i.Text:null); t1.line = (TYPE21!=null?TYPE21.Line:0); t1.column = TYPE21.CharPositionInLine; r = t1;
+						DebugLocation(310, 28);
+						t1.TypeName = (i!=null?i.Text:null); t1.line = (TYPE22!=null?TYPE22.Line:0); t1.column = TYPE22.CharPositionInLine; r = t1;
 
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("type_declaration", 25);
 					LeaveRule("type_declaration", 25);
 					LeaveRule_type_declaration();
 				}
-				DebugLocation(297, 0);
+				DebugLocation(311, 0);
 			} finally { DebugExitRule(GrammarFileName, "type_declaration"); }
 			return r;
 
@@ -2967,7 +3071,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_type();
 
 		// $ANTLR start "type"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:299:1: type returns [TypeDeclaration r] : ( ARRAY OF i= ID |i= ID |l= L_KEY (t= type_creation_fields )? R_KEY );
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:313:1: type returns [TypeDeclaration r] : ( ARRAY OF i= ID |i= ID |l= L_KEY (t= type_creation_fields )? R_KEY );
 		[GrammarRule("type")]
 		private TypeDeclaration type()
 		{
@@ -2982,92 +3086,92 @@ namespace TigerCs.Parser.Tiger
 			List<Tuple<string, string>> t = default(List<Tuple<string, string>>);
 
 			try { DebugEnterRule(GrammarFileName, "type");
-				DebugLocation(299, 0);
+				DebugLocation(313, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:300:3: ( ARRAY OF i= ID |i= ID |l= L_KEY (t= type_creation_fields )? R_KEY )
-					int alt28=3;
-					try { DebugEnterDecision(28, false);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:314:3: ( ARRAY OF i= ID |i= ID |l= L_KEY (t= type_creation_fields )? R_KEY )
+					int alt29=3;
+					try { DebugEnterDecision(29, false);
 						switch (input.LA(1))
 						{
 							case ARRAY:
 							{
-								alt28 = 1;
+								alt29 = 1;
 							}
 								break;
 							case ID:
 							{
-								alt28 = 2;
+								alt29 = 2;
 							}
 								break;
 							case L_KEY:
 							{
-								alt28 = 3;
+								alt29 = 3;
 							}
 								break;
 							default:
 							{
-								NoViableAltException nvae = new NoViableAltException("", 28, 0, input);
+								NoViableAltException nvae = new NoViableAltException("", 29, 0, input);
 								DebugRecognitionException(nvae);
 								throw nvae;
 							}
 						}
 
-					} finally { DebugExitDecision(28); }
-					switch (alt28)
+					} finally { DebugExitDecision(29); }
+					switch (alt29)
 					{
 						case 1:
 							DebugEnterAlt(1);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:300:3: ARRAY OF i= ID
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:314:3: ARRAY OF i= ID
 						{
-							DebugLocation(300, 3);
-							Match(input,ARRAY,Follow._ARRAY_in_type1846); 
-							DebugLocation(300, 9);
-							Match(input,OF,Follow._OF_in_type1848); 
-							DebugLocation(300, 13);
-							i=(IToken)Match(input,ID,Follow._ID_in_type1852); 
-							DebugLocation(300, 17);
+							DebugLocation(314, 3);
+							Match(input,ARRAY,Follow._ARRAY_in_type1871); 
+							DebugLocation(314, 9);
+							Match(input,OF,Follow._OF_in_type1873); 
+							DebugLocation(314, 13);
+							i=(IToken)Match(input,ID,Follow._ID_in_type1877); 
+							DebugLocation(314, 17);
 							r = new ArrayDeclaration{ArrayOf = (i!=null?i.Text:null)};
 
 						}
 							break;
 						case 2:
 							DebugEnterAlt(2);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:301:3: i= ID
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:315:3: i= ID
 						{
-							DebugLocation(301, 4);
-							i=(IToken)Match(input,ID,Follow._ID_in_type1860); 
-							DebugLocation(301, 8);
+							DebugLocation(315, 4);
+							i=(IToken)Match(input,ID,Follow._ID_in_type1885); 
+							DebugLocation(315, 8);
 							r = new AliasDeclaration{AliasOf = (i!=null?i.Text:null)};
 
 						}
 							break;
 						case 3:
 							DebugEnterAlt(3);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:302:3: l= L_KEY (t= type_creation_fields )? R_KEY
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:316:3: l= L_KEY (t= type_creation_fields )? R_KEY
 						{
-							DebugLocation(302, 4);
-							l=(IToken)Match(input,L_KEY,Follow._L_KEY_in_type1868); 
-							DebugLocation(302, 12);
-							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:302:12: (t= type_creation_fields )?
-							int alt27=2;
-							try { DebugEnterSubRule(27);
-								try { DebugEnterDecision(27, false);
-									int LA27_0 = input.LA(1);
+							DebugLocation(316, 4);
+							l=(IToken)Match(input,L_KEY,Follow._L_KEY_in_type1893); 
+							DebugLocation(316, 12);
+							// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:316:12: (t= type_creation_fields )?
+							int alt28=2;
+							try { DebugEnterSubRule(28);
+								try { DebugEnterDecision(28, false);
+									int LA28_0 = input.LA(1);
 
-									if ((LA27_0==ID))
+									if ((LA28_0==ID))
 									{
-										alt27 = 1;
+										alt28 = 1;
 									}
-								} finally { DebugExitDecision(27); }
-								switch (alt27)
+								} finally { DebugExitDecision(28); }
+								switch (alt28)
 								{
 									case 1:
 										DebugEnterAlt(1);
-										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:302:12: t= type_creation_fields
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:316:12: t= type_creation_fields
 									{
-										DebugLocation(302, 12);
-										PushFollow(Follow._type_creation_fields_in_type1872);
+										DebugLocation(316, 12);
+										PushFollow(Follow._type_creation_fields_in_type1897);
 										t=type_creation_fields();
 										PopFollow();
 
@@ -3076,11 +3180,11 @@ namespace TigerCs.Parser.Tiger
 										break;
 
 								}
-							} finally { DebugExitSubRule(27); }
+							} finally { DebugExitSubRule(28); }
 
-							DebugLocation(302, 35);
-							Match(input,R_KEY,Follow._R_KEY_in_type1875); 
-							DebugLocation(302, 41);
+							DebugLocation(316, 35);
+							Match(input,R_KEY,Follow._R_KEY_in_type1900); 
+							DebugLocation(316, 41);
 							r = new RecordDeclaration{Members = t ?? new List<Tuple<string, string>>()};
 
 						}
@@ -3088,18 +3192,20 @@ namespace TigerCs.Parser.Tiger
 
 					}
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("type", 26);
 					LeaveRule("type", 26);
 					LeaveRule_type();
 				}
-				DebugLocation(303, 0);
+				DebugLocation(317, 0);
 			} finally { DebugExitRule(GrammarFileName, "type"); }
 			return r;
 
@@ -3110,7 +3216,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_type_creation_fields();
 
 		// $ANTLR start "type_creation_fields"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:305:1: type_creation_fields returns [List<Tuple<string, string>> r] : i= ID COLON ti= ID (i= ID COLON ti= ID )* ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:319:1: type_creation_fields returns [List<Tuple<string, string>> r] : i= ID COLON ti= ID ( COMMA i= ID COLON ti= ID )* ;
 		[GrammarRule("type_creation_fields")]
 		private List<Tuple<string, string>> type_creation_fields()
 		{
@@ -3127,124 +3233,23 @@ namespace TigerCs.Parser.Tiger
 			r = new List<Tuple<string, string>>();
 
 			try { DebugEnterRule(GrammarFileName, "type_creation_fields");
-				DebugLocation(305, 0);
+				DebugLocation(319, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:310:3: (i= ID COLON ti= ID (i= ID COLON ti= ID )* )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:324:3: (i= ID COLON ti= ID ( COMMA i= ID COLON ti= ID )* )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:310:3: i= ID COLON ti= ID (i= ID COLON ti= ID )*
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:324:3: i= ID COLON ti= ID ( COMMA i= ID COLON ti= ID )*
 					{
-						DebugLocation(310, 4);
-						i=(IToken)Match(input,ID,Follow._ID_in_type_creation_fields1897); 
-						DebugLocation(310, 8);
-						Match(input,COLON,Follow._COLON_in_type_creation_fields1899); 
-						DebugLocation(310, 16);
-						ti=(IToken)Match(input,ID,Follow._ID_in_type_creation_fields1903); 
-						DebugLocation(310, 20);
+						DebugLocation(324, 4);
+						i=(IToken)Match(input,ID,Follow._ID_in_type_creation_fields1922); 
+						DebugLocation(324, 8);
+						Match(input,COLON,Follow._COLON_in_type_creation_fields1924); 
+						DebugLocation(324, 16);
+						ti=(IToken)Match(input,ID,Follow._ID_in_type_creation_fields1928); 
+						DebugLocation(324, 20);
 						r.Add(new Tuple<string, string>((i!=null?i.Text:null),(ti!=null?ti.Text:null)));
-						DebugLocation(310, 74);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:310:74: (i= ID COLON ti= ID )*
-						try { DebugEnterSubRule(29);
-							while (true)
-							{
-								int alt29=2;
-								try { DebugEnterDecision(29, false);
-									int LA29_0 = input.LA(1);
-
-									if ((LA29_0==ID))
-									{
-										alt29 = 1;
-									}
-
-
-								} finally { DebugExitDecision(29); }
-								switch ( alt29 )
-								{
-									case 1:
-										DebugEnterAlt(1);
-										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:310:75: i= ID COLON ti= ID
-									{
-										DebugLocation(310, 76);
-										i=(IToken)Match(input,ID,Follow._ID_in_type_creation_fields1910); 
-										DebugLocation(310, 80);
-										Match(input,COLON,Follow._COLON_in_type_creation_fields1912); 
-										DebugLocation(310, 88);
-										ti=(IToken)Match(input,ID,Follow._ID_in_type_creation_fields1916); 
-										DebugLocation(310, 92);
-										r.Add(new Tuple<string, string>((i!=null?i.Text:null),(ti!=null?ti.Text:null)));
-
-									}
-										break;
-
-									default:
-										goto loop29;
-								}
-							}
-
-							loop29:
-							;
-
-						} finally { DebugExitSubRule(29); }
-
-
-					}
-
-				}
-				catch (RecognitionException re)
-				{
-					ReportError(re);
-					Recover(input,re);
-				}
-				finally
-				{
-					TraceOut("type_creation_fields", 27);
-					LeaveRule("type_creation_fields", 27);
-					LeaveRule_type_creation_fields();
-				}
-				DebugLocation(311, 0);
-			} finally { DebugExitRule(GrammarFileName, "type_creation_fields"); }
-			return r;
-
-		}
-		// $ANTLR end "type_creation_fields"
-
-		partial void EnterRule_type_fields();
-		partial void LeaveRule_type_fields();
-
-		// $ANTLR start "type_fields"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:313:1: type_fields returns [List<ParameterDeclaration> r] : t= type_field ( COMMA t= type_field )* ;
-		[GrammarRule("type_fields")]
-		private List<ParameterDeclaration> type_fields()
-		{
-			EnterRule_type_fields();
-			EnterRule("type_fields", 28);
-			TraceIn("type_fields", 28);
-			List<ParameterDeclaration> r = default(List<ParameterDeclaration>);
-
-
-			ParameterDeclaration t = default(ParameterDeclaration);
-
-
-			r = new List<ParameterDeclaration>();
-			int c = 0;
-
-			try { DebugEnterRule(GrammarFileName, "type_fields");
-				DebugLocation(313, 0);
-				try
-				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:319:3: (t= type_field ( COMMA t= type_field )* )
-					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:319:3: t= type_field ( COMMA t= type_field )*
-					{
-						DebugLocation(319, 4);
-						PushFollow(Follow._type_field_in_type_fields1939);
-						t=type_field();
-						PopFollow();
-
-						DebugLocation(319, 15);
-						if (t != null)t.Position = c; r.Add(t); c++;
-						DebugLocation(319, 62);
-						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:319:62: ( COMMA t= type_field )*
+						DebugLocation(324, 74);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:324:74: ( COMMA i= ID COLON ti= ID )*
 						try { DebugEnterSubRule(30);
 							while (true)
 							{
@@ -3263,17 +3268,18 @@ namespace TigerCs.Parser.Tiger
 								{
 									case 1:
 										DebugEnterAlt(1);
-										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:319:63: COMMA t= type_field
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:324:75: COMMA i= ID COLON ti= ID
 									{
-										DebugLocation(319, 63);
-										Match(input,COMMA,Follow._COMMA_in_type_fields1943); 
-										DebugLocation(319, 70);
-										PushFollow(Follow._type_field_in_type_fields1947);
-										t=type_field();
-										PopFollow();
-
-										DebugLocation(319, 81);
-										if (t != null)t.Position = c; r.Add(t); c++;
+										DebugLocation(324, 75);
+										Match(input,COMMA,Follow._COMMA_in_type_creation_fields1933); 
+										DebugLocation(324, 82);
+										i=(IToken)Match(input,ID,Follow._ID_in_type_creation_fields1937); 
+										DebugLocation(324, 86);
+										Match(input,COLON,Follow._COLON_in_type_creation_fields1939); 
+										DebugLocation(324, 94);
+										ti=(IToken)Match(input,ID,Follow._ID_in_type_creation_fields1943); 
+										DebugLocation(324, 98);
+										r.Add(new Tuple<string, string>((i!=null?i.Text:null),(ti!=null?ti.Text:null)));
 
 									}
 										break;
@@ -3292,18 +3298,124 @@ namespace TigerCs.Parser.Tiger
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
+				finally
+				{
+					TraceOut("type_creation_fields", 27);
+					LeaveRule("type_creation_fields", 27);
+					LeaveRule_type_creation_fields();
+				}
+				DebugLocation(325, 0);
+			} finally { DebugExitRule(GrammarFileName, "type_creation_fields"); }
+			return r;
+
+		}
+		// $ANTLR end "type_creation_fields"
+
+		partial void EnterRule_type_fields();
+		partial void LeaveRule_type_fields();
+
+		// $ANTLR start "type_fields"
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:327:1: type_fields returns [List<ParameterDeclaration> r] : t= type_field ( COMMA t= type_field )* ;
+		[GrammarRule("type_fields")]
+		private List<ParameterDeclaration> type_fields()
+		{
+			EnterRule_type_fields();
+			EnterRule("type_fields", 28);
+			TraceIn("type_fields", 28);
+			List<ParameterDeclaration> r = default(List<ParameterDeclaration>);
+
+
+			ParameterDeclaration t = default(ParameterDeclaration);
+
+
+			r = new List<ParameterDeclaration>();
+			int c = 0;
+
+			try { DebugEnterRule(GrammarFileName, "type_fields");
+				DebugLocation(327, 0);
+				try
+				{
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:333:3: (t= type_field ( COMMA t= type_field )* )
+					DebugEnterAlt(1);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:333:3: t= type_field ( COMMA t= type_field )*
+					{
+						DebugLocation(333, 4);
+						PushFollow(Follow._type_field_in_type_fields1966);
+						t=type_field();
+						PopFollow();
+
+						DebugLocation(333, 15);
+						if (t != null)t.Position = c; r.Add(t); c++;
+						DebugLocation(333, 62);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:333:62: ( COMMA t= type_field )*
+						try { DebugEnterSubRule(31);
+							while (true)
+							{
+								int alt31=2;
+								try { DebugEnterDecision(31, false);
+									int LA31_0 = input.LA(1);
+
+									if ((LA31_0==COMMA))
+									{
+										alt31 = 1;
+									}
+
+
+								} finally { DebugExitDecision(31); }
+								switch ( alt31 )
+								{
+									case 1:
+										DebugEnterAlt(1);
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:333:63: COMMA t= type_field
+									{
+										DebugLocation(333, 63);
+										Match(input,COMMA,Follow._COMMA_in_type_fields1970); 
+										DebugLocation(333, 70);
+										PushFollow(Follow._type_field_in_type_fields1974);
+										t=type_field();
+										PopFollow();
+
+										DebugLocation(333, 81);
+										if (t != null)t.Position = c; r.Add(t); c++;
+
+									}
+										break;
+
+									default:
+										goto loop31;
+								}
+							}
+
+							loop31:
+							;
+
+						} finally { DebugExitSubRule(31); }
+
+
+					}
+
+				}
+
+				catch (RecognitionException error) 
+				{
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
+				}
+
 				finally
 				{
 					TraceOut("type_fields", 28);
 					LeaveRule("type_fields", 28);
 					LeaveRule_type_fields();
 				}
-				DebugLocation(320, 0);
+				DebugLocation(334, 0);
 			} finally { DebugExitRule(GrammarFileName, "type_fields"); }
 			return r;
 
@@ -3314,7 +3426,7 @@ namespace TigerCs.Parser.Tiger
 		partial void LeaveRule_type_field();
 
 		// $ANTLR start "type_field"
-		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:322:1: type_field returns [ParameterDeclaration r] : i= ID COLON t= ID ;
+		// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:336:1: type_field returns [ParameterDeclaration r] : i= ID COLON t= ID ;
 		[GrammarRule("type_field")]
 		private ParameterDeclaration type_field()
 		{
@@ -3328,37 +3440,39 @@ namespace TigerCs.Parser.Tiger
 			IToken t = default(IToken);
 
 			try { DebugEnterRule(GrammarFileName, "type_field");
-				DebugLocation(322, 0);
+				DebugLocation(336, 0);
 				try
 				{
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:323:3: (i= ID COLON t= ID )
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:337:3: (i= ID COLON t= ID )
 					DebugEnterAlt(1);
-					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:323:3: i= ID COLON t= ID
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:337:3: i= ID COLON t= ID
 					{
-						DebugLocation(323, 4);
-						i=(IToken)Match(input,ID,Follow._ID_in_type_field1964); 
-						DebugLocation(323, 8);
-						Match(input,COLON,Follow._COLON_in_type_field1966); 
-						DebugLocation(323, 15);
-						t=(IToken)Match(input,ID,Follow._ID_in_type_field1970); 
-						DebugLocation(323, 19);
+						DebugLocation(337, 4);
+						i=(IToken)Match(input,ID,Follow._ID_in_type_field1991); 
+						DebugLocation(337, 8);
+						Match(input,COLON,Follow._COLON_in_type_field1993); 
+						DebugLocation(337, 15);
+						t=(IToken)Match(input,ID,Follow._ID_in_type_field1997); 
+						DebugLocation(337, 19);
 						r = new ParameterDeclaration{line = i.Line, column = i.CharPositionInLine, HolderName = (i!=null?i.Text:null), HolderType = (t!=null?t.Text:null)};
 
 					}
 
 				}
-				catch (RecognitionException re)
+
+				catch (RecognitionException error) 
 				{
-					ReportError(re);
-					Recover(input,re);
+					report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+					Recover(input, error);
 				}
+
 				finally
 				{
 					TraceOut("type_field", 29);
 					LeaveRule("type_field", 29);
 					LeaveRule_type_field();
 				}
-				DebugLocation(324, 0);
+				DebugLocation(338, 0);
 			} finally { DebugExitRule(GrammarFileName, "type_field"); }
 			return r;
 
@@ -3370,156 +3484,159 @@ namespace TigerCs.Parser.Tiger
 		#region Follow sets
 		private static class Follow
 		{
-			public static readonly BitSet _expression_in_program826 = new BitSet(new ulong[]{0x0UL});
-			public static readonly BitSet _EOF_in_program830 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _or_expression_in_expression845 = new BitSet(new ulong[]{0x40000000002UL});
-			public static readonly BitSet _or_expression_rest_in_expression852 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _and_expression_in_or_expression872 = new BitSet(new ulong[]{0x12UL});
-			public static readonly BitSet _and_expression_rest_in_or_expression879 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _OR_in_or_expression_rest899 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_or_expression_rest903 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _aritmetic_expression_in_and_expression920 = new BitSet(new ulong[]{0x10303100002UL});
-			public static readonly BitSet _relational_expression_in_and_expression927 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _AND_in_and_expression_rest947 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _or_expression_in_and_expression_rest951 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _EQUAL_in_relational_expression968 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _aritmetic_expression_in_relational_expression972 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _NOT_EQUAL_in_relational_expression978 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _aritmetic_expression_in_relational_expression982 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _GTHAN_in_relational_expression988 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _aritmetic_expression_in_relational_expression992 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _LTHAN_in_relational_expression998 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _aritmetic_expression_in_relational_expression1002 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _GTHAN_EQUAL_in_relational_expression1008 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _aritmetic_expression_in_relational_expression1012 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _LTHAN_EQUAL_in_relational_expression1018 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _aritmetic_expression_in_relational_expression1022 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _term_in_aritmetic_expression1038 = new BitSet(new ulong[]{0x82000000002UL});
-			public static readonly BitSet _aritmetic_expression_rest_in_aritmetic_expression1045 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _set_in_aritmetic_expression_rest1068 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _term_in_aritmetic_expression_rest1079 = new BitSet(new ulong[]{0x82000000002UL});
-			public static readonly BitSet _aritmetic_expression_rest_in_aritmetic_expression_rest1088 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _factor_in_term1107 = new BitSet(new ulong[]{0x4000004002UL});
-			public static readonly BitSet _term_rest_in_term1114 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _set_in_term_rest1136 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _factor_in_term_rest1146 = new BitSet(new ulong[]{0x4000004002UL});
-			public static readonly BitSet _term_rest_in_term_rest1154 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _STRING_in_factor1174 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _INT_in_factor1183 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _NIL_in_factor1191 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _MINUS_in_factor1197 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_factor1201 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _L_PARENT_in_factor1207 = new BitSet(new ulong[]{0x2140B06C400080UL});
-			public static readonly BitSet _expression_sequence_in_factor1212 = new BitSet(new ulong[]{0x400000000000UL});
-			public static readonly BitSet _R_PARENT_in_factor1218 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _IF_in_factor1222 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_factor1226 = new BitSet(new ulong[]{0x2000000000000UL});
-			public static readonly BitSet _THEN_in_factor1228 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_factor1232 = new BitSet(new ulong[]{0x40002UL});
-			public static readonly BitSet _ELSE_in_factor1237 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_factor1241 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _WHILE_in_factor1249 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_factor1253 = new BitSet(new ulong[]{0x8000UL});
-			public static readonly BitSet _DO_in_factor1255 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_factor1259 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _FOR_in_factor1265 = new BitSet(new ulong[]{0x4000000UL});
-			public static readonly BitSet _ID_in_factor1269 = new BitSet(new ulong[]{0x40UL});
-			public static readonly BitSet _ASSIGN_in_factor1271 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_factor1275 = new BitSet(new ulong[]{0x4000000000000UL});
-			public static readonly BitSet _TO_in_factor1277 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_factor1281 = new BitSet(new ulong[]{0x8000UL});
-			public static readonly BitSet _DO_in_factor1283 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_factor1287 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _BREAK_in_factor1293 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _LET_in_factor1299 = new BitSet(new ulong[]{0x18000000800000UL});
-			public static readonly BitSet _declaration_list_list_in_factor1303 = new BitSet(new ulong[]{0x10000000UL});
-			public static readonly BitSet _IN_in_factor1305 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_factor1309 = new BitSet(new ulong[]{0x80000UL});
-			public static readonly BitSet _END_in_factor1311 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _lvalue_head_in_factor1319 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _ID_in_lvalue_head1340 = new BitSet(new ulong[]{0x1C00010002UL});
-			public static readonly BitSet _invoke_in_lvalue_head1345 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _L_BRACKETS_in_lvalue_head1355 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_lvalue_head1359 = new BitSet(new ulong[]{0x100000000000UL});
-			public static readonly BitSet _R_BRACKETS_in_lvalue_head1361 = new BitSet(new ulong[]{0x20400010040UL});
-			public static readonly BitSet _array_in_lvalue_head1365 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _DOT_in_lvalue_head1374 = new BitSet(new ulong[]{0x4000000UL});
-			public static readonly BitSet _ID_in_lvalue_head1378 = new BitSet(new ulong[]{0x400010040UL});
-			public static readonly BitSet _dot_in_lvalue_head1382 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _L_PARENT_in_invoke1403 = new BitSet(new ulong[]{0x2140B06C400080UL});
-			public static readonly BitSet _arg_list_in_invoke1407 = new BitSet(new ulong[]{0x400000000000UL});
-			public static readonly BitSet _R_PARENT_in_invoke1410 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _L_KEY_in_invoke1416 = new BitSet(new ulong[]{0x200004000000UL});
-			public static readonly BitSet _field_list_in_invoke1420 = new BitSet(new ulong[]{0x200000000000UL});
-			public static readonly BitSet _R_KEY_in_invoke1423 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _OF_in_array1440 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_array1444 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _lvalue_in_array1452 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _lvalue_in_dot1472 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _DOT_in_lvalue1496 = new BitSet(new ulong[]{0x4000000UL});
-			public static readonly BitSet _ID_in_lvalue1500 = new BitSet(new ulong[]{0x400010042UL});
-			public static readonly BitSet _L_BRACKETS_in_lvalue1508 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_lvalue1512 = new BitSet(new ulong[]{0x100000000000UL});
-			public static readonly BitSet _R_BRACKETS_in_lvalue1514 = new BitSet(new ulong[]{0x400010042UL});
-			public static readonly BitSet _ASSIGN_in_lvalue1524 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_lvalue1528 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _expression_in_arg_list1552 = new BitSet(new ulong[]{0x202UL});
-			public static readonly BitSet _COMMA_in_arg_list1557 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_arg_list1562 = new BitSet(new ulong[]{0x202UL});
-			public static readonly BitSet _ID_in_field_list1585 = new BitSet(new ulong[]{0x40UL});
-			public static readonly BitSet _ASSIGN_in_field_list1587 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_field_list1591 = new BitSet(new ulong[]{0x202UL});
-			public static readonly BitSet _COMMA_in_field_list1595 = new BitSet(new ulong[]{0x4000000UL});
-			public static readonly BitSet _ID_in_field_list1599 = new BitSet(new ulong[]{0x40UL});
-			public static readonly BitSet _ASSIGN_in_field_list1601 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_field_list1605 = new BitSet(new ulong[]{0x202UL});
-			public static readonly BitSet _expression_in_expression_sequence1628 = new BitSet(new ulong[]{0x800000000002UL});
-			public static readonly BitSet _SEMICOLON_in_expression_sequence1633 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_expression_sequence1637 = new BitSet(new ulong[]{0x800000000002UL});
-			public static readonly BitSet _declaration_in_declaration_list_list1660 = new BitSet(new ulong[]{0x18000000800002UL});
-			public static readonly BitSet _function_declaration_in_declaration1692 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _type_declaration_in_declaration1700 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _var_declaration_in_declaration1708 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _FUNCTION_in_function_declaration1730 = new BitSet(new ulong[]{0x4000000UL});
-			public static readonly BitSet _ID_in_function_declaration1734 = new BitSet(new ulong[]{0x1000000000UL});
-			public static readonly BitSet _L_PARENT_in_function_declaration1736 = new BitSet(new ulong[]{0x400004000000UL});
-			public static readonly BitSet _type_fields_in_function_declaration1740 = new BitSet(new ulong[]{0x400000000000UL});
-			public static readonly BitSet _R_PARENT_in_function_declaration1743 = new BitSet(new ulong[]{0x100100UL});
-			public static readonly BitSet _COLON_in_function_declaration1746 = new BitSet(new ulong[]{0x4000000UL});
-			public static readonly BitSet _ID_in_function_declaration1750 = new BitSet(new ulong[]{0x100000UL});
-			public static readonly BitSet _EQUAL_in_function_declaration1756 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_function_declaration1760 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _VAR_in_var_declaration1774 = new BitSet(new ulong[]{0x4000000UL});
-			public static readonly BitSet _ID_in_var_declaration1778 = new BitSet(new ulong[]{0x140UL});
-			public static readonly BitSet _ASSIGN_in_var_declaration1781 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_var_declaration1785 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _COLON_in_var_declaration1792 = new BitSet(new ulong[]{0x4000000UL});
-			public static readonly BitSet _ID_in_var_declaration1796 = new BitSet(new ulong[]{0x40UL});
-			public static readonly BitSet _ASSIGN_in_var_declaration1798 = new BitSet(new ulong[]{0x2100B06C400080UL});
-			public static readonly BitSet _expression_in_var_declaration1802 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _TYPE_in_type_declaration1820 = new BitSet(new ulong[]{0x4000000UL});
-			public static readonly BitSet _ID_in_type_declaration1824 = new BitSet(new ulong[]{0x100000UL});
-			public static readonly BitSet _EQUAL_in_type_declaration1826 = new BitSet(new ulong[]{0x804000020UL});
-			public static readonly BitSet _type_in_type_declaration1831 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _ARRAY_in_type1846 = new BitSet(new ulong[]{0x20000000000UL});
-			public static readonly BitSet _OF_in_type1848 = new BitSet(new ulong[]{0x4000000UL});
-			public static readonly BitSet _ID_in_type1852 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _ID_in_type1860 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _L_KEY_in_type1868 = new BitSet(new ulong[]{0x200004000000UL});
-			public static readonly BitSet _type_creation_fields_in_type1872 = new BitSet(new ulong[]{0x200000000000UL});
-			public static readonly BitSet _R_KEY_in_type1875 = new BitSet(new ulong[]{0x2UL});
-			public static readonly BitSet _ID_in_type_creation_fields1897 = new BitSet(new ulong[]{0x100UL});
-			public static readonly BitSet _COLON_in_type_creation_fields1899 = new BitSet(new ulong[]{0x4000000UL});
-			public static readonly BitSet _ID_in_type_creation_fields1903 = new BitSet(new ulong[]{0x4000002UL});
-			public static readonly BitSet _ID_in_type_creation_fields1910 = new BitSet(new ulong[]{0x100UL});
-			public static readonly BitSet _COLON_in_type_creation_fields1912 = new BitSet(new ulong[]{0x4000000UL});
-			public static readonly BitSet _ID_in_type_creation_fields1916 = new BitSet(new ulong[]{0x4000002UL});
-			public static readonly BitSet _type_field_in_type_fields1939 = new BitSet(new ulong[]{0x202UL});
-			public static readonly BitSet _COMMA_in_type_fields1943 = new BitSet(new ulong[]{0x4000000UL});
-			public static readonly BitSet _type_field_in_type_fields1947 = new BitSet(new ulong[]{0x202UL});
-			public static readonly BitSet _ID_in_type_field1964 = new BitSet(new ulong[]{0x100UL});
-			public static readonly BitSet _COLON_in_type_field1966 = new BitSet(new ulong[]{0x4000000UL});
-			public static readonly BitSet _ID_in_type_field1970 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _expression_in_program832 = new BitSet(new ulong[]{0x0UL});
+			public static readonly BitSet _EOF_in_program836 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _or_expression_in_expression851 = new BitSet(new ulong[]{0x40000000002UL});
+			public static readonly BitSet _or_expression_rest_in_expression858 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _and_expression_in_or_expression878 = new BitSet(new ulong[]{0x12UL});
+			public static readonly BitSet _and_expression_rest_in_or_expression885 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _OR_in_or_expression_rest905 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_or_expression_rest909 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _aritmetic_expression_in_and_expression926 = new BitSet(new ulong[]{0x10303100002UL});
+			public static readonly BitSet _relational_expression_in_and_expression933 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _AND_in_and_expression_rest953 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _or_expression_in_and_expression_rest957 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _EQUAL_in_relational_expression974 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _aritmetic_expression_in_relational_expression978 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _NOT_EQUAL_in_relational_expression984 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _aritmetic_expression_in_relational_expression988 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _GTHAN_in_relational_expression994 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _aritmetic_expression_in_relational_expression998 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _LTHAN_in_relational_expression1004 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _aritmetic_expression_in_relational_expression1008 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _GTHAN_EQUAL_in_relational_expression1014 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _aritmetic_expression_in_relational_expression1018 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _LTHAN_EQUAL_in_relational_expression1024 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _aritmetic_expression_in_relational_expression1028 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _term_in_aritmetic_expression1044 = new BitSet(new ulong[]{0x82000000002UL});
+			public static readonly BitSet _aritmetic_expression_rest_in_aritmetic_expression1051 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _set_in_aritmetic_expression_rest1074 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _term_in_aritmetic_expression_rest1085 = new BitSet(new ulong[]{0x82000000002UL});
+			public static readonly BitSet _aritmetic_expression_rest_in_aritmetic_expression_rest1094 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _factor_in_term1113 = new BitSet(new ulong[]{0x4000004002UL});
+			public static readonly BitSet _term_rest_in_term1120 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _set_in_term_rest1142 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _factor_in_term_rest1152 = new BitSet(new ulong[]{0x4000004002UL});
+			public static readonly BitSet _term_rest_in_term_rest1160 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _STRING_in_factor1180 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _INT_in_factor1189 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _NIL_in_factor1197 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _MINUS_in_factor1203 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_factor1207 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _L_PARENT_in_factor1213 = new BitSet(new ulong[]{0x2140B06C400080UL});
+			public static readonly BitSet _expression_sequence_in_factor1218 = new BitSet(new ulong[]{0x400000000000UL});
+			public static readonly BitSet _R_PARENT_in_factor1224 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _IF_in_factor1230 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_factor1234 = new BitSet(new ulong[]{0x2000000000000UL});
+			public static readonly BitSet _THEN_in_factor1236 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_factor1240 = new BitSet(new ulong[]{0x40002UL});
+			public static readonly BitSet _ELSE_in_factor1245 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_factor1249 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _WHILE_in_factor1257 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_factor1261 = new BitSet(new ulong[]{0x8000UL});
+			public static readonly BitSet _DO_in_factor1263 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_factor1267 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _FOR_in_factor1273 = new BitSet(new ulong[]{0x4000000UL});
+			public static readonly BitSet _ID_in_factor1277 = new BitSet(new ulong[]{0x40UL});
+			public static readonly BitSet _ASSIGN_in_factor1279 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_factor1283 = new BitSet(new ulong[]{0x4000000000000UL});
+			public static readonly BitSet _TO_in_factor1285 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_factor1289 = new BitSet(new ulong[]{0x8000UL});
+			public static readonly BitSet _DO_in_factor1291 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_factor1295 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _BREAK_in_factor1301 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _LET_in_factor1307 = new BitSet(new ulong[]{0x18000000800000UL});
+			public static readonly BitSet _declaration_list_list_in_factor1311 = new BitSet(new ulong[]{0x10000000UL});
+			public static readonly BitSet _IN_in_factor1313 = new BitSet(new ulong[]{0x2100B06C480080UL});
+			public static readonly BitSet _expression_sequence_in_factor1317 = new BitSet(new ulong[]{0x80000UL});
+			public static readonly BitSet _END_in_factor1320 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _lvalue_head_in_factor1328 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _ID_in_lvalue_head1349 = new BitSet(new ulong[]{0x1C00010042UL});
+			public static readonly BitSet _invoke_in_lvalue_head1354 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _L_BRACKETS_in_lvalue_head1364 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_lvalue_head1368 = new BitSet(new ulong[]{0x100000000000UL});
+			public static readonly BitSet _R_BRACKETS_in_lvalue_head1370 = new BitSet(new ulong[]{0x20400010040UL});
+			public static readonly BitSet _array_in_lvalue_head1374 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _DOT_in_lvalue_head1383 = new BitSet(new ulong[]{0x4000000UL});
+			public static readonly BitSet _ID_in_lvalue_head1387 = new BitSet(new ulong[]{0x400010040UL});
+			public static readonly BitSet _dot_in_lvalue_head1391 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _ASSIGN_in_lvalue_head1401 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_lvalue_head1405 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _L_PARENT_in_invoke1424 = new BitSet(new ulong[]{0x2140B06C400080UL});
+			public static readonly BitSet _arg_list_in_invoke1428 = new BitSet(new ulong[]{0x400000000000UL});
+			public static readonly BitSet _R_PARENT_in_invoke1431 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _L_KEY_in_invoke1437 = new BitSet(new ulong[]{0x200004000000UL});
+			public static readonly BitSet _field_list_in_invoke1441 = new BitSet(new ulong[]{0x200000000000UL});
+			public static readonly BitSet _R_KEY_in_invoke1444 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _OF_in_array1461 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_array1465 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _lvalue_in_array1473 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _lvalue_in_dot1493 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _DOT_in_lvalue1517 = new BitSet(new ulong[]{0x4000000UL});
+			public static readonly BitSet _ID_in_lvalue1521 = new BitSet(new ulong[]{0x400010042UL});
+			public static readonly BitSet _L_BRACKETS_in_lvalue1529 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_lvalue1533 = new BitSet(new ulong[]{0x100000000000UL});
+			public static readonly BitSet _R_BRACKETS_in_lvalue1535 = new BitSet(new ulong[]{0x400010042UL});
+			public static readonly BitSet _ASSIGN_in_lvalue1545 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_lvalue1549 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _expression_in_arg_list1573 = new BitSet(new ulong[]{0x202UL});
+			public static readonly BitSet _COMMA_in_arg_list1578 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_arg_list1583 = new BitSet(new ulong[]{0x202UL});
+			public static readonly BitSet _ID_in_field_list1606 = new BitSet(new ulong[]{0x100000UL});
+			public static readonly BitSet _EQUAL_in_field_list1608 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_field_list1612 = new BitSet(new ulong[]{0x202UL});
+			public static readonly BitSet _COMMA_in_field_list1616 = new BitSet(new ulong[]{0x4000000UL});
+			public static readonly BitSet _ID_in_field_list1620 = new BitSet(new ulong[]{0x100000UL});
+			public static readonly BitSet _EQUAL_in_field_list1622 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_field_list1626 = new BitSet(new ulong[]{0x202UL});
+			public static readonly BitSet _expression_in_expression_sequence1653 = new BitSet(new ulong[]{0x800000000002UL});
+			public static readonly BitSet _SEMICOLON_in_expression_sequence1658 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_expression_sequence1662 = new BitSet(new ulong[]{0x800000000002UL});
+			public static readonly BitSet _declaration_in_declaration_list_list1685 = new BitSet(new ulong[]{0x18000000800002UL});
+			public static readonly BitSet _function_declaration_in_declaration1717 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _type_declaration_in_declaration1725 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _var_declaration_in_declaration1733 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _FUNCTION_in_function_declaration1755 = new BitSet(new ulong[]{0x4000000UL});
+			public static readonly BitSet _ID_in_function_declaration1759 = new BitSet(new ulong[]{0x1000000000UL});
+			public static readonly BitSet _L_PARENT_in_function_declaration1761 = new BitSet(new ulong[]{0x400004000000UL});
+			public static readonly BitSet _type_fields_in_function_declaration1765 = new BitSet(new ulong[]{0x400000000000UL});
+			public static readonly BitSet _R_PARENT_in_function_declaration1768 = new BitSet(new ulong[]{0x100100UL});
+			public static readonly BitSet _COLON_in_function_declaration1771 = new BitSet(new ulong[]{0x4000000UL});
+			public static readonly BitSet _ID_in_function_declaration1775 = new BitSet(new ulong[]{0x100000UL});
+			public static readonly BitSet _EQUAL_in_function_declaration1781 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_function_declaration1785 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _VAR_in_var_declaration1799 = new BitSet(new ulong[]{0x4000000UL});
+			public static readonly BitSet _ID_in_var_declaration1803 = new BitSet(new ulong[]{0x140UL});
+			public static readonly BitSet _ASSIGN_in_var_declaration1806 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_var_declaration1810 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _COLON_in_var_declaration1817 = new BitSet(new ulong[]{0x4000000UL});
+			public static readonly BitSet _ID_in_var_declaration1821 = new BitSet(new ulong[]{0x40UL});
+			public static readonly BitSet _ASSIGN_in_var_declaration1823 = new BitSet(new ulong[]{0x2100B06C400080UL});
+			public static readonly BitSet _expression_in_var_declaration1827 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _TYPE_in_type_declaration1845 = new BitSet(new ulong[]{0x4000000UL});
+			public static readonly BitSet _ID_in_type_declaration1849 = new BitSet(new ulong[]{0x100000UL});
+			public static readonly BitSet _EQUAL_in_type_declaration1851 = new BitSet(new ulong[]{0x804000020UL});
+			public static readonly BitSet _type_in_type_declaration1856 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _ARRAY_in_type1871 = new BitSet(new ulong[]{0x20000000000UL});
+			public static readonly BitSet _OF_in_type1873 = new BitSet(new ulong[]{0x4000000UL});
+			public static readonly BitSet _ID_in_type1877 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _ID_in_type1885 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _L_KEY_in_type1893 = new BitSet(new ulong[]{0x200004000000UL});
+			public static readonly BitSet _type_creation_fields_in_type1897 = new BitSet(new ulong[]{0x200000000000UL});
+			public static readonly BitSet _R_KEY_in_type1900 = new BitSet(new ulong[]{0x2UL});
+			public static readonly BitSet _ID_in_type_creation_fields1922 = new BitSet(new ulong[]{0x100UL});
+			public static readonly BitSet _COLON_in_type_creation_fields1924 = new BitSet(new ulong[]{0x4000000UL});
+			public static readonly BitSet _ID_in_type_creation_fields1928 = new BitSet(new ulong[]{0x202UL});
+			public static readonly BitSet _COMMA_in_type_creation_fields1933 = new BitSet(new ulong[]{0x4000000UL});
+			public static readonly BitSet _ID_in_type_creation_fields1937 = new BitSet(new ulong[]{0x100UL});
+			public static readonly BitSet _COLON_in_type_creation_fields1939 = new BitSet(new ulong[]{0x4000000UL});
+			public static readonly BitSet _ID_in_type_creation_fields1943 = new BitSet(new ulong[]{0x202UL});
+			public static readonly BitSet _type_field_in_type_fields1966 = new BitSet(new ulong[]{0x202UL});
+			public static readonly BitSet _COMMA_in_type_fields1970 = new BitSet(new ulong[]{0x4000000UL});
+			public static readonly BitSet _type_field_in_type_fields1974 = new BitSet(new ulong[]{0x202UL});
+			public static readonly BitSet _ID_in_type_field1991 = new BitSet(new ulong[]{0x100UL});
+			public static readonly BitSet _COLON_in_type_field1993 = new BitSet(new ulong[]{0x4000000UL});
+			public static readonly BitSet _ID_in_type_field1997 = new BitSet(new ulong[]{0x2UL});
 		}
 		#endregion Follow sets
 	}

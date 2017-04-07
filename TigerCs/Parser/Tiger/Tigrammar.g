@@ -68,11 +68,23 @@ tokens
 	using System;
 	using TigerCs.Generation.AST.Expressions;
 	using TigerCs.Generation.AST.Declarations;
+	using TigerCs.CompilationServices;
 }
 
 @members
 {
 	enum DclType {None, Type, Var, Function}
+
+	public ErrorReport report;
+}
+
+@rulecatch
+{
+	catch (RecognitionException error) 
+	{
+		report.Add(new StaticError(error.Line, error.CharPositionInLine, GetErrorMessage(error, tokenNames), ErrorLevel.Error));
+		Recover(input, error);
+	}
 }
 
 ID  : LETTER (LETTER|DIGIT|'_')*;
@@ -180,12 +192,12 @@ factor returns [IExpression r]
 | i=INT {r = new IntegerConstant{Lex = $i.text, line = $i.Line, column = $i.CharPositionInLine};}
 | n=NIL {r = new NilConstant{line = $n.Line, column = $n.CharPositionInLine};}
 | MINUS e=expression {r = new Neg{line = $MINUS.Line, column = $MINUS.CharPositionInLine, Operand = e};}
-| L_PARENT (e=expression_sequence {r = e;})? R_PARENT
+| L_PARENT (e=expression_sequence {r = e;})? R_PARENT {r = r ?? new ExpressionList<IExpression>();}
 | IF c=expression THEN t=expression {r = new IfThenElse {line = $IF.Line, column = $IF.CharPositionInLine, If = c, Then = t};} (ELSE e=expression {((IfThenElse)r).Else = e;})?
 | WHILE e1=expression DO e2=expression {r = new While{line = $WHILE.Line, column = $WHILE.CharPositionInLine, Condition = e1, Body = e2};}
 | FOR i=ID ASSIGN e1=expression TO e2=expression DO e3=expression {r = new BoundedFor{line = $FOR.Line, column = $FOR.CharPositionInLine, VarName = $i.text, From = e1, To = e2, Body = e3};}
 | BREAK {r = new Break{line = $BREAK.Line, column = $BREAK.CharPositionInLine};}
-| LET d=declaration_list_list IN e=expression END {r = new Let{line = $LET.Line, column = $LET.CharPositionInLine, Declarations = d, Body = e};}
+| LET d=declaration_list_list IN e=expression_sequence? END {r = new Let{line = $LET.Line, column = $LET.CharPositionInLine, Declarations = d, Body = e};}
 | h=lvalue_head {r = h;}
 ;
 
@@ -193,7 +205,8 @@ lvalue_head returns [IExpression r]
 @after{r = r ??  new Var {Name = $i.text, line = $i.Line, column = $i.CharPositionInLine};}
 : i=ID (ins=invoke[$i.text, $i.Line, $i.CharPositionInLine] {r = ins;} 
 		| L_BRACKETS e1=expression R_BRACKETS a=array[$i.text, e1, $i.Line, $i.CharPositionInLine, $L_BRACKETS.Line, $L_BRACKETS.CharPositionInLine] {r=a;}
-		| DOT i2=ID l=dot[$i.text, $i2.text, $i.Line, $i.CharPositionInLine, $i2.Line, $i2.CharPositionInLine] {r = l;} )?
+		| DOT i2=ID l=dot[$i.text, $i2.text, $i.Line, $i.CharPositionInLine, $i2.Line, $i2.CharPositionInLine] {r = l;} 
+		| ASSIGN e=expression {r = new Assign {Target = new Var {Name = $i.text, line = $i.Line, column = $i.CharPositionInLine}, Source = e, line = $ASSIGN.Line, column = $ASSIGN.CharPositionInLine};})?
 ;
 
 invoke [string id, int l, int c] returns [IExpression r]
@@ -230,15 +243,16 @@ field_list returns[List<Tuple<string, IExpression>> r]
 {
 	r = new List<Tuple<string, IExpression>>();
 }
-: i=ID ASSIGN e=expression{r.Add(new Tuple<string, IExpression>($i.text, e));} (COMMA i=ID ASSIGN e=expression {r.Add(new Tuple<string, IExpression>($i.text, e));})*
+: i=ID EQUAL e=expression{r.Add(new Tuple<string, IExpression>($i.text, e));} (COMMA i=ID EQUAL e=expression {r.Add(new Tuple<string, IExpression>($i.text, e));})*
 ;
 
-expression_sequence returns[ExpressionList<IExpression> r]
+expression_sequence returns[IExpression r]
 @init
 {
-	r = new ExpressionList<IExpression>();
+	var s = new ExpressionList<IExpression>();
 }
-: e1=expression{r.Add(e1);} ( SEMICOLON e2=expression{r.Add(e2);})*
+@after{ r = s;}
+: e1=expression{s.Add(e1);} ( SEMICOLON e2=expression{s.Add(e2);})*
 ;
 
 declaration_list_list returns [List<IDeclarationList<IDeclaration>> r]
@@ -307,7 +321,7 @@ type_creation_fields returns[List<Tuple<string, string>> r]
 {
 	r = new List<Tuple<string, string>>();
 }
-: i=ID COLON ti=ID {r.Add(new Tuple<string, string>($i.text,$ti.text));} (i=ID COLON ti=ID {r.Add(new Tuple<string, string>($i.text,$ti.text));})*
+: i=ID COLON ti=ID {r.Add(new Tuple<string, string>($i.text,$ti.text));} (COMMA i=ID COLON ti=ID {r.Add(new Tuple<string, string>($i.text,$ti.text));})*
 ;
 
 type_fields returns[List<ParameterDeclaration> r]

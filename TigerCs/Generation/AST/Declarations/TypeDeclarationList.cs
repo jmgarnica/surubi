@@ -8,7 +8,6 @@ namespace TigerCs.Generation.AST.Declarations
 	public class TypeDeclarationList : DeclarationList<TypeDeclaration>
 	{
 		protected List<TypeDeclaration> orderedList;
-		protected List<TypeDeclaration> nonrecursive;
 		protected List<TypeDeclaration> ceroex;
 
 		protected virtual bool TopSort(List<TypeDeclaration> toorder, ErrorReport report)
@@ -52,7 +51,7 @@ namespace TigerCs.Generation.AST.Declarations
 			if (n >= toorder.Count) return true;
 
 			report.Add(new StaticError(line, column,
-				                        $"Recursive type loop detected in types {string.Join(",", this.Except(orderedList.Union(nonrecursive)).Select(t => t.ToString()))}",
+				                        $"Recursive type loop detected in types {string.Join(",", this.Except(orderedList).Select(t => t.ToString()))}",
 				                        ErrorLevel.Error));
 			return false;
 		}
@@ -60,18 +59,12 @@ namespace TigerCs.Generation.AST.Declarations
 		public override bool BindName(ISemanticChecker sc, ErrorReport report)
 		{
 			orderedList = new List<TypeDeclaration>();
-			nonrecursive = new List<TypeDeclaration>();
 			ceroex = new List<TypeDeclaration>();
 
 			var toorder = new List<TypeDeclaration>();
 			foreach (var dex in this)
 			{
 				if (!dex.BindName(sc, report)) return false;
-				if (dex.DeclaredType.Complete)
-				{
-					nonrecursive.Add(dex);
-					continue;
-				}
 
 				toorder.Add(dex);
 
@@ -85,10 +78,6 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
 		{
-			foreach (var dex in nonrecursive)
-				if (!dex.CheckSemantics(sc, report)) return false;
-
-
 			for (int i = orderedList.Count - 1; i >= 0; i--)
 			{
 				var curr = orderedList[i];
@@ -105,12 +94,6 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			foreach (var dex in nonrecursive)
-			{
-				dex.DeclareType(cg, report);
-				dex.GenerateCode(cg,report);
-			}
-
 			for (int i = orderedList.Count - 1; i >= 0; i--)
 				orderedList[i].DeclareType(cg, report);
 

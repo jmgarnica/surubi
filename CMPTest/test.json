@@ -1,7 +1,85 @@
 {
 	"lineEnd": "\n",
 	"correct": 
-	[
+	[	
+		{
+			"comments": "not implemented",
+			"name": "!escape chars",
+			"code": "let
+					    /* msg1 is: Can you read this? */
+					    var msg1 := \"\\067\\097\\110\\032\\121\\111\\117\\032\\114\\101\\097\\100\\032\\116\\104\\105\\115\\063\"
+					    var msg2 := \"\\n\\\"Quoted string\\\"\"
+					in
+					    print(msg1);
+					    print(\"\\n\");
+					    print(msg2);
+					    getchar()
+					end"
+		},
+		{
+			"name": "nil record",
+			"code": "let
+						type rectype = {name:string, id:int}
+						var b:rectype := nil
+					in
+						b := nil;
+						if b <> nil then 1 else 0
+					end"
+		},
+		{
+			"name": "types hiding",
+			"code": "let
+						type a = int
+					in
+						print(
+							let
+								var i : a := 0
+								type a = string
+								var j : a := \"la\"
+							in
+								printi(i);
+								j
+							end)
+					end",
+			"correctOutput": "0la"
+		},
+		{
+			"name": "array init",
+			"code": "let
+						var N := 10
+						var arr1: int := 0
+
+						type  arrtype = array of a
+						type  b = arrtype
+						type  a = int
+
+						var arr1:b := arrtype [N] of (arr1 := arr1 + 1; arr1)
+					in
+						for i:=0 to N - 1 do printi(arr1[i])
+					end",
+			"correctOutput" : "12345678910"
+		},
+		{
+			"name" : "let{for}",
+			"code" : "let
+						var a:= 0
+					in 
+						for i:=0 to 100 do (a:=a+1;());
+						printi(a)
+					end",
+			"correctOutput": "101"
+		},
+		{
+			"comments" : "record creation no implemented",
+			"name" : "!records",
+			"code" : "let
+						type  rectype = {name:string, age:int}
+						var rec1:rectype := rectype {name=\"Nobody\", age=1000}
+					in
+						rec1.name := \"Somebody\";
+						rec1
+					end"
+		},
 		{
 			"name": "fact",
 			"code": "let 
@@ -67,16 +145,7 @@
 			"correctOutput" : "123456789"
 		},
 		{
-			"comments" : "fix grammar assign",
-			"name" : "!let{for}",
-			"code" : "let
-						var a:= 0
-					in 
-						for i:=0 to 100 do (a:=a+1;())
-					end"
-		},
-		{
-			"name" : "local hides gloval (var)",
+			"name" : "local hides global (var)",
 			"code" : "let
 						var a:=0
 						function f() = printi(a)
