@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// $ANTLR 3.4 X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g 2017-04-06 11:18:26
+// $ANTLR 3.4 E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g 2017-04-06 21:38:23
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 219
@@ -26,3331 +26,3268 @@ using Antlr.Runtime.Misc;
 
 namespace TigerCs.Parser.Tiger
 {
-    [System.CodeDom.Compiler.GeneratedCode("ANTLR", "3.4")]
-    [System.CLSCompliant(false)]
-    public partial class TigrammarLexer : Antlr.Runtime.Lexer
-    {
-        public const int EOF = -1;
-        public const int AND = 4;
-        public const int ARRAY = 5;
-        public const int ASSIGN = 6;
-        public const int BREAK = 7;
-        public const int COLON = 8;
-        public const int COMMA = 9;
-        public const int COMMENT = 10;
-        public const int CONTROL_CHARS = 11;
-        public const int DECIMAL_ESC = 12;
-        public const int DIGIT = 13;
-        public const int DIV = 14;
-        public const int DO = 15;
-        public const int DOT = 16;
-        public const int DQUOTE = 17;
-        public const int ELSE = 18;
-        public const int END = 19;
-        public const int EQUAL = 20;
-        public const int ESC_SEQ = 21;
-        public const int FOR = 22;
-        public const int FUNCTION = 23;
-        public const int GTHAN = 24;
-        public const int GTHAN_EQUAL = 25;
-        public const int ID = 26;
-        public const int IF = 27;
-        public const int IN = 28;
-        public const int INT = 29;
-        public const int LET = 30;
-        public const int LETTER = 31;
-        public const int LTHAN = 32;
-        public const int LTHAN_EQUAL = 33;
-        public const int L_BRACKETS = 34;
-        public const int L_KEY = 35;
-        public const int L_PARENT = 36;
-        public const int MINUS = 37;
-        public const int MULT = 38;
-        public const int NIL = 39;
-        public const int NOT_EQUAL = 40;
-        public const int OF = 41;
-        public const int OR = 42;
-        public const int PLUS = 43;
-        public const int R_BRACKETS = 44;
-        public const int R_KEY = 45;
-        public const int R_PARENT = 46;
-        public const int SEMICOLON = 47;
-        public const int STRING = 48;
-        public const int THEN = 49;
-        public const int TO = 50;
-        public const int TYPE = 51;
-        public const int VAR = 52;
-        public const int WHILE = 53;
-        public const int WS = 54;
-
-        // delegates
-        // delegators
-
-        public TigrammarLexer()
-        {
-            OnCreated();
-        }
-
-        public TigrammarLexer(ICharStream input)
-            : this(input, new RecognizerSharedState())
-        {
-        }
-
-        public TigrammarLexer(ICharStream input, RecognizerSharedState state)
-            : base(input, state)
-        {
-
-            OnCreated();
-        }
-        public override string GrammarFileName { get { return "X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g"; } }
-
-
-        partial void OnCreated();
-        partial void EnterRule(string ruleName, int ruleIndex);
-        partial void LeaveRule(string ruleName, int ruleIndex);
-
-        partial void EnterRule_AND();
-        partial void LeaveRule_AND();
-
-        // $ANTLR start "AND"
-        [GrammarRule("AND")]
-        private void mAND()
-        {
-            EnterRule_AND();
-            EnterRule("AND", 1);
-            TraceIn("AND", 1);
-            try
-            {
-                int _type = AND;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:7:5: ( '&' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:7:7: '&'
-                {
-                    DebugLocation(7, 7);
-                    Match('&');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("AND", 1);
-                LeaveRule("AND", 1);
-                LeaveRule_AND();
-            }
-        }
-        // $ANTLR end "AND"
-
-        partial void EnterRule_ARRAY();
-        partial void LeaveRule_ARRAY();
-
-        // $ANTLR start "ARRAY"
-        [GrammarRule("ARRAY")]
-        private void mARRAY()
-        {
-            EnterRule_ARRAY();
-            EnterRule("ARRAY", 2);
-            TraceIn("ARRAY", 2);
-            try
-            {
-                int _type = ARRAY;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:8:7: ( 'array' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:8:9: 'array'
-                {
-                    DebugLocation(8, 9);
-                    Match("array");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("ARRAY", 2);
-                LeaveRule("ARRAY", 2);
-                LeaveRule_ARRAY();
-            }
-        }
-        // $ANTLR end "ARRAY"
-
-        partial void EnterRule_ASSIGN();
-        partial void LeaveRule_ASSIGN();
-
-        // $ANTLR start "ASSIGN"
-        [GrammarRule("ASSIGN")]
-        private void mASSIGN()
-        {
-            EnterRule_ASSIGN();
-            EnterRule("ASSIGN", 3);
-            TraceIn("ASSIGN", 3);
-            try
-            {
-                int _type = ASSIGN;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:9:8: ( ':=' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:9:10: ':='
-                {
-                    DebugLocation(9, 10);
-                    Match(":=");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("ASSIGN", 3);
-                LeaveRule("ASSIGN", 3);
-                LeaveRule_ASSIGN();
-            }
-        }
-        // $ANTLR end "ASSIGN"
-
-        partial void EnterRule_BREAK();
-        partial void LeaveRule_BREAK();
-
-        // $ANTLR start "BREAK"
-        [GrammarRule("BREAK")]
-        private void mBREAK()
-        {
-            EnterRule_BREAK();
-            EnterRule("BREAK", 4);
-            TraceIn("BREAK", 4);
-            try
-            {
-                int _type = BREAK;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:10:7: ( 'break' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:10:9: 'break'
-                {
-                    DebugLocation(10, 9);
-                    Match("break");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("BREAK", 4);
-                LeaveRule("BREAK", 4);
-                LeaveRule_BREAK();
-            }
-        }
-        // $ANTLR end "BREAK"
-
-        partial void EnterRule_COLON();
-        partial void LeaveRule_COLON();
-
-        // $ANTLR start "COLON"
-        [GrammarRule("COLON")]
-        private void mCOLON()
-        {
-            EnterRule_COLON();
-            EnterRule("COLON", 5);
-            TraceIn("COLON", 5);
-            try
-            {
-                int _type = COLON;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:11:7: ( ':' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:11:9: ':'
-                {
-                    DebugLocation(11, 9);
-                    Match(':');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("COLON", 5);
-                LeaveRule("COLON", 5);
-                LeaveRule_COLON();
-            }
-        }
-        // $ANTLR end "COLON"
-
-        partial void EnterRule_COMMA();
-        partial void LeaveRule_COMMA();
-
-        // $ANTLR start "COMMA"
-        [GrammarRule("COMMA")]
-        private void mCOMMA()
-        {
-            EnterRule_COMMA();
-            EnterRule("COMMA", 6);
-            TraceIn("COMMA", 6);
-            try
-            {
-                int _type = COMMA;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:12:7: ( ',' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:12:9: ','
-                {
-                    DebugLocation(12, 9);
-                    Match(',');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("COMMA", 6);
-                LeaveRule("COMMA", 6);
-                LeaveRule_COMMA();
-            }
-        }
-        // $ANTLR end "COMMA"
-
-        partial void EnterRule_DIV();
-        partial void LeaveRule_DIV();
-
-        // $ANTLR start "DIV"
-        [GrammarRule("DIV")]
-        private void mDIV()
-        {
-            EnterRule_DIV();
-            EnterRule("DIV", 7);
-            TraceIn("DIV", 7);
-            try
-            {
-                int _type = DIV;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:13:5: ( '/' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:13:7: '/'
-                {
-                    DebugLocation(13, 7);
-                    Match('/');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("DIV", 7);
-                LeaveRule("DIV", 7);
-                LeaveRule_DIV();
-            }
-        }
-        // $ANTLR end "DIV"
-
-        partial void EnterRule_DO();
-        partial void LeaveRule_DO();
-
-        // $ANTLR start "DO"
-        [GrammarRule("DO")]
-        private void mDO()
-        {
-            EnterRule_DO();
-            EnterRule("DO", 8);
-            TraceIn("DO", 8);
-            try
-            {
-                int _type = DO;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:14:4: ( 'do' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:14:6: 'do'
-                {
-                    DebugLocation(14, 6);
-                    Match("do");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("DO", 8);
-                LeaveRule("DO", 8);
-                LeaveRule_DO();
-            }
-        }
-        // $ANTLR end "DO"
-
-        partial void EnterRule_DOT();
-        partial void LeaveRule_DOT();
-
-        // $ANTLR start "DOT"
-        [GrammarRule("DOT")]
-        private void mDOT()
-        {
-            EnterRule_DOT();
-            EnterRule("DOT", 9);
-            TraceIn("DOT", 9);
-            try
-            {
-                int _type = DOT;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:15:5: ( '.' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:15:7: '.'
-                {
-                    DebugLocation(15, 7);
-                    Match('.');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("DOT", 9);
-                LeaveRule("DOT", 9);
-                LeaveRule_DOT();
-            }
-        }
-        // $ANTLR end "DOT"
-
-        partial void EnterRule_DQUOTE();
-        partial void LeaveRule_DQUOTE();
-
-        // $ANTLR start "DQUOTE"
-        [GrammarRule("DQUOTE")]
-        private void mDQUOTE()
-        {
-            EnterRule_DQUOTE();
-            EnterRule("DQUOTE", 10);
-            TraceIn("DQUOTE", 10);
-            try
-            {
-                int _type = DQUOTE;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:16:8: ( '\"' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:16:10: '\"'
-                {
-                    DebugLocation(16, 10);
-                    Match('\"');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("DQUOTE", 10);
-                LeaveRule("DQUOTE", 10);
-                LeaveRule_DQUOTE();
-            }
-        }
-        // $ANTLR end "DQUOTE"
-
-        partial void EnterRule_ELSE();
-        partial void LeaveRule_ELSE();
-
-        // $ANTLR start "ELSE"
-        [GrammarRule("ELSE")]
-        private void mELSE()
-        {
-            EnterRule_ELSE();
-            EnterRule("ELSE", 11);
-            TraceIn("ELSE", 11);
-            try
-            {
-                int _type = ELSE;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:17:6: ( 'else' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:17:8: 'else'
-                {
-                    DebugLocation(17, 8);
-                    Match("else");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("ELSE", 11);
-                LeaveRule("ELSE", 11);
-                LeaveRule_ELSE();
-            }
-        }
-        // $ANTLR end "ELSE"
-
-        partial void EnterRule_END();
-        partial void LeaveRule_END();
-
-        // $ANTLR start "END"
-        [GrammarRule("END")]
-        private void mEND()
-        {
-            EnterRule_END();
-            EnterRule("END", 12);
-            TraceIn("END", 12);
-            try
-            {
-                int _type = END;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:18:5: ( 'end' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:18:7: 'end'
-                {
-                    DebugLocation(18, 7);
-                    Match("end");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("END", 12);
-                LeaveRule("END", 12);
-                LeaveRule_END();
-            }
-        }
-        // $ANTLR end "END"
-
-        partial void EnterRule_EQUAL();
-        partial void LeaveRule_EQUAL();
-
-        // $ANTLR start "EQUAL"
-        [GrammarRule("EQUAL")]
-        private void mEQUAL()
-        {
-            EnterRule_EQUAL();
-            EnterRule("EQUAL", 13);
-            TraceIn("EQUAL", 13);
-            try
-            {
-                int _type = EQUAL;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:19:7: ( '=' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:19:9: '='
-                {
-                    DebugLocation(19, 9);
-                    Match('=');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("EQUAL", 13);
-                LeaveRule("EQUAL", 13);
-                LeaveRule_EQUAL();
-            }
-        }
-        // $ANTLR end "EQUAL"
-
-        partial void EnterRule_FOR();
-        partial void LeaveRule_FOR();
-
-        // $ANTLR start "FOR"
-        [GrammarRule("FOR")]
-        private void mFOR()
-        {
-            EnterRule_FOR();
-            EnterRule("FOR", 14);
-            TraceIn("FOR", 14);
-            try
-            {
-                int _type = FOR;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:20:5: ( 'for' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:20:7: 'for'
-                {
-                    DebugLocation(20, 7);
-                    Match("for");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("FOR", 14);
-                LeaveRule("FOR", 14);
-                LeaveRule_FOR();
-            }
-        }
-        // $ANTLR end "FOR"
-
-        partial void EnterRule_FUNCTION();
-        partial void LeaveRule_FUNCTION();
-
-        // $ANTLR start "FUNCTION"
-        [GrammarRule("FUNCTION")]
-        private void mFUNCTION()
-        {
-            EnterRule_FUNCTION();
-            EnterRule("FUNCTION", 15);
-            TraceIn("FUNCTION", 15);
-            try
-            {
-                int _type = FUNCTION;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:21:10: ( 'function' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:21:12: 'function'
-                {
-                    DebugLocation(21, 12);
-                    Match("function");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("FUNCTION", 15);
-                LeaveRule("FUNCTION", 15);
-                LeaveRule_FUNCTION();
-            }
-        }
-        // $ANTLR end "FUNCTION"
-
-        partial void EnterRule_GTHAN();
-        partial void LeaveRule_GTHAN();
-
-        // $ANTLR start "GTHAN"
-        [GrammarRule("GTHAN")]
-        private void mGTHAN()
-        {
-            EnterRule_GTHAN();
-            EnterRule("GTHAN", 16);
-            TraceIn("GTHAN", 16);
-            try
-            {
-                int _type = GTHAN;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:22:7: ( '>' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:22:9: '>'
-                {
-                    DebugLocation(22, 9);
-                    Match('>');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("GTHAN", 16);
-                LeaveRule("GTHAN", 16);
-                LeaveRule_GTHAN();
-            }
-        }
-        // $ANTLR end "GTHAN"
-
-        partial void EnterRule_GTHAN_EQUAL();
-        partial void LeaveRule_GTHAN_EQUAL();
-
-        // $ANTLR start "GTHAN_EQUAL"
-        [GrammarRule("GTHAN_EQUAL")]
-        private void mGTHAN_EQUAL()
-        {
-            EnterRule_GTHAN_EQUAL();
-            EnterRule("GTHAN_EQUAL", 17);
-            TraceIn("GTHAN_EQUAL", 17);
-            try
-            {
-                int _type = GTHAN_EQUAL;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:23:13: ( '>=' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:23:15: '>='
-                {
-                    DebugLocation(23, 15);
-                    Match(">=");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("GTHAN_EQUAL", 17);
-                LeaveRule("GTHAN_EQUAL", 17);
-                LeaveRule_GTHAN_EQUAL();
-            }
-        }
-        // $ANTLR end "GTHAN_EQUAL"
-
-        partial void EnterRule_IF();
-        partial void LeaveRule_IF();
-
-        // $ANTLR start "IF"
-        [GrammarRule("IF")]
-        private void mIF()
-        {
-            EnterRule_IF();
-            EnterRule("IF", 18);
-            TraceIn("IF", 18);
-            try
-            {
-                int _type = IF;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:24:4: ( 'if' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:24:6: 'if'
-                {
-                    DebugLocation(24, 6);
-                    Match("if");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("IF", 18);
-                LeaveRule("IF", 18);
-                LeaveRule_IF();
-            }
-        }
-        // $ANTLR end "IF"
-
-        partial void EnterRule_IN();
-        partial void LeaveRule_IN();
-
-        // $ANTLR start "IN"
-        [GrammarRule("IN")]
-        private void mIN()
-        {
-            EnterRule_IN();
-            EnterRule("IN", 19);
-            TraceIn("IN", 19);
-            try
-            {
-                int _type = IN;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:25:4: ( 'in' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:25:6: 'in'
-                {
-                    DebugLocation(25, 6);
-                    Match("in");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("IN", 19);
-                LeaveRule("IN", 19);
-                LeaveRule_IN();
-            }
-        }
-        // $ANTLR end "IN"
-
-        partial void EnterRule_LET();
-        partial void LeaveRule_LET();
-
-        // $ANTLR start "LET"
-        [GrammarRule("LET")]
-        private void mLET()
-        {
-            EnterRule_LET();
-            EnterRule("LET", 20);
-            TraceIn("LET", 20);
-            try
-            {
-                int _type = LET;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:26:5: ( 'let' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:26:7: 'let'
-                {
-                    DebugLocation(26, 7);
-                    Match("let");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("LET", 20);
-                LeaveRule("LET", 20);
-                LeaveRule_LET();
-            }
-        }
-        // $ANTLR end "LET"
-
-        partial void EnterRule_LTHAN();
-        partial void LeaveRule_LTHAN();
-
-        // $ANTLR start "LTHAN"
-        [GrammarRule("LTHAN")]
-        private void mLTHAN()
-        {
-            EnterRule_LTHAN();
-            EnterRule("LTHAN", 21);
-            TraceIn("LTHAN", 21);
-            try
-            {
-                int _type = LTHAN;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:27:7: ( '<' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:27:9: '<'
-                {
-                    DebugLocation(27, 9);
-                    Match('<');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("LTHAN", 21);
-                LeaveRule("LTHAN", 21);
-                LeaveRule_LTHAN();
-            }
-        }
-        // $ANTLR end "LTHAN"
-
-        partial void EnterRule_LTHAN_EQUAL();
-        partial void LeaveRule_LTHAN_EQUAL();
-
-        // $ANTLR start "LTHAN_EQUAL"
-        [GrammarRule("LTHAN_EQUAL")]
-        private void mLTHAN_EQUAL()
-        {
-            EnterRule_LTHAN_EQUAL();
-            EnterRule("LTHAN_EQUAL", 22);
-            TraceIn("LTHAN_EQUAL", 22);
-            try
-            {
-                int _type = LTHAN_EQUAL;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:28:13: ( '<=' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:28:15: '<='
-                {
-                    DebugLocation(28, 15);
-                    Match("<=");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("LTHAN_EQUAL", 22);
-                LeaveRule("LTHAN_EQUAL", 22);
-                LeaveRule_LTHAN_EQUAL();
-            }
-        }
-        // $ANTLR end "LTHAN_EQUAL"
-
-        partial void EnterRule_L_BRACKETS();
-        partial void LeaveRule_L_BRACKETS();
-
-        // $ANTLR start "L_BRACKETS"
-        [GrammarRule("L_BRACKETS")]
-        private void mL_BRACKETS()
-        {
-            EnterRule_L_BRACKETS();
-            EnterRule("L_BRACKETS", 23);
-            TraceIn("L_BRACKETS", 23);
-            try
-            {
-                int _type = L_BRACKETS;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:29:12: ( '[' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:29:14: '['
-                {
-                    DebugLocation(29, 14);
-                    Match('[');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("L_BRACKETS", 23);
-                LeaveRule("L_BRACKETS", 23);
-                LeaveRule_L_BRACKETS();
-            }
-        }
-        // $ANTLR end "L_BRACKETS"
-
-        partial void EnterRule_L_KEY();
-        partial void LeaveRule_L_KEY();
-
-        // $ANTLR start "L_KEY"
-        [GrammarRule("L_KEY")]
-        private void mL_KEY()
-        {
-            EnterRule_L_KEY();
-            EnterRule("L_KEY", 24);
-            TraceIn("L_KEY", 24);
-            try
-            {
-                int _type = L_KEY;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:30:7: ( '{' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:30:9: '{'
-                {
-                    DebugLocation(30, 9);
-                    Match('{');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("L_KEY", 24);
-                LeaveRule("L_KEY", 24);
-                LeaveRule_L_KEY();
-            }
-        }
-        // $ANTLR end "L_KEY"
-
-        partial void EnterRule_L_PARENT();
-        partial void LeaveRule_L_PARENT();
-
-        // $ANTLR start "L_PARENT"
-        [GrammarRule("L_PARENT")]
-        private void mL_PARENT()
-        {
-            EnterRule_L_PARENT();
-            EnterRule("L_PARENT", 25);
-            TraceIn("L_PARENT", 25);
-            try
-            {
-                int _type = L_PARENT;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:31:10: ( '(' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:31:12: '('
-                {
-                    DebugLocation(31, 12);
-                    Match('(');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("L_PARENT", 25);
-                LeaveRule("L_PARENT", 25);
-                LeaveRule_L_PARENT();
-            }
-        }
-        // $ANTLR end "L_PARENT"
-
-        partial void EnterRule_MINUS();
-        partial void LeaveRule_MINUS();
-
-        // $ANTLR start "MINUS"
-        [GrammarRule("MINUS")]
-        private void mMINUS()
-        {
-            EnterRule_MINUS();
-            EnterRule("MINUS", 26);
-            TraceIn("MINUS", 26);
-            try
-            {
-                int _type = MINUS;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:32:7: ( '-' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:32:9: '-'
-                {
-                    DebugLocation(32, 9);
-                    Match('-');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("MINUS", 26);
-                LeaveRule("MINUS", 26);
-                LeaveRule_MINUS();
-            }
-        }
-        // $ANTLR end "MINUS"
-
-        partial void EnterRule_MULT();
-        partial void LeaveRule_MULT();
-
-        // $ANTLR start "MULT"
-        [GrammarRule("MULT")]
-        private void mMULT()
-        {
-            EnterRule_MULT();
-            EnterRule("MULT", 27);
-            TraceIn("MULT", 27);
-            try
-            {
-                int _type = MULT;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:33:6: ( '*' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:33:8: '*'
-                {
-                    DebugLocation(33, 8);
-                    Match('*');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("MULT", 27);
-                LeaveRule("MULT", 27);
-                LeaveRule_MULT();
-            }
-        }
-        // $ANTLR end "MULT"
-
-        partial void EnterRule_NIL();
-        partial void LeaveRule_NIL();
-
-        // $ANTLR start "NIL"
-        [GrammarRule("NIL")]
-        private void mNIL()
-        {
-            EnterRule_NIL();
-            EnterRule("NIL", 28);
-            TraceIn("NIL", 28);
-            try
-            {
-                int _type = NIL;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:34:5: ( 'nil' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:34:7: 'nil'
-                {
-                    DebugLocation(34, 7);
-                    Match("nil");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("NIL", 28);
-                LeaveRule("NIL", 28);
-                LeaveRule_NIL();
-            }
-        }
-        // $ANTLR end "NIL"
-
-        partial void EnterRule_NOT_EQUAL();
-        partial void LeaveRule_NOT_EQUAL();
-
-        // $ANTLR start "NOT_EQUAL"
-        [GrammarRule("NOT_EQUAL")]
-        private void mNOT_EQUAL()
-        {
-            EnterRule_NOT_EQUAL();
-            EnterRule("NOT_EQUAL", 29);
-            TraceIn("NOT_EQUAL", 29);
-            try
-            {
-                int _type = NOT_EQUAL;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:35:11: ( '<>' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:35:13: '<>'
-                {
-                    DebugLocation(35, 13);
-                    Match("<>");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("NOT_EQUAL", 29);
-                LeaveRule("NOT_EQUAL", 29);
-                LeaveRule_NOT_EQUAL();
-            }
-        }
-        // $ANTLR end "NOT_EQUAL"
-
-        partial void EnterRule_OF();
-        partial void LeaveRule_OF();
-
-        // $ANTLR start "OF"
-        [GrammarRule("OF")]
-        private void mOF()
-        {
-            EnterRule_OF();
-            EnterRule("OF", 30);
-            TraceIn("OF", 30);
-            try
-            {
-                int _type = OF;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:36:4: ( 'of' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:36:6: 'of'
-                {
-                    DebugLocation(36, 6);
-                    Match("of");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("OF", 30);
-                LeaveRule("OF", 30);
-                LeaveRule_OF();
-            }
-        }
-        // $ANTLR end "OF"
-
-        partial void EnterRule_OR();
-        partial void LeaveRule_OR();
-
-        // $ANTLR start "OR"
-        [GrammarRule("OR")]
-        private void mOR()
-        {
-            EnterRule_OR();
-            EnterRule("OR", 31);
-            TraceIn("OR", 31);
-            try
-            {
-                int _type = OR;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:37:4: ( '|' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:37:6: '|'
-                {
-                    DebugLocation(37, 6);
-                    Match('|');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("OR", 31);
-                LeaveRule("OR", 31);
-                LeaveRule_OR();
-            }
-        }
-        // $ANTLR end "OR"
-
-        partial void EnterRule_PLUS();
-        partial void LeaveRule_PLUS();
-
-        // $ANTLR start "PLUS"
-        [GrammarRule("PLUS")]
-        private void mPLUS()
-        {
-            EnterRule_PLUS();
-            EnterRule("PLUS", 32);
-            TraceIn("PLUS", 32);
-            try
-            {
-                int _type = PLUS;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:38:6: ( '+' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:38:8: '+'
-                {
-                    DebugLocation(38, 8);
-                    Match('+');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("PLUS", 32);
-                LeaveRule("PLUS", 32);
-                LeaveRule_PLUS();
-            }
-        }
-        // $ANTLR end "PLUS"
-
-        partial void EnterRule_R_BRACKETS();
-        partial void LeaveRule_R_BRACKETS();
-
-        // $ANTLR start "R_BRACKETS"
-        [GrammarRule("R_BRACKETS")]
-        private void mR_BRACKETS()
-        {
-            EnterRule_R_BRACKETS();
-            EnterRule("R_BRACKETS", 33);
-            TraceIn("R_BRACKETS", 33);
-            try
-            {
-                int _type = R_BRACKETS;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:39:12: ( ']' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:39:14: ']'
-                {
-                    DebugLocation(39, 14);
-                    Match(']');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("R_BRACKETS", 33);
-                LeaveRule("R_BRACKETS", 33);
-                LeaveRule_R_BRACKETS();
-            }
-        }
-        // $ANTLR end "R_BRACKETS"
-
-        partial void EnterRule_R_KEY();
-        partial void LeaveRule_R_KEY();
-
-        // $ANTLR start "R_KEY"
-        [GrammarRule("R_KEY")]
-        private void mR_KEY()
-        {
-            EnterRule_R_KEY();
-            EnterRule("R_KEY", 34);
-            TraceIn("R_KEY", 34);
-            try
-            {
-                int _type = R_KEY;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:40:7: ( '}' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:40:9: '}'
-                {
-                    DebugLocation(40, 9);
-                    Match('}');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("R_KEY", 34);
-                LeaveRule("R_KEY", 34);
-                LeaveRule_R_KEY();
-            }
-        }
-        // $ANTLR end "R_KEY"
-
-        partial void EnterRule_R_PARENT();
-        partial void LeaveRule_R_PARENT();
-
-        // $ANTLR start "R_PARENT"
-        [GrammarRule("R_PARENT")]
-        private void mR_PARENT()
-        {
-            EnterRule_R_PARENT();
-            EnterRule("R_PARENT", 35);
-            TraceIn("R_PARENT", 35);
-            try
-            {
-                int _type = R_PARENT;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:41:10: ( ')' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:41:12: ')'
-                {
-                    DebugLocation(41, 12);
-                    Match(')');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("R_PARENT", 35);
-                LeaveRule("R_PARENT", 35);
-                LeaveRule_R_PARENT();
-            }
-        }
-        // $ANTLR end "R_PARENT"
-
-        partial void EnterRule_SEMICOLON();
-        partial void LeaveRule_SEMICOLON();
-
-        // $ANTLR start "SEMICOLON"
-        [GrammarRule("SEMICOLON")]
-        private void mSEMICOLON()
-        {
-            EnterRule_SEMICOLON();
-            EnterRule("SEMICOLON", 36);
-            TraceIn("SEMICOLON", 36);
-            try
-            {
-                int _type = SEMICOLON;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:42:11: ( ';' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:42:13: ';'
-                {
-                    DebugLocation(42, 13);
-                    Match(';');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("SEMICOLON", 36);
-                LeaveRule("SEMICOLON", 36);
-                LeaveRule_SEMICOLON();
-            }
-        }
-        // $ANTLR end "SEMICOLON"
-
-        partial void EnterRule_THEN();
-        partial void LeaveRule_THEN();
-
-        // $ANTLR start "THEN"
-        [GrammarRule("THEN")]
-        private void mTHEN()
-        {
-            EnterRule_THEN();
-            EnterRule("THEN", 37);
-            TraceIn("THEN", 37);
-            try
-            {
-                int _type = THEN;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:43:6: ( 'then' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:43:8: 'then'
-                {
-                    DebugLocation(43, 8);
-                    Match("then");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("THEN", 37);
-                LeaveRule("THEN", 37);
-                LeaveRule_THEN();
-            }
-        }
-        // $ANTLR end "THEN"
-
-        partial void EnterRule_TO();
-        partial void LeaveRule_TO();
-
-        // $ANTLR start "TO"
-        [GrammarRule("TO")]
-        private void mTO()
-        {
-            EnterRule_TO();
-            EnterRule("TO", 38);
-            TraceIn("TO", 38);
-            try
-            {
-                int _type = TO;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:44:4: ( 'to' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:44:6: 'to'
-                {
-                    DebugLocation(44, 6);
-                    Match("to");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("TO", 38);
-                LeaveRule("TO", 38);
-                LeaveRule_TO();
-            }
-        }
-        // $ANTLR end "TO"
-
-        partial void EnterRule_TYPE();
-        partial void LeaveRule_TYPE();
-
-        // $ANTLR start "TYPE"
-        [GrammarRule("TYPE")]
-        private void mTYPE()
-        {
-            EnterRule_TYPE();
-            EnterRule("TYPE", 39);
-            TraceIn("TYPE", 39);
-            try
-            {
-                int _type = TYPE;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:45:6: ( 'type' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:45:8: 'type'
-                {
-                    DebugLocation(45, 8);
-                    Match("type");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("TYPE", 39);
-                LeaveRule("TYPE", 39);
-                LeaveRule_TYPE();
-            }
-        }
-        // $ANTLR end "TYPE"
-
-        partial void EnterRule_VAR();
-        partial void LeaveRule_VAR();
-
-        // $ANTLR start "VAR"
-        [GrammarRule("VAR")]
-        private void mVAR()
-        {
-            EnterRule_VAR();
-            EnterRule("VAR", 40);
-            TraceIn("VAR", 40);
-            try
-            {
-                int _type = VAR;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:46:5: ( 'var' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:46:7: 'var'
-                {
-                    DebugLocation(46, 7);
-                    Match("var");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("VAR", 40);
-                LeaveRule("VAR", 40);
-                LeaveRule_VAR();
-            }
-        }
-        // $ANTLR end "VAR"
-
-        partial void EnterRule_WHILE();
-        partial void LeaveRule_WHILE();
-
-        // $ANTLR start "WHILE"
-        [GrammarRule("WHILE")]
-        private void mWHILE()
-        {
-            EnterRule_WHILE();
-            EnterRule("WHILE", 41);
-            TraceIn("WHILE", 41);
-            try
-            {
-                int _type = WHILE;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:47:7: ( 'while' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:47:9: 'while'
-                {
-                    DebugLocation(47, 9);
-                    Match("while");
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("WHILE", 41);
-                LeaveRule("WHILE", 41);
-                LeaveRule_WHILE();
-            }
-        }
-        // $ANTLR end "WHILE"
-
-        partial void EnterRule_ID();
-        partial void LeaveRule_ID();
-
-        // $ANTLR start "ID"
-        [GrammarRule("ID")]
-        private void mID()
-        {
-            EnterRule_ID();
-            EnterRule("ID", 42);
-            TraceIn("ID", 42);
-            try
-            {
-                int _type = ID;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:78:5: ( LETTER ( LETTER | DIGIT | '_' )* )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:78:7: LETTER ( LETTER | DIGIT | '_' )*
-                {
-                    DebugLocation(78, 7);
-                    mLETTER();
-                    DebugLocation(78, 14);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:78:14: ( LETTER | DIGIT | '_' )*
-                    try
-                    {
-                        DebugEnterSubRule(1);
-                        while (true)
-                        {
-                            int alt1 = 2;
-                            try
-                            {
-                                DebugEnterDecision(1, false);
-                                int LA1_0 = input.LA(1);
-
-                                if (((LA1_0 >= '0' && LA1_0 <= '9') || (LA1_0 >= 'A' && LA1_0 <= 'Z') || LA1_0 == '_' || (LA1_0 >= 'a' && LA1_0 <= 'z')))
-                                {
-                                    alt1 = 1;
-                                }
-
-
-                            }
-                            finally { DebugExitDecision(1); }
-                            switch (alt1)
-                            {
-                                case 1:
-                                    DebugEnterAlt(1);
-                                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
-                                    {
-                                        DebugLocation(78, 14);
-                                        input.Consume();
-
-
-                                    }
-                                    break;
-
-                                default:
-                                    goto loop1;
-                            }
-                        }
-
-                        loop1:
-                        ;
-
-                    }
-                    finally { DebugExitSubRule(1); }
-
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("ID", 42);
-                LeaveRule("ID", 42);
-                LeaveRule_ID();
-            }
-        }
-        // $ANTLR end "ID"
-
-        partial void EnterRule_LETTER();
-        partial void LeaveRule_LETTER();
-
-        // $ANTLR start "LETTER"
-        [GrammarRule("LETTER")]
-        private void mLETTER()
-        {
-            EnterRule_LETTER();
-            EnterRule("LETTER", 43);
-            TraceIn("LETTER", 43);
-            try
-            {
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:82:8: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
-                {
-                    DebugLocation(82, 8);
-                    if ((input.LA(1) >= 'A' && input.LA(1) <= 'Z') || (input.LA(1) >= 'a' && input.LA(1) <= 'z'))
-                    {
-                        input.Consume();
-                    }
-                    else
-                    {
-                        MismatchedSetException mse = new MismatchedSetException(null, input);
-                        DebugRecognitionException(mse);
-                        Recover(mse);
-                        throw mse;
-                    }
-
-
-                }
-
-            }
-            finally
-            {
-                TraceOut("LETTER", 43);
-                LeaveRule("LETTER", 43);
-                LeaveRule_LETTER();
-            }
-        }
-        // $ANTLR end "LETTER"
-
-        partial void EnterRule_DIGIT();
-        partial void LeaveRule_DIGIT();
-
-        // $ANTLR start "DIGIT"
-        [GrammarRule("DIGIT")]
-        private void mDIGIT()
-        {
-            EnterRule_DIGIT();
-            EnterRule("DIGIT", 44);
-            TraceIn("DIGIT", 44);
-            try
-            {
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:85:7: ( ( '0' .. '9' ) )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
-                {
-                    DebugLocation(85, 7);
-                    if ((input.LA(1) >= '0' && input.LA(1) <= '9'))
-                    {
-                        input.Consume();
-                    }
-                    else
-                    {
-                        MismatchedSetException mse = new MismatchedSetException(null, input);
-                        DebugRecognitionException(mse);
-                        Recover(mse);
-                        throw mse;
-                    }
-
-
-                }
-
-            }
-            finally
-            {
-                TraceOut("DIGIT", 44);
-                LeaveRule("DIGIT", 44);
-                LeaveRule_DIGIT();
-            }
-        }
-        // $ANTLR end "DIGIT"
-
-        partial void EnterRule_INT();
-        partial void LeaveRule_INT();
-
-        // $ANTLR start "INT"
-        [GrammarRule("INT")]
-        private void mINT()
-        {
-            EnterRule_INT();
-            EnterRule("INT", 45);
-            TraceIn("INT", 45);
-            try
-            {
-                int _type = INT;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:88:5: ( ( '1' .. '9' ) ( DIGIT )* | '0' )
-                int alt3 = 2;
-                try
-                {
-                    DebugEnterDecision(3, false);
-                    int LA3_0 = input.LA(1);
-
-                    if (((LA3_0 >= '1' && LA3_0 <= '9')))
-                    {
-                        alt3 = 1;
-                    }
-                    else if ((LA3_0 == '0'))
-                    {
-                        alt3 = 2;
-                    }
-                    else
-                    {
-                        NoViableAltException nvae = new NoViableAltException("", 3, 0, input);
-                        DebugRecognitionException(nvae);
-                        throw nvae;
-                    }
-                }
-                finally { DebugExitDecision(3); }
-                switch (alt3)
-                {
-                    case 1:
-                        DebugEnterAlt(1);
-                        // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:88:7: ( '1' .. '9' ) ( DIGIT )*
-                        {
-                            DebugLocation(88, 7);
-                            input.Consume();
-
-                            DebugLocation(88, 18);
-                            // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:88:18: ( DIGIT )*
-                            try
-                            {
-                                DebugEnterSubRule(2);
-                                while (true)
-                                {
-                                    int alt2 = 2;
-                                    try
-                                    {
-                                        DebugEnterDecision(2, false);
-                                        int LA2_0 = input.LA(1);
-
-                                        if (((LA2_0 >= '0' && LA2_0 <= '9')))
-                                        {
-                                            alt2 = 1;
-                                        }
-
-
-                                    }
-                                    finally { DebugExitDecision(2); }
-                                    switch (alt2)
-                                    {
-                                        case 1:
-                                            DebugEnterAlt(1);
-                                            // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
-                                            {
-                                                DebugLocation(88, 18);
-                                                input.Consume();
-
-
-                                            }
-                                            break;
-
-                                        default:
-                                            goto loop2;
-                                    }
-                                }
-
-                                loop2:
-                                ;
-
-                            }
-                            finally { DebugExitSubRule(2); }
-
-
-                        }
-                        break;
-                    case 2:
-                        DebugEnterAlt(2);
-                        // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:88:25: '0'
-                        {
-                            DebugLocation(88, 25);
-                            Match('0');
-
-                        }
-                        break;
-
-                }
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("INT", 45);
-                LeaveRule("INT", 45);
-                LeaveRule_INT();
-            }
-        }
-        // $ANTLR end "INT"
-
-        partial void EnterRule_COMMENT();
-        partial void LeaveRule_COMMENT();
-
-        // $ANTLR start "COMMENT"
-        [GrammarRule("COMMENT")]
-        private void mCOMMENT()
-        {
-            EnterRule_COMMENT();
-            EnterRule("COMMENT", 46);
-            TraceIn("COMMENT", 46);
-            try
-            {
-                int _type = COMMENT;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:9: ( '/*' ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* ( '*/' | ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/' ) )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:11: '/*' ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* ( '*/' | ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/' )
-                {
-                    DebugLocation(90, 11);
-                    Match("/*");
-
-                    DebugLocation(90, 16);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:16: ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )*
-                    try
-                    {
-                        DebugEnterSubRule(4);
-                        while (true)
-                        {
-                            int alt4 = 4;
-                            try
-                            {
-                                DebugEnterDecision(4, false);
-                                int LA4_0 = input.LA(1);
-
-                                if ((LA4_0 == '*'))
-                                {
-                                    int LA4_1 = input.LA(2);
-
-                                    if (((LA4_1 >= '\u0000' && LA4_1 <= '.') || (LA4_1 >= '0' && LA4_1 <= '\uFFFF')))
-                                    {
-                                        alt4 = 1;
-                                    }
-
-
-                                }
-                                else if ((LA4_0 == '/'))
-                                {
-                                    int LA4_2 = input.LA(2);
-
-                                    if (((LA4_2 >= '\u0000' && LA4_2 <= ')') || (LA4_2 >= '+' && LA4_2 <= '\uFFFF')))
-                                    {
-                                        alt4 = 2;
-                                    }
-
-
-                                }
-                                else if (((LA4_0 >= '\u0000' && LA4_0 <= ')') || (LA4_0 >= '+' && LA4_0 <= '.') || (LA4_0 >= '0' && LA4_0 <= '\uFFFF')))
-                                {
-                                    alt4 = 3;
-                                }
-
-
-                            }
-                            finally { DebugExitDecision(4); }
-                            switch (alt4)
-                            {
-                                case 1:
-                                    DebugEnterAlt(1);
-                                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:17: '*' ~ ( '/' )
-                                    {
-                                        DebugLocation(90, 17);
-                                        Match('*');
-                                        DebugLocation(90, 21);
-                                        input.Consume();
-
-
-                                    }
-                                    break;
-                                case 2:
-                                    DebugEnterAlt(2);
-                                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:30: '/' ~ ( '*' )
-                                    {
-                                        DebugLocation(90, 30);
-                                        Match('/');
-                                        DebugLocation(90, 34);
-                                        input.Consume();
-
-
-                                    }
-                                    break;
-                                case 3:
-                                    DebugEnterAlt(3);
-                                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:43: ~ ( '*' | '/' )
-                                    {
-                                        DebugLocation(90, 43);
-                                        input.Consume();
-
-
-                                    }
-                                    break;
-
-                                default:
-                                    goto loop4;
-                            }
-                        }
-
-                        loop4:
-                        ;
-
-                    }
-                    finally { DebugExitSubRule(4); }
-
-                    DebugLocation(90, 56);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:56: ( '*/' | ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/' )
-                    int alt7 = 2;
-                    try
-                    {
-                        DebugEnterSubRule(7);
-                        try
-                        {
-                            DebugEnterDecision(7, false);
-                            int LA7_0 = input.LA(1);
-
-                            if ((LA7_0 == '*'))
-                            {
-                                alt7 = 1;
-                            }
-                            else if ((LA7_0 == '/'))
-                            {
-                                alt7 = 2;
-                            }
-                            else
-                            {
-                                NoViableAltException nvae = new NoViableAltException("", 7, 0, input);
-                                DebugRecognitionException(nvae);
-                                throw nvae;
-                            }
-                        }
-                        finally { DebugExitDecision(7); }
-                        switch (alt7)
-                        {
-                            case 1:
-                                DebugEnterAlt(1);
-                                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:57: '*/'
-                                {
-                                    DebugLocation(90, 57);
-                                    Match("*/");
-
-
-                                }
-                                break;
-                            case 2:
-                                DebugEnterAlt(2);
-                                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:62: ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/'
-                                {
-                                    DebugLocation(90, 62);
-                                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:62: ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+
-                                    int cnt6 = 0;
-                                    try
-                                    {
-                                        DebugEnterSubRule(6);
-                                        while (true)
-                                        {
-                                            int alt6 = 2;
-                                            try
-                                            {
-                                                DebugEnterDecision(6, false);
-                                                int LA6_0 = input.LA(1);
-
-                                                if ((LA6_0 == '/'))
-                                                {
-                                                    alt6 = 1;
-                                                }
-
-
-                                            }
-                                            finally { DebugExitDecision(6); }
-                                            switch (alt6)
-                                            {
-                                                case 1:
-                                                    DebugEnterAlt(1);
-                                                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:64: COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )*
-                                                    {
-                                                        DebugLocation(90, 64);
-                                                        mCOMMENT();
-                                                        DebugLocation(90, 72);
-                                                        // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:72: ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )*
-                                                        try
-                                                        {
-                                                            DebugEnterSubRule(5);
-                                                            while (true)
-                                                            {
-                                                                int alt5 = 4;
-                                                                try
-                                                                {
-                                                                    DebugEnterDecision(5, false);
-                                                                    int LA5_0 = input.LA(1);
-
-                                                                    if ((LA5_0 == '*'))
-                                                                    {
-                                                                        int LA5_1 = input.LA(2);
-
-                                                                        if (((LA5_1 >= '\u0000' && LA5_1 <= '.') || (LA5_1 >= '0' && LA5_1 <= '\uFFFF')))
-                                                                        {
-                                                                            alt5 = 1;
-                                                                        }
-
-
-                                                                    }
-                                                                    else if ((LA5_0 == '/'))
-                                                                    {
-                                                                        int LA5_2 = input.LA(2);
-
-                                                                        if (((LA5_2 >= '\u0000' && LA5_2 <= ')') || (LA5_2 >= '+' && LA5_2 <= '\uFFFF')))
-                                                                        {
-                                                                            alt5 = 2;
-                                                                        }
-
-
-                                                                    }
-                                                                    else if (((LA5_0 >= '\u0000' && LA5_0 <= ')') || (LA5_0 >= '+' && LA5_0 <= '.') || (LA5_0 >= '0' && LA5_0 <= '\uFFFF')))
-                                                                    {
-                                                                        alt5 = 3;
-                                                                    }
-
-
-                                                                }
-                                                                finally { DebugExitDecision(5); }
-                                                                switch (alt5)
-                                                                {
-                                                                    case 1:
-                                                                        DebugEnterAlt(1);
-                                                                        // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:73: '*' ~ ( '/' )
-                                                                        {
-                                                                            DebugLocation(90, 73);
-                                                                            Match('*');
-                                                                            DebugLocation(90, 77);
-                                                                            input.Consume();
-
-
-                                                                        }
-                                                                        break;
-                                                                    case 2:
-                                                                        DebugEnterAlt(2);
-                                                                        // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:86: '/' ~ ( '*' )
-                                                                        {
-                                                                            DebugLocation(90, 86);
-                                                                            Match('/');
-                                                                            DebugLocation(90, 90);
-                                                                            input.Consume();
-
-
-                                                                        }
-                                                                        break;
-                                                                    case 3:
-                                                                        DebugEnterAlt(3);
-                                                                        // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:98: ~ ( '*' | '/' )
-                                                                        {
-                                                                            DebugLocation(90, 98);
-                                                                            input.Consume();
-
-
-                                                                        }
-                                                                        break;
-
-                                                                    default:
-                                                                        goto loop5;
-                                                                }
-                                                            }
-
-                                                            loop5:
-                                                            ;
-
-                                                        }
-                                                        finally { DebugExitSubRule(5); }
-
-
-                                                    }
-                                                    break;
-
-                                                default:
-                                                    if (cnt6 >= 1)
-                                                        goto loop6;
-
-                                                    EarlyExitException eee6 = new EarlyExitException(6, input);
-                                                    DebugRecognitionException(eee6);
-                                                    throw eee6;
-                                            }
-                                            cnt6++;
-                                        }
-                                        loop6:
-                                        ;
-
-                                    }
-                                    finally { DebugExitSubRule(6); }
-
-                                    DebugLocation(90, 114);
-                                    Match("*/");
-
-
-                                }
-                                break;
-
-                        }
-                    }
-                    finally { DebugExitSubRule(7); }
-
-                    DebugLocation(90, 121);
-                    _channel = Hidden;
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("COMMENT", 46);
-                LeaveRule("COMMENT", 46);
-                LeaveRule_COMMENT();
-            }
-        }
-        // $ANTLR end "COMMENT"
-
-        partial void EnterRule_WS();
-        partial void LeaveRule_WS();
-
-        // $ANTLR start "WS"
-        [GrammarRule("WS")]
-        private void mWS()
-        {
-            EnterRule_WS();
-            EnterRule("WS", 47);
-            TraceIn("WS", 47);
-            try
-            {
-                int _type = WS;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:94:5: ( ( ' ' | '\\t' | '\\r' | '\\n' | '\\f' ) )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:94:9: ( ' ' | '\\t' | '\\r' | '\\n' | '\\f' )
-                {
-                    DebugLocation(94, 9);
-                    if ((input.LA(1) >= '\t' && input.LA(1) <= '\n') || (input.LA(1) >= '\f' && input.LA(1) <= '\r') || input.LA(1) == ' ')
-                    {
-                        input.Consume();
-                    }
-                    else
-                    {
-                        MismatchedSetException mse = new MismatchedSetException(null, input);
-                        DebugRecognitionException(mse);
-                        Recover(mse);
-                        throw mse;
-                    }
-
-                    DebugLocation(99, 11);
-                    _channel = Hidden;
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("WS", 47);
-                LeaveRule("WS", 47);
-                LeaveRule_WS();
-            }
-        }
-        // $ANTLR end "WS"
-
-        partial void EnterRule_STRING();
-        partial void LeaveRule_STRING();
-
-        // $ANTLR start "STRING"
-        [GrammarRule("STRING")]
-        private void mSTRING()
-        {
-            EnterRule_STRING();
-            EnterRule("STRING", 48);
-            TraceIn("STRING", 48);
-            try
-            {
-                int _type = STRING;
-                int _channel = DefaultTokenChannel;
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:103:5: ( '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:103:8: '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"'
-                {
-                    DebugLocation(103, 8);
-                    Match('\"');
-                    DebugLocation(103, 12);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:103:12: ( ESC_SEQ |~ ( '\\\\' | '\"' ) )*
-                    try
-                    {
-                        DebugEnterSubRule(8);
-                        while (true)
-                        {
-                            int alt8 = 3;
-                            try
-                            {
-                                DebugEnterDecision(8, false);
-                                int LA8_0 = input.LA(1);
-
-                                if ((LA8_0 == '\\'))
-                                {
-                                    alt8 = 1;
-                                }
-                                else if (((LA8_0 >= '\u0000' && LA8_0 <= '!') || (LA8_0 >= '#' && LA8_0 <= '[') || (LA8_0 >= ']' && LA8_0 <= '\uFFFF')))
-                                {
-                                    alt8 = 2;
-                                }
-
-
-                            }
-                            finally { DebugExitDecision(8); }
-                            switch (alt8)
-                            {
-                                case 1:
-                                    DebugEnterAlt(1);
-                                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:103:14: ESC_SEQ
-                                    {
-                                        DebugLocation(103, 14);
-                                        mESC_SEQ();
-
-                                    }
-                                    break;
-                                case 2:
-                                    DebugEnterAlt(2);
-                                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:103:23: ~ ( '\\\\' | '\"' )
-                                    {
-                                        DebugLocation(103, 23);
-                                        input.Consume();
-
-
-                                    }
-                                    break;
-
-                                default:
-                                    goto loop8;
-                            }
-                        }
-
-                        loop8:
-                        ;
-
-                    }
-                    finally { DebugExitSubRule(8); }
-
-                    DebugLocation(103, 38);
-                    Match('\"');
-
-                }
-
-                state.type = _type;
-                state.channel = _channel;
-            }
-            finally
-            {
-                TraceOut("STRING", 48);
-                LeaveRule("STRING", 48);
-                LeaveRule_STRING();
-            }
-        }
-        // $ANTLR end "STRING"
-
-        partial void EnterRule_ESC_SEQ();
-        partial void LeaveRule_ESC_SEQ();
-
-        // $ANTLR start "ESC_SEQ"
-        [GrammarRule("ESC_SEQ")]
-        private void mESC_SEQ()
-        {
-            EnterRule_ESC_SEQ();
-            EnterRule("ESC_SEQ", 49);
-            TraceIn("ESC_SEQ", 49);
-            try
-            {
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:5: ( '\\\\' ( 't' | 'n' | '\"' | '\\\\' | '^' CONTROL_CHARS | DECIMAL_ESC | ( WS )+ '\\\\' ) )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:9: '\\\\' ( 't' | 'n' | '\"' | '\\\\' | '^' CONTROL_CHARS | DECIMAL_ESC | ( WS )+ '\\\\' )
-                {
-                    DebugLocation(110, 9);
-                    Match('\\');
-                    DebugLocation(110, 14);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:14: ( 't' | 'n' | '\"' | '\\\\' | '^' CONTROL_CHARS | DECIMAL_ESC | ( WS )+ '\\\\' )
-                    int alt10 = 7;
-                    try
-                    {
-                        DebugEnterSubRule(10);
-                        try
-                        {
-                            DebugEnterDecision(10, false);
-                            switch (input.LA(1))
-                            {
-                                case 't':
-                                    {
-                                        alt10 = 1;
-                                    }
-                                    break;
-                                case 'n':
-                                    {
-                                        alt10 = 2;
-                                    }
-                                    break;
-                                case '\"':
-                                    {
-                                        alt10 = 3;
-                                    }
-                                    break;
-                                case '\\':
-                                    {
-                                        alt10 = 4;
-                                    }
-                                    break;
-                                case '^':
-                                    {
-                                        alt10 = 5;
-                                    }
-                                    break;
-                                case '0':
-                                case '1':
-                                case '2':
-                                case '3':
-                                case '4':
-                                case '5':
-                                case '6':
-                                case '7':
-                                case '8':
-                                case '9':
-                                    {
-                                        alt10 = 6;
-                                    }
-                                    break;
-                                case '\t':
-                                case '\n':
-                                case '\f':
-                                case '\r':
-                                case ' ':
-                                    {
-                                        alt10 = 7;
-                                    }
-                                    break;
-                                default:
-                                    {
-                                        NoViableAltException nvae = new NoViableAltException("", 10, 0, input);
-                                        DebugRecognitionException(nvae);
-                                        throw nvae;
-                                    }
-                            }
-
-                        }
-                        finally { DebugExitDecision(10); }
-                        switch (alt10)
-                        {
-                            case 1:
-                                DebugEnterAlt(1);
-                                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:15: 't'
-                                {
-                                    DebugLocation(110, 15);
-                                    Match('t');
-
-                                }
-                                break;
-                            case 2:
-                                DebugEnterAlt(2);
-                                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:19: 'n'
-                                {
-                                    DebugLocation(110, 19);
-                                    Match('n');
-
-                                }
-                                break;
-                            case 3:
-                                DebugEnterAlt(3);
-                                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:23: '\"'
-                                {
-                                    DebugLocation(110, 23);
-                                    Match('\"');
-
-                                }
-                                break;
-                            case 4:
-                                DebugEnterAlt(4);
-                                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:27: '\\\\'
-                                {
-                                    DebugLocation(110, 27);
-                                    Match('\\');
-
-                                }
-                                break;
-                            case 5:
-                                DebugEnterAlt(5);
-                                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:32: '^' CONTROL_CHARS
-                                {
-                                    DebugLocation(110, 32);
-                                    Match('^');
-                                    DebugLocation(110, 35);
-                                    mCONTROL_CHARS();
-
-                                }
-                                break;
-                            case 6:
-                                DebugEnterAlt(6);
-                                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:49: DECIMAL_ESC
-                                {
-                                    DebugLocation(110, 49);
-                                    mDECIMAL_ESC();
-
-                                }
-                                break;
-                            case 7:
-                                DebugEnterAlt(7);
-                                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:61: ( WS )+ '\\\\'
-                                {
-                                    DebugLocation(110, 61);
-                                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:61: ( WS )+
-                                    int cnt9 = 0;
-                                    try
-                                    {
-                                        DebugEnterSubRule(9);
-                                        while (true)
-                                        {
-                                            int alt9 = 2;
-                                            try
-                                            {
-                                                DebugEnterDecision(9, false);
-                                                int LA9_0 = input.LA(1);
-
-                                                if (((LA9_0 >= '\t' && LA9_0 <= '\n') || (LA9_0 >= '\f' && LA9_0 <= '\r') || LA9_0 == ' '))
-                                                {
-                                                    alt9 = 1;
-                                                }
-
-
-                                            }
-                                            finally { DebugExitDecision(9); }
-                                            switch (alt9)
-                                            {
-                                                case 1:
-                                                    DebugEnterAlt(1);
-                                                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:110:62: WS
-                                                    {
-                                                        DebugLocation(110, 62);
-                                                        mWS();
-
-                                                    }
-                                                    break;
-
-                                                default:
-                                                    if (cnt9 >= 1)
-                                                        goto loop9;
-
-                                                    EarlyExitException eee9 = new EarlyExitException(9, input);
-                                                    DebugRecognitionException(eee9);
-                                                    throw eee9;
-                                            }
-                                            cnt9++;
-                                        }
-                                        loop9:
-                                        ;
-
-                                    }
-                                    finally { DebugExitSubRule(9); }
-
-                                    DebugLocation(110, 66);
-                                    Match('\\');
-
-                                }
-                                break;
-
-                        }
-                    }
-                    finally { DebugExitSubRule(10); }
-
-
-                }
-
-            }
-            finally
-            {
-                TraceOut("ESC_SEQ", 49);
-                LeaveRule("ESC_SEQ", 49);
-                LeaveRule_ESC_SEQ();
-            }
-        }
-        // $ANTLR end "ESC_SEQ"
-
-        partial void EnterRule_DECIMAL_ESC();
-        partial void LeaveRule_DECIMAL_ESC();
-
-        // $ANTLR start "DECIMAL_ESC"
-        [GrammarRule("DECIMAL_ESC")]
-        private void mDECIMAL_ESC()
-        {
-            EnterRule_DECIMAL_ESC();
-            EnterRule("DECIMAL_ESC", 50);
-            TraceIn("DECIMAL_ESC", 50);
-            try
-            {
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:115:5: ( ( '0' .. '9' ) ( '0' .. '9' ) ( '0' .. '9' ) | ( '0' .. '9' ) ( '0' .. '9' ) | ( '0' .. '9' ) )
-                int alt11 = 3;
-                try
-                {
-                    DebugEnterDecision(11, false);
-                    int LA11_0 = input.LA(1);
-
-                    if (((LA11_0 >= '0' && LA11_0 <= '9')))
-                    {
-                        int LA11_1 = input.LA(2);
-
-                        if (((LA11_1 >= '0' && LA11_1 <= '9')))
-                        {
-                            int LA11_2 = input.LA(3);
-
-                            if (((LA11_2 >= '0' && LA11_2 <= '9')))
-                            {
-                                alt11 = 1;
-                            }
-                            else
-                            {
-                                alt11 = 2;
-                            }
-                        }
-                        else
-                        {
-                            alt11 = 3;
-                        }
-                    }
-                    else
-                    {
-                        NoViableAltException nvae = new NoViableAltException("", 11, 0, input);
-                        DebugRecognitionException(nvae);
-                        throw nvae;
-                    }
-                }
-                finally { DebugExitDecision(11); }
-                switch (alt11)
-                {
-                    case 1:
-                        DebugEnterAlt(1);
-                        // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:115:10: ( '0' .. '9' ) ( '0' .. '9' ) ( '0' .. '9' )
-                        {
-                            DebugLocation(115, 10);
-                            input.Consume();
-
-                            DebugLocation(115, 21);
-                            input.Consume();
-
-                            DebugLocation(115, 32);
-                            input.Consume();
-
-
-                        }
-                        break;
-                    case 2:
-                        DebugEnterAlt(2);
-                        // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:116:10: ( '0' .. '9' ) ( '0' .. '9' )
-                        {
-                            DebugLocation(116, 10);
-                            input.Consume();
-
-                            DebugLocation(116, 21);
-                            input.Consume();
-
-
-                        }
-                        break;
-                    case 3:
-                        DebugEnterAlt(3);
-                        // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:117:10: ( '0' .. '9' )
-                        {
-                            DebugLocation(117, 10);
-                            input.Consume();
-
-
-                        }
-                        break;
-
-                }
-            }
-            finally
-            {
-                TraceOut("DECIMAL_ESC", 50);
-                LeaveRule("DECIMAL_ESC", 50);
-                LeaveRule_DECIMAL_ESC();
-            }
-        }
-        // $ANTLR end "DECIMAL_ESC"
-
-        partial void EnterRule_CONTROL_CHARS();
-        partial void LeaveRule_CONTROL_CHARS();
-
-        // $ANTLR start "CONTROL_CHARS"
-        [GrammarRule("CONTROL_CHARS")]
-        private void mCONTROL_CHARS()
-        {
-            EnterRule_CONTROL_CHARS();
-            EnterRule("CONTROL_CHARS", 51);
-            TraceIn("CONTROL_CHARS", 51);
-            try
-            {
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:122:2: ( '@' .. '_' )
-                DebugEnterAlt(1);
-                // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
-                {
-                    DebugLocation(122, 2);
-                    if ((input.LA(1) >= '@' && input.LA(1) <= '_'))
-                    {
-                        input.Consume();
-                    }
-                    else
-                    {
-                        MismatchedSetException mse = new MismatchedSetException(null, input);
-                        DebugRecognitionException(mse);
-                        Recover(mse);
-                        throw mse;
-                    }
-
-
-                }
-
-            }
-            finally
-            {
-                TraceOut("CONTROL_CHARS", 51);
-                LeaveRule("CONTROL_CHARS", 51);
-                LeaveRule_CONTROL_CHARS();
-            }
-        }
-        // $ANTLR end "CONTROL_CHARS"
-
-        public override void mTokens()
-        {
-            // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:8: ( AND | ARRAY | ASSIGN | BREAK | COLON | COMMA | DIV | DO | DOT | DQUOTE | ELSE | END | EQUAL | FOR | FUNCTION | GTHAN | GTHAN_EQUAL | IF | IN | LET | LTHAN | LTHAN_EQUAL | L_BRACKETS | L_KEY | L_PARENT | MINUS | MULT | NIL | NOT_EQUAL | OF | OR | PLUS | R_BRACKETS | R_KEY | R_PARENT | SEMICOLON | THEN | TO | TYPE | VAR | WHILE | ID | INT | COMMENT | WS | STRING )
-            int alt12 = 46;
-            try
-            {
-                DebugEnterDecision(12, false);
-                try
-                {
-                    alt12 = dfa12.Predict(input);
-                }
-                catch (NoViableAltException nvae)
-                {
-                    DebugRecognitionException(nvae);
-                    throw;
-                }
-            }
-            finally { DebugExitDecision(12); }
-            switch (alt12)
-            {
-                case 1:
-                    DebugEnterAlt(1);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:10: AND
-                    {
-                        DebugLocation(1, 10);
-                        mAND();
-
-                    }
-                    break;
-                case 2:
-                    DebugEnterAlt(2);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:14: ARRAY
-                    {
-                        DebugLocation(1, 14);
-                        mARRAY();
-
-                    }
-                    break;
-                case 3:
-                    DebugEnterAlt(3);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:20: ASSIGN
-                    {
-                        DebugLocation(1, 20);
-                        mASSIGN();
-
-                    }
-                    break;
-                case 4:
-                    DebugEnterAlt(4);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:27: BREAK
-                    {
-                        DebugLocation(1, 27);
-                        mBREAK();
-
-                    }
-                    break;
-                case 5:
-                    DebugEnterAlt(5);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:33: COLON
-                    {
-                        DebugLocation(1, 33);
-                        mCOLON();
-
-                    }
-                    break;
-                case 6:
-                    DebugEnterAlt(6);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:39: COMMA
-                    {
-                        DebugLocation(1, 39);
-                        mCOMMA();
-
-                    }
-                    break;
-                case 7:
-                    DebugEnterAlt(7);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:45: DIV
-                    {
-                        DebugLocation(1, 45);
-                        mDIV();
-
-                    }
-                    break;
-                case 8:
-                    DebugEnterAlt(8);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:49: DO
-                    {
-                        DebugLocation(1, 49);
-                        mDO();
-
-                    }
-                    break;
-                case 9:
-                    DebugEnterAlt(9);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:52: DOT
-                    {
-                        DebugLocation(1, 52);
-                        mDOT();
-
-                    }
-                    break;
-                case 10:
-                    DebugEnterAlt(10);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:56: DQUOTE
-                    {
-                        DebugLocation(1, 56);
-                        mDQUOTE();
-
-                    }
-                    break;
-                case 11:
-                    DebugEnterAlt(11);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:63: ELSE
-                    {
-                        DebugLocation(1, 63);
-                        mELSE();
-
-                    }
-                    break;
-                case 12:
-                    DebugEnterAlt(12);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:68: END
-                    {
-                        DebugLocation(1, 68);
-                        mEND();
-
-                    }
-                    break;
-                case 13:
-                    DebugEnterAlt(13);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:72: EQUAL
-                    {
-                        DebugLocation(1, 72);
-                        mEQUAL();
-
-                    }
-                    break;
-                case 14:
-                    DebugEnterAlt(14);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:78: FOR
-                    {
-                        DebugLocation(1, 78);
-                        mFOR();
-
-                    }
-                    break;
-                case 15:
-                    DebugEnterAlt(15);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:82: FUNCTION
-                    {
-                        DebugLocation(1, 82);
-                        mFUNCTION();
-
-                    }
-                    break;
-                case 16:
-                    DebugEnterAlt(16);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:91: GTHAN
-                    {
-                        DebugLocation(1, 91);
-                        mGTHAN();
-
-                    }
-                    break;
-                case 17:
-                    DebugEnterAlt(17);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:97: GTHAN_EQUAL
-                    {
-                        DebugLocation(1, 97);
-                        mGTHAN_EQUAL();
-
-                    }
-                    break;
-                case 18:
-                    DebugEnterAlt(18);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:109: IF
-                    {
-                        DebugLocation(1, 109);
-                        mIF();
-
-                    }
-                    break;
-                case 19:
-                    DebugEnterAlt(19);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:112: IN
-                    {
-                        DebugLocation(1, 112);
-                        mIN();
-
-                    }
-                    break;
-                case 20:
-                    DebugEnterAlt(20);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:115: LET
-                    {
-                        DebugLocation(1, 115);
-                        mLET();
-
-                    }
-                    break;
-                case 21:
-                    DebugEnterAlt(21);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:119: LTHAN
-                    {
-                        DebugLocation(1, 119);
-                        mLTHAN();
-
-                    }
-                    break;
-                case 22:
-                    DebugEnterAlt(22);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:125: LTHAN_EQUAL
-                    {
-                        DebugLocation(1, 125);
-                        mLTHAN_EQUAL();
-
-                    }
-                    break;
-                case 23:
-                    DebugEnterAlt(23);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:137: L_BRACKETS
-                    {
-                        DebugLocation(1, 137);
-                        mL_BRACKETS();
-
-                    }
-                    break;
-                case 24:
-                    DebugEnterAlt(24);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:148: L_KEY
-                    {
-                        DebugLocation(1, 148);
-                        mL_KEY();
-
-                    }
-                    break;
-                case 25:
-                    DebugEnterAlt(25);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:154: L_PARENT
-                    {
-                        DebugLocation(1, 154);
-                        mL_PARENT();
-
-                    }
-                    break;
-                case 26:
-                    DebugEnterAlt(26);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:163: MINUS
-                    {
-                        DebugLocation(1, 163);
-                        mMINUS();
-
-                    }
-                    break;
-                case 27:
-                    DebugEnterAlt(27);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:169: MULT
-                    {
-                        DebugLocation(1, 169);
-                        mMULT();
-
-                    }
-                    break;
-                case 28:
-                    DebugEnterAlt(28);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:174: NIL
-                    {
-                        DebugLocation(1, 174);
-                        mNIL();
-
-                    }
-                    break;
-                case 29:
-                    DebugEnterAlt(29);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:178: NOT_EQUAL
-                    {
-                        DebugLocation(1, 178);
-                        mNOT_EQUAL();
-
-                    }
-                    break;
-                case 30:
-                    DebugEnterAlt(30);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:188: OF
-                    {
-                        DebugLocation(1, 188);
-                        mOF();
-
-                    }
-                    break;
-                case 31:
-                    DebugEnterAlt(31);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:191: OR
-                    {
-                        DebugLocation(1, 191);
-                        mOR();
-
-                    }
-                    break;
-                case 32:
-                    DebugEnterAlt(32);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:194: PLUS
-                    {
-                        DebugLocation(1, 194);
-                        mPLUS();
-
-                    }
-                    break;
-                case 33:
-                    DebugEnterAlt(33);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:199: R_BRACKETS
-                    {
-                        DebugLocation(1, 199);
-                        mR_BRACKETS();
-
-                    }
-                    break;
-                case 34:
-                    DebugEnterAlt(34);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:210: R_KEY
-                    {
-                        DebugLocation(1, 210);
-                        mR_KEY();
-
-                    }
-                    break;
-                case 35:
-                    DebugEnterAlt(35);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:216: R_PARENT
-                    {
-                        DebugLocation(1, 216);
-                        mR_PARENT();
-
-                    }
-                    break;
-                case 36:
-                    DebugEnterAlt(36);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:225: SEMICOLON
-                    {
-                        DebugLocation(1, 225);
-                        mSEMICOLON();
-
-                    }
-                    break;
-                case 37:
-                    DebugEnterAlt(37);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:235: THEN
-                    {
-                        DebugLocation(1, 235);
-                        mTHEN();
-
-                    }
-                    break;
-                case 38:
-                    DebugEnterAlt(38);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:240: TO
-                    {
-                        DebugLocation(1, 240);
-                        mTO();
-
-                    }
-                    break;
-                case 39:
-                    DebugEnterAlt(39);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:243: TYPE
-                    {
-                        DebugLocation(1, 243);
-                        mTYPE();
-
-                    }
-                    break;
-                case 40:
-                    DebugEnterAlt(40);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:248: VAR
-                    {
-                        DebugLocation(1, 248);
-                        mVAR();
-
-                    }
-                    break;
-                case 41:
-                    DebugEnterAlt(41);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:252: WHILE
-                    {
-                        DebugLocation(1, 252);
-                        mWHILE();
-
-                    }
-                    break;
-                case 42:
-                    DebugEnterAlt(42);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:258: ID
-                    {
-                        DebugLocation(1, 258);
-                        mID();
-
-                    }
-                    break;
-                case 43:
-                    DebugEnterAlt(43);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:261: INT
-                    {
-                        DebugLocation(1, 261);
-                        mINT();
-
-                    }
-                    break;
-                case 44:
-                    DebugEnterAlt(44);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:265: COMMENT
-                    {
-                        DebugLocation(1, 265);
-                        mCOMMENT();
-
-                    }
-                    break;
-                case 45:
-                    DebugEnterAlt(45);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:273: WS
-                    {
-                        DebugLocation(1, 273);
-                        mWS();
-
-                    }
-                    break;
-                case 46:
-                    DebugEnterAlt(46);
-                    // X:\\UH\\4to\\Compileitor\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:276: STRING
-                    {
-                        DebugLocation(1, 276);
-                        mSTRING();
-
-                    }
-                    break;
-
-            }
-
-        }
-
-
-        #region DFA
-        DFA12 dfa12;
-
-        protected override void InitDFAs()
-        {
-            base.InitDFAs();
-            dfa12 = new DFA12(this, SpecialStateTransition12);
-        }
-
-        private class DFA12 : DFA
-        {
-            private const string DFA12_eotS =
-                "\x2\xFFFF\x1\x21\x1\x26\x1\x21\x1\xFFFF\x1\x29\x1\x21\x1\xFFFF\x1\x2B" +
-                "\x1\x21\x1\xFFFF\x1\x21\x1\x32\x2\x21\x1\x38\x5\xFFFF\x2\x21\x6\xFFFF" +
-                "\x3\x21\x3\xFFFF\x1\x21\x2\xFFFF\x1\x21\x2\xFFFF\x1\x42\x2\xFFFF\x4\x21" +
-                "\x2\xFFFF\x1\x47\x1\x48\x1\x21\x3\xFFFF\x1\x21\x1\x4B\x1\x21\x1\x4D\x5" +
-                "\x21\x1\xFFFF\x1\x21\x1\x54\x1\x55\x1\x21\x2\xFFFF\x1\x57\x1\x58\x1\xFFFF" +
-                "\x1\x21\x1\xFFFF\x1\x21\x1\x5B\x3\x21\x1\x5F\x2\xFFFF\x1\x21\x2\xFFFF" +
-                "\x1\x61\x1\x62\x1\xFFFF\x1\x21\x1\x64\x1\x65\x1\xFFFF\x1\x21\x2\xFFFF" +
-                "\x1\x67\x2\xFFFF\x1\x21\x1\xFFFF\x1\x21\x1\x6A\x1\xFFFF";
-            private const string DFA12_eofS =
-                "\x6B\xFFFF";
-            private const string DFA12_minS =
-                "\x1\x9\x1\xFFFF\x1\x72\x1\x3D\x1\x72\x1\xFFFF\x1\x2A\x1\x6F\x1\xFFFF" +
-                "\x1\x0\x1\x6C\x1\xFFFF\x1\x6F\x1\x3D\x1\x66\x1\x65\x1\x3D\x5\xFFFF\x1" +
-                "\x69\x1\x66\x6\xFFFF\x1\x68\x1\x61\x1\x68\x3\xFFFF\x1\x72\x2\xFFFF\x1" +
-                "\x65\x2\xFFFF\x1\x30\x2\xFFFF\x1\x73\x1\x64\x1\x72\x1\x6E\x2\xFFFF\x2" +
-                "\x30\x1\x74\x3\xFFFF\x1\x6C\x1\x30\x1\x65\x1\x30\x1\x70\x1\x72\x1\x69" +
-                "\x2\x61\x1\xFFFF\x1\x65\x2\x30\x1\x63\x2\xFFFF\x2\x30\x1\xFFFF\x1\x6E" +
-                "\x1\xFFFF\x1\x65\x1\x30\x1\x6C\x1\x79\x1\x6B\x1\x30\x2\xFFFF\x1\x74\x2" +
-                "\xFFFF\x2\x30\x1\xFFFF\x1\x65\x2\x30\x1\xFFFF\x1\x69\x2\xFFFF\x1\x30" +
-                "\x2\xFFFF\x1\x6F\x1\xFFFF\x1\x6E\x1\x30\x1\xFFFF";
-            private const string DFA12_maxS =
-                "\x1\x7D\x1\xFFFF\x1\x72\x1\x3D\x1\x72\x1\xFFFF\x1\x2A\x1\x6F\x1\xFFFF" +
-                "\x1\xFFFF\x1\x6E\x1\xFFFF\x1\x75\x1\x3D\x1\x6E\x1\x65\x1\x3E\x5\xFFFF" +
-                "\x1\x69\x1\x66\x6\xFFFF\x1\x79\x1\x61\x1\x68\x3\xFFFF\x1\x72\x2\xFFFF" +
-                "\x1\x65\x2\xFFFF\x1\x7A\x2\xFFFF\x1\x73\x1\x64\x1\x72\x1\x6E\x2\xFFFF" +
-                "\x2\x7A\x1\x74\x3\xFFFF\x1\x6C\x1\x7A\x1\x65\x1\x7A\x1\x70\x1\x72\x1" +
-                "\x69\x2\x61\x1\xFFFF\x1\x65\x2\x7A\x1\x63\x2\xFFFF\x2\x7A\x1\xFFFF\x1" +
-                "\x6E\x1\xFFFF\x1\x65\x1\x7A\x1\x6C\x1\x79\x1\x6B\x1\x7A\x2\xFFFF\x1\x74" +
-                "\x2\xFFFF\x2\x7A\x1\xFFFF\x1\x65\x2\x7A\x1\xFFFF\x1\x69\x2\xFFFF\x1\x7A" +
-                "\x2\xFFFF\x1\x6F\x1\xFFFF\x1\x6E\x1\x7A\x1\xFFFF";
-            private const string DFA12_acceptS =
-                "\x1\xFFFF\x1\x1\x3\xFFFF\x1\x6\x2\xFFFF\x1\x9\x2\xFFFF\x1\xD\x5\xFFFF" +
-                "\x1\x17\x1\x18\x1\x19\x1\x1A\x1\x1B\x2\xFFFF\x1\x1F\x1\x20\x1\x21\x1" +
-                "\x22\x1\x23\x1\x24\x3\xFFFF\x1\x2A\x1\x2B\x1\x2D\x1\xFFFF\x1\x3\x1\x5" +
-                "\x1\xFFFF\x1\x2C\x1\x7\x1\xFFFF\x1\xA\x1\x2E\x4\xFFFF\x1\x11\x1\x10\x3" +
-                "\xFFFF\x1\x16\x1\x1D\x1\x15\x9\xFFFF\x1\x8\x4\xFFFF\x1\x12\x1\x13\x2" +
-                "\xFFFF\x1\x1E\x1\xFFFF\x1\x26\x6\xFFFF\x1\xC\x1\xE\x1\xFFFF\x1\x14\x1" +
-                "\x1C\x2\xFFFF\x1\x28\x3\xFFFF\x1\xB\x1\xFFFF\x1\x25\x1\x27\x1\xFFFF\x1" +
-                "\x2\x1\x4\x1\xFFFF\x1\x29\x2\xFFFF\x1\xF";
-            private const string DFA12_specialS =
-                "\x9\xFFFF\x1\x0\x61\xFFFF}>";
-            private static readonly string[] DFA12_transitionS =
-                {
-                "\x2\x23\x1\xFFFF\x2\x23\x12\xFFFF\x1\x23\x1\xFFFF\x1\x9\x3\xFFFF\x1"+
-                "\x1\x1\xFFFF\x1\x13\x1\x1C\x1\x15\x1\x19\x1\x5\x1\x14\x1\x8\x1\x6\xA"+
-                "\x22\x1\x3\x1\x1D\x1\x10\x1\xB\x1\xD\x2\xFFFF\x1A\x21\x1\x11\x1\xFFFF"+
-                "\x1\x1A\x3\xFFFF\x1\x2\x1\x4\x1\x21\x1\x7\x1\xA\x1\xC\x2\x21\x1\xE\x2"+
-                "\x21\x1\xF\x1\x21\x1\x16\x1\x17\x4\x21\x1\x1E\x1\x21\x1\x1F\x1\x20\x3"+
-                "\x21\x1\x12\x1\x18\x1\x1B",
-                "",
-                "\x1\x24",
-                "\x1\x25",
-                "\x1\x27",
-                "",
-                "\x1\x28",
-                "\x1\x2A",
-                "",
-                "\x0\x2C",
-                "\x1\x2D\x1\xFFFF\x1\x2E",
-                "",
-                "\x1\x2F\x5\xFFFF\x1\x30",
-                "\x1\x31",
-                "\x1\x33\x7\xFFFF\x1\x34",
-                "\x1\x35",
-                "\x1\x36\x1\x37",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "\x1\x39",
-                "\x1\x3A",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "\x1\x3B\x6\xFFFF\x1\x3C\x9\xFFFF\x1\x3D",
-                "\x1\x3E",
-                "\x1\x3F",
-                "",
-                "",
-                "",
-                "\x1\x40",
-                "",
-                "",
-                "\x1\x41",
-                "",
-                "",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "",
-                "",
-                "\x1\x43",
-                "\x1\x44",
-                "\x1\x45",
-                "\x1\x46",
-                "",
-                "",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "\x1\x49",
-                "",
-                "",
-                "",
-                "\x1\x4A",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "\x1\x4C",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "\x1\x4E",
-                "\x1\x4F",
-                "\x1\x50",
-                "\x1\x51",
-                "\x1\x52",
-                "",
-                "\x1\x53",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "\x1\x56",
-                "",
-                "",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "",
-                "\x1\x59",
-                "",
-                "\x1\x5A",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "\x1\x5C",
-                "\x1\x5D",
-                "\x1\x5E",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "",
-                "",
-                "\x1\x60",
-                "",
-                "",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "",
-                "\x1\x63",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "",
-                "\x1\x66",
-                "",
-                "",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                "",
-                "",
-                "\x1\x68",
-                "",
-                "\x1\x69",
-                "\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
-                ""
-            };
-
-            private static readonly short[] DFA12_eot = DFA.UnpackEncodedString(DFA12_eotS);
-            private static readonly short[] DFA12_eof = DFA.UnpackEncodedString(DFA12_eofS);
-            private static readonly char[] DFA12_min = DFA.UnpackEncodedStringToUnsignedChars(DFA12_minS);
-            private static readonly char[] DFA12_max = DFA.UnpackEncodedStringToUnsignedChars(DFA12_maxS);
-            private static readonly short[] DFA12_accept = DFA.UnpackEncodedString(DFA12_acceptS);
-            private static readonly short[] DFA12_special = DFA.UnpackEncodedString(DFA12_specialS);
-            private static readonly short[][] DFA12_transition;
-
-            static DFA12()
-            {
-                int numStates = DFA12_transitionS.Length;
-                DFA12_transition = new short[numStates][];
-                for (int i = 0; i < numStates; i++)
-                {
-                    DFA12_transition[i] = DFA.UnpackEncodedString(DFA12_transitionS[i]);
-                }
-            }
-
-            public DFA12(BaseRecognizer recognizer, SpecialStateTransitionHandler specialStateTransition)
-                : base(specialStateTransition)
-            {
-                this.recognizer = recognizer;
-                this.decisionNumber = 12;
-                this.eot = DFA12_eot;
-                this.eof = DFA12_eof;
-                this.min = DFA12_min;
-                this.max = DFA12_max;
-                this.accept = DFA12_accept;
-                this.special = DFA12_special;
-                this.transition = DFA12_transition;
-            }
-
-            public override string Description { get { return "1:1: Tokens : ( AND | ARRAY | ASSIGN | BREAK | COLON | COMMA | DIV | DO | DOT | DQUOTE | ELSE | END | EQUAL | FOR | FUNCTION | GTHAN | GTHAN_EQUAL | IF | IN | LET | LTHAN | LTHAN_EQUAL | L_BRACKETS | L_KEY | L_PARENT | MINUS | MULT | NIL | NOT_EQUAL | OF | OR | PLUS | R_BRACKETS | R_KEY | R_PARENT | SEMICOLON | THEN | TO | TYPE | VAR | WHILE | ID | INT | COMMENT | WS | STRING );"; } }
-
-            public override void Error(NoViableAltException nvae)
-            {
-                DebugRecognitionException(nvae);
-            }
-        }
-
-        private int SpecialStateTransition12(DFA dfa, int s, IIntStream _input)
-        {
-            IIntStream input = _input;
-            int _s = s;
-            switch (s)
-            {
-                case 0:
-                    int LA12_9 = input.LA(1);
-
-                    s = -1;
-                    if (((LA12_9 >= '\u0000' && LA12_9 <= '\uFFFF'))) { s = 44; }
-
-                    else s = 43;
-
-                    if (s >= 0) return s;
-                    break;
-            }
-            NoViableAltException nvae = new NoViableAltException(dfa.Description, 12, _s, input);
-            dfa.Error(nvae);
-            throw nvae;
-        }
-
-        #endregion
-
-    }
+	[System.CodeDom.Compiler.GeneratedCode("ANTLR", "3.4")]
+	[System.CLSCompliant(false)]
+	public partial class TigrammarLexer : Antlr.Runtime.Lexer
+	{
+		public const int EOF=-1;
+		public const int AND=4;
+		public const int ARRAY=5;
+		public const int ASSIGN=6;
+		public const int BREAK=7;
+		public const int COLON=8;
+		public const int COMMA=9;
+		public const int COMMENT=10;
+		public const int CONTROL_CHARS=11;
+		public const int DECIMAL_ESC=12;
+		public const int DIGIT=13;
+		public const int DIV=14;
+		public const int DO=15;
+		public const int DOT=16;
+		public const int DQUOTE=17;
+		public const int ELSE=18;
+		public const int END=19;
+		public const int EQUAL=20;
+		public const int ESC_SEQ=21;
+		public const int FOR=22;
+		public const int FUNCTION=23;
+		public const int GTHAN=24;
+		public const int GTHAN_EQUAL=25;
+		public const int ID=26;
+		public const int IF=27;
+		public const int IN=28;
+		public const int INT=29;
+		public const int LET=30;
+		public const int LETTER=31;
+		public const int LTHAN=32;
+		public const int LTHAN_EQUAL=33;
+		public const int L_BRACKETS=34;
+		public const int L_KEY=35;
+		public const int L_PARENT=36;
+		public const int MINUS=37;
+		public const int MULT=38;
+		public const int NIL=39;
+		public const int NOT_EQUAL=40;
+		public const int OF=41;
+		public const int OR=42;
+		public const int PLUS=43;
+		public const int R_BRACKETS=44;
+		public const int R_KEY=45;
+		public const int R_PARENT=46;
+		public const int SEMICOLON=47;
+		public const int STRING=48;
+		public const int THEN=49;
+		public const int TO=50;
+		public const int TYPE=51;
+		public const int VAR=52;
+		public const int WHILE=53;
+		public const int WS=54;
+
+		// delegates
+		// delegators
+
+		public TigrammarLexer()
+		{
+			OnCreated();
+		}
+
+		public TigrammarLexer(ICharStream input )
+			: this(input, new RecognizerSharedState())
+		{
+		}
+
+		public TigrammarLexer(ICharStream input, RecognizerSharedState state)
+			: base(input, state)
+		{
+
+			OnCreated();
+		}
+		public override string GrammarFileName { get { return "E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g"; } }
+
+
+		partial void OnCreated();
+		partial void EnterRule(string ruleName, int ruleIndex);
+		partial void LeaveRule(string ruleName, int ruleIndex);
+
+		partial void EnterRule_AND();
+		partial void LeaveRule_AND();
+
+		// $ANTLR start "AND"
+		[GrammarRule("AND")]
+		private void mAND()
+		{
+			EnterRule_AND();
+			EnterRule("AND", 1);
+			TraceIn("AND", 1);
+			try
+			{
+				int _type = AND;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:7:5: ( '&' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:7:7: '&'
+				{
+					DebugLocation(7, 7);
+					Match('&'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("AND", 1);
+				LeaveRule("AND", 1);
+				LeaveRule_AND();
+			}
+		}
+		// $ANTLR end "AND"
+
+		partial void EnterRule_ARRAY();
+		partial void LeaveRule_ARRAY();
+
+		// $ANTLR start "ARRAY"
+		[GrammarRule("ARRAY")]
+		private void mARRAY()
+		{
+			EnterRule_ARRAY();
+			EnterRule("ARRAY", 2);
+			TraceIn("ARRAY", 2);
+			try
+			{
+				int _type = ARRAY;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:8:7: ( 'array' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:8:9: 'array'
+				{
+					DebugLocation(8, 9);
+					Match("array"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("ARRAY", 2);
+				LeaveRule("ARRAY", 2);
+				LeaveRule_ARRAY();
+			}
+		}
+		// $ANTLR end "ARRAY"
+
+		partial void EnterRule_ASSIGN();
+		partial void LeaveRule_ASSIGN();
+
+		// $ANTLR start "ASSIGN"
+		[GrammarRule("ASSIGN")]
+		private void mASSIGN()
+		{
+			EnterRule_ASSIGN();
+			EnterRule("ASSIGN", 3);
+			TraceIn("ASSIGN", 3);
+			try
+			{
+				int _type = ASSIGN;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:9:8: ( ':=' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:9:10: ':='
+				{
+					DebugLocation(9, 10);
+					Match(":="); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("ASSIGN", 3);
+				LeaveRule("ASSIGN", 3);
+				LeaveRule_ASSIGN();
+			}
+		}
+		// $ANTLR end "ASSIGN"
+
+		partial void EnterRule_BREAK();
+		partial void LeaveRule_BREAK();
+
+		// $ANTLR start "BREAK"
+		[GrammarRule("BREAK")]
+		private void mBREAK()
+		{
+			EnterRule_BREAK();
+			EnterRule("BREAK", 4);
+			TraceIn("BREAK", 4);
+			try
+			{
+				int _type = BREAK;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:10:7: ( 'break' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:10:9: 'break'
+				{
+					DebugLocation(10, 9);
+					Match("break"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("BREAK", 4);
+				LeaveRule("BREAK", 4);
+				LeaveRule_BREAK();
+			}
+		}
+		// $ANTLR end "BREAK"
+
+		partial void EnterRule_COLON();
+		partial void LeaveRule_COLON();
+
+		// $ANTLR start "COLON"
+		[GrammarRule("COLON")]
+		private void mCOLON()
+		{
+			EnterRule_COLON();
+			EnterRule("COLON", 5);
+			TraceIn("COLON", 5);
+			try
+			{
+				int _type = COLON;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:11:7: ( ':' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:11:9: ':'
+				{
+					DebugLocation(11, 9);
+					Match(':'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("COLON", 5);
+				LeaveRule("COLON", 5);
+				LeaveRule_COLON();
+			}
+		}
+		// $ANTLR end "COLON"
+
+		partial void EnterRule_COMMA();
+		partial void LeaveRule_COMMA();
+
+		// $ANTLR start "COMMA"
+		[GrammarRule("COMMA")]
+		private void mCOMMA()
+		{
+			EnterRule_COMMA();
+			EnterRule("COMMA", 6);
+			TraceIn("COMMA", 6);
+			try
+			{
+				int _type = COMMA;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:12:7: ( ',' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:12:9: ','
+				{
+					DebugLocation(12, 9);
+					Match(','); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("COMMA", 6);
+				LeaveRule("COMMA", 6);
+				LeaveRule_COMMA();
+			}
+		}
+		// $ANTLR end "COMMA"
+
+		partial void EnterRule_DIV();
+		partial void LeaveRule_DIV();
+
+		// $ANTLR start "DIV"
+		[GrammarRule("DIV")]
+		private void mDIV()
+		{
+			EnterRule_DIV();
+			EnterRule("DIV", 7);
+			TraceIn("DIV", 7);
+			try
+			{
+				int _type = DIV;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:13:5: ( '/' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:13:7: '/'
+				{
+					DebugLocation(13, 7);
+					Match('/'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("DIV", 7);
+				LeaveRule("DIV", 7);
+				LeaveRule_DIV();
+			}
+		}
+		// $ANTLR end "DIV"
+
+		partial void EnterRule_DO();
+		partial void LeaveRule_DO();
+
+		// $ANTLR start "DO"
+		[GrammarRule("DO")]
+		private void mDO()
+		{
+			EnterRule_DO();
+			EnterRule("DO", 8);
+			TraceIn("DO", 8);
+			try
+			{
+				int _type = DO;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:14:4: ( 'do' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:14:6: 'do'
+				{
+					DebugLocation(14, 6);
+					Match("do"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("DO", 8);
+				LeaveRule("DO", 8);
+				LeaveRule_DO();
+			}
+		}
+		// $ANTLR end "DO"
+
+		partial void EnterRule_DOT();
+		partial void LeaveRule_DOT();
+
+		// $ANTLR start "DOT"
+		[GrammarRule("DOT")]
+		private void mDOT()
+		{
+			EnterRule_DOT();
+			EnterRule("DOT", 9);
+			TraceIn("DOT", 9);
+			try
+			{
+				int _type = DOT;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:15:5: ( '.' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:15:7: '.'
+				{
+					DebugLocation(15, 7);
+					Match('.'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("DOT", 9);
+				LeaveRule("DOT", 9);
+				LeaveRule_DOT();
+			}
+		}
+		// $ANTLR end "DOT"
+
+		partial void EnterRule_DQUOTE();
+		partial void LeaveRule_DQUOTE();
+
+		// $ANTLR start "DQUOTE"
+		[GrammarRule("DQUOTE")]
+		private void mDQUOTE()
+		{
+			EnterRule_DQUOTE();
+			EnterRule("DQUOTE", 10);
+			TraceIn("DQUOTE", 10);
+			try
+			{
+				int _type = DQUOTE;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:16:8: ( '\"' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:16:10: '\"'
+				{
+					DebugLocation(16, 10);
+					Match('\"'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("DQUOTE", 10);
+				LeaveRule("DQUOTE", 10);
+				LeaveRule_DQUOTE();
+			}
+		}
+		// $ANTLR end "DQUOTE"
+
+		partial void EnterRule_ELSE();
+		partial void LeaveRule_ELSE();
+
+		// $ANTLR start "ELSE"
+		[GrammarRule("ELSE")]
+		private void mELSE()
+		{
+			EnterRule_ELSE();
+			EnterRule("ELSE", 11);
+			TraceIn("ELSE", 11);
+			try
+			{
+				int _type = ELSE;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:17:6: ( 'else' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:17:8: 'else'
+				{
+					DebugLocation(17, 8);
+					Match("else"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("ELSE", 11);
+				LeaveRule("ELSE", 11);
+				LeaveRule_ELSE();
+			}
+		}
+		// $ANTLR end "ELSE"
+
+		partial void EnterRule_END();
+		partial void LeaveRule_END();
+
+		// $ANTLR start "END"
+		[GrammarRule("END")]
+		private void mEND()
+		{
+			EnterRule_END();
+			EnterRule("END", 12);
+			TraceIn("END", 12);
+			try
+			{
+				int _type = END;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:18:5: ( 'end' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:18:7: 'end'
+				{
+					DebugLocation(18, 7);
+					Match("end"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("END", 12);
+				LeaveRule("END", 12);
+				LeaveRule_END();
+			}
+		}
+		// $ANTLR end "END"
+
+		partial void EnterRule_EQUAL();
+		partial void LeaveRule_EQUAL();
+
+		// $ANTLR start "EQUAL"
+		[GrammarRule("EQUAL")]
+		private void mEQUAL()
+		{
+			EnterRule_EQUAL();
+			EnterRule("EQUAL", 13);
+			TraceIn("EQUAL", 13);
+			try
+			{
+				int _type = EQUAL;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:19:7: ( '=' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:19:9: '='
+				{
+					DebugLocation(19, 9);
+					Match('='); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("EQUAL", 13);
+				LeaveRule("EQUAL", 13);
+				LeaveRule_EQUAL();
+			}
+		}
+		// $ANTLR end "EQUAL"
+
+		partial void EnterRule_FOR();
+		partial void LeaveRule_FOR();
+
+		// $ANTLR start "FOR"
+		[GrammarRule("FOR")]
+		private void mFOR()
+		{
+			EnterRule_FOR();
+			EnterRule("FOR", 14);
+			TraceIn("FOR", 14);
+			try
+			{
+				int _type = FOR;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:20:5: ( 'for' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:20:7: 'for'
+				{
+					DebugLocation(20, 7);
+					Match("for"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("FOR", 14);
+				LeaveRule("FOR", 14);
+				LeaveRule_FOR();
+			}
+		}
+		// $ANTLR end "FOR"
+
+		partial void EnterRule_FUNCTION();
+		partial void LeaveRule_FUNCTION();
+
+		// $ANTLR start "FUNCTION"
+		[GrammarRule("FUNCTION")]
+		private void mFUNCTION()
+		{
+			EnterRule_FUNCTION();
+			EnterRule("FUNCTION", 15);
+			TraceIn("FUNCTION", 15);
+			try
+			{
+				int _type = FUNCTION;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:21:10: ( 'function' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:21:12: 'function'
+				{
+					DebugLocation(21, 12);
+					Match("function"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("FUNCTION", 15);
+				LeaveRule("FUNCTION", 15);
+				LeaveRule_FUNCTION();
+			}
+		}
+		// $ANTLR end "FUNCTION"
+
+		partial void EnterRule_GTHAN();
+		partial void LeaveRule_GTHAN();
+
+		// $ANTLR start "GTHAN"
+		[GrammarRule("GTHAN")]
+		private void mGTHAN()
+		{
+			EnterRule_GTHAN();
+			EnterRule("GTHAN", 16);
+			TraceIn("GTHAN", 16);
+			try
+			{
+				int _type = GTHAN;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:22:7: ( '>' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:22:9: '>'
+				{
+					DebugLocation(22, 9);
+					Match('>'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("GTHAN", 16);
+				LeaveRule("GTHAN", 16);
+				LeaveRule_GTHAN();
+			}
+		}
+		// $ANTLR end "GTHAN"
+
+		partial void EnterRule_GTHAN_EQUAL();
+		partial void LeaveRule_GTHAN_EQUAL();
+
+		// $ANTLR start "GTHAN_EQUAL"
+		[GrammarRule("GTHAN_EQUAL")]
+		private void mGTHAN_EQUAL()
+		{
+			EnterRule_GTHAN_EQUAL();
+			EnterRule("GTHAN_EQUAL", 17);
+			TraceIn("GTHAN_EQUAL", 17);
+			try
+			{
+				int _type = GTHAN_EQUAL;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:23:13: ( '>=' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:23:15: '>='
+				{
+					DebugLocation(23, 15);
+					Match(">="); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("GTHAN_EQUAL", 17);
+				LeaveRule("GTHAN_EQUAL", 17);
+				LeaveRule_GTHAN_EQUAL();
+			}
+		}
+		// $ANTLR end "GTHAN_EQUAL"
+
+		partial void EnterRule_IF();
+		partial void LeaveRule_IF();
+
+		// $ANTLR start "IF"
+		[GrammarRule("IF")]
+		private void mIF()
+		{
+			EnterRule_IF();
+			EnterRule("IF", 18);
+			TraceIn("IF", 18);
+			try
+			{
+				int _type = IF;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:24:4: ( 'if' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:24:6: 'if'
+				{
+					DebugLocation(24, 6);
+					Match("if"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("IF", 18);
+				LeaveRule("IF", 18);
+				LeaveRule_IF();
+			}
+		}
+		// $ANTLR end "IF"
+
+		partial void EnterRule_IN();
+		partial void LeaveRule_IN();
+
+		// $ANTLR start "IN"
+		[GrammarRule("IN")]
+		private void mIN()
+		{
+			EnterRule_IN();
+			EnterRule("IN", 19);
+			TraceIn("IN", 19);
+			try
+			{
+				int _type = IN;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:25:4: ( 'in' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:25:6: 'in'
+				{
+					DebugLocation(25, 6);
+					Match("in"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("IN", 19);
+				LeaveRule("IN", 19);
+				LeaveRule_IN();
+			}
+		}
+		// $ANTLR end "IN"
+
+		partial void EnterRule_LET();
+		partial void LeaveRule_LET();
+
+		// $ANTLR start "LET"
+		[GrammarRule("LET")]
+		private void mLET()
+		{
+			EnterRule_LET();
+			EnterRule("LET", 20);
+			TraceIn("LET", 20);
+			try
+			{
+				int _type = LET;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:26:5: ( 'let' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:26:7: 'let'
+				{
+					DebugLocation(26, 7);
+					Match("let"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("LET", 20);
+				LeaveRule("LET", 20);
+				LeaveRule_LET();
+			}
+		}
+		// $ANTLR end "LET"
+
+		partial void EnterRule_LTHAN();
+		partial void LeaveRule_LTHAN();
+
+		// $ANTLR start "LTHAN"
+		[GrammarRule("LTHAN")]
+		private void mLTHAN()
+		{
+			EnterRule_LTHAN();
+			EnterRule("LTHAN", 21);
+			TraceIn("LTHAN", 21);
+			try
+			{
+				int _type = LTHAN;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:27:7: ( '<' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:27:9: '<'
+				{
+					DebugLocation(27, 9);
+					Match('<'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("LTHAN", 21);
+				LeaveRule("LTHAN", 21);
+				LeaveRule_LTHAN();
+			}
+		}
+		// $ANTLR end "LTHAN"
+
+		partial void EnterRule_LTHAN_EQUAL();
+		partial void LeaveRule_LTHAN_EQUAL();
+
+		// $ANTLR start "LTHAN_EQUAL"
+		[GrammarRule("LTHAN_EQUAL")]
+		private void mLTHAN_EQUAL()
+		{
+			EnterRule_LTHAN_EQUAL();
+			EnterRule("LTHAN_EQUAL", 22);
+			TraceIn("LTHAN_EQUAL", 22);
+			try
+			{
+				int _type = LTHAN_EQUAL;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:28:13: ( '<=' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:28:15: '<='
+				{
+					DebugLocation(28, 15);
+					Match("<="); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("LTHAN_EQUAL", 22);
+				LeaveRule("LTHAN_EQUAL", 22);
+				LeaveRule_LTHAN_EQUAL();
+			}
+		}
+		// $ANTLR end "LTHAN_EQUAL"
+
+		partial void EnterRule_L_BRACKETS();
+		partial void LeaveRule_L_BRACKETS();
+
+		// $ANTLR start "L_BRACKETS"
+		[GrammarRule("L_BRACKETS")]
+		private void mL_BRACKETS()
+		{
+			EnterRule_L_BRACKETS();
+			EnterRule("L_BRACKETS", 23);
+			TraceIn("L_BRACKETS", 23);
+			try
+			{
+				int _type = L_BRACKETS;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:29:12: ( '[' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:29:14: '['
+				{
+					DebugLocation(29, 14);
+					Match('['); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("L_BRACKETS", 23);
+				LeaveRule("L_BRACKETS", 23);
+				LeaveRule_L_BRACKETS();
+			}
+		}
+		// $ANTLR end "L_BRACKETS"
+
+		partial void EnterRule_L_KEY();
+		partial void LeaveRule_L_KEY();
+
+		// $ANTLR start "L_KEY"
+		[GrammarRule("L_KEY")]
+		private void mL_KEY()
+		{
+			EnterRule_L_KEY();
+			EnterRule("L_KEY", 24);
+			TraceIn("L_KEY", 24);
+			try
+			{
+				int _type = L_KEY;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:30:7: ( '{' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:30:9: '{'
+				{
+					DebugLocation(30, 9);
+					Match('{'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("L_KEY", 24);
+				LeaveRule("L_KEY", 24);
+				LeaveRule_L_KEY();
+			}
+		}
+		// $ANTLR end "L_KEY"
+
+		partial void EnterRule_L_PARENT();
+		partial void LeaveRule_L_PARENT();
+
+		// $ANTLR start "L_PARENT"
+		[GrammarRule("L_PARENT")]
+		private void mL_PARENT()
+		{
+			EnterRule_L_PARENT();
+			EnterRule("L_PARENT", 25);
+			TraceIn("L_PARENT", 25);
+			try
+			{
+				int _type = L_PARENT;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:31:10: ( '(' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:31:12: '('
+				{
+					DebugLocation(31, 12);
+					Match('('); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("L_PARENT", 25);
+				LeaveRule("L_PARENT", 25);
+				LeaveRule_L_PARENT();
+			}
+		}
+		// $ANTLR end "L_PARENT"
+
+		partial void EnterRule_MINUS();
+		partial void LeaveRule_MINUS();
+
+		// $ANTLR start "MINUS"
+		[GrammarRule("MINUS")]
+		private void mMINUS()
+		{
+			EnterRule_MINUS();
+			EnterRule("MINUS", 26);
+			TraceIn("MINUS", 26);
+			try
+			{
+				int _type = MINUS;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:32:7: ( '-' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:32:9: '-'
+				{
+					DebugLocation(32, 9);
+					Match('-'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("MINUS", 26);
+				LeaveRule("MINUS", 26);
+				LeaveRule_MINUS();
+			}
+		}
+		// $ANTLR end "MINUS"
+
+		partial void EnterRule_MULT();
+		partial void LeaveRule_MULT();
+
+		// $ANTLR start "MULT"
+		[GrammarRule("MULT")]
+		private void mMULT()
+		{
+			EnterRule_MULT();
+			EnterRule("MULT", 27);
+			TraceIn("MULT", 27);
+			try
+			{
+				int _type = MULT;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:33:6: ( '*' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:33:8: '*'
+				{
+					DebugLocation(33, 8);
+					Match('*'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("MULT", 27);
+				LeaveRule("MULT", 27);
+				LeaveRule_MULT();
+			}
+		}
+		// $ANTLR end "MULT"
+
+		partial void EnterRule_NIL();
+		partial void LeaveRule_NIL();
+
+		// $ANTLR start "NIL"
+		[GrammarRule("NIL")]
+		private void mNIL()
+		{
+			EnterRule_NIL();
+			EnterRule("NIL", 28);
+			TraceIn("NIL", 28);
+			try
+			{
+				int _type = NIL;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:34:5: ( 'nil' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:34:7: 'nil'
+				{
+					DebugLocation(34, 7);
+					Match("nil"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("NIL", 28);
+				LeaveRule("NIL", 28);
+				LeaveRule_NIL();
+			}
+		}
+		// $ANTLR end "NIL"
+
+		partial void EnterRule_NOT_EQUAL();
+		partial void LeaveRule_NOT_EQUAL();
+
+		// $ANTLR start "NOT_EQUAL"
+		[GrammarRule("NOT_EQUAL")]
+		private void mNOT_EQUAL()
+		{
+			EnterRule_NOT_EQUAL();
+			EnterRule("NOT_EQUAL", 29);
+			TraceIn("NOT_EQUAL", 29);
+			try
+			{
+				int _type = NOT_EQUAL;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:35:11: ( '<>' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:35:13: '<>'
+				{
+					DebugLocation(35, 13);
+					Match("<>"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("NOT_EQUAL", 29);
+				LeaveRule("NOT_EQUAL", 29);
+				LeaveRule_NOT_EQUAL();
+			}
+		}
+		// $ANTLR end "NOT_EQUAL"
+
+		partial void EnterRule_OF();
+		partial void LeaveRule_OF();
+
+		// $ANTLR start "OF"
+		[GrammarRule("OF")]
+		private void mOF()
+		{
+			EnterRule_OF();
+			EnterRule("OF", 30);
+			TraceIn("OF", 30);
+			try
+			{
+				int _type = OF;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:36:4: ( 'of' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:36:6: 'of'
+				{
+					DebugLocation(36, 6);
+					Match("of"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("OF", 30);
+				LeaveRule("OF", 30);
+				LeaveRule_OF();
+			}
+		}
+		// $ANTLR end "OF"
+
+		partial void EnterRule_OR();
+		partial void LeaveRule_OR();
+
+		// $ANTLR start "OR"
+		[GrammarRule("OR")]
+		private void mOR()
+		{
+			EnterRule_OR();
+			EnterRule("OR", 31);
+			TraceIn("OR", 31);
+			try
+			{
+				int _type = OR;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:37:4: ( '|' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:37:6: '|'
+				{
+					DebugLocation(37, 6);
+					Match('|'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("OR", 31);
+				LeaveRule("OR", 31);
+				LeaveRule_OR();
+			}
+		}
+		// $ANTLR end "OR"
+
+		partial void EnterRule_PLUS();
+		partial void LeaveRule_PLUS();
+
+		// $ANTLR start "PLUS"
+		[GrammarRule("PLUS")]
+		private void mPLUS()
+		{
+			EnterRule_PLUS();
+			EnterRule("PLUS", 32);
+			TraceIn("PLUS", 32);
+			try
+			{
+				int _type = PLUS;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:38:6: ( '+' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:38:8: '+'
+				{
+					DebugLocation(38, 8);
+					Match('+'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("PLUS", 32);
+				LeaveRule("PLUS", 32);
+				LeaveRule_PLUS();
+			}
+		}
+		// $ANTLR end "PLUS"
+
+		partial void EnterRule_R_BRACKETS();
+		partial void LeaveRule_R_BRACKETS();
+
+		// $ANTLR start "R_BRACKETS"
+		[GrammarRule("R_BRACKETS")]
+		private void mR_BRACKETS()
+		{
+			EnterRule_R_BRACKETS();
+			EnterRule("R_BRACKETS", 33);
+			TraceIn("R_BRACKETS", 33);
+			try
+			{
+				int _type = R_BRACKETS;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:39:12: ( ']' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:39:14: ']'
+				{
+					DebugLocation(39, 14);
+					Match(']'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("R_BRACKETS", 33);
+				LeaveRule("R_BRACKETS", 33);
+				LeaveRule_R_BRACKETS();
+			}
+		}
+		// $ANTLR end "R_BRACKETS"
+
+		partial void EnterRule_R_KEY();
+		partial void LeaveRule_R_KEY();
+
+		// $ANTLR start "R_KEY"
+		[GrammarRule("R_KEY")]
+		private void mR_KEY()
+		{
+			EnterRule_R_KEY();
+			EnterRule("R_KEY", 34);
+			TraceIn("R_KEY", 34);
+			try
+			{
+				int _type = R_KEY;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:40:7: ( '}' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:40:9: '}'
+				{
+					DebugLocation(40, 9);
+					Match('}'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("R_KEY", 34);
+				LeaveRule("R_KEY", 34);
+				LeaveRule_R_KEY();
+			}
+		}
+		// $ANTLR end "R_KEY"
+
+		partial void EnterRule_R_PARENT();
+		partial void LeaveRule_R_PARENT();
+
+		// $ANTLR start "R_PARENT"
+		[GrammarRule("R_PARENT")]
+		private void mR_PARENT()
+		{
+			EnterRule_R_PARENT();
+			EnterRule("R_PARENT", 35);
+			TraceIn("R_PARENT", 35);
+			try
+			{
+				int _type = R_PARENT;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:41:10: ( ')' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:41:12: ')'
+				{
+					DebugLocation(41, 12);
+					Match(')'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("R_PARENT", 35);
+				LeaveRule("R_PARENT", 35);
+				LeaveRule_R_PARENT();
+			}
+		}
+		// $ANTLR end "R_PARENT"
+
+		partial void EnterRule_SEMICOLON();
+		partial void LeaveRule_SEMICOLON();
+
+		// $ANTLR start "SEMICOLON"
+		[GrammarRule("SEMICOLON")]
+		private void mSEMICOLON()
+		{
+			EnterRule_SEMICOLON();
+			EnterRule("SEMICOLON", 36);
+			TraceIn("SEMICOLON", 36);
+			try
+			{
+				int _type = SEMICOLON;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:42:11: ( ';' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:42:13: ';'
+				{
+					DebugLocation(42, 13);
+					Match(';'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("SEMICOLON", 36);
+				LeaveRule("SEMICOLON", 36);
+				LeaveRule_SEMICOLON();
+			}
+		}
+		// $ANTLR end "SEMICOLON"
+
+		partial void EnterRule_THEN();
+		partial void LeaveRule_THEN();
+
+		// $ANTLR start "THEN"
+		[GrammarRule("THEN")]
+		private void mTHEN()
+		{
+			EnterRule_THEN();
+			EnterRule("THEN", 37);
+			TraceIn("THEN", 37);
+			try
+			{
+				int _type = THEN;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:43:6: ( 'then' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:43:8: 'then'
+				{
+					DebugLocation(43, 8);
+					Match("then"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("THEN", 37);
+				LeaveRule("THEN", 37);
+				LeaveRule_THEN();
+			}
+		}
+		// $ANTLR end "THEN"
+
+		partial void EnterRule_TO();
+		partial void LeaveRule_TO();
+
+		// $ANTLR start "TO"
+		[GrammarRule("TO")]
+		private void mTO()
+		{
+			EnterRule_TO();
+			EnterRule("TO", 38);
+			TraceIn("TO", 38);
+			try
+			{
+				int _type = TO;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:44:4: ( 'to' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:44:6: 'to'
+				{
+					DebugLocation(44, 6);
+					Match("to"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("TO", 38);
+				LeaveRule("TO", 38);
+				LeaveRule_TO();
+			}
+		}
+		// $ANTLR end "TO"
+
+		partial void EnterRule_TYPE();
+		partial void LeaveRule_TYPE();
+
+		// $ANTLR start "TYPE"
+		[GrammarRule("TYPE")]
+		private void mTYPE()
+		{
+			EnterRule_TYPE();
+			EnterRule("TYPE", 39);
+			TraceIn("TYPE", 39);
+			try
+			{
+				int _type = TYPE;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:45:6: ( 'type' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:45:8: 'type'
+				{
+					DebugLocation(45, 8);
+					Match("type"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("TYPE", 39);
+				LeaveRule("TYPE", 39);
+				LeaveRule_TYPE();
+			}
+		}
+		// $ANTLR end "TYPE"
+
+		partial void EnterRule_VAR();
+		partial void LeaveRule_VAR();
+
+		// $ANTLR start "VAR"
+		[GrammarRule("VAR")]
+		private void mVAR()
+		{
+			EnterRule_VAR();
+			EnterRule("VAR", 40);
+			TraceIn("VAR", 40);
+			try
+			{
+				int _type = VAR;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:46:5: ( 'var' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:46:7: 'var'
+				{
+					DebugLocation(46, 7);
+					Match("var"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("VAR", 40);
+				LeaveRule("VAR", 40);
+				LeaveRule_VAR();
+			}
+		}
+		// $ANTLR end "VAR"
+
+		partial void EnterRule_WHILE();
+		partial void LeaveRule_WHILE();
+
+		// $ANTLR start "WHILE"
+		[GrammarRule("WHILE")]
+		private void mWHILE()
+		{
+			EnterRule_WHILE();
+			EnterRule("WHILE", 41);
+			TraceIn("WHILE", 41);
+			try
+			{
+				int _type = WHILE;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:47:7: ( 'while' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:47:9: 'while'
+				{
+					DebugLocation(47, 9);
+					Match("while"); 
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("WHILE", 41);
+				LeaveRule("WHILE", 41);
+				LeaveRule_WHILE();
+			}
+		}
+		// $ANTLR end "WHILE"
+
+		partial void EnterRule_ID();
+		partial void LeaveRule_ID();
+
+		// $ANTLR start "ID"
+		[GrammarRule("ID")]
+		private void mID()
+		{
+			EnterRule_ID();
+			EnterRule("ID", 42);
+			TraceIn("ID", 42);
+			try
+			{
+				int _type = ID;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:5: ( LETTER ( LETTER | DIGIT | '_' )* )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:7: LETTER ( LETTER | DIGIT | '_' )*
+				{
+					DebugLocation(90, 7);
+					mLETTER(); 
+					DebugLocation(90, 14);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:90:14: ( LETTER | DIGIT | '_' )*
+					try { DebugEnterSubRule(1);
+						while (true)
+						{
+							int alt1=2;
+							try { DebugEnterDecision(1, false);
+								int LA1_0 = input.LA(1);
+
+								if (((LA1_0>='0' && LA1_0<='9')||(LA1_0>='A' && LA1_0<='Z')||LA1_0=='_'||(LA1_0>='a' && LA1_0<='z')))
+								{
+									alt1 = 1;
+								}
+
+
+							} finally { DebugExitDecision(1); }
+							switch ( alt1 )
+							{
+								case 1:
+									DebugEnterAlt(1);
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
+								{
+									DebugLocation(90, 14);
+									input.Consume();
+
+
+								}
+									break;
+
+								default:
+									goto loop1;
+							}
+						}
+
+						loop1:
+						;
+
+					} finally { DebugExitSubRule(1); }
+
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("ID", 42);
+				LeaveRule("ID", 42);
+				LeaveRule_ID();
+			}
+		}
+		// $ANTLR end "ID"
+
+		partial void EnterRule_LETTER();
+		partial void LeaveRule_LETTER();
+
+		// $ANTLR start "LETTER"
+		[GrammarRule("LETTER")]
+		private void mLETTER()
+		{
+			EnterRule_LETTER();
+			EnterRule("LETTER", 43);
+			TraceIn("LETTER", 43);
+			try
+			{
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:94:8: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
+				{
+					DebugLocation(94, 8);
+					if ((input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z'))
+					{
+						input.Consume();
+					}
+					else
+					{
+						MismatchedSetException mse = new MismatchedSetException(null,input);
+						DebugRecognitionException(mse);
+						Recover(mse);
+						throw mse;
+					}
+
+
+				}
+
+			}
+			finally
+			{
+				TraceOut("LETTER", 43);
+				LeaveRule("LETTER", 43);
+				LeaveRule_LETTER();
+			}
+		}
+		// $ANTLR end "LETTER"
+
+		partial void EnterRule_DIGIT();
+		partial void LeaveRule_DIGIT();
+
+		// $ANTLR start "DIGIT"
+		[GrammarRule("DIGIT")]
+		private void mDIGIT()
+		{
+			EnterRule_DIGIT();
+			EnterRule("DIGIT", 44);
+			TraceIn("DIGIT", 44);
+			try
+			{
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:97:7: ( ( '0' .. '9' ) )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
+				{
+					DebugLocation(97, 7);
+					if ((input.LA(1)>='0' && input.LA(1)<='9'))
+					{
+						input.Consume();
+					}
+					else
+					{
+						MismatchedSetException mse = new MismatchedSetException(null,input);
+						DebugRecognitionException(mse);
+						Recover(mse);
+						throw mse;
+					}
+
+
+				}
+
+			}
+			finally
+			{
+				TraceOut("DIGIT", 44);
+				LeaveRule("DIGIT", 44);
+				LeaveRule_DIGIT();
+			}
+		}
+		// $ANTLR end "DIGIT"
+
+		partial void EnterRule_INT();
+		partial void LeaveRule_INT();
+
+		// $ANTLR start "INT"
+		[GrammarRule("INT")]
+		private void mINT()
+		{
+			EnterRule_INT();
+			EnterRule("INT", 45);
+			TraceIn("INT", 45);
+			try
+			{
+				int _type = INT;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:100:5: ( ( '1' .. '9' ) ( DIGIT )* | '0' )
+				int alt3=2;
+				try { DebugEnterDecision(3, false);
+					int LA3_0 = input.LA(1);
+
+					if (((LA3_0>='1' && LA3_0<='9')))
+					{
+						alt3 = 1;
+					}
+					else if ((LA3_0=='0'))
+					{
+						alt3 = 2;
+					}
+					else
+					{
+						NoViableAltException nvae = new NoViableAltException("", 3, 0, input);
+						DebugRecognitionException(nvae);
+						throw nvae;
+					}
+				} finally { DebugExitDecision(3); }
+				switch (alt3)
+				{
+					case 1:
+						DebugEnterAlt(1);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:100:7: ( '1' .. '9' ) ( DIGIT )*
+					{
+						DebugLocation(100, 7);
+						input.Consume();
+
+						DebugLocation(100, 18);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:100:18: ( DIGIT )*
+						try { DebugEnterSubRule(2);
+							while (true)
+							{
+								int alt2=2;
+								try { DebugEnterDecision(2, false);
+									int LA2_0 = input.LA(1);
+
+									if (((LA2_0>='0' && LA2_0<='9')))
+									{
+										alt2 = 1;
+									}
+
+
+								} finally { DebugExitDecision(2); }
+								switch ( alt2 )
+								{
+									case 1:
+										DebugEnterAlt(1);
+										// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
+									{
+										DebugLocation(100, 18);
+										input.Consume();
+
+
+									}
+										break;
+
+									default:
+										goto loop2;
+								}
+							}
+
+							loop2:
+							;
+
+						} finally { DebugExitSubRule(2); }
+
+
+					}
+						break;
+					case 2:
+						DebugEnterAlt(2);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:100:25: '0'
+					{
+						DebugLocation(100, 25);
+						Match('0'); 
+
+					}
+						break;
+
+				}
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("INT", 45);
+				LeaveRule("INT", 45);
+				LeaveRule_INT();
+			}
+		}
+		// $ANTLR end "INT"
+
+		partial void EnterRule_COMMENT();
+		partial void LeaveRule_COMMENT();
+
+		// $ANTLR start "COMMENT"
+		[GrammarRule("COMMENT")]
+		private void mCOMMENT()
+		{
+			EnterRule_COMMENT();
+			EnterRule("COMMENT", 46);
+			TraceIn("COMMENT", 46);
+			try
+			{
+				int _type = COMMENT;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:102:9: ( '/*' ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* ( '*/' | ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/' ) )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:102:11: '/*' ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* ( '*/' | ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/' )
+				{
+					DebugLocation(102, 11);
+					Match("/*"); 
+
+					DebugLocation(102, 16);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:102:16: ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )*
+					try { DebugEnterSubRule(4);
+						while (true)
+						{
+							int alt4=4;
+							try { DebugEnterDecision(4, false);
+								int LA4_0 = input.LA(1);
+
+								if ((LA4_0=='*'))
+								{
+									int LA4_1 = input.LA(2);
+
+									if (((LA4_1>='\u0000' && LA4_1<='.')||(LA4_1>='0' && LA4_1<='\uFFFF')))
+									{
+										alt4 = 1;
+									}
+
+
+								}
+								else if ((LA4_0=='/'))
+								{
+									int LA4_2 = input.LA(2);
+
+									if (((LA4_2>='\u0000' && LA4_2<=')')||(LA4_2>='+' && LA4_2<='\uFFFF')))
+									{
+										alt4 = 2;
+									}
+
+
+								}
+								else if (((LA4_0>='\u0000' && LA4_0<=')')||(LA4_0>='+' && LA4_0<='.')||(LA4_0>='0' && LA4_0<='\uFFFF')))
+								{
+									alt4 = 3;
+								}
+
+
+							} finally { DebugExitDecision(4); }
+							switch ( alt4 )
+							{
+								case 1:
+									DebugEnterAlt(1);
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:102:17: '*' ~ ( '/' )
+								{
+									DebugLocation(102, 17);
+									Match('*'); 
+									DebugLocation(102, 21);
+									input.Consume();
+
+
+								}
+									break;
+								case 2:
+									DebugEnterAlt(2);
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:102:30: '/' ~ ( '*' )
+								{
+									DebugLocation(102, 30);
+									Match('/'); 
+									DebugLocation(102, 34);
+									input.Consume();
+
+
+								}
+									break;
+								case 3:
+									DebugEnterAlt(3);
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:102:43: ~ ( '*' | '/' )
+								{
+									DebugLocation(102, 43);
+									input.Consume();
+
+
+								}
+									break;
+
+								default:
+									goto loop4;
+							}
+						}
+
+						loop4:
+						;
+
+					} finally { DebugExitSubRule(4); }
+
+					DebugLocation(102, 56);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:102:56: ( '*/' | ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/' )
+					int alt7=2;
+					try { DebugEnterSubRule(7);
+						try { DebugEnterDecision(7, false);
+							int LA7_0 = input.LA(1);
+
+							if ((LA7_0=='*'))
+							{
+								alt7 = 1;
+							}
+							else if ((LA7_0=='/'))
+							{
+								alt7 = 2;
+							}
+							else
+							{
+								NoViableAltException nvae = new NoViableAltException("", 7, 0, input);
+								DebugRecognitionException(nvae);
+								throw nvae;
+							}
+						} finally { DebugExitDecision(7); }
+						switch (alt7)
+						{
+							case 1:
+								DebugEnterAlt(1);
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:102:57: '*/'
+							{
+								DebugLocation(102, 57);
+								Match("*/"); 
+
+
+							}
+								break;
+							case 2:
+								DebugEnterAlt(2);
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:102:62: ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+ '*/'
+							{
+								DebugLocation(102, 62);
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:102:62: ( COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )* )+
+								int cnt6=0;
+								try { DebugEnterSubRule(6);
+									while (true)
+									{
+										int alt6=2;
+										try { DebugEnterDecision(6, false);
+											int LA6_0 = input.LA(1);
+
+											if ((LA6_0=='/'))
+											{
+												alt6 = 1;
+											}
+
+
+										} finally { DebugExitDecision(6); }
+										switch (alt6)
+										{
+											case 1:
+												DebugEnterAlt(1);
+												// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:102:64: COMMENT ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )*
+											{
+												DebugLocation(102, 64);
+												mCOMMENT(); 
+												DebugLocation(102, 72);
+												// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:102:72: ( '*' ~ ( '/' ) | '/' ~ ( '*' ) |~ ( '*' | '/' ) )*
+												try { DebugEnterSubRule(5);
+													while (true)
+													{
+														int alt5=4;
+														try { DebugEnterDecision(5, false);
+															int LA5_0 = input.LA(1);
+
+															if ((LA5_0=='*'))
+															{
+																int LA5_1 = input.LA(2);
+
+																if (((LA5_1>='\u0000' && LA5_1<='.')||(LA5_1>='0' && LA5_1<='\uFFFF')))
+																{
+																	alt5 = 1;
+																}
+
+
+															}
+															else if ((LA5_0=='/'))
+															{
+																int LA5_2 = input.LA(2);
+
+																if (((LA5_2>='\u0000' && LA5_2<=')')||(LA5_2>='+' && LA5_2<='\uFFFF')))
+																{
+																	alt5 = 2;
+																}
+
+
+															}
+															else if (((LA5_0>='\u0000' && LA5_0<=')')||(LA5_0>='+' && LA5_0<='.')||(LA5_0>='0' && LA5_0<='\uFFFF')))
+															{
+																alt5 = 3;
+															}
+
+
+														} finally { DebugExitDecision(5); }
+														switch ( alt5 )
+														{
+															case 1:
+																DebugEnterAlt(1);
+																// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:102:73: '*' ~ ( '/' )
+															{
+																DebugLocation(102, 73);
+																Match('*'); 
+																DebugLocation(102, 77);
+																input.Consume();
+
+
+															}
+																break;
+															case 2:
+																DebugEnterAlt(2);
+																// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:102:86: '/' ~ ( '*' )
+															{
+																DebugLocation(102, 86);
+																Match('/'); 
+																DebugLocation(102, 90);
+																input.Consume();
+
+
+															}
+																break;
+															case 3:
+																DebugEnterAlt(3);
+																// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:102:98: ~ ( '*' | '/' )
+															{
+																DebugLocation(102, 98);
+																input.Consume();
+
+
+															}
+																break;
+
+															default:
+																goto loop5;
+														}
+													}
+
+													loop5:
+													;
+
+												} finally { DebugExitSubRule(5); }
+
+
+											}
+												break;
+
+											default:
+												if (cnt6 >= 1)
+													goto loop6;
+
+												EarlyExitException eee6 = new EarlyExitException( 6, input );
+												DebugRecognitionException(eee6);
+												throw eee6;
+										}
+										cnt6++;
+									}
+									loop6:
+									;
+
+								} finally { DebugExitSubRule(6); }
+
+								DebugLocation(102, 114);
+								Match("*/"); 
+
+
+							}
+								break;
+
+						}
+					} finally { DebugExitSubRule(7); }
+
+					DebugLocation(102, 121);
+					_channel=Hidden;
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("COMMENT", 46);
+				LeaveRule("COMMENT", 46);
+				LeaveRule_COMMENT();
+			}
+		}
+		// $ANTLR end "COMMENT"
+
+		partial void EnterRule_WS();
+		partial void LeaveRule_WS();
+
+		// $ANTLR start "WS"
+		[GrammarRule("WS")]
+		private void mWS()
+		{
+			EnterRule_WS();
+			EnterRule("WS", 47);
+			TraceIn("WS", 47);
+			try
+			{
+				int _type = WS;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:106:5: ( ( ' ' | '\\t' | '\\r' | '\\n' | '\\f' ) )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:106:9: ( ' ' | '\\t' | '\\r' | '\\n' | '\\f' )
+				{
+					DebugLocation(106, 9);
+					if ((input.LA(1)>='\t' && input.LA(1)<='\n')||(input.LA(1)>='\f' && input.LA(1)<='\r')||input.LA(1)==' ')
+					{
+						input.Consume();
+					}
+					else
+					{
+						MismatchedSetException mse = new MismatchedSetException(null,input);
+						DebugRecognitionException(mse);
+						Recover(mse);
+						throw mse;
+					}
+
+					DebugLocation(111, 11);
+					_channel=Hidden;
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("WS", 47);
+				LeaveRule("WS", 47);
+				LeaveRule_WS();
+			}
+		}
+		// $ANTLR end "WS"
+
+		partial void EnterRule_STRING();
+		partial void LeaveRule_STRING();
+
+		// $ANTLR start "STRING"
+		[GrammarRule("STRING")]
+		private void mSTRING()
+		{
+			EnterRule_STRING();
+			EnterRule("STRING", 48);
+			TraceIn("STRING", 48);
+			try
+			{
+				int _type = STRING;
+				int _channel = DefaultTokenChannel;
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:115:5: ( '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:115:8: '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"'
+				{
+					DebugLocation(115, 8);
+					Match('\"'); 
+					DebugLocation(115, 12);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:115:12: ( ESC_SEQ |~ ( '\\\\' | '\"' ) )*
+					try { DebugEnterSubRule(8);
+						while (true)
+						{
+							int alt8=3;
+							try { DebugEnterDecision(8, false);
+								int LA8_0 = input.LA(1);
+
+								if ((LA8_0=='\\'))
+								{
+									alt8 = 1;
+								}
+								else if (((LA8_0>='\u0000' && LA8_0<='!')||(LA8_0>='#' && LA8_0<='[')||(LA8_0>=']' && LA8_0<='\uFFFF')))
+								{
+									alt8 = 2;
+								}
+
+
+							} finally { DebugExitDecision(8); }
+							switch ( alt8 )
+							{
+								case 1:
+									DebugEnterAlt(1);
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:115:14: ESC_SEQ
+								{
+									DebugLocation(115, 14);
+									mESC_SEQ(); 
+
+								}
+									break;
+								case 2:
+									DebugEnterAlt(2);
+									// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:115:23: ~ ( '\\\\' | '\"' )
+								{
+									DebugLocation(115, 23);
+									input.Consume();
+
+
+								}
+									break;
+
+								default:
+									goto loop8;
+							}
+						}
+
+						loop8:
+						;
+
+					} finally { DebugExitSubRule(8); }
+
+					DebugLocation(115, 38);
+					Match('\"'); 
+
+				}
+
+				state.type = _type;
+				state.channel = _channel;
+			}
+			finally
+			{
+				TraceOut("STRING", 48);
+				LeaveRule("STRING", 48);
+				LeaveRule_STRING();
+			}
+		}
+		// $ANTLR end "STRING"
+
+		partial void EnterRule_ESC_SEQ();
+		partial void LeaveRule_ESC_SEQ();
+
+		// $ANTLR start "ESC_SEQ"
+		[GrammarRule("ESC_SEQ")]
+		private void mESC_SEQ()
+		{
+			EnterRule_ESC_SEQ();
+			EnterRule("ESC_SEQ", 49);
+			TraceIn("ESC_SEQ", 49);
+			try
+			{
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:122:5: ( '\\\\' ( 't' | 'n' | '\"' | '\\\\' | '^' CONTROL_CHARS | DECIMAL_ESC | ( WS )+ '\\\\' ) )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:122:9: '\\\\' ( 't' | 'n' | '\"' | '\\\\' | '^' CONTROL_CHARS | DECIMAL_ESC | ( WS )+ '\\\\' )
+				{
+					DebugLocation(122, 9);
+					Match('\\'); 
+					DebugLocation(122, 14);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:122:14: ( 't' | 'n' | '\"' | '\\\\' | '^' CONTROL_CHARS | DECIMAL_ESC | ( WS )+ '\\\\' )
+					int alt10=7;
+					try { DebugEnterSubRule(10);
+						try { DebugEnterDecision(10, false);
+							switch (input.LA(1))
+							{
+								case 't':
+								{
+									alt10 = 1;
+								}
+									break;
+								case 'n':
+								{
+									alt10 = 2;
+								}
+									break;
+								case '\"':
+								{
+									alt10 = 3;
+								}
+									break;
+								case '\\':
+								{
+									alt10 = 4;
+								}
+									break;
+								case '^':
+								{
+									alt10 = 5;
+								}
+									break;
+								case '0':
+								case '1':
+								case '2':
+								case '3':
+								case '4':
+								case '5':
+								case '6':
+								case '7':
+								case '8':
+								case '9':
+								{
+									alt10 = 6;
+								}
+									break;
+								case '\t':
+								case '\n':
+								case '\f':
+								case '\r':
+								case ' ':
+								{
+									alt10 = 7;
+								}
+									break;
+								default:
+								{
+									NoViableAltException nvae = new NoViableAltException("", 10, 0, input);
+									DebugRecognitionException(nvae);
+									throw nvae;
+								}
+							}
+
+						} finally { DebugExitDecision(10); }
+						switch (alt10)
+						{
+							case 1:
+								DebugEnterAlt(1);
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:122:15: 't'
+							{
+								DebugLocation(122, 15);
+								Match('t'); 
+
+							}
+								break;
+							case 2:
+								DebugEnterAlt(2);
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:122:19: 'n'
+							{
+								DebugLocation(122, 19);
+								Match('n'); 
+
+							}
+								break;
+							case 3:
+								DebugEnterAlt(3);
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:122:23: '\"'
+							{
+								DebugLocation(122, 23);
+								Match('\"'); 
+
+							}
+								break;
+							case 4:
+								DebugEnterAlt(4);
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:122:27: '\\\\'
+							{
+								DebugLocation(122, 27);
+								Match('\\'); 
+
+							}
+								break;
+							case 5:
+								DebugEnterAlt(5);
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:122:32: '^' CONTROL_CHARS
+							{
+								DebugLocation(122, 32);
+								Match('^'); 
+								DebugLocation(122, 35);
+								mCONTROL_CHARS(); 
+
+							}
+								break;
+							case 6:
+								DebugEnterAlt(6);
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:122:49: DECIMAL_ESC
+							{
+								DebugLocation(122, 49);
+								mDECIMAL_ESC(); 
+
+							}
+								break;
+							case 7:
+								DebugEnterAlt(7);
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:122:61: ( WS )+ '\\\\'
+							{
+								DebugLocation(122, 61);
+								// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:122:61: ( WS )+
+								int cnt9=0;
+								try { DebugEnterSubRule(9);
+									while (true)
+									{
+										int alt9=2;
+										try { DebugEnterDecision(9, false);
+											int LA9_0 = input.LA(1);
+
+											if (((LA9_0>='\t' && LA9_0<='\n')||(LA9_0>='\f' && LA9_0<='\r')||LA9_0==' '))
+											{
+												alt9 = 1;
+											}
+
+
+										} finally { DebugExitDecision(9); }
+										switch (alt9)
+										{
+											case 1:
+												DebugEnterAlt(1);
+												// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:122:62: WS
+											{
+												DebugLocation(122, 62);
+												mWS(); 
+
+											}
+												break;
+
+											default:
+												if (cnt9 >= 1)
+													goto loop9;
+
+												EarlyExitException eee9 = new EarlyExitException( 9, input );
+												DebugRecognitionException(eee9);
+												throw eee9;
+										}
+										cnt9++;
+									}
+									loop9:
+									;
+
+								} finally { DebugExitSubRule(9); }
+
+								DebugLocation(122, 66);
+								Match('\\'); 
+
+							}
+								break;
+
+						}
+					} finally { DebugExitSubRule(10); }
+
+
+				}
+
+			}
+			finally
+			{
+				TraceOut("ESC_SEQ", 49);
+				LeaveRule("ESC_SEQ", 49);
+				LeaveRule_ESC_SEQ();
+			}
+		}
+		// $ANTLR end "ESC_SEQ"
+
+		partial void EnterRule_DECIMAL_ESC();
+		partial void LeaveRule_DECIMAL_ESC();
+
+		// $ANTLR start "DECIMAL_ESC"
+		[GrammarRule("DECIMAL_ESC")]
+		private void mDECIMAL_ESC()
+		{
+			EnterRule_DECIMAL_ESC();
+			EnterRule("DECIMAL_ESC", 50);
+			TraceIn("DECIMAL_ESC", 50);
+			try
+			{
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:127:5: ( ( '0' .. '9' ) ( '0' .. '9' ) ( '0' .. '9' ) | ( '0' .. '9' ) ( '0' .. '9' ) | ( '0' .. '9' ) )
+				int alt11=3;
+				try { DebugEnterDecision(11, false);
+					int LA11_0 = input.LA(1);
+
+					if (((LA11_0>='0' && LA11_0<='9')))
+					{
+						int LA11_1 = input.LA(2);
+
+						if (((LA11_1>='0' && LA11_1<='9')))
+						{
+							int LA11_2 = input.LA(3);
+
+							if (((LA11_2>='0' && LA11_2<='9')))
+							{
+								alt11 = 1;
+							}
+							else
+							{
+								alt11 = 2;
+							}
+						}
+						else
+						{
+							alt11 = 3;
+						}
+					}
+					else
+					{
+						NoViableAltException nvae = new NoViableAltException("", 11, 0, input);
+						DebugRecognitionException(nvae);
+						throw nvae;
+					}
+				} finally { DebugExitDecision(11); }
+				switch (alt11)
+				{
+					case 1:
+						DebugEnterAlt(1);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:127:10: ( '0' .. '9' ) ( '0' .. '9' ) ( '0' .. '9' )
+					{
+						DebugLocation(127, 10);
+						input.Consume();
+
+						DebugLocation(127, 21);
+						input.Consume();
+
+						DebugLocation(127, 32);
+						input.Consume();
+
+
+					}
+						break;
+					case 2:
+						DebugEnterAlt(2);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:128:10: ( '0' .. '9' ) ( '0' .. '9' )
+					{
+						DebugLocation(128, 10);
+						input.Consume();
+
+						DebugLocation(128, 21);
+						input.Consume();
+
+
+					}
+						break;
+					case 3:
+						DebugEnterAlt(3);
+						// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:129:10: ( '0' .. '9' )
+					{
+						DebugLocation(129, 10);
+						input.Consume();
+
+
+					}
+						break;
+
+				}
+			}
+			finally
+			{
+				TraceOut("DECIMAL_ESC", 50);
+				LeaveRule("DECIMAL_ESC", 50);
+				LeaveRule_DECIMAL_ESC();
+			}
+		}
+		// $ANTLR end "DECIMAL_ESC"
+
+		partial void EnterRule_CONTROL_CHARS();
+		partial void LeaveRule_CONTROL_CHARS();
+
+		// $ANTLR start "CONTROL_CHARS"
+		[GrammarRule("CONTROL_CHARS")]
+		private void mCONTROL_CHARS()
+		{
+			EnterRule_CONTROL_CHARS();
+			EnterRule("CONTROL_CHARS", 51);
+			TraceIn("CONTROL_CHARS", 51);
+			try
+			{
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:134:2: ( '@' .. '_' )
+				DebugEnterAlt(1);
+				// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:
+				{
+					DebugLocation(134, 2);
+					if ((input.LA(1)>='@' && input.LA(1)<='_'))
+					{
+						input.Consume();
+					}
+					else
+					{
+						MismatchedSetException mse = new MismatchedSetException(null,input);
+						DebugRecognitionException(mse);
+						Recover(mse);
+						throw mse;
+					}
+
+
+				}
+
+			}
+			finally
+			{
+				TraceOut("CONTROL_CHARS", 51);
+				LeaveRule("CONTROL_CHARS", 51);
+				LeaveRule_CONTROL_CHARS();
+			}
+		}
+		// $ANTLR end "CONTROL_CHARS"
+
+		public override void mTokens()
+		{
+			// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:8: ( AND | ARRAY | ASSIGN | BREAK | COLON | COMMA | DIV | DO | DOT | DQUOTE | ELSE | END | EQUAL | FOR | FUNCTION | GTHAN | GTHAN_EQUAL | IF | IN | LET | LTHAN | LTHAN_EQUAL | L_BRACKETS | L_KEY | L_PARENT | MINUS | MULT | NIL | NOT_EQUAL | OF | OR | PLUS | R_BRACKETS | R_KEY | R_PARENT | SEMICOLON | THEN | TO | TYPE | VAR | WHILE | ID | INT | COMMENT | WS | STRING )
+			int alt12=46;
+			try { DebugEnterDecision(12, false);
+				try
+				{
+					alt12 = dfa12.Predict(input);
+				}
+				catch (NoViableAltException nvae)
+				{
+					DebugRecognitionException(nvae);
+					throw;
+				}
+			} finally { DebugExitDecision(12); }
+			switch (alt12)
+			{
+				case 1:
+					DebugEnterAlt(1);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:10: AND
+				{
+					DebugLocation(1, 10);
+					mAND(); 
+
+				}
+					break;
+				case 2:
+					DebugEnterAlt(2);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:14: ARRAY
+				{
+					DebugLocation(1, 14);
+					mARRAY(); 
+
+				}
+					break;
+				case 3:
+					DebugEnterAlt(3);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:20: ASSIGN
+				{
+					DebugLocation(1, 20);
+					mASSIGN(); 
+
+				}
+					break;
+				case 4:
+					DebugEnterAlt(4);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:27: BREAK
+				{
+					DebugLocation(1, 27);
+					mBREAK(); 
+
+				}
+					break;
+				case 5:
+					DebugEnterAlt(5);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:33: COLON
+				{
+					DebugLocation(1, 33);
+					mCOLON(); 
+
+				}
+					break;
+				case 6:
+					DebugEnterAlt(6);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:39: COMMA
+				{
+					DebugLocation(1, 39);
+					mCOMMA(); 
+
+				}
+					break;
+				case 7:
+					DebugEnterAlt(7);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:45: DIV
+				{
+					DebugLocation(1, 45);
+					mDIV(); 
+
+				}
+					break;
+				case 8:
+					DebugEnterAlt(8);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:49: DO
+				{
+					DebugLocation(1, 49);
+					mDO(); 
+
+				}
+					break;
+				case 9:
+					DebugEnterAlt(9);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:52: DOT
+				{
+					DebugLocation(1, 52);
+					mDOT(); 
+
+				}
+					break;
+				case 10:
+					DebugEnterAlt(10);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:56: DQUOTE
+				{
+					DebugLocation(1, 56);
+					mDQUOTE(); 
+
+				}
+					break;
+				case 11:
+					DebugEnterAlt(11);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:63: ELSE
+				{
+					DebugLocation(1, 63);
+					mELSE(); 
+
+				}
+					break;
+				case 12:
+					DebugEnterAlt(12);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:68: END
+				{
+					DebugLocation(1, 68);
+					mEND(); 
+
+				}
+					break;
+				case 13:
+					DebugEnterAlt(13);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:72: EQUAL
+				{
+					DebugLocation(1, 72);
+					mEQUAL(); 
+
+				}
+					break;
+				case 14:
+					DebugEnterAlt(14);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:78: FOR
+				{
+					DebugLocation(1, 78);
+					mFOR(); 
+
+				}
+					break;
+				case 15:
+					DebugEnterAlt(15);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:82: FUNCTION
+				{
+					DebugLocation(1, 82);
+					mFUNCTION(); 
+
+				}
+					break;
+				case 16:
+					DebugEnterAlt(16);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:91: GTHAN
+				{
+					DebugLocation(1, 91);
+					mGTHAN(); 
+
+				}
+					break;
+				case 17:
+					DebugEnterAlt(17);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:97: GTHAN_EQUAL
+				{
+					DebugLocation(1, 97);
+					mGTHAN_EQUAL(); 
+
+				}
+					break;
+				case 18:
+					DebugEnterAlt(18);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:109: IF
+				{
+					DebugLocation(1, 109);
+					mIF(); 
+
+				}
+					break;
+				case 19:
+					DebugEnterAlt(19);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:112: IN
+				{
+					DebugLocation(1, 112);
+					mIN(); 
+
+				}
+					break;
+				case 20:
+					DebugEnterAlt(20);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:115: LET
+				{
+					DebugLocation(1, 115);
+					mLET(); 
+
+				}
+					break;
+				case 21:
+					DebugEnterAlt(21);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:119: LTHAN
+				{
+					DebugLocation(1, 119);
+					mLTHAN(); 
+
+				}
+					break;
+				case 22:
+					DebugEnterAlt(22);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:125: LTHAN_EQUAL
+				{
+					DebugLocation(1, 125);
+					mLTHAN_EQUAL(); 
+
+				}
+					break;
+				case 23:
+					DebugEnterAlt(23);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:137: L_BRACKETS
+				{
+					DebugLocation(1, 137);
+					mL_BRACKETS(); 
+
+				}
+					break;
+				case 24:
+					DebugEnterAlt(24);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:148: L_KEY
+				{
+					DebugLocation(1, 148);
+					mL_KEY(); 
+
+				}
+					break;
+				case 25:
+					DebugEnterAlt(25);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:154: L_PARENT
+				{
+					DebugLocation(1, 154);
+					mL_PARENT(); 
+
+				}
+					break;
+				case 26:
+					DebugEnterAlt(26);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:163: MINUS
+				{
+					DebugLocation(1, 163);
+					mMINUS(); 
+
+				}
+					break;
+				case 27:
+					DebugEnterAlt(27);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:169: MULT
+				{
+					DebugLocation(1, 169);
+					mMULT(); 
+
+				}
+					break;
+				case 28:
+					DebugEnterAlt(28);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:174: NIL
+				{
+					DebugLocation(1, 174);
+					mNIL(); 
+
+				}
+					break;
+				case 29:
+					DebugEnterAlt(29);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:178: NOT_EQUAL
+				{
+					DebugLocation(1, 178);
+					mNOT_EQUAL(); 
+
+				}
+					break;
+				case 30:
+					DebugEnterAlt(30);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:188: OF
+				{
+					DebugLocation(1, 188);
+					mOF(); 
+
+				}
+					break;
+				case 31:
+					DebugEnterAlt(31);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:191: OR
+				{
+					DebugLocation(1, 191);
+					mOR(); 
+
+				}
+					break;
+				case 32:
+					DebugEnterAlt(32);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:194: PLUS
+				{
+					DebugLocation(1, 194);
+					mPLUS(); 
+
+				}
+					break;
+				case 33:
+					DebugEnterAlt(33);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:199: R_BRACKETS
+				{
+					DebugLocation(1, 199);
+					mR_BRACKETS(); 
+
+				}
+					break;
+				case 34:
+					DebugEnterAlt(34);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:210: R_KEY
+				{
+					DebugLocation(1, 210);
+					mR_KEY(); 
+
+				}
+					break;
+				case 35:
+					DebugEnterAlt(35);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:216: R_PARENT
+				{
+					DebugLocation(1, 216);
+					mR_PARENT(); 
+
+				}
+					break;
+				case 36:
+					DebugEnterAlt(36);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:225: SEMICOLON
+				{
+					DebugLocation(1, 225);
+					mSEMICOLON(); 
+
+				}
+					break;
+				case 37:
+					DebugEnterAlt(37);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:235: THEN
+				{
+					DebugLocation(1, 235);
+					mTHEN(); 
+
+				}
+					break;
+				case 38:
+					DebugEnterAlt(38);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:240: TO
+				{
+					DebugLocation(1, 240);
+					mTO(); 
+
+				}
+					break;
+				case 39:
+					DebugEnterAlt(39);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:243: TYPE
+				{
+					DebugLocation(1, 243);
+					mTYPE(); 
+
+				}
+					break;
+				case 40:
+					DebugEnterAlt(40);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:248: VAR
+				{
+					DebugLocation(1, 248);
+					mVAR(); 
+
+				}
+					break;
+				case 41:
+					DebugEnterAlt(41);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:252: WHILE
+				{
+					DebugLocation(1, 252);
+					mWHILE(); 
+
+				}
+					break;
+				case 42:
+					DebugEnterAlt(42);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:258: ID
+				{
+					DebugLocation(1, 258);
+					mID(); 
+
+				}
+					break;
+				case 43:
+					DebugEnterAlt(43);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:261: INT
+				{
+					DebugLocation(1, 261);
+					mINT(); 
+
+				}
+					break;
+				case 44:
+					DebugEnterAlt(44);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:265: COMMENT
+				{
+					DebugLocation(1, 265);
+					mCOMMENT(); 
+
+				}
+					break;
+				case 45:
+					DebugEnterAlt(45);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:273: WS
+				{
+					DebugLocation(1, 273);
+					mWS(); 
+
+				}
+					break;
+				case 46:
+					DebugEnterAlt(46);
+					// E:\\Jesus\\Documentos\\C.Computacion\\Proyectos\\Dockyard\\TigerComp\\TigerCs\\Parser\\Tiger\\Tigrammar.g:1:276: STRING
+				{
+					DebugLocation(1, 276);
+					mSTRING(); 
+
+				}
+					break;
+
+			}
+
+		}
+
+
+		#region DFA
+		DFA12 dfa12;
+
+		protected override void InitDFAs()
+		{
+			base.InitDFAs();
+			dfa12 = new DFA12(this, SpecialStateTransition12);
+		}
+
+		private class DFA12 : DFA
+		{
+			private const string DFA12_eotS =
+				"\x2\xFFFF\x1\x21\x1\x26\x1\x21\x1\xFFFF\x1\x29\x1\x21\x1\xFFFF\x1\x2B"+
+				"\x1\x21\x1\xFFFF\x1\x21\x1\x32\x2\x21\x1\x38\x5\xFFFF\x2\x21\x6\xFFFF"+
+				"\x3\x21\x3\xFFFF\x1\x21\x2\xFFFF\x1\x21\x2\xFFFF\x1\x42\x2\xFFFF\x4\x21"+
+				"\x2\xFFFF\x1\x47\x1\x48\x1\x21\x3\xFFFF\x1\x21\x1\x4B\x1\x21\x1\x4D\x5"+
+				"\x21\x1\xFFFF\x1\x21\x1\x54\x1\x55\x1\x21\x2\xFFFF\x1\x57\x1\x58\x1\xFFFF"+
+				"\x1\x21\x1\xFFFF\x1\x21\x1\x5B\x3\x21\x1\x5F\x2\xFFFF\x1\x21\x2\xFFFF"+
+				"\x1\x61\x1\x62\x1\xFFFF\x1\x21\x1\x64\x1\x65\x1\xFFFF\x1\x21\x2\xFFFF"+
+				"\x1\x67\x2\xFFFF\x1\x21\x1\xFFFF\x1\x21\x1\x6A\x1\xFFFF";
+			private const string DFA12_eofS =
+				"\x6B\xFFFF";
+			private const string DFA12_minS =
+				"\x1\x9\x1\xFFFF\x1\x72\x1\x3D\x1\x72\x1\xFFFF\x1\x2A\x1\x6F\x1\xFFFF"+
+				"\x1\x0\x1\x6C\x1\xFFFF\x1\x6F\x1\x3D\x1\x66\x1\x65\x1\x3D\x5\xFFFF\x1"+
+				"\x69\x1\x66\x6\xFFFF\x1\x68\x1\x61\x1\x68\x3\xFFFF\x1\x72\x2\xFFFF\x1"+
+				"\x65\x2\xFFFF\x1\x30\x2\xFFFF\x1\x73\x1\x64\x1\x72\x1\x6E\x2\xFFFF\x2"+
+				"\x30\x1\x74\x3\xFFFF\x1\x6C\x1\x30\x1\x65\x1\x30\x1\x70\x1\x72\x1\x69"+
+				"\x2\x61\x1\xFFFF\x1\x65\x2\x30\x1\x63\x2\xFFFF\x2\x30\x1\xFFFF\x1\x6E"+
+				"\x1\xFFFF\x1\x65\x1\x30\x1\x6C\x1\x79\x1\x6B\x1\x30\x2\xFFFF\x1\x74\x2"+
+				"\xFFFF\x2\x30\x1\xFFFF\x1\x65\x2\x30\x1\xFFFF\x1\x69\x2\xFFFF\x1\x30"+
+				"\x2\xFFFF\x1\x6F\x1\xFFFF\x1\x6E\x1\x30\x1\xFFFF";
+			private const string DFA12_maxS =
+				"\x1\x7D\x1\xFFFF\x1\x72\x1\x3D\x1\x72\x1\xFFFF\x1\x2A\x1\x6F\x1\xFFFF"+
+				"\x1\xFFFF\x1\x6E\x1\xFFFF\x1\x75\x1\x3D\x1\x6E\x1\x65\x1\x3E\x5\xFFFF"+
+				"\x1\x69\x1\x66\x6\xFFFF\x1\x79\x1\x61\x1\x68\x3\xFFFF\x1\x72\x2\xFFFF"+
+				"\x1\x65\x2\xFFFF\x1\x7A\x2\xFFFF\x1\x73\x1\x64\x1\x72\x1\x6E\x2\xFFFF"+
+				"\x2\x7A\x1\x74\x3\xFFFF\x1\x6C\x1\x7A\x1\x65\x1\x7A\x1\x70\x1\x72\x1"+
+				"\x69\x2\x61\x1\xFFFF\x1\x65\x2\x7A\x1\x63\x2\xFFFF\x2\x7A\x1\xFFFF\x1"+
+				"\x6E\x1\xFFFF\x1\x65\x1\x7A\x1\x6C\x1\x79\x1\x6B\x1\x7A\x2\xFFFF\x1\x74"+
+				"\x2\xFFFF\x2\x7A\x1\xFFFF\x1\x65\x2\x7A\x1\xFFFF\x1\x69\x2\xFFFF\x1\x7A"+
+				"\x2\xFFFF\x1\x6F\x1\xFFFF\x1\x6E\x1\x7A\x1\xFFFF";
+			private const string DFA12_acceptS =
+				"\x1\xFFFF\x1\x1\x3\xFFFF\x1\x6\x2\xFFFF\x1\x9\x2\xFFFF\x1\xD\x5\xFFFF"+
+				"\x1\x17\x1\x18\x1\x19\x1\x1A\x1\x1B\x2\xFFFF\x1\x1F\x1\x20\x1\x21\x1"+
+				"\x22\x1\x23\x1\x24\x3\xFFFF\x1\x2A\x1\x2B\x1\x2D\x1\xFFFF\x1\x3\x1\x5"+
+				"\x1\xFFFF\x1\x2C\x1\x7\x1\xFFFF\x1\xA\x1\x2E\x4\xFFFF\x1\x11\x1\x10\x3"+
+				"\xFFFF\x1\x16\x1\x1D\x1\x15\x9\xFFFF\x1\x8\x4\xFFFF\x1\x12\x1\x13\x2"+
+				"\xFFFF\x1\x1E\x1\xFFFF\x1\x26\x6\xFFFF\x1\xC\x1\xE\x1\xFFFF\x1\x14\x1"+
+				"\x1C\x2\xFFFF\x1\x28\x3\xFFFF\x1\xB\x1\xFFFF\x1\x25\x1\x27\x1\xFFFF\x1"+
+				"\x2\x1\x4\x1\xFFFF\x1\x29\x2\xFFFF\x1\xF";
+			private const string DFA12_specialS =
+				"\x9\xFFFF\x1\x0\x61\xFFFF}>";
+			private static readonly string[] DFA12_transitionS =
+			{
+				"\x2\x23\x1\xFFFF\x2\x23\x12\xFFFF\x1\x23\x1\xFFFF\x1\x9\x3\xFFFF\x1"+
+				"\x1\x1\xFFFF\x1\x13\x1\x1C\x1\x15\x1\x19\x1\x5\x1\x14\x1\x8\x1\x6\xA"+
+				"\x22\x1\x3\x1\x1D\x1\x10\x1\xB\x1\xD\x2\xFFFF\x1A\x21\x1\x11\x1\xFFFF"+
+				"\x1\x1A\x3\xFFFF\x1\x2\x1\x4\x1\x21\x1\x7\x1\xA\x1\xC\x2\x21\x1\xE\x2"+
+				"\x21\x1\xF\x1\x21\x1\x16\x1\x17\x4\x21\x1\x1E\x1\x21\x1\x1F\x1\x20\x3"+
+				"\x21\x1\x12\x1\x18\x1\x1B",
+				"",
+				"\x1\x24",
+				"\x1\x25",
+				"\x1\x27",
+				"",
+				"\x1\x28",
+				"\x1\x2A",
+				"",
+				"\x0\x2C",
+				"\x1\x2D\x1\xFFFF\x1\x2E",
+				"",
+				"\x1\x2F\x5\xFFFF\x1\x30",
+				"\x1\x31",
+				"\x1\x33\x7\xFFFF\x1\x34",
+				"\x1\x35",
+				"\x1\x36\x1\x37",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"\x1\x39",
+				"\x1\x3A",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"\x1\x3B\x6\xFFFF\x1\x3C\x9\xFFFF\x1\x3D",
+				"\x1\x3E",
+				"\x1\x3F",
+				"",
+				"",
+				"",
+				"\x1\x40",
+				"",
+				"",
+				"\x1\x41",
+				"",
+				"",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"",
+				"",
+				"\x1\x43",
+				"\x1\x44",
+				"\x1\x45",
+				"\x1\x46",
+				"",
+				"",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"\x1\x49",
+				"",
+				"",
+				"",
+				"\x1\x4A",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"\x1\x4C",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"\x1\x4E",
+				"\x1\x4F",
+				"\x1\x50",
+				"\x1\x51",
+				"\x1\x52",
+				"",
+				"\x1\x53",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"\x1\x56",
+				"",
+				"",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"",
+				"\x1\x59",
+				"",
+				"\x1\x5A",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"\x1\x5C",
+				"\x1\x5D",
+				"\x1\x5E",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"",
+				"",
+				"\x1\x60",
+				"",
+				"",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"",
+				"\x1\x63",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"",
+				"\x1\x66",
+				"",
+				"",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				"",
+				"",
+				"\x1\x68",
+				"",
+				"\x1\x69",
+				"\xA\x21\x7\xFFFF\x1A\x21\x4\xFFFF\x1\x21\x1\xFFFF\x1A\x21",
+				""
+			};
+
+			private static readonly short[] DFA12_eot = DFA.UnpackEncodedString(DFA12_eotS);
+			private static readonly short[] DFA12_eof = DFA.UnpackEncodedString(DFA12_eofS);
+			private static readonly char[] DFA12_min = DFA.UnpackEncodedStringToUnsignedChars(DFA12_minS);
+			private static readonly char[] DFA12_max = DFA.UnpackEncodedStringToUnsignedChars(DFA12_maxS);
+			private static readonly short[] DFA12_accept = DFA.UnpackEncodedString(DFA12_acceptS);
+			private static readonly short[] DFA12_special = DFA.UnpackEncodedString(DFA12_specialS);
+			private static readonly short[][] DFA12_transition;
+
+			static DFA12()
+			{
+				int numStates = DFA12_transitionS.Length;
+				DFA12_transition = new short[numStates][];
+				for ( int i=0; i < numStates; i++ )
+				{
+					DFA12_transition[i] = DFA.UnpackEncodedString(DFA12_transitionS[i]);
+				}
+			}
+
+			public DFA12( BaseRecognizer recognizer, SpecialStateTransitionHandler specialStateTransition )
+				: base(specialStateTransition)
+			{
+				this.recognizer = recognizer;
+				this.decisionNumber = 12;
+				this.eot = DFA12_eot;
+				this.eof = DFA12_eof;
+				this.min = DFA12_min;
+				this.max = DFA12_max;
+				this.accept = DFA12_accept;
+				this.special = DFA12_special;
+				this.transition = DFA12_transition;
+			}
+
+			public override string Description { get { return "1:1: Tokens : ( AND | ARRAY | ASSIGN | BREAK | COLON | COMMA | DIV | DO | DOT | DQUOTE | ELSE | END | EQUAL | FOR | FUNCTION | GTHAN | GTHAN_EQUAL | IF | IN | LET | LTHAN | LTHAN_EQUAL | L_BRACKETS | L_KEY | L_PARENT | MINUS | MULT | NIL | NOT_EQUAL | OF | OR | PLUS | R_BRACKETS | R_KEY | R_PARENT | SEMICOLON | THEN | TO | TYPE | VAR | WHILE | ID | INT | COMMENT | WS | STRING );"; } }
+
+			public override void Error(NoViableAltException nvae)
+			{
+				DebugRecognitionException(nvae);
+			}
+		}
+
+		private int SpecialStateTransition12(DFA dfa, int s, IIntStream _input)
+		{
+			IIntStream input = _input;
+			int _s = s;
+			switch (s)
+			{
+				case 0:
+					int LA12_9 = input.LA(1);
+
+					s = -1;
+					if (((LA12_9>='\u0000' && LA12_9<='\uFFFF'))) {s = 44;}
+
+					else s = 43;
+
+					if (s >= 0) return s;
+					break;
+			}
+			NoViableAltException nvae = new NoViableAltException(dfa.Description, 12, _s, input);
+			dfa.Error(nvae);
+			throw nvae;
+		}
+ 
+		#endregion
+
+	}
 }

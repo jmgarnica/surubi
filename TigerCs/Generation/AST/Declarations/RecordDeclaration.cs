@@ -43,7 +43,7 @@ namespace TigerCs.Generation.AST.Declarations
 				                               }
 			                      }))
 				report.Add(new StaticError(line, column, $"This scope already contains a definition for {TypeName}", ErrorLevel.Error));
-
+			Dependencies = new string[0];
 			return true;
 		}
 
