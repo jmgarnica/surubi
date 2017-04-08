@@ -78,9 +78,9 @@ namespace CMPTest
 				int exp_code;
 				string actual = g.BCM.Run(test.args, test.input, r, test.correctOutput == null, out exp_code);
 
-				Assert.AreEqual(0, exp_code);
+				Assert.AreEqual(test.exitCode, exp_code);
 				if(test.correctOutput != null)
-					Assert.AreEqual(test.correctOutput, actual);
+					Assert.AreEqual(test.correctOutput.Replace(tests.lineEnd, Environment.NewLine), actual);
 
 				Console.WriteLine($"Test {test.name}({index+1}/{tests.correct.Length}) passed");
                 Console.WriteLine(actual);

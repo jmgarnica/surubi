@@ -59,10 +59,10 @@ namespace TigerCs.Generation.AST.Expressions
 		{
 			H member = null;
 			if(!Record.Pure) Record.GenerateCode(cg, report);
-			if (ReturnValue.ConstValue?.GenerateBCMMember(cg, out member) != true)
+				if (ReturnValue.ConstValue?.GenerateBCMMember(cg, out member) != true)
 			{
 				if (Record.Pure) Record.GenerateCode(cg, report);
-				ReturnValue.BCMMember = cg.StaticMemberAcces((T)Return.BCMMember, (H)Record.Return.BCMMember, index);
+				ReturnValue.BCMMember = cg.StaticMemberAcces((T)Record.Return.BCMMember, (H)Record.ReturnValue.BCMMember, index);
 			}
 			else
 			{

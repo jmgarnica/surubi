@@ -1,7 +1,37 @@
 {
 	"lineEnd": "\n",
 	"correct": 
-	[	
+	[
+		{
+			"name": "printline",
+			"code": "printline(\"moana\")",
+			"correctOutput": "moana\n"
+		},
+		{
+			"name": "exit",
+			"code": "exit(9)",
+			"exitCode": 9,
+			"correctOutput": ""
+		},	
+		{
+			"name": "size",
+			"code": "let
+						var c : int := 1 + size(\"\")
+						var s := size(\"la la land\")
+					in
+						printi(c);
+						printi(s)
+					end",
+			"correctOutput": "110"
+		},
+		{
+			"name": "not",
+			"code": "(printi(0);
+					printi(not(100));
+					print(\" \");
+					printi(not(0)))",
+			"correctOutput": "00 1"
+		},
 		{
 			"comments": "not implemented",
 			"name": "!escape chars",
@@ -15,6 +45,47 @@
 					    print(msg2);
 					    getchar()
 					end"
+		},
+		{
+			"name": "!Eratosthene's sieve",
+			"code": "let
+						type int_array = array of int
+						var size := 1000
+						var sieved := int_array[size] of 0
+
+						function mod(n : int, m : int) : int = n - m * (n / m)
+
+						function mark_multiples(n : int) =
+						  let var i := n in
+						    while i < size do (
+						      if not(mod(i, n)) then sieved[i] := 1;
+						      i := i + n
+						    )
+						  end
+
+						function step(n : int) =
+						  if not(sieved[n]) then (
+						    printi(n); print(\"\n\");
+						    mark_multiples(n)
+						  )
+
+					in
+						  for i := 2 to (size - 1) do step(i)
+					end"
+		},
+		{
+			"comments" : "record creation no implemented",
+			"name" : "records",
+			"code" : "let
+						type  rectype = {name:string, age:int}
+						var rec1:rectype := rectype {name=\"Nobody\", age=1000}
+					in
+						rec1.name := \"Somebody\";
+						printi(rec1.age);
+						print(rec1.name);
+						0
+					end",
+			"correctOutput": "1000Somebody"
 		},
 		{
 			"name": "nil record",
@@ -68,18 +139,7 @@
 						printi(a)
 					end",
 			"correctOutput": "101"
-		},
-		{
-			"comments" : "record creation no implemented",
-			"name" : "!records",
-			"code" : "let
-						type  rectype = {name:string, age:int}
-						var rec1:rectype := rectype {name=\"Nobody\", age=1000}
-					in
-						rec1.name := \"Somebody\";
-						rec1
-					end"
-		},
+		},		
 		{
 			"name": "fact",
 			"code": "let 
@@ -159,16 +219,6 @@
 						0)
 					end",
 			"correctOutput": "502"
-		},
-		{
-			"name": "blablabla",
-			"code": "let
-						type  rectype = {name:string, age:int}
-						var rec1:rectype := rectype {name=\"Nobody\", age=1000}
-						in
-						rec1.name := \"Somebody\";
-						rec1
-						end"
 		}
 	],
 	"fail":

@@ -595,6 +595,33 @@ namespace CMPTest.Emission
 
 			Clear(testname);
 		}
+
+		[TestMethod]
+		public void Concat()
+		{
+			const string testname = "concat";
+			const string funcname = "concat";
+			Init(testname, STDBind.Int | STDBind.String | STDBind.Printi | STDBind.Prints | STDBind.Nil);
+			const string expected = "((|]]";
+			const string a = "((|";
+			const string b = "]]";
+
+			F concat;
+			Assert.IsTrue(e.TryBindSTDFunction(funcname, out concat));
+
+			H h = e.BindVar(_string);
+			e.Call(concat, new []{e.AddConstant(a), e.AddConstant(b)}, h);
+			e.Call(print, new[] {h});
+
+
+			End(_0);
+			int dum;
+			string result = WarpRun(null, "", out dum);
+			Assert.AreEqual(0, dum);
+			Assert.AreEqual(expected, result);
+
+			Clear(testname);
+		}
 	}
 }
 //TODO: add atomic and simpler tests

@@ -433,7 +433,7 @@ namespace TigerCs.Emitters.NASM
 			var label = CurrentScope.BeforeEnterScope;
 			CurrentScope = CurrentScope.Parent;
 
-			var f = new NasmFunction(CurrentScope, CurrentScope.VarsCount, this) { ParamsCount = members.Length, CFunction = true };
+			var f = new NasmFunction(CurrentScope, CurrentScope.VarsCount, this) { ParamsCount = members.Length, CFunction = false };
 			CurrentScope.FuncTypePos.Add(f);
 			CurrentScope.VarsCount++;
 			var reg = CurrentScope.Lock.LockGPR(Register.EAX);
@@ -521,6 +521,63 @@ namespace TigerCs.Emitters.NASM
 
 				case "strcomparer":
 					function = std["strcomparer"] = NasmTigerStandard.AddStringCompare(this);
+					return true;
+
+				case "not":
+					function = std["not"] = new NasmMacroFunction((f, b, acc, args) =>
+					{
+                        var reg = acc.Lock.LockGPR(Register.EDX != args[0]? Register.EDX : Register.EBX);
+						var stack = reg == null;
+						if (stack)
+						{
+							reg = Register.EDX != args[0] ? Register.EDX : Register.EBX;
+							f.WriteLine($"push {reg}");
+						}
+
+						f.WriteLine($"cmp {args[0]}, 0");
+						f.WriteLine($"mov {reg}, 1");
+						f.WriteLine($"cmovz {args[0]}, {reg}");
+						f.WriteLine($"mov {reg}, 0");
+						f.WriteLine($"cmovnz {args[0]}, {reg}");
+
+						if (stack)
+							f.WriteLine($"pop {reg}");
+						else acc.Lock.Release(reg.Value);
+
+					}, this, "not");
+					return true;
+
+				case "size":
+					function = std["size"] = new NasmMacroFunction((f, b, acc, args) =>
+					{
+						var r = new NasmRegisterHolder(b, args[0]);
+						b.InstrSize(r, r);
+					}, this, "size");
+					return true;
+
+				case "exit":
+					var a = NasmTigerStandard.AddEmitError(this);
+					function = std["exit"] = new NasmMacroFunction((f, b, acc, args) =>
+					{
+						var vv = b.BindVar(defaultvalue: new NasmRegisterHolder(b, args[0]));
+						a.Call(f, null, acc, b.AddConstant(""), vv);
+						b.Release(vv);
+					}, this, "exit");
+					return true;
+
+				case "printline":
+					NasmFunction print;
+					TryBindSTDFunction("print", out print);
+					NasmFunction concat;
+					TryBindSTDFunction("concat", out concat);
+
+					function = std["printline"] = new NasmMacroFunction((f, b, acc, args) =>
+					{
+						var c = b.BindVar(NasmType.String);
+						b.InstrAssing(c, new NasmRegisterHolder(b, args[0]));
+						b.Call(concat, new []{c, b.AddConstant("\n") }, c);
+						b.Call(print, new []{c});
+					}, this, "printline");
 					return true;
 
 				default:
@@ -801,8 +858,8 @@ namespace TigerCs.Emitters.NASM
 			op2.PutValueInRegister(reg2.Value, fw, CurrentScope);
 
 			fw.WriteLine($"sub {reg}, {reg2}");
-			fw.WriteLine($"mov {reg}, {0}");
-			fw.WriteLine($"mov {reg2}, {1}");
+			fw.WriteLine($"mov {reg}, {1}");
+			fw.WriteLine($"mov {reg2}, {0}");
 			fw.WriteLine($"cmovz {reg}, {reg2}");
 
 			dest_nonconst.StackBackValue(reg.Value, fw, CurrentScope);
@@ -1221,13 +1278,16 @@ namespace TigerCs.Emitters.NASM
 		/// <summary>
 		/// Ends in a label
 		/// </summary>
-		public static void CatchAndRethrow(FormatWriter fw, NasmEmitterScope acceding, NasmEmitter bound)
+		public static void CatchAndRethrow(FormatWriter fw, NasmEmitterScope acceding, NasmEmitter bound, int reg_release = 0)
 		{
 
 			fw.IncrementIndentation();
 			fw.WriteLine($"cmp {Register.ECX}, dword {ErrorCode}");
 			var ndoit = bound.g.GNext();
 			fw.WriteLine($"jne _{ndoit:N}");
+
+			if(reg_release > 0)
+				fw.WriteLine($"add {Register.ESP}, {reg_release*4}");
 
 			var curr = acceding;
 			while (curr != null && curr.ScopeType == NasmScopeType.Nested)

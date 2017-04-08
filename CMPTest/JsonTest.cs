@@ -7,12 +7,18 @@
 		public JsonNegativeTest[] fail { get; set; }
 	}
 
-	public class JsonPositiveTest
+	public abstract class JsonTest
 	{
 		public string name { get; set; }
 		public string code { get; set; }
-		public string[] args { get; set; } = new string[0];
 		public string input { get; set; } = "";
+		public string[] args { get; set; } = new string[0];
+
+		public int exitCode { get; set; } = 0;
+	}
+
+	public class JsonPositiveTest : JsonTest
+	{
 		public string correctOutput { get; set; } = null;
 	}
 
@@ -24,10 +30,8 @@
 		Execution
 	}
 
-	public class JsonNegativeTest
+	public class JsonNegativeTest : JsonTest
 	{
-		public string name { get; set; }
-		public string code { get; set; }
 		public Phase failOn { get; set; }
 		public JsonError[] errors { get; set; }
 	}

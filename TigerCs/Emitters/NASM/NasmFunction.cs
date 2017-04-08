@@ -76,7 +76,7 @@ namespace TigerCs.Emitters.NASM
 			if (ErrorCheck)
 			{
 				fw.WriteLine($";error catching {Name}");
-				NasmEmitter.CatchAndRethrow(fw, accedingscope, bound);
+				NasmEmitter.CatchAndRethrow(fw, accedingscope, bound, lockreglist.Count);
 			}
 			if (result != null && result != Register.EAX)
 				fw.WriteLine($"mov {result.Value}, EAX");
