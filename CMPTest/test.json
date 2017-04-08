@@ -3,8 +3,23 @@
 	"correct": 
 	[	
 		{
-			"comments": "not implemented",
-			"name": "!escape chars",
+			"name": "!comparison test",
+			"code": "let
+					   var n1 := 5
+					   var n2 := 7
+					   var s1 := \"blablabla\"
+					   var s2 := \"blablablz\"
+					in
+					    if n1 > n2 then print(\"nop\") else print(\"yep\");
+					    if s1 < s2 then print(\"yep\") else print(\"nop\");
+					    if n2 >= n1 then print(\"yep\") else print(\"nop\");
+					    if s1 >= s2 then print(\"yep\") else print(\"nop\")
+					end",
+			"correctOutput":"yepyepyepnop"
+		},
+		{
+			"comments": "testing",
+			"name": "escape chars",
 			"code": "let
 					    /* msg1 is: Can you read this? */
 					    var msg1 := \"\\067\\097\\110\\032\\121\\111\\117\\032\\114\\101\\097\\100\\032\\116\\104\\105\\115\\063\"
@@ -14,10 +29,11 @@
 					    print(\"\\n\");
 					    print(msg2);
 					    getchar()
-					end"
+					end",
+			"input": "l"
 		},
 		{
-			"name": "nil record",
+			"name": "!nil record",
 			"code": "let
 						type rectype = {name:string, id:int}
 						var b:rectype := nil
@@ -27,7 +43,7 @@
 					end"
 		},
 		{
-			"name": "types hiding",
+			"name": "!types hiding",
 			"code": "let
 						type a = int
 					in
@@ -44,7 +60,7 @@
 			"correctOutput": "0la"
 		},
 		{
-			"name": "array init",
+			"name": "!array init",
 			"code": "let
 						var N := 10
 						var arr1: int := 0
@@ -60,7 +76,7 @@
 			"correctOutput" : "12345678910"
 		},
 		{
-			"name" : "let{for}",
+			"name" : "!let{for}",
 			"code" : "let
 						var a:= 0
 					in 
@@ -105,8 +121,8 @@
 							(for i := 0 to N-1
 								do (for j := 0 to N-1
 										do print(if col[i]=j then \" O\" else \" .\");
-									print(\"\n\"));
-							print(\"\n\"))
+									print(\"\\n\"));
+							print(\"\\n\"))
 
 						function try(c:int) =
 							if c=N then printboard()
@@ -161,7 +177,7 @@
 			"correctOutput": "502"
 		},
 		{
-			"name": "blablabla",
+			"name": "!blablabla",
 			"code": "let
 						type  rectype = {name:string, age:int}
 						var rec1:rectype := rectype {name=\"Nobody\", age=1000}
