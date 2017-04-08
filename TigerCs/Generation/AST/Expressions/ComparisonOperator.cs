@@ -66,19 +66,35 @@ namespace TigerCs.Generation.AST.Expressions
 			Return = _int;
 			ReturnValue = new HolderInfo { Type = _int, Name = Right.ReturnValue.Name + "=>?<=" + Left.ReturnValue.Name + "|> comparison" };
 
-			if (StringComparer == null && Right.Return.Equals(_string))
-			{
-				_nill = sc.Nil();
+            if (StringComparer == null && Right.Return.Equals(_string))
+            {
+                MemberInfo f;
+                if (!sc.Reachable(MemberInfo.MakeCompilerName("str_comparer"), out f, new MemberDefinition
+                {
+                    line = line,
+                    column = column,
+                    Member = new FunctionInfo
+                    {
+                        Name = "strcomparer",
+                        Parameters =
+                                              new List<Tuple<string, TypeInfo>>
+                                              {
+                                                  new Tuple<string, TypeInfo>("a", _string),
+                                                  new Tuple<string, TypeInfo>("b", _string)
+                                              },
+                        Return = _int
+                    }
+                }))
+                {
+                    report.Add(new StaticError(Right.line, Right.column, "String comparison function missing",
+                                           ErrorLevel.Internal));
+                    return false;
+                }
 
-				StringComparer = new FunctionInfo()
-				{
-					Name = "stringcompare",
-					Parameters = new List<Tuple<string, TypeInfo>> { new Tuple<string, TypeInfo>("arg1", _string), new Tuple<string, TypeInfo>("arg2", _string) },
-					Return = _int,
-				};
+                StringComparer = f as FunctionInfo;
 
 
-			}
+            }
 
 			return true;
 		}

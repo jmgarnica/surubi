@@ -21,8 +21,11 @@
       <FileName>Generation\AST\Expressions\BinaryOperator.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TigerCs.Generation.AST.Expressions.EqualityOperator">
+  <Class Name="TigerCs.Generation.AST.Expressions.EqualityOperator" Collapsed="true">
     <Position X="35.75" Y="3" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAMgAAAAAAAAACAQgAAAAQAAAAAAAA=</HashCode>
       <FileName>Generation\AST\Expressions\BinaryOperator.cs</FileName>
@@ -45,7 +48,7 @@
   <Class Name="TigerCs.Generation.AST.Expressions.ComparisonOperator" Collapsed="true">
     <Position X="27.75" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAACAAgAAAAQAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAQAAAACAAgAAAAQAAAAAAAA=</HashCode>
       <FileName>Generation\AST\Expressions\ComparisonOperator.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -153,7 +156,7 @@
   <Class Name="TigerCs.Generation.AST.Expressions.Let" Collapsed="true">
     <Position X="43.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAAAAAIAAABAAAAAAAAAgAAAAAAAAEAAAA=</HashCode>
+      <HashCode>AAAAAAAAQAAAAAAMAAABAAAAAAAAAgAAAAAAAAEAAAA=</HashCode>
       <FileName>Generation\AST\Expressions\Let.cs</FileName>
     </TypeIdentifier>
   </Class>
