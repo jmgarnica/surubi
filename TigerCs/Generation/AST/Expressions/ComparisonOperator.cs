@@ -10,7 +10,7 @@ namespace TigerCs.Generation.AST.Expressions
 	{
 		public FunctionInfo StringComparer { get; protected set; }
 
-		TypeInfo _int, _string;
+		protected TypeInfo _int, _string;
 		HolderInfo _nill;
 
 		public override bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null)
@@ -82,47 +82,164 @@ namespace TigerCs.Generation.AST.Expressions
 
 			return true;
 		}
-	}
+
+        public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
+        {
+
+            Right.GenerateCode(cg, report);
+            if (!Right.ReturnValue.Bounded) return;
+            Left.GenerateCode(cg, report);
+            if (!Left.ReturnValue.Bounded) return;
+
+        }
+    }
 
 	public class GreaterThan : ComparisonOperator
 	{
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			Right.GenerateCode(cg, report);
-			if (!Right.ReturnValue.Bounded) return;
-			Left.GenerateCode(cg, report);
-			if (!Left.ReturnValue.Bounded) return;
+            base.GenerateCode(cg,report);
+            H ret = cg.BindVar((T)_int.BCMMember, cg.AddConstant(0));
 
-			if (Left.Return.Equals(Return))
+            var _true = cg.ReserveInstructionLabel("true");
+            var _false = cg.ReserveInstructionLabel("false");
+            var _end = cg.ReserveInstructionLabel("end");
+
+            if (Left.Return.Equals(Return))
 			{
-				var val = cg.InstrSub_TempBound((H)Left.ReturnValue.BCMMember, (H)Right.ReturnValue.BCMMember);
+				ret = cg.InstrSub_TempBound((H)Left.ReturnValue.BCMMember, (H)Right.ReturnValue.BCMMember);
+            }
+			else {
+                cg.Call((F)StringComparer.BCMMember, new[] { (H)Left.ReturnValue.BCMMember, (H)Right.ReturnValue.BCMMember }, ret);
+            }
+            cg.GotoIfNotNegative(_true, ret);
+            cg.Goto(_false);
 
-			}
-			else { }
-		}
-	}
+
+            cg.ApplyReservedLabel(_true);
+            cg.InstrAssing(ret, cg.AddConstant(1));
+            cg.Goto(_end);
+
+            cg.ApplyReservedLabel(_false);
+            cg.InstrAssing(ret, cg.AddConstant(0));
+
+            cg.ApplyReservedLabel(_end);
+			cg.Comment(" ");
+
+            ReturnValue.BCMMember = ret;
+        }
+    }
 
 	public class GreaterEqualThan : ComparisonOperator
 	{
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			throw new NotImplementedException();
-		}
+            base.GenerateCode(cg, report);
+            H ret = cg.BindVar((T)_int.BCMMember, cg.AddConstant(0));
+
+            var _true = cg.ReserveInstructionLabel("true");
+            var _false = cg.ReserveInstructionLabel("false");
+            var _end = cg.ReserveInstructionLabel("end");
+
+            if (Left.Return.Equals(Return))
+            {
+                ret = cg.InstrSub_TempBound((H)Left.ReturnValue.BCMMember, (H)Right.ReturnValue.BCMMember);
+            }
+            else
+            {
+                cg.Call((F)StringComparer.BCMMember, new[] { (H)Left.ReturnValue.BCMMember, (H)Right.ReturnValue.BCMMember }, ret);
+            }
+            cg.GotoIfNotNegative(_true, ret);
+            cg.GotoIfZero(_true, ret);
+            cg.Goto(_false);
+
+
+            cg.ApplyReservedLabel(_true);
+            cg.InstrAssing(ret, cg.AddConstant(1));
+            cg.Goto(_end);
+
+            cg.ApplyReservedLabel(_false);
+            cg.InstrAssing(ret, cg.AddConstant(0));
+
+            cg.ApplyReservedLabel(_end);
+            cg.Comment(" ");
+
+            ReturnValue.BCMMember = ret;
+        }
 	}
 
 	public class LessThan : ComparisonOperator
 	{
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			throw new NotImplementedException();
-		}
+            base.GenerateCode(cg, report);
+            H ret = cg.BindVar((T)_int.BCMMember, cg.AddConstant(0));
+
+            var _true = cg.ReserveInstructionLabel("true");
+            var _false = cg.ReserveInstructionLabel("false");
+            var _end = cg.ReserveInstructionLabel("end");
+
+            if (Left.Return.Equals(Return))
+            {
+                ret = cg.InstrSub_TempBound((H)Left.ReturnValue.BCMMember, (H)Right.ReturnValue.BCMMember);
+            }
+            else
+            {
+                cg.Call((F)StringComparer.BCMMember, new[] { (H)Left.ReturnValue.BCMMember, (H)Right.ReturnValue.BCMMember }, ret);
+            }
+            cg.GotoIfNegative(_true, ret);
+            cg.Goto(_false);
+
+
+            cg.ApplyReservedLabel(_true);
+            cg.InstrAssing(ret, cg.AddConstant(1));
+            cg.Goto(_end);
+
+            cg.ApplyReservedLabel(_false);
+            cg.InstrAssing(ret, cg.AddConstant(0));
+
+            cg.ApplyReservedLabel(_end);
+            cg.Comment(" ");
+
+            ReturnValue.BCMMember = ret;
+        }
 	}
 
 	public class LessEqualThan : ComparisonOperator
 	{
 		public override void GenerateCode<T, F, H>(IByteCodeMachine<T, F, H> cg, ErrorReport report)
 		{
-			throw new NotImplementedException();
-		}
+            base.GenerateCode(cg, report);
+            H ret = cg.BindVar((T)_int.BCMMember, cg.AddConstant(0));
+
+            var _true = cg.ReserveInstructionLabel("true");
+            var _false = cg.ReserveInstructionLabel("false");
+            var _end = cg.ReserveInstructionLabel("end");
+
+            if (Left.Return.Equals(Return))
+            {
+                ret = cg.InstrSub_TempBound((H)Left.ReturnValue.BCMMember, (H)Right.ReturnValue.BCMMember);
+            }
+            else
+            {
+                cg.Call((F)StringComparer.BCMMember, new[] { (H)Left.ReturnValue.BCMMember, (H)Right.ReturnValue.BCMMember }, ret);
+            }
+            cg.GotoIfNegative(_true, ret);
+            cg.GotoIfZero(_true, ret);
+            cg.Goto(_false);
+
+
+            cg.ApplyReservedLabel(_true);
+            cg.InstrAssing(ret, cg.AddConstant(1));
+            cg.Goto(_end);
+
+            cg.ApplyReservedLabel(_false);
+            cg.InstrAssing(ret, cg.AddConstant(0));
+
+            cg.ApplyReservedLabel(_end);
+            cg.Comment(" ");
+
+            ReturnValue.BCMMember = ret;
+        }
 	}
 }
