@@ -40,7 +40,8 @@ namespace TigerCs.CompilationServices
 						RedirectStandardInput = true
 					}
 				};
-				ass.Start();
+                ass.Start();
+                ass.StandardInput.WriteAsync(testdata);
 				Console.WriteLine($"{target} start time: {ass.StartTime:G}");
 				if (!ass.WaitForExit(Wait))
 					try
