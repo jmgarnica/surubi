@@ -6,9 +6,12 @@ namespace TigerCs.Generation.AST.Expressions
 {
 	public class While : Expression
 	{
+		//TODO: poner lo demas
+		[ReturnType(ExpectedType.Int)]
 		public IExpression Condition { get; set; }
 
 		[NotNull]
+		[ReturnType(ExpectedType.Void)]
 		public IExpression Body { get; set; }
 
 		LoopScopeDescriptor end;

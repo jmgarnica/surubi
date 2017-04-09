@@ -68,7 +68,7 @@ namespace TigerCs.Generation.AST.Expressions
 			ReturnValue = Return.Equals(_void)
 				              ? null
 				              : new HolderInfo {Type = Body.Return, ConstValue = Body.ReturnValue.ConstValue};
-			CanBreak = From.CanBreak || To.CanBreak;
+			CanBreak = false;
 			Pure = From.Pure && To.Pure && Body.Pure;
 
 			if (From.ReturnValue.ConstValue == null || To.ReturnValue.ConstValue == null) return true;

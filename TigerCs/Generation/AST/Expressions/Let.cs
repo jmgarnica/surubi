@@ -48,7 +48,7 @@ namespace TigerCs.Generation.AST.Expressions
 					foreach (var tdex in dexlist)
 					{
 						if(tdex is AliasDeclaration) continue;
-					declaredhere.Add(tdex.DeclaredType);
+						declaredhere.Add(tdex.DeclaredType);
 					}
 				}
 

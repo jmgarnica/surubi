@@ -106,7 +106,7 @@ namespace TigerCs.Generation.AST.Expressions
 					Member = new FunctionInfo
 					{
 						Name = FunctionName,
-						//TODO: ver como decidir aliminar los nombres autogenerados
+						//TODO: ver como eliminar los nombres autogenerados
 						Parameters = Arguments == null
 							             ? new List<Tuple<string, TypeInfo>>()
 							             : new List<Tuple<string, TypeInfo>>(from arg in Arguments

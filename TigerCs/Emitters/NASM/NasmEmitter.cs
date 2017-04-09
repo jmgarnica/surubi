@@ -489,6 +489,8 @@ namespace TigerCs.Emitters.NASM
 		public override bool TryBindSTDFunction(string name, out NasmFunction function)
 		{
 			if (std.TryGetValue(name.ToLower(), out function)) return true;
+			NasmFunction print, printi, concat, emit_error;
+
 			switch (name.ToLower())
 			{
 				case "print":
@@ -556,19 +558,18 @@ namespace TigerCs.Emitters.NASM
 					return true;
 
 				case "exit":
-					var a = NasmTigerStandard.AddEmitError(this);
+					emit_error = NasmTigerStandard.AddEmitError(this);
+
 					function = std["exit"] = new NasmMacroFunction((f, b, acc, args) =>
 					{
 						var vv = b.BindVar(defaultvalue: new NasmRegisterHolder(b, args[0]));
-						a.Call(f, null, acc, b.AddConstant(""), vv);
+						emit_error.Call(f, null, acc, b.AddConstant(""), vv);
 						b.Release(vv);
 					}, this, "exit");
 					return true;
 
 				case "printline":
-					NasmFunction print;
 					TryBindSTDFunction("print", out print);
-					NasmFunction concat;
 					TryBindSTDFunction("concat", out concat);
 
 					function = std["printline"] = new NasmMacroFunction((f, b, acc, args) =>
@@ -578,6 +579,19 @@ namespace TigerCs.Emitters.NASM
 						b.Call(concat, new []{c, b.AddConstant("\n") }, c);
 						b.Call(print, new []{c});
 					}, this, "printline");
+					return true;
+
+				case "printiline":
+					TryBindSTDFunction("print", out print);
+					TryBindSTDFunction("printi", out printi);
+
+					function = std["printiline"] = new NasmMacroFunction((f, b, acc, args) =>
+					{
+						var c = b.BindVar(NasmType.Int);
+						b.InstrAssing(c, new NasmRegisterHolder(b, args[0]));
+						b.Call(printi, new[] { c });
+						b.Call(print, new[] { b.AddConstant("\n") });
+					}, this, "printiline");
 					return true;
 
 				default:

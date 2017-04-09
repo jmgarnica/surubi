@@ -3,6 +3,11 @@
 	"correct": 
 	[
 		{
+			"name": "printiline",
+			"code": "printiline(2017)",
+			"correctOutput": "2017\n"
+		},
+		{
 			"name": "printline",
 			"code": "printline(\"moana\")",
 			"correctOutput": "moana\n"
@@ -254,6 +259,11 @@
 					"line": 8
 				}
 			],
+			"failOn": "SemanticCheck"
+		},
+		{
+			"name": "str in for",
+			"code": "for i := 10 to \" \" do i := i - 1",
 			"failOn": "SemanticCheck"
 		},
 

@@ -624,5 +624,3 @@ namespace CMPTest.Emission
 		}
 	}
 }
-//TODO: add atomic and simpler tests
-//TODO: negative tests

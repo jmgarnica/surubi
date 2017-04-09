@@ -77,7 +77,6 @@ namespace TigerCs.Generation.AST.Expressions
 		{
 			GenerateCode(cg, report);
 			cg.InstrAssing((H)ReturnValue.BCMMember, source);
-			//TODO: probar si no hace nada extraño
 		}
 	}
 }
