@@ -3,6 +3,21 @@
 	"correct": 
 	[
 		{
+			"name": "comparison test",
+			"code": "let
+					   var n1 := 5
+					   var n2 := 7
+					   var s1 := \"blablabla\"
+					   var s2 := \"blablablz\"
+					in
+					    if n1 > n2 then print(\"nop\") else print(\"yep\");
+					    if s1 < s2 then print(\"yep\") else print(\"nop\");
+					    if n2 >= n1 then print(\"yep\") else print(\"nop\");
+					    if s1 >= s2 then print(\"yep\") else print(\"nop\")
+					end",
+			"correctOutput":"yepyepyepnop"
+		},
+		{
 			"name": "printiline",
 			"code": "printiline(2017)",
 			"correctOutput": "2017\n"
@@ -170,8 +185,8 @@
 							(for i := 0 to N-1
 								do (for j := 0 to N-1
 										do print(if col[i]=j then \" O\" else \" .\");
-									print(\"\n\"));
-							print(\"\n\"))
+									print(\"\\n\"));
+							print(\"\\n\"))
 
 						function try(c:int) =
 							if c=N then printboard()
@@ -266,6 +281,11 @@
 			"code": "for i := 10 to \" \" do i := i - 1",
 			"failOn": "SemanticCheck"
 		},
+		{
+			"name": "bad while",
+			"code": "while 10 > 5 do (i+1;())",
+			"failOn": "SemanticCheck"
+		}
 
 	]
 }
