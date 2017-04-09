@@ -67,7 +67,7 @@ namespace TigerCs.Emitters.NASM
 			{
 				return new List<Register>(Enum.GetValues(typeof(Register))
 					.Cast<int>()
-					.Where(i => (rlock & i) != 0)
+					.Where(i => (rlock & i) != 0 && (i & 512) == 0)
 					.Cast<Register>());
 			}
 		}
@@ -110,14 +110,15 @@ namespace TigerCs.Emitters.NASM
 		EBP = 32,
 
 		/// <summary>
-		/// Source Pointer, volatile
-		/// </summary>
+		/// Source Pointer
+		///  </summary>
 		ESI = 64,
 		/// <summary>
-		/// Destination Pointer, volatile
+		/// Destination Pointer
 		/// </summary>
 		EDI = 128,
 
+		//byte version
 		AL = 513,
 		BL = 514,
 		CL = 516,

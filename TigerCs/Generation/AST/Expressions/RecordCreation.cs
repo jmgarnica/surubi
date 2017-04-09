@@ -73,7 +73,16 @@ namespace TigerCs.Generation.AST.Expressions
         {
             T type = (T)Return.BCMMember;
             H ret = cg.BindVar(type);
-            cg.Call(type.Allocator, (from i in Members select (H)i.Item2.ReturnValue.BCMMember).ToArray(), ret);
+
+			H[] args = new H[Members.Count];
+	        for (int i = 0; i < Members.Count; i++)
+	        {
+		        var member = Members[i];
+		        member.Item2.GenerateCode(cg, report);
+		        args[i] = (H)member.Item2.ReturnValue.BCMMember;
+	        }
+
+	        cg.Call(type.Allocator, args, ret);
 
             ReturnValue.BCMMember = ret;
         }

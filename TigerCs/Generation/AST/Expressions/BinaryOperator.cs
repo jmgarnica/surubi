@@ -108,7 +108,6 @@ namespace TigerCs.Generation.AST.Expressions
 					cg.InstrSub(ret, l, r);
 					break;
 
-				case null:
 				default:
                     cg.InstrRefEq(ret, l, r);
 					break;

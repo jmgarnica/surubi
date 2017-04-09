@@ -275,7 +275,7 @@ namespace TigerCs.Emitters.NASM
 
 		public override void StackBackValue(Register gpr, FormatWriter fw, NasmEmitterScope accedingscope)
 		{
-			throw new InvalidOperationException("this is a read only holder");
+			fw.WriteLine($"mov {r}, {gpr}");
 		}
 
 		public override bool Assignable
