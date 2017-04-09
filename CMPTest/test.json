@@ -222,6 +222,17 @@
 			],
 			"failOn": "SemanticCheck"
 		},
+		{
+			"name": "bad for",
+			"code": "for i:=10 to \" \" do i := i - 1",
+			"failOn": "SemanticCheck"
+		},
+		{
+			"name": "bad while",
+			"code": "while 10 > 5 do (i+1;())",
+			"failOn": "SemanticCheck"
+		}
+
 
 	]
 }
