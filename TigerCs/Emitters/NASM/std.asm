@@ -1,4 +1,3 @@
-%include "io.inc"
 section .data
 prints db '%', 's', 0
 printi db '%', 'i', 0
@@ -11,15 +10,14 @@ argofrcode db 4, 0, 0, 0
 section .text
 
 ;externs
-CEXTERN fprintf
-CEXTERN scanf
-CEXTERN malloc
-CEXTERN free
-CEXTERN get_stdin
-CEXTERN get_stdout
-CEXTERN getchar
-;extern _get_stderr
-;TODO: search for windowa
+extern _fprintf
+extern _scanf
+extern _malloc
+extern _free
+extern _get_stdin
+extern _get_stdout
+extern _getchar
+extern _get_stderr
 
 global _strcmp
 global _cconcat
@@ -42,11 +40,11 @@ _emit_error:
     add EAX, 4
     push EAX
     push dword prints
-    ;call _get_stderror
-    call get_stdout
+
+    call _get_stderr
     push EAX
 
-    call fprintf
+    call _fprintf
     add ESP, 12
 
     mov EAX, [ESP + 8]
@@ -70,10 +68,10 @@ _cprintS:
     push EAX
     push dword prints
 
-    call get_stdout
+    call _get_stdout
     push EAX
 
-    call fprintf
+    call _fprintf
     add ESP, 12
 
     xor EAX, EAX
@@ -95,10 +93,10 @@ _cprintI:
     
     push dword printi
     
-    call get_stdout
+    call _get_stdout
     push EAX
     
-    call fprintf
+    call _fprintf
     add ESP, 12
     
     xor EAX, EAX
@@ -108,13 +106,13 @@ _cprintI:
 ;params: void
 ;return: tg_nasm string
 _cgetchar:
-    call getchar
+    call _getchar
 
     cmp al, 0
     jge .noneof
     
     push dword 5
-    call malloc
+    call _malloc
     add esp, 4
     
     mov ebx, eax
@@ -131,7 +129,7 @@ _cgetchar:
     .noneof:
     push eax 
     push dword 6
-    call malloc
+    call _malloc
     add esp, 4
     
     mov ebx, eax
@@ -187,7 +185,7 @@ _cchr:
     jg .cont
     
     push dword 5
-    call malloc
+    call _malloc
     add esp, 4
     
     mov ebx, eax
@@ -206,7 +204,7 @@ _cchr:
     
     push eax 
     push dword 6
-    call malloc
+    call _malloc
     add esp, 4
     
     mov ebx, eax
@@ -259,7 +257,7 @@ _csubstring:
     sub ebx, edx
     add ebx, 5
     push ebx
-    call malloc
+    call _malloc
     add esp, 4
     
     mov edi, eax
@@ -325,7 +323,7 @@ _cconcat:
     add ecx, ebx
     add ecx, 5
     push ecx
-    call malloc
+    call _malloc
     pop ecx
     
     sub ecx, 5

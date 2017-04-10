@@ -90,7 +90,7 @@ namespace TigerCs.Emitters.NASM
 			StringConstEnd = 0;
 			AddConstant("Null Reference");
 
-			fw.WriteLine("%include \"NASM\\NASM\\io.inc\"");
+			//fw.WriteLine("%include \"NASM\\NASM\\io.inc\"");
 			fw.WriteLine("section .data");
 			fw.WriteLine(string.Format("{1}{0}{2}", fw.IndexOfFormat, '{', '}'), (Func<string>)(() =>
 			{
@@ -1481,7 +1481,7 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine($"cmp {args[0]}, {Null}");
 			fw.WriteLine($"jne _{passnull:N}");
 
-			EmitError(fw, acceding, bound, 3, "Null Refernce");
+			EmitError(fw, acceding, bound, 3, "Null Reference");
 
 			fw.WriteLine($"_{passnull:N}:");
 
@@ -1514,7 +1514,7 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine($"cmp {args[0]}, {Null}");
 			fw.WriteLine($"jne _{passnull:N}");
 
-			EmitError(fw, acceding, bound, 3, "Null Refernce");
+			EmitError(fw, acceding, bound, 3, "Null Reference");
 
 			fw.WriteLine($"_{passnull:N}:");
 
@@ -1557,7 +1557,7 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine($"cmp {args[0]}, {Null}");
 			fw.WriteLine($"jne _{passnull:N}");
 
-			EmitError(fw, acceding, bound, 3, "Null Refernce");
+			EmitError(fw, acceding, bound, 3, "Null Reference");
 
 			fw.WriteLine($"_{passnull:N}:");
 
@@ -1601,7 +1601,7 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine($"cmp {Register.EBX}, {Null}");
 			fw.WriteLine($"jne _{passnull:N}");
 
-			EmitError(fw, acceding, bound, 3, "Null Refernce");
+			EmitError(fw, acceding, bound, 3, "Null Reference");
 
 			fw.WriteLine($"_{passnull:N}:");
 

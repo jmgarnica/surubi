@@ -23,7 +23,8 @@ namespace CMPTest.Emission
 
 		protected override string Run(string[] args, string testdata, out int exitcode)
 		{
-			return nd.Run(args, testdata, r, false, out exitcode);
+			string stderr;
+			return nd.Run(args, testdata, r, false, out exitcode, out stderr);
 		}
 
 		protected override void Clear(string testname)

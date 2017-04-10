@@ -24,7 +24,7 @@ namespace TigerCs.CompilationServices
 
 		public static int Wait { get; set; } = 60000;
 
-		public static string Run(string target, string[] args, string testdata, ErrorReport r, bool detachoutput, out int exitcode)
+		public static string Run(string target, string[] args, string testdata, ErrorReport r, bool detachoutput, out int exitcode, out string stderr)
 		{
 			try
 			{
@@ -42,12 +42,16 @@ namespace TigerCs.CompilationServices
 				};
                 ass.Start();
                 ass.StandardInput.WriteAsync(testdata);
+				var output = detachoutput? null : ass.StandardOutput.ReadToEndAsync();
+
 				Console.WriteLine($"{target} start time: {ass.StartTime:G}");
 				if (!ass.WaitForExit(Wait))
 					try
 					{
 						ass.Kill();
+						output?.Wait(Wait);
 						exitcode = -1000;
+						stderr = ass.StandardError.ReadToEnd();
 						return "";
 					}
 					finally
@@ -57,26 +61,20 @@ namespace TigerCs.CompilationServices
 											  ErrorLevel.Error));
 					}
 
-				if (ass.ExitCode != 0)
-				{
-					r.Add(new StaticError(0, 0, $"{target} fail",
-										  ErrorLevel.Error));
-					if(!detachoutput)
-						Console.WriteLine(ass.StandardOutput.ReadToEnd());
-					Console.WriteLine(ass.StandardError.ReadToEnd());
-					exitcode = ass.ExitCode;
-					return "";
-				}
+				stderr = ass.StandardError.ReadToEnd();
 
 				Console.WriteLine($"{target} exit time: {ass.ExitTime:G}");
 				exitcode = ass.ExitCode;
-				return detachoutput? "" : ass.StandardOutput.ReadToEnd();
+				output?.Wait(Wait);
+
+				return output?.IsCompleted == true? output.Result : "";
 			}
 			catch (Exception f)
 			{
 				r.Add(new StaticError(0, 0, $"Run aborted: {f.Message}", ErrorLevel.Error));
 				Debugger.Break();
 				exitcode = -1000;
+				stderr = "";
 				return "";
 			}
 		}

@@ -53,24 +53,25 @@
 			"correctOutput": "00 1"
 		},
 		{
-			"comments": "not implemented",
-			"name": "!escape chars",
+			"name": "escape chars",
 			"code": "let
 					    /* msg1 is: Can you read this? */
-					    var msg1 := \"\\067\\097\\110\\032\\121\\111\\117\\032\\114\\101\\097\\100\\032\\116\\104\\105\\115\\063\"
+					    var msg1 := \"\\067\\097\\110\\032\\121\\111\\117\\ 
+
+					    \\\\032\\114\\101\\097\\100\\032\\116\\104\\105\\115\\063\"
 					    var msg2 := \"\\n\\\"Quoted string\\\"\"
 					in
 					    print(msg1);
 					    print(\"\\n\");
-					    print(msg2);
-					    getchar()
-					end"
+					    print(msg2)
+					end",
+			"correctOutput" : "Can you read this?\n\n\"Quoted string\""
 		},
 		{
-			"name": "!Eratosthene's sieve",
+			"name": "Eratosthene's sieve",
 			"code": "let
 						type int_array = array of int
-						var size := 1000
+						var size := 100
 						var sieved := int_array[size] of 0
 
 						function mod(n : int, m : int) : int = n - m * (n / m)
@@ -85,16 +86,16 @@
 
 						function step(n : int) =
 						  if not(sieved[n]) then (
-						    printi(n); print(\"\n\");
+						    printi(n); print(\"\\n\");
 						    mark_multiples(n)
 						  )
 
 					in
 						  for i := 2 to (size - 1) do step(i)
-					end"
+					end",
+			"correctOutput": "2\n3\n5\n7\n11\n13\n17\n19\n23\n29\n31\n37\n41\n43\n47\n53\n59\n61\n67\n71\n73\n79\n83\n89\n97\n"
 		},
 		{
-			"comments" : "record creation no implemented",
 			"name" : "records",
 			"code" : "let
 						type  rectype = {name:string, age:int}
@@ -174,6 +175,7 @@
 		{
       		"name": "eightqueens",
       		"code":	"let /* The eight queens solver from Appel */
+      					var Count := 0
 						var N := 8 
 						type intArray = array of int 
 						var row := intArray [ N ] of 0
@@ -186,6 +188,7 @@
 								do (for j := 0 to N-1
 										do print(if col[i]=j then \" O\" else \" .\");
 									print(\"\\n\"));
+							Count := Count + 1;
 							print(\"\\n\"))
 
 						function try(c:int) =
@@ -199,8 +202,10 @@
 											row[r] := 0; diag1[r+c] := 0;
 											diag2[r+7-c] := 0)
 					in
-						try(0)
-					end"
+						try(0);
+						Count
+					end",
+			"exitCode" : 92
 		},
 		{
 			"name": "strcmp",
@@ -285,8 +290,47 @@
 			"name": "bad while",
 			"code": "while 10 > 5 do (i+1;())",
 			"failOn": "SemanticCheck"
+		},
+		{
+			"name": "std redefinition",
+			"code": "let type int = string var s : int := \"this is a string\" in s end",
+			"failOn": "SemanticCheck"
+		},
+		{
+			"name": "null reference",
+			"code": "let
+						type e = { a: string, b: int}
+						var d : e := nil
+					in
+						d.b
+					end",
+			"failOn": "Execution",
+			"exitCode" : 3,
+			"errors":
+			[
+				{
+					"error": "Null Reference"
+				}
+			]
+		},
+		{
+			"name": "index out of range",
+			"code": "let
+						var N := 100
+						type e = array of int
+						var d := e[N] of -1
+					in
+						for i := 0 to N do (printi(d[i]); d[i])
+					end",
+			"failOn": "Execution",
+			"exitCode" : 1,
+			"errors":
+			[
+				{
+					"error": "Index out of range"
+				}
+			]
 		}
-
 	]
 }
 

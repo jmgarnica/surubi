@@ -93,6 +93,12 @@ namespace TigerCs.CompilationServices
 
 			return string.Format(format, Line, Column, ErrorMessage, Level, SourceCode);
 		}
+
+		public string PlainFormat()
+		{
+			string format = "({0},{1}): {2}";
+			return string.Format(format, Line, Column, ErrorMessage);
+		}
 	}
 
 	public enum ErrorLevel

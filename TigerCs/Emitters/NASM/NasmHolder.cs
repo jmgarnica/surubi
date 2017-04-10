@@ -148,7 +148,7 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine($"cmp {gpr}, {NasmEmitter.Null}");
 			fw.WriteLine($"jne _{passnull:N}");
 
-			NasmEmitter.EmitError(fw, accedingscope, bound, 3, "Null Refernce");
+			NasmEmitter.EmitError(fw, accedingscope, bound, 3, "Null Reference");
 
 			fw.WriteLine($"_{passnull:N}:");
 			if (offset > 0 && checkupperbound)
@@ -205,7 +205,7 @@ namespace TigerCs.Emitters.NASM
 			fw.WriteLine($"cmp {reg}, {NasmEmitter.Null}");
 			fw.WriteLine($"jne _{passnull:N}");
 
-			NasmEmitter.EmitError(fw, accedingscope, bound, 3, "Null Refernce");
+			NasmEmitter.EmitError(fw, accedingscope, bound, 3, "Null Reference");
 
 			fw.WriteLine($"_{passnull:N}:");
 			//<error catch>

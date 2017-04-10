@@ -8,7 +8,7 @@ namespace TigerCs.Emitters
 	public class DefaultSemanticChecker : ISemanticChecker
 	{
 		#region [fields]
-		Dictionary<string, MemberDefinition> trappedSTD;
+		IDictionary<string, MemberDefinition> trappedSTD, conststd;
 		SemanticScope rootscope, currentscope;
 		ErrorReport report;
 		#endregion
@@ -16,6 +16,8 @@ namespace TigerCs.Emitters
 
 		public bool DeclareMember(string name, MemberDefinition member, bool hideoutter = true)
 		{
+			if (conststd?.ContainsKey(name) == true) return false;
+
 			if (!hideoutter)
 			{
 				MemberInfo existent;
@@ -36,17 +38,18 @@ namespace TigerCs.Emitters
 			report = null;
 		}
 
-		public void EnterNestedScope(Dictionary<string, MemberInfo> autoclosure = null, params object[] descriptors)
+		public void EnterNestedScope(IDictionary<string, MemberInfo> autoclosure = null, params object[] descriptors)
 		{
 			var newscope = new SemanticScope { Parent = currentscope, Descriptors = descriptors, Closure = autoclosure };
 			//currentscope.Children.Add(newscope);
 			currentscope = newscope;
 		}
 
-		public void InitializeSemanticCheck(ErrorReport report, Dictionary<string, MemberDefinition> trappedSTD = null)
+		public void InitializeSemanticCheck(ErrorReport report, IDictionary<string, MemberDefinition> conststd = null, IDictionary<string, MemberDefinition> trappedSTD = null)
 		{
 			this.report = report;
 			this.trappedSTD = trappedSTD;
+			this.conststd = conststd;
 			rootscope = new SemanticScope();
 			currentscope = rootscope;
 		}
@@ -84,7 +87,7 @@ namespace TigerCs.Emitters
 			member = null;
 			MemberDefinition found;
 
-			var closures = new List<Dictionary<string, MemberInfo>>();
+			var closures = new List<IDictionary<string, MemberInfo>>();
 			var current = currentscope;
 			do
 			{
@@ -95,6 +98,9 @@ namespace TigerCs.Emitters
 				current = current.Parent;
 			}
 			while (current != null);
+
+			if (found == null)
+				conststd?.TryGetValue(name, out found);
 
 			if (trappedSTD != null && found == null)
 				if (!trappedSTD.TryGetValue(name, out found) && desired != null)

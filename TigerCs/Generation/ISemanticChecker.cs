@@ -11,6 +11,9 @@ namespace TigerCs.Generation
 		/// Initializate a new semantic checker context
 		/// </summary>
 		/// <param name="report"></param>
+		/// <param name="conststd">
+		/// when not null any member it defines can't be redefine in any scope.
+		/// </param>
 		/// <param name="trappedSTD">
 		/// when not null all missing members from a call to Reachable whith
 		/// enough information on the desired field, desired field not null, of type(or derived from)
@@ -19,11 +22,11 @@ namespace TigerCs.Generation
 		/// will be added to the given dictionary, if the same name is missing more than once will not cause an error report
 		/// unless the definitions differs, equality is componentwise, TypeInfo.TypeId is ignored, Alises are handled as its internal.
 		/// </param>
-		void InitializeSemanticCheck(ErrorReport report, Dictionary<string, MemberDefinition> trappedSTD = null);
+		void InitializeSemanticCheck(ErrorReport report, IDictionary<string, MemberDefinition> conststd = null, IDictionary<string, MemberDefinition> trappedSTD = null);
 		void End();
 
 		[ScopeChanger(Reason = "Creates and enters in a nested scope", ScopeName = "InnerScope")]
-		void EnterNestedScope(Dictionary<string, MemberInfo> autoclosure = null, params object[] descriptors);
+		void EnterNestedScope(IDictionary<string, MemberInfo> autoclosure = null, params object[] descriptors);
 
 		[ScopeChanger(Reason = "Closes the current scope and returns to it's parent")]
 		void LeaveScope(int count = 1);

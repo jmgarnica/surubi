@@ -10,8 +10,8 @@ namespace TigerCs.Emitters
 
 		public SemanticScope Parent { get; set; } = null;
 
-		public Dictionary<string, MemberDefinition> Namespace { get; protected set; } = new Dictionary<string, MemberDefinition>();
-		public Dictionary<string, MemberInfo> Closure { get; set; }
+		public IDictionary<string, MemberDefinition> Namespace { get; protected set; } = new Dictionary<string, MemberDefinition>();
+		public IDictionary<string, MemberInfo> Closure { get; set; }
 		public bool ContainsTypeDefinitions { get; set; } = false;
 		public object[] Descriptors { get; set; } = null;
 

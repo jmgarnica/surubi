@@ -92,6 +92,9 @@ namespace TigerCs.Generation.AST.Expressions
 				        ? cg.BindVar((T)Return.BCMMember, Return.Equals(_int)? cg.AddConstant(0) : (H)nil.BCMMember)
 				        : null;
 
+			if (ret != null)
+				ReturnValue.BCMMember = ret;
+
 			H f = cg.BindVar((T)_int.BCMMember);
 			H finit;
 			if (From.ReturnValue.ConstValue != null)

@@ -41,6 +41,5 @@
 		public string error { get; set; }
 		public int line { get; set; } = -1;
 		public int column { get; set; } = -1;
-		public int errno { get; set; } = -1;
 	}
 }

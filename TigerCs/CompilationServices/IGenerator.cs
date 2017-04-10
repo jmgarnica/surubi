@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using TigerCs.Generation.AST;
 using TigerCs.Generation.AST.Expressions;
 
@@ -8,8 +9,6 @@ namespace TigerCs.CompilationServices
 	{
 		IExpression Parse(TextReader input, ErrorReport tofill);
 
-		void AddStd(MemberDefinition md, string bcm_name);
-
-		void Compile(IExpression rootprogram, ErrorReport tofill);
+		void Compile(IExpression rootprogram, ErrorReport tofill, IDictionary<string, MemberDefinition> conststd = null);
 	}
 }

@@ -19,14 +19,14 @@ namespace TigerCs.CompilationServices
 
 		public IByteCodeMachine<T, F, H> ByteCodeMachine { get; set; }
 
-		public void Compile(IExpression rootprogram, ErrorReport tofill)
+		public void Compile(IExpression rootprogram, ErrorReport tofill, IDictionary<string, MemberDefinition> conststd = null)
 		{
 			var std = new Dictionary<string, MemberDefinition>();
-			SemanticChecker.InitializeSemanticCheck(tofill, std);
+			SemanticChecker.InitializeSemanticCheck(tofill,conststd, std);
 
 			var main = new MAIN(rootprogram);
 
-			if (!main.CheckSemantics(SemanticChecker, tofill)) return;
+			if (!main.CheckSemantics(SemanticChecker, tofill) || tofill.Count() != 0) return;
 
 			ByteCodeMachine.InitializeCodeGeneration(tofill);
 			foreach (var m in std)
@@ -68,11 +68,6 @@ namespace TigerCs.CompilationServices
 		public IExpression Parse(TextReader input, ErrorReport tofill)
 		{
 			return Parser.Parse(input, tofill);
-		}
-
-		public void AddStd(MemberDefinition md, string bcm_name)
-		{
-			throw new NotImplementedException();
 		}
 	}
 

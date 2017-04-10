@@ -122,6 +122,7 @@
     <Compile Include="Generation\AST\Expressions\RecordCreation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Emitters\NASM\clink.c" />
     <None Include="Emitters\NASM\std.asm" />
     <None Include="Generation\AST\Declarations\ASTDeclaration.cd" />
     <None Include="Generation\AST\Expressions\ASTExpressions.cd">
@@ -131,9 +132,7 @@
     <None Include="Parser\Tiger\Tigrammar.g" />
     <None Include="Parser\Tiger\Tigrammar.tokens" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Emitters\CIL\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

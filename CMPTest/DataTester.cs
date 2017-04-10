@@ -72,18 +72,21 @@ namespace CMPTest
 				Assert.AreNotEqual(exp, null);
 				Assert.AreEqual(r.Count(), 0);
 
-				g.Generator.Compile(exp, r);
+				g.Generator.Compile(exp, r, CompilerCMD.FillTigerStd(r));
 				Assert.AreEqual(r.Count(), 0);
 
+				string sterr;
 				int exp_code;
-				string actual = g.BCM.Run(test.args, test.input, r, test.correctOutput == null, out exp_code);
+				string actual = g.BCM.Run(test.args, test.input, r, test.correctOutput == null, out exp_code, out sterr);
+				Console.WriteLine(actual);
 
 				Assert.AreEqual(test.exitCode, exp_code);
-				if(test.correctOutput != null)
+				Assert.AreEqual("", sterr);
+
+				if (test.correctOutput != null && test.correctOutput != "*")
 					Assert.AreEqual(test.correctOutput.Replace(tests.lineEnd, Environment.NewLine), actual);
 
-				Console.WriteLine($"Test {test.name}({index+1}/{tests.correct.Length}) passed");
-                Console.WriteLine(actual);
+				Console.WriteLine($"Test {test.name}({index+1}/{tests.correct.Length}) passed, exit code {exp_code}");
 			}
 		}
 
@@ -106,8 +109,13 @@ namespace CMPTest
 				var exp = g.Generator.Parse(new StringReader(test.code), r);
 				if (test.failOn == Phase.Parse)
 				{
+					Assert.AreNotEqual(r.Count(), 0);
 					if(test.errors != null && test.errors.Length > 0)
 						Assert.IsTrue(OneOf(r,test.errors));
+					else
+						foreach (var error in r)
+							Console.WriteLine(error);
+
 					Console.WriteLine($"Test {test.name}({index + 1}/{tests.fail.Length}) passed");
 					continue;
 				}
@@ -115,25 +123,47 @@ namespace CMPTest
 				Assert.AreNotEqual(exp, null);
 				Assert.AreEqual(r.Count(), 0);
 
-				g.Generator.Compile(exp, r);
+				g.Generator.Compile(exp, r, CompilerCMD.FillTigerStd(r));
 				if (test.failOn == Phase.SemanticCheck || test.failOn == Phase.CodeGeneration) //TODO: split this
 				{
+					Assert.AreNotEqual(r.Count(), 0);
 					if (test.errors != null && test.errors.Length > 0)
 						Assert.IsTrue(OneOf(r, test.errors));
+					else
+						foreach (var error in r)
+							Console.WriteLine(error);
+
 					Console.WriteLine($"Test {test.name}({index + 1}/{tests.fail.Length}) passed");
 					continue;
 				}
 
 				Assert.AreEqual(r.Count(), 0);
 
-				//TODO: add execution errors
-				//int exp_code;
-				//string actual = g.BCM.Run(test.args, test.input, r, test.correctOutput == null, out exp_code);
+				string stderr;
+				int ex_code;
+				g.BCM.Run(test.args, test.input, r, true, out ex_code, out stderr);
 
-				//Assert.AreEqual(0, exp_code);
-				//if (test.correctOutput != null)
-				//	Assert.AreEqual(test.correctOutput, actual);
-				//Console.WriteLine(actual);
+				Assert.AreEqual(r.Count(), 0);
+				if (test.failOn == Phase.Execution)
+				{
+					Assert.AreEqual(test.exitCode, ex_code);
+					if (test.errors != null && test.errors.Length > 0)
+					{
+						JsonError e;
+						Assert.IsTrue((e = Array.Find(test.errors,
+						                         t =>
+							                         t.error.Replace(tests.lineEnd, Environment.NewLine)
+							                          .Equals(stderr, StringComparison.OrdinalIgnoreCase))) != null);
+						Console.WriteLine('\n' + e.error + '\n');
+					}
+					else
+						foreach (var error in r)
+							Console.WriteLine(error);
+					Console.WriteLine($"Test {test.name}({index + 1}/{tests.fail.Length}) passed");
+					continue;
+				}
+
+				Assert.Fail();
 			}
 		}
 

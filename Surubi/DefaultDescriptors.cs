@@ -65,7 +65,7 @@ namespace Surubi
 	{
 		public abstract object GetBCM();
 
-		public abstract string Run(string[] args, string testdata, ErrorReport r, bool detachoutput, out int exitcode);
+		public abstract string Run(string[] args, string testdata, ErrorReport r, bool detachoutput, out int exitcode, out string stderr);
 	}
 
 	[ArgumentCandidate(OptionName = "nasm", Help = "generate nasm assambler code")]
@@ -91,7 +91,7 @@ namespace Surubi
 			Help = "command line arguments for the assembler")]
 		public string AssemblerOptions { get; set; }
 
-		[Argument(OptionName = "lo", DefaultValue = @"{asm_dir_path}\macro.o {asm_dir_path}\std.o {out}.o -g -o {out}.exe -m32",
+		[Argument(OptionName = "lo", DefaultValue = @"{asm_dir_path}\clink.o {asm_dir_path}\std.o {out}.o -g -o {out}.exe -m32",
 			Help = "command line arguments for the linker")]
 		public string LinkerOptions { get; set; }
 
@@ -122,12 +122,13 @@ namespace Surubi
 			};
 		}
 
-		public override string Run(string[] args, string testdata, ErrorReport r, bool detachoutput, out int exitcode)
+		public override string Run(string[] args, string testdata, ErrorReport r, bool detachoutput, out int exitcode, out string stderr)
 		{
-			if (Binary) return Extensions.Run(OutputFile + ".exe", args, testdata, r, detachoutput, out exitcode);
+			if (Binary) return Extensions.Run(OutputFile + ".exe", args, testdata, r, detachoutput, out exitcode, out stderr);
 
 			r.Add(new StaticError(0,0, "No binary file to run", ErrorLevel.Internal));
 			exitcode = -1;
+			stderr = "";
 			return "";
 		}
 	}
