@@ -148,7 +148,7 @@ namespace TigerCs.CompilationServices.AutoCheck
 				StaticError e;
 				if (val == null)
                 {
-	                e = new StaticError(target.line, target.column, $"AutoCheck {target.GetType().Name}: Member {prop.p.Name} can not be null",
+	                e = new StaticError(target.line, target.column, $"{target.GetType().Name}: Member {prop.p.Name} can not be null",
 	                                        ErrorLevel.Internal);
 					switch (prop.a.Action)
 					{
@@ -175,7 +175,7 @@ namespace TigerCs.CompilationServices.AutoCheck
 				if (prop.a.InvalidValues?.Contains(val) != true) continue;
 
 				e = new StaticError(target.line, target.column,
-										$"AutoCheck {target.GetType().Name}: Member {prop.p.Name} can not have value {(val.Equals("")? "\"\"" : val)}",
+										$"{target.GetType().Name}: Member {prop.p.Name} can not have value {(val.Equals("")? "\"\"" : val)}",
 				                        ErrorLevel.Internal);
 
 				switch (prop.a.Action)
@@ -225,7 +225,7 @@ namespace TigerCs.CompilationServices.AutoCheck
 
 				var e = new StaticError(val.line, val.column,
 				                        string.IsNullOrWhiteSpace(prop.a.FailMessage)
-					                        ? $"AutoCheck {node.GetType().Name}: Semantic Check of {prop.p.Name} fail"
+					                        ? $"{node.GetType().Name}: Semantic Check of {prop.p.Name} fail"
 					                        : prop.a.FailMessage, ErrorLevel.Error);
 
 				if (!val.CheckSemantics(sc, report, exp))
@@ -278,7 +278,7 @@ namespace TigerCs.CompilationServices.AutoCheck
 
 				if (rettype == null)
 				{
-					e = new StaticError(node.line, node.column, $"AutoCheck {node.GetType().Name}: Unchecked member", ErrorLevel.Internal);
+					e = new StaticError(node.line, node.column, $"{node.GetType().Name}: Unchecked member", ErrorLevel.Internal);
                     switch (prop.a.Action)
 					{
 						case OnError.Stop:
@@ -345,7 +345,7 @@ namespace TigerCs.CompilationServices.AutoCheck
 
 				if (rettype == null)
 				{
-					e = new StaticError(node.line, node.column, $"AutoCheck {node.GetType().Name}: {val.Return} is not an array type", ErrorLevel.Error);
+					e = new StaticError(node.line, node.column, $"{node.GetType().Name}: {val.Return} is not an array type", ErrorLevel.Error);
 					switch (prop.a.Action)
 					{
 						case OnError.Stop:
@@ -375,7 +375,7 @@ namespace TigerCs.CompilationServices.AutoCheck
 				if (rettype != _int && ret != _int && (rettype == _null || ret == _null)) continue;
 
 				e = new StaticError(node.line, node.column,
-											$"AutoCheck {node.GetType().Name}: {prop.p.Name}-expression[{val.Return}] must be of type {(arrayof? "array of " : "")}{ret}",
+											$"{node.GetType().Name}: {prop.p.Name} expression[{val.Return}] must be of type {(arrayof? "array of " : "")}{ret}",
 				                            ErrorLevel.Error);
 				switch (prop.a.Action)
 				{
@@ -431,13 +431,13 @@ namespace TigerCs.CompilationServices.AutoCheck
 					var depprop = node.GetType().GetProperty(dependency);
 					if (depprop == null)
 					{
-						report?.Add(new StaticError(node.line, node.column, $"AutoCheck {node.GetType().Name}: Missing dependency property", ErrorLevel.Warning));
+						report?.Add(new StaticError(node.line, node.column, $"{node.GetType().Name}: Missing dependency property", ErrorLevel.Warning));
 						goto case ExpectedType.Unknown;
 					}
 					var deppropval = depprop.GetValue(node);
 					if (deppropval == null)
 					{
-						report?.Add(new StaticError(node.line, node.column, $"AutoCheck {node.GetType().Name}: Inaccessible dependency property", ErrorLevel.Warning));
+						report?.Add(new StaticError(node.line, node.column, $"{node.GetType().Name}: Inaccessible dependency property", ErrorLevel.Warning));
 						goto case ExpectedType.Unknown;
 					}
 					IExpression expression = deppropval as IExpression;
@@ -446,11 +446,11 @@ namespace TigerCs.CompilationServices.AutoCheck
 					{
 						if (expression == null)
 							report?.Add(new StaticError(node.line, node.column,
-							                            $"AutoCheck {node.GetType().Name}: Dependency property of incorrecte type, allowed types: {typeof(IExpression)}, {typeof(TypeInfo)}",
+							                            $"{node.GetType().Name}: Incorrect dependency property type, allowed types: {typeof(IExpression)}, {typeof(TypeInfo)}",
 							                            ErrorLevel.Warning));
 						else
 							report?.Add(new StaticError(node.line, node.column,
-														$"AutoCheck {node.GetType().Name}: Unassigned dependency property",
+														$"{node.GetType().Name}: Unassigned dependency property",
 							                            ErrorLevel.Warning));
 						goto case ExpectedType.Unknown;
 					}

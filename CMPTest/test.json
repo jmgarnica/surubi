@@ -3,6 +3,28 @@
 	"correct": 
 	[
 		{
+			"name": "list of types with type hiding",
+			"code": "let
+						type a = {b: string}
+						var b: a:= nil
+					in
+						printi(
+							let
+								type f = array of a
+								type a = int
+
+								var v : f := nil
+							in
+								v := f[10] of -1;
+								v[3] := 3;
+								v[3]
+							end);
+						b := a{b= \"record\"};
+						b.b
+					end",
+			"correctOutput": "3record"
+		},
+		{
 			"name": "comparison test",
 			"code": "let
 					   var n1 := 5
@@ -330,6 +352,20 @@
 					"error": "Index out of range"
 				}
 			]
+		},
+		{
+			"name": "invalid cyclic types",
+			"code": "let
+						type a = b
+						type b = array of c
+						type c = {f: a}
+						type d = array of g
+						type g = h
+						type h = array of d
+					in 
+						0
+					end",
+			"failOn": "SemanticCheck"
 		}
 	]
 }

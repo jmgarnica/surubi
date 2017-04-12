@@ -1,4 +1,5 @@
-﻿using TigerCs.CompilationServices;
+﻿using System.Collections.Generic;
+using TigerCs.CompilationServices;
 
 namespace TigerCs.Generation.AST.Declarations
 {
@@ -10,6 +11,6 @@ namespace TigerCs.Generation.AST.Declarations
 		/// as in a ParameterDeclaration inside a FunctionDeclaration, then the member info is
 		/// not allow to be incomplete
 		/// </summary>
-		bool BindName(ISemanticChecker sc, ErrorReport report);
+		bool BindName(ISemanticChecker sc, ErrorReport report, List<string> same_scope_definitions = null);
 	}
 }

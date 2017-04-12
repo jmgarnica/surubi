@@ -17,7 +17,7 @@ namespace TigerCs.Generation.AST.Declarations
 
 		List<Tuple<string, TypeInfo>> members;
 
-		public override bool BindName(ISemanticChecker sc, ErrorReport report)
+		public override bool BindName(ISemanticChecker sc, ErrorReport report, List<string> same_scope_definitions = null)
 		{
 			if (!this.AutoCheck(sc, report)) return false;
 
@@ -25,7 +25,9 @@ namespace TigerCs.Generation.AST.Declarations
 			bool complete = true;
 			foreach (var t in Members)
 			{
-				var b = sc.GetType(t.Item1, report, line, column, false, true);
+				var b = same_scope_definitions?.Contains(t.Item1) == true
+					        ? null
+					        : sc.GetType(t.Item1, report, line, column, false, true);
 				members.Add(new Tuple<string, TypeInfo>(t.Item1, b));
 				if (b == null) complete = false;
 			}

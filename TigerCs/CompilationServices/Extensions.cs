@@ -16,7 +16,8 @@ namespace TigerCs.CompilationServices
 				if (b[i] != 0)
 					nonzero++;
 
-				if (nonzero != 0) s += (nonzero == 0? "" : " ") + b[i] + (i == b.Length - 1? "" : " ");
+				if (nonzero != 0)
+					s += (nonzero == 0? "" : " ") + b[i].ToString("X") + (i == b.Length - 1? "" : " ");
 			}
 
 			return s;

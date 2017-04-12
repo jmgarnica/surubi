@@ -1,4 +1,5 @@
-﻿using TigerCs.CompilationServices;
+﻿using System.Collections.Generic;
+using TigerCs.CompilationServices;
 using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
 
@@ -24,7 +25,7 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public bool Pure { get; protected set; }
 
-		public abstract bool BindName(ISemanticChecker sc, ErrorReport report);
+		public abstract bool BindName(ISemanticChecker sc, ErrorReport report, List<string> same_scope_definitions = null);
 
 		public abstract bool CheckSemantics(ISemanticChecker sc, ErrorReport report, TypeInfo expected = null);
 
@@ -37,5 +38,12 @@ namespace TigerCs.Generation.AST.Declarations
 			where T : class, IType<T, F>
 			where F : class, IFunction<T, F>
 			where H : class, IHolder;
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		public override string ToString()
+		{
+			return DeclaredType?.ToString() ?? TypeName;
+		}
 	}
 }

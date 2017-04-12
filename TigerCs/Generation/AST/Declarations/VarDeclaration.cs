@@ -1,4 +1,5 @@
-﻿using TigerCs.CompilationServices;
+﻿using System.Collections.Generic;
+using TigerCs.CompilationServices;
 using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.AST.Expressions;
 using TigerCs.Generation.ByteCode;
@@ -31,7 +32,7 @@ namespace TigerCs.Generation.AST.Declarations
 
 		#endregion
 
-		public bool BindName(ISemanticChecker sc, ErrorReport report)
+		public bool BindName(ISemanticChecker sc, ErrorReport report, List<string> same_scope_definitions = null)
 		{
 			if (!this.AutoCheck(sc, report)) return false;
 			return true;

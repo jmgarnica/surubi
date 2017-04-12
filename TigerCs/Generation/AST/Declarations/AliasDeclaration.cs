@@ -1,4 +1,5 @@
-﻿using System.Net.Security;
+﻿using System.Collections.Generic;
+using System.Net.Security;
 using System.Xml;
 using TigerCs.CompilationServices;
 using TigerCs.CompilationServices.AutoCheck;
@@ -11,10 +12,12 @@ namespace TigerCs.Generation.AST.Declarations
 		[NotNull("")]
 		public string AliasOf { get; set; }
 
-		public override bool BindName(ISemanticChecker sc, ErrorReport report)
+		public override bool BindName(ISemanticChecker sc, ErrorReport report, List<string> same_scope_definitions = null)
 		{
 			if (!this.AutoCheck(sc, report)) return false;
-			DeclaredType = sc.GetType(AliasOf, report, line, column, false, true);
+
+			if(same_scope_definitions?.Contains(AliasOf) != true)
+				DeclaredType = sc.GetType(AliasOf, report, line, column, false, true);
 
 			if (DeclaredType == null) Dependencies = new[] {AliasOf};
 			else

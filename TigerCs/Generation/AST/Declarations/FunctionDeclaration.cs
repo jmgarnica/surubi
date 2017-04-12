@@ -37,7 +37,7 @@ namespace TigerCs.Generation.AST.Declarations
 
 		#endregion
 
-		public bool BindName(ISemanticChecker sc, ErrorReport report)
+		public bool BindName(ISemanticChecker sc, ErrorReport report, List<string> same_scope_definitions = null)
 		{
 			if (!this.AutoCheck(sc, report)) return false;
 			_void = sc.Void(report);

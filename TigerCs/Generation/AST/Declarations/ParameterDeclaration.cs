@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TigerCs.CompilationServices;
 using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Emitters;
@@ -32,7 +33,7 @@ namespace TigerCs.Generation.AST.Declarations
 
 		#endregion
 
-		public virtual bool BindName(ISemanticChecker sc, ErrorReport report)
+		public virtual bool BindName(ISemanticChecker sc, ErrorReport report, List<string> same_scope_definitions = null)
 		{
 			if (sc.DeclareMember(HolderName, new MemberDefinition { line = line, column = column, Member = Holder })) return true;
 

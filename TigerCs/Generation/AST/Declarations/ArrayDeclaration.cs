@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Collections.Generic;
+using System.Xml;
 using TigerCs.CompilationServices;
 using TigerCs.CompilationServices.AutoCheck;
 using TigerCs.Generation.ByteCode;
@@ -10,10 +11,13 @@ namespace TigerCs.Generation.AST.Declarations
 		[NotNull("")]
 		public string ArrayOf { get; set; }
 
-		public override bool BindName(ISemanticChecker sc, ErrorReport report)
+		public override bool BindName(ISemanticChecker sc, ErrorReport report, List<string> same_scope_definitions = null)
 		{
 			if (!this.AutoCheck(sc, report)) return false;
-			var t = sc.GetType(ArrayOf, report, line, column, false, true);
+
+			var t = same_scope_definitions?.Contains(ArrayOf) == true
+				        ? null
+				        : sc.GetType(ArrayOf, report, line, column, false, true);
 
 			if (t == null) Dependencies = new[] { ArrayOf };
 			else

@@ -20,13 +20,10 @@ namespace TigerCs.Generation.AST.Declarations
 	{
 		public int column
 		{
-			get;
+			get { return Count != 0 ? this[0].column : 0; }
 
-			set;
+			set { }
 		}
-
-		public bool CorrectSemantics
-		{ get; set; }
 
 		public bool Pure { get; protected set; }
 
@@ -39,15 +36,15 @@ namespace TigerCs.Generation.AST.Declarations
 
 		public int line
 		{
-			get;
+			get { return Count != 0? this[0].line : 0; }
 
-			set;
+			set { }
 		}
 
-		public virtual bool BindName(ISemanticChecker sc, ErrorReport report)
+		public virtual bool BindName(ISemanticChecker sc, ErrorReport report, List<string> same_scope_definitions = null)
 		{
 			foreach (var dex in this)
-				if (!dex.BindName(sc, report)) return false;
+				if (!dex.BindName(sc, report, same_scope_definitions)) return false;
 
 			return true;
 		}

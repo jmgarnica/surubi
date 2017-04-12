@@ -51,20 +51,27 @@ namespace TigerCs.Generation.AST.Declarations
 			if (n >= toorder.Count) return true;
 
 			report.Add(new StaticError(line, column,
-				                        $"Recursive type loop detected in types {string.Join(",", this.Except(orderedList).Select(t => t.ToString()))}",
+				                        $"Invalid cyclic type definition in types: {string.Join(", ", this.Except(orderedList).Select(t => t.ToString()))}",
 				                        ErrorLevel.Error));
 			return false;
 		}
 
-		public override bool BindName(ISemanticChecker sc, ErrorReport report)
+		public override bool BindName(ISemanticChecker sc, ErrorReport report, List<string> same_scope_definitions = null)
 		{
 			orderedList = new List<TypeDeclaration>();
 			ceroex = new List<TypeDeclaration>();
 
+			List<string> def = new List<string>();
+			foreach (var dex in this)
+			{
+				if(!string.IsNullOrWhiteSpace(dex?.TypeName))
+					def.Add(dex.TypeName);
+			}
+
 			var toorder = new List<TypeDeclaration>();
 			foreach (var dex in this)
 			{
-				if (!dex.BindName(sc, report)) return false;
+				if (!dex.BindName(sc, report, def)) return false;
 
 				toorder.Add(dex);
 
