@@ -97,10 +97,10 @@ namespace Surubi
 
 		public override object GetBCM()
 		{
-			AssemblerPath = Path.GetFullPath(AssemblerPath).Replace(" ", @"\ ");
-			LinkerPath = Path.GetFullPath(LinkerPath).Replace(" ", @"\ ");
+			AssemblerPath = Path.GetFullPath(AssemblerPath);
+			LinkerPath = Path.GetFullPath(LinkerPath);
 
-			var assdir = new FileInfo(AssemblerPath).Directory?.FullName;
+			var assdir = new FileInfo(AssemblerPath).Directory?.FullName.Replace(" ", @"\ ");
 			AssemblerOptions = AssemblerOptions.Replace("{out}", OutputFile)
 			                                   .Replace("{asm_dir_path}", assdir
 			                                                               ??
