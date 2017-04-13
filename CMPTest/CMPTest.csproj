@@ -35,10 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Command, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Command\Command\bin\Debug\Command.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -67,6 +63,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Command\Command.csproj">
+      <Project>{e10d599f-322c-498c-a899-e68f6243fecb}</Project>
+      <Name>Command</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Surubi\Surubi.csproj">
       <Project>{4eb0e3cb-b097-42c4-bea3-ca5f0c649dad}</Project>
       <Name>Surubi</Name>
