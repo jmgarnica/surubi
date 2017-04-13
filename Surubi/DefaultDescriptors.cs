@@ -100,7 +100,7 @@ namespace Surubi
 			AssemblerPath = Path.GetFullPath(AssemblerPath);
 			LinkerPath = Path.GetFullPath(LinkerPath);
 
-			var assdir = new FileInfo(AssemblerPath).Directory?.FullName.Replace(" ", @"\ ");
+			var assdir = new FileInfo(AssemblerPath).Directory?.FullName;
 			AssemblerOptions = AssemblerOptions.Replace("{out}", OutputFile)
 			                                   .Replace("{asm_dir_path}", assdir
 			                                                               ??
