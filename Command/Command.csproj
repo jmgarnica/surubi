@@ -4,36 +4,30 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4EB0E3CB-B097-42C4-BEA3-CA5F0C649DAD}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{E10D599F-322C-498C-A899-E68F6243FECB}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Surubi</RootNamespace>
-    <AssemblyName>tiger</AssemblyName>
+    <RootNamespace>Command</RootNamespace>
+    <AssemblyName>Command</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>3</WarningLevel>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>Surubi.CompilerCMD</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -46,30 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompilerCMD.cs" />
-    <Compile Include="DefaultDescriptors.cs" />
+    <Compile Include="Args\ArgParse.cs" />
+    <Compile Include="Args\ArgumentAttribute.cs" />
+    <Compile Include="Args\ArgumentCandidateAttribute.cs" />
+    <Compile Include="Args\CopToken.cs" />
+    <Compile Include="Args\IArgParse.cs" />
+    <Compile Include="Args\ITuple.cs" />
+    <Compile Include="Args\Lexer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Args\Token.cs" />
+    <Compile Include="Args\Tuple.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Command\Command.csproj">
-      <Project>{e10d599f-322c-498c-a899-e68f6243fecb}</Project>
-      <Name>Command</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TigerCs\TigerCs.csproj">
-      <Project>{25422415-3e33-479c-b926-7eaa122e7774}</Project>
-      <Name>TigerCs</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>copy /Y $(SolutionDir)TigerCs\Emitters\NASM\std.asm $(TargetDir)NASM\NASM\
-cd  $(TargetDir)NASM\NASM\
-$(TargetDir)NASM\NASM\nasm.exe $(TargetDir)NASM\NASM\std.asm -f win32 -o $(TargetDir)NASM\NASM\std.o</PreBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
