@@ -4,6 +4,7 @@ using TigerCs.Generation;
 using TigerCs.Generation.AST.Expressions;
 using System;
 using System.IO;
+using System.Linq;
 using TigerCs.Parser;
 
 namespace TigerCs.CompilationServices
@@ -29,7 +30,7 @@ namespace TigerCs.CompilationServices
 			if (!main.CheckSemantics(SemanticChecker, tofill) || tofill.Count() != 0) return;
 
 			ByteCodeMachine.InitializeCodeGeneration(tofill);
-			foreach (var m in std)
+			foreach (var m in conststd != null ? std.Union(conststd) : std)
 			{
 				if (!m.Value.Member.BCMBackup) continue;
 				if (m.Value.Member is TypeInfo)

@@ -7,6 +7,7 @@ namespace TigerCs.Emitters.NASM
 		public static string PrintSFunctionLabel = "_cprintS";
 		public static string PrintIFunctionLabel = "_cprintI";
 		public static string GetCharFunctionLabel = "_cgetchar";
+		public static string GetLineFunctionLabel = "_cgetline";
 		public static string OrdFunctionLabel = "_cord";
 		public static string ChrFunctionLabel = "_cchr";
 		public static string SubstringFunctionLabel = "_csubstring";
@@ -41,5 +42,8 @@ namespace TigerCs.Emitters.NASM
 
 		public static NasmFunction AddStringCompare(NasmEmitter bound)
 			=> new NasmCFunction(StrCmp, true, bound, true, "strcmp");
+
+		public static NasmFunction AddGetLine(NasmEmitter bound)
+			=> new NasmCFunction(GetLineFunctionLabel, true, bound, name: "GetLine");
 	}
 }

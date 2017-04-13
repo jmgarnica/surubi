@@ -48,7 +48,7 @@ namespace TigerCs.Generation.AST.Expressions
 
         public override bool CheckSemantics(ISemanticChecker sp, ErrorReport report, TypeInfo expected = null)
         {
-            this.AutoCheck(sp, report, expected);
+			this.AutoCheck(sp, report, expected);
             //Lex = Lex.Trim('"');
             Return = sp.String(report);
 
@@ -59,9 +59,12 @@ namespace TigerCs.Generation.AST.Expressions
                 if ((i == 0 || i == Lex.Length - 1) && Lex[i] == '\"')
                     continue;
 
+				if(open_scape && (Lex[i] == ' ' || Lex[i] == '\n' || Lex[i] == '\t' || Lex[i] == '\r' || Lex[i] == '\f'))
+					continue;
+
                 if (Lex[i] < 32 || Lex[i] > 126)
                 {
-                    report.Add(new StaticError(line, column + i, $"{Lex[i]} invalid character in string literal", ErrorLevel.Error));
+                    report.Add(new StaticError(line, column + i, $"\\{(int)Lex[i]} invalid character in string literal", ErrorLevel.Error));
                     continue;
                 }
                 if (Lex[i] == '\\')
@@ -72,73 +75,70 @@ namespace TigerCs.Generation.AST.Expressions
                         continue;
                     }
                     #region closed_scape
-                    else
-                    {
-                        if (i + 1 < Lex.Length)
-                        {
-                            char x = Lex[i + 1];
-                            if (x == 'n')
-                            {
-                                s.Append((char)10);
-                            }
-                            else if (x == 'r')
-                            {
-                                s.Append((char)13);
-                            }
-                            else if (x == 't')
-                            {
-                                s.Append((char)9);
-                            }
-                            else if (x == '"')
-                            {
-                                s.Append((char)34);
-                            }
-                            else if (x == '\\')
-                            {
-                                s.Append((char)92);
-                            }
-                            else if (x >= '0' && x <= '9')
-                            {
-                                string str = "";
-                                str += x;
-                                if (i + 2 < Lex.Length)
-                                {
-                                    var y = Lex[i + 2];
-                                    if (y >= 48 && y <= 57)
-                                    {
-                                        str += y;
-                                        if (i + 3 < Lex.Length)
-                                        {
-                                            y = Lex[i + 3];
-                                            if (y >= 48 && y <= 57)
-                                            {
-                                                str += y;
-                                            }
-                                            i++;
-                                        }
-                                    }
-                                    i++;
-                                }
-                                s.Append((char)int.Parse(str));
-                            }
-                            i++;
-                            continue;
-                        }
-                        else
-                        {
-                            report.Add(new StaticError(line, column + i, $"{Lex[i]} invalid character in string literal", ErrorLevel.Error));
-                        }
-                    }
-                    #endregion
-                    open_scape = true;
-                    continue;
+	                if (i + 1 < Lex.Length)
+	                {
+		                char x = Lex[i + 1];
+		                switch (x)
+		                {
+							case '\n':
+							case '\r':
+							case '\f':
+							case '\t':
+							case ' ':
+				                open_scape = true;
+								continue;
+
+			                case 'n':
+				                s.Append((char)10);
+				                break;
+			                case 'r':
+				                s.Append((char)13);
+				                break;
+			                case 't':
+				                s.Append((char)9);
+				                break;
+			                case '"':
+				                s.Append((char)34);
+				                break;
+			                case '\\':
+				                s.Append((char)92);
+				                break;
+			                default:
+				                if (char.IsDigit(x))
+				                {
+					                string str = "";
+					                str += x;
+					                if (i + 2 < Lex.Length)
+					                {
+						                x = Lex[i + 2];
+						                if (char.IsDigit(x))
+						                {
+							                str += x;
+							                if (i + 3 < Lex.Length)
+							                {
+								                x = Lex[i + 3];
+								                if (char.IsDigit(x))
+									                str += x;
+								                i++;
+							                }
+						                }
+						                i++;
+					                }
+					                s.Append((char)int.Parse(str));
+				                }
+				                break;
+		                }
+		                i++;
+		                continue;
+	                }
+	                report.Add(new StaticError(line, column + i, $"{Lex[i]} invalid character in string literal", ErrorLevel.Error));
+
+	                #endregion
                 }
                 else
                 {
                     if (!open_scape)
-                    {
-                        s.Append(Lex[i]);
-                    }
+	                    s.Append(Lex[i]);
                 }
             }
             if(open_scape)

@@ -41,6 +41,13 @@ namespace TigerCs.Generation
 		                                             int memline, int memcol);
 
 		public static string MakeCompilerName(string name) => $"<cg>{name}<cg>";
+
+		/// <summary>Returns a string that represents the current object.</summary>
+		/// <returns>A string that represents the current object.</returns>
+		public override string ToString()
+		{
+			return Name;
+		}
 	}
 
 	public class HolderInfo : MemberInfo

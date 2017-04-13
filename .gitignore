@@ -221,3 +221,21 @@ ModelManifest.xml
 /cmp test nasm/p.asm
 /cmp test nasm/ex.asm
 /cmp test nasm/div.asm
+*.fuse_hidden000003b900000002
+*.fuse_hidden000004b200000009
+*.fuse_hidden000004bd00000004
+*.fuse_hidden000004c200000002
+*.fuse_hidden000004c600000003
+*.fuse_hidden0000062f00000008
+*.fdb_latexmk
+*.fls
+*.gz
+*.thm
+*.txt
+*.aux
+*.bbl
+*.blg
+*.out
+*.bak
+*.bib
+*.a
