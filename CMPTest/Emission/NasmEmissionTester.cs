@@ -29,6 +29,7 @@ namespace CMPTest.Emission
 
 		protected override void Clear(string testname)
 		{
+			return;
 			try
 			{
 				File.Delete(testname + ".asm");
